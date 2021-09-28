@@ -79,6 +79,7 @@ public class NesCollectionAdapter extends BaseAdapter {
         holder.separator.setText(nesListItems.getGroup());
         gameimage = nesListItems.getImage();
         int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
+        int ownedid;
         holder.cover.setImageResource(coverid);
         thegamename = nesListItems.getName();
         l = thegamename.length();
@@ -88,6 +89,28 @@ public class NesCollectionAdapter extends BaseAdapter {
         holder.publisher.setText(nesListItems.getPublisher());
 
         if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}
+        if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
+            ownedid=context.getResources().getIdentifier("icon_owned_gold", "drawable", context.getPackageName());
+            holder.owned.setImageResource(ownedid);
+        }else if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 0){
+            ownedid=context.getResources().getIdentifier("icon_owned_silver", "drawable", context.getPackageName());
+            holder.owned.setImageResource(ownedid);
+        }else if (nesListItems.cart == 1 && nesListItems.box == 0 && nesListItems.manual == 1){
+        ownedid=context.getResources().getIdentifier("icon_owned_silver", "drawable", context.getPackageName());
+        holder.owned.setImageResource(ownedid);
+        }else if (nesListItems.cart == 0 && nesListItems.box == 1 && nesListItems.manual == 1){
+            ownedid=context.getResources().getIdentifier("icon_owned_silver", "drawable", context.getPackageName());
+            holder.owned.setImageResource(ownedid);
+        }else if (nesListItems.cart == 1 && nesListItems.box == 0 && nesListItems.manual == 0){
+        ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
+        holder.owned.setImageResource(ownedid);
+        }else if (nesListItems.cart == 0 && nesListItems.box == 1 && nesListItems.manual == 0){
+            ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
+            holder.owned.setImageResource(ownedid);
+        }else if (nesListItems.cart == 0 && nesListItems.box == 0 && nesListItems.manual == 1){
+            ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
+            holder.owned.setImageResource(ownedid);
+        }
 
         if (position % 2 == 0) {
             convertView.setBackgroundColor(Color.parseColor("#CAC9C5"));

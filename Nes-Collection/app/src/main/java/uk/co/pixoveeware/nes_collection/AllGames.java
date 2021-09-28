@@ -239,6 +239,9 @@ public class AllGames extends AppCompatActivity
                     nesListItems.setName(c.getString(c.getColumnIndex("name")));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                     nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
+                    nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
+                    nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
+                    nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
                     nesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                 }
@@ -249,6 +252,9 @@ public class AllGames extends AppCompatActivity
                     nesListItems.setName(c.getString(c.getColumnIndex("name")));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                     nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
+                    nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
+                    nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
+                    nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
                     nesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                 }

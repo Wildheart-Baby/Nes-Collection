@@ -138,22 +138,22 @@ public class NesPagerAdapter extends PagerAdapter {
         Log.d("Pixo-flag", "US: "+flagUS);
 
         if (flagAustralia == 1){australia.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Australian flag");} else{}
-        if (flagAustria == 1){austria.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Austrian flag");} else{}
+        /*if (flagAustria == 1){austria.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Austrian flag");} else{}
         if (flagBenelux == 1){benelux.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Benelux flag");} else{}
         if (flagDenmark == 1){denmark.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Danish flag");} else{}
-        if (flagFinland == 1){finland.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Finnish flag");} else{}
+        if (flagFinland == 1){finland.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Finnish flag");} else{}*/
         if (flagFrance == 1){france.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting French flag");} else {}//australia france
         if (flagGermany == 1){germany.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting German flag");}else {}
-        if (flagGreece == 1){greece.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Greek flag");} else{}
+       /* if (flagGreece == 1){greece.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Greek flag");} else{}
         if (flagIreland == 1){ireland.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Irish flag");} else{}
         if (flagItaly == 1){italy.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting italina flag");} else{}
         if (flagNorway == 1){norway.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Norway flag");} else{}
         if (flagPoland == 1){poland.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Polish flag");} else{}
         if (flagPortugal == 1){portugal.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Portugal flag");} else{}
-        if (flagScandinavia == 1){scandinavia.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Scandinavian flag");} else{}
+        if (flagScandinavia == 1){scandinavia.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Scandinavian flag");} else{}*/
         if (flagSpain == 1){spain.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Spanish flag");} else{}
-        if (flagSweden == 1){sweden.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Sweddish flag");} else{}
-        if (flagSwitzerland == 1){switzerland.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Swiss flag");} else{}
+       /* if (flagSweden == 1){sweden.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Sweddish flag");} else{}
+        if (flagSwitzerland == 1){switzerland.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Swiss flag");} else{}*/
         if (flagUS == 1){us.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting US flag");} else{}
         if (flagUK == 1){uk.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting UK flag");} else {}
 

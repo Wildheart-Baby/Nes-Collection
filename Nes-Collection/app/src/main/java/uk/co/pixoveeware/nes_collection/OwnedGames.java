@@ -304,36 +304,7 @@ public class OwnedGames extends AppCompatActivity
             c.close();//close the cursor
         //}
 
-        /*else if (ordering == 1) {
-            //sql = "SELECT * FROM (SELECT *, pal_a_cost FROM eu where owned =1 and pal_a_cost > 0.0 UNION SELECT *, pal_b_cost FROM eu where owned =1 and pal_b_cost > 0.0 union select *, ntsc_cost from eu where owned =1  and ntsc_cost > 0.0 )t ORDER BY t.pal_a_cost DESC;";
-            sql = "select * from eu where owned = 1 order by price";
-            c = db.rawQuery(sql, null);
-            if (c.moveToFirst()) {//move to the first record
-                while (!c.isAfterLast()) {//while there are records to read
-                    NesItems nesListItems = new NesItems();//creates a new array
 
-                    nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
-                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
-                    nesListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
-                    nesListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
-                    nesListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
-                    nesListItems.setBoxPalA(c.getInt(c.getColumnIndex("pal_a_box")));
-                    nesListItems.setBoxPalB(c.getInt(c.getColumnIndex("pal_b_box")));
-                    nesListItems.setBoxNtsc(c.getInt(c.getColumnIndex("ntsc_box")));
-                    nesListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
-                    nesListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
-                    nesListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
-                    nesListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
-                    nesListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
-                    nesListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
-                    nesListItems.setCurrency(currency);
-                    nesList.add(nesListItems);//add items to the arraylist
-                }
-                c.moveToNext();//move to the next record
-            }
-            c.close();
-        }*/
         sql = "SELECT * FROM eu where " + wherestatement + licensed + "";
 
         c = db.rawQuery(sql, null);

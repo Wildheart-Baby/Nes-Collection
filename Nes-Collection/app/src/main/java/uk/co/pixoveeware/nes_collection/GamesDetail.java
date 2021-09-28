@@ -74,24 +74,6 @@ public class GamesDetail extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*flagAustralia = (ImageView) findViewById(R.id.imgAustralia);
-        flagFrance = (ImageView) findViewById(R.id.imgFrance);
-        flagGermany = (ImageView) findViewById(R.id.imgGermany);
-        flagUK = (ImageView) findViewById(R.id.imgUK);
-        flagUS = (ImageView) findViewById(R.id.imgUS);
-
-        flagAustralia.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_australia = 1" + licensed + ")";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(GamesDetail.this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Australian games");
-                startActivity(intent);//start the new screen
-
-            }
-        });*/
-
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {invalidateOptionsMenu();}

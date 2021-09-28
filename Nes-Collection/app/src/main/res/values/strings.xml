@@ -688,4 +688,7 @@
     <string name="GamesList">Games lists</string>
     <string name="title_activity_stats_search_results">StatsSearchResults</string>
     <string name="Countries">Released in</string>
+    <string name="ExportDatabase">Games data</string>
+    <string name="SettingsExport">Export Data</string>
+    <string name="Import">Import</string>
 </resources>
