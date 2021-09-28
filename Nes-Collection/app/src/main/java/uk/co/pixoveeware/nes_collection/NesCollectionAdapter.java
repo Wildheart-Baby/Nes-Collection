@@ -88,7 +88,7 @@ public class NesCollectionAdapter extends BaseAdapter {
         //holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
         holder.publisher.setText(nesListItems.getPublisher());
 
-        if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}
+
         if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
             ownedid=context.getResources().getIdentifier("icon_owned_gold", "drawable", context.getPackageName());
             holder.owned.setImageResource(ownedid);
@@ -111,7 +111,7 @@ public class NesCollectionAdapter extends BaseAdapter {
             ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
             holder.owned.setImageResource(ownedid);
         }
-
+        if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}
         if (position % 2 == 0) {
             convertView.setBackgroundColor(Color.parseColor("#CAC9C5"));
         } else {

@@ -1,5 +1,7 @@
 package uk.co.pixoveeware.nes_collection;
 
+import android.content.ClipboardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,6 +39,8 @@ public class EditOwnedGame extends AppCompatActivity {
         setContentView(R.layout.activity_edit_owned_game);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+
         setSupportActionBar(toolbar);
         gameid = getIntent().getIntExtra("editgameid", 0);
         final EditText PalACost = (EditText) findViewById(R.id.txtPalAcost);
@@ -61,7 +65,7 @@ public class EditOwnedGame extends AppCompatActivity {
         PalACost.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                PalACost.setText("");
+                PalACost.getText().clear();
             }
         });
         PalBCost.setOnClickListener(new View.OnClickListener(){
@@ -73,7 +77,7 @@ public class EditOwnedGame extends AppCompatActivity {
         USCost.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                USCost.setText("");
+                USCost.getText().clear();
             }
         });
 
@@ -196,20 +200,26 @@ public class EditOwnedGame extends AppCompatActivity {
                 USCurrency.setText(currency);
 
                 if (regionatrue == 0) { chkpalacart.setEnabled(false); chkpalabox.setEnabled(false); chkpalamanual.setEnabled(false);  PalACost.setEnabled(false); PalACost.setText("");
-                } else if (regionatrue == 1) { if (palAcart == 8783) { chkpalacart.setChecked(true); } else { chkpalacart.setChecked(false); }
+                } else if (regionatrue == 1) {
+                    if (palAcart == 8783) { chkpalacart.setChecked(true); } else { chkpalacart.setChecked(false); }
                     if (palAbox == 8783) { chkpalabox.setChecked(true); } else { chkpalabox.setChecked(false); }
                     if (palAmanual == 8783) { chkpalamanual.setChecked(true); } else { chkpalamanual.setChecked(false); }
+                    if (palAbox == 0){ chkpalabox.setEnabled(false); }
+
                 }
 
                 if (regionbtrue == 0) { chkpalbcart.setEnabled(false); chkpalbbox.setEnabled(false); chkpalbmanual.setEnabled(false);  PalBCost.setEnabled(false); PalBCost.setText("");}
-                else if (regionbtrue == 1) { if (palBcart == 8783) { chkpalbcart.setChecked(true);  } else { chkpalbcart.setChecked(false); }
+                else if (regionbtrue == 1) {
+                    if (palBcart == 8783) { chkpalbcart.setChecked(true);  } else { chkpalbcart.setChecked(false); }
                     if (palBbox == 8783) { chkpalbbox.setChecked(true); } else { chkpalbbox.setChecked(false);  }
                     if (palBmanual == 8783) { chkpalbmanual.setChecked(true); } else { chkpalbmanual.setChecked(false);}
+                    if (palBbox == 0 ){ chkpalbbox.setEnabled(false); }
                 }
                 if (regionustrue == 0) { chkuscart.setEnabled(false); chkusbox.setEnabled(false); chkusmanual.setEnabled(false);  USCost.setEnabled(false); USCost.setText("");}
                 else if (regionustrue == 1) {if (uscart == 8783) { chkuscart.setChecked(true); } else { chkuscart.setChecked(false); }
                 if (usbox == 8783) { chkusbox.setChecked(true); } else { chkusbox.setChecked(false); }
                 if (usmanual == 8783) { chkusmanual.setChecked(true); } else { chkusmanual.setChecked(false);}
+                if (usbox == 0){ chkusbox.setEnabled(false); }
                 }
 
 
@@ -256,17 +266,24 @@ public class EditOwnedGame extends AppCompatActivity {
         if (cart == 0 && box == 0 && manual == 0) {owned = 0;}
 
         PACheck = PalACost.getText().toString();
+        PACheck = PACheck.replaceAll("[^0-9.]", "");
+
         PBCheck = PalBCost.getText().toString();
+        PBCheck = PBCheck.replaceAll("[^0-9.]", "");
+
         USCheck = USCost.getText().toString();
+        USCheck = USCheck.replaceAll("[^0-9.]", "");
 
         if (PACheck.matches("") || !Character.isDigit(PACheck.charAt(0))) {PalAcost = 0.00;}
-        else {PalAcost = Double.valueOf(PalACost.getText().toString());}
+        else {PalAcost = Double.parseDouble(PACheck);}
 
         if (PBCheck.matches("") || !Character.isDigit(PBCheck.charAt(0))) {PalBcost = 0.00;}
-        else {PalBcost = Double.valueOf(PalBCost.getText().toString());}
+        else {PalBcost = Double.parseDouble(PBCheck);}
+        //else {PalBcost = Double.valueOf(PalBCost.getText().toString());}
 
         if (USCheck.matches("") || !Character.isDigit(USCheck.charAt(0))) {UScost = 0.00;}
-        else {UScost = Double.valueOf(USCost.getText().toString());}
+        else {UScost = Double.parseDouble(USCheck);}
+        //else {UScost = Double.valueOf(USCost.getText().toString());}
 
         if (PalAcost > PalBcost && PalAcost > UScost){price = PalAcost;}
         else if (PalBcost > PalAcost && PalBcost > UScost){price = PalBcost;}

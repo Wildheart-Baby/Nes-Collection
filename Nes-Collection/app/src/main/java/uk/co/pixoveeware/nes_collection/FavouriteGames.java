@@ -19,6 +19,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -217,6 +218,7 @@ public class FavouriteGames extends AppCompatActivity
                 nesListItems.setImage(c.getString(c.getColumnIndex("image")));
                 nesListItems.setName(c.getString(c.getColumnIndex("name")));
                 nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
+                nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                 //nesListItems.setOwned(c.getInt(c.getColumnIndex("favourite")));
                 nesList.add(nesListItems);//add items to the arraylist
                 prevgroup = c.getString(c.getColumnIndex("groupheader"));
@@ -309,7 +311,9 @@ public class FavouriteGames extends AppCompatActivity
             }
 
 
+
             final Dialog randomgame = new Dialog(FavouriteGames.this);//sets up the dialog
+            randomgame.requestWindowFeature(Window.FEATURE_NO_TITLE);
             randomgame.setContentView(R.layout.random_game);//sets up the layout of the dialog box
 
             Button cancel = (Button) randomgame.findViewById(R.id.btnCancel);

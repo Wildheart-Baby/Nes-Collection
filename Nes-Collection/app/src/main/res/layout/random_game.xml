@@ -16,7 +16,9 @@
         android:background="#A5A5A2"
         android:gravity="center"
         android:paddingTop="3dp"
-        android:paddingBottom="3dp" />
+        android:paddingBottom="3dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp" />
 
     <TextView
         android:layout_width="wrap_content"

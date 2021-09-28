@@ -66,6 +66,18 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Nes Collection");
+
+        DisplayMetrics dm = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(dm);
+
+        Log.d("Pixo-screen", "The logical density of the display: " + dm.density );
+        Log.d("Pixo-screen", "The screen density expressed as dots-per-inch: " + dm.densityDpi );
+        Log.d("Pixo-screen", "The absolute height of the display in pixels: " + dm.heightPixels );
+        Log.d("Pixo-screen", "The absolute width of the display in pixels: " + dm.widthPixels );
+        Log.d("Pixo-screen", "A scaling factor for fonts displayed on the display: " + dm.scaledDensity );
+        Log.d("Pixo-screen", "The exact physical pixels per inch of the screen in the X dimension: " + dm.xdpi );
+        Log.d("Pixo-screen", "The exact physical pixels per inch of the screen in the Y dimension: " + dm.ydpi );
+
         AllGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AllGames.class);//opens a new screen when the shopping list is clicked
