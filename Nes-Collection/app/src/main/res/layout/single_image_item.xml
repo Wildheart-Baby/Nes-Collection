@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/imgOwned"
         android:src="@drawable/icon_owned3"
-        android:visibility="visible"
+        android:visibility="gone"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:layout_alignTop="@+id/imgGameCover"

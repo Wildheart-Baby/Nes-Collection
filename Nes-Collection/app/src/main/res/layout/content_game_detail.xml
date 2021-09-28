@@ -24,7 +24,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout">
+            android:id="@+id/rlTop">
 
         <TextView
             android:layout_width="fill_parent"
@@ -202,7 +202,7 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/relativeLayout"
+            android:layout_below="@+id/rlTop"
             android:layout_centerHorizontal="true">
 
         <View

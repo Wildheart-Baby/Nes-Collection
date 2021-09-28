@@ -22,12 +22,12 @@
 
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/rlTop">
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/gamename"
                 android:id="@+id/lblGameName"
@@ -35,9 +35,9 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_alignParentTop="true"
-                android:layout_marginBottom="5dp"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignRight="@+id/linearLayout"
+                android:layout_alignEnd="@+id/linearLayout"
+                android:layout_marginBottom="5dp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -56,14 +56,13 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lblGameName"
-                android:id="@+id/linearLayout"
-                android:layout_marginBottom="2dp"
-                android:layout_toLeftOf="@+id/frmOwned"
                 android:layout_toRightOf="@+id/imgGameCover"
-                android:layout_toEndOf="@+id/imgGameCover">
+                android:layout_toEndOf="@+id/imgGameCover"
+                android:id="@+id/linearLayout"
+                android:layout_marginBottom="2dp">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -140,12 +139,11 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toRightOf="@+id/imgGameCover"
                 android:padding="1dp"
                 android:background="#000000"
-                android:id="@+id/frmOwned"
-                android:layout_below="@+id/lblGameName"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true">
+                android:id="@+id/frmOwned">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -160,7 +158,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/editGameOwned"
+                        android:text="@string/Owned"
                         android:id="@+id/hdrOwned"
                         android:textStyle="bold"
                         android:textAlignment="center" />
@@ -173,7 +171,7 @@
                         android:layout_toRightOf="@+id/imgCart"
                         android:layout_toEndOf="@+id/imgCart"
                         android:src="@drawable/box"
-                        android:paddingRight="1dp"
+                        android:paddingRight="5dp"
                         android:visibility="invisible" />
 
                     <ImageView
@@ -182,7 +180,7 @@
                         android:id="@+id/imgCart"
                         android:layout_below="@+id/hdrOwned"
                         android:src="@drawable/cart"
-                        android:paddingRight="2dp"
+                        android:paddingRight="5dp"
                         android:visibility="invisible" />
 
                     <ImageView
@@ -194,7 +192,7 @@
                         android:layout_toRightOf="@+id/imgBox"
                         android:layout_toEndOf="@+id/imgBox"
                         android:visibility="invisible"
-                        android:layout_marginRight="1dp" />
+                        android:layout_marginRight="3dp" />
                 </RelativeLayout>
             </FrameLayout>
         </RelativeLayout>
@@ -213,221 +211,131 @@
                 android:layout_marginBottom="3dp"
                 android:textStyle="bold" />
 
-            <HorizontalScrollView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/lblCountries"
-                android:id="@+id/horizontalScrollView" >
+                android:id="@+id/imgGermany"
+                android:src="@drawable/germany"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone" />
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/rlFlags">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblCountries"
+                android:id="@+id/imgUS"
+                android:layout_toRightOf="@id/imgGermany"
+                android:src="@drawable/us"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imgUK"
-                        android:src="@drawable/uk_small"
-                        android:contentDescription="UK Flag"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgUK"
+                android:layout_toRightOf="@id/imgUS"
+                android:layout_below="@id/lblCountries"
+                android:src="@drawable/uk"
+                android:contentDescription="UK Flag"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgUK"
-                        android:id="@+id/imgIreland"
-                        android:src="@drawable/ireland_small"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblCountries"
+                android:layout_toRightOf="@id/imgUK"
+                android:id="@+id/imgSpain"
+                android:src="@drawable/spain"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgIreland"
-                        android:id="@+id/imgItaly"
-                        android:src="@drawable/italy_small"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblCountries"
+                android:layout_toRightOf="@id/imgSpain"
+                android:id="@+id/imgFrance"
+                android:src="@drawable/france"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgItaly"
-                        android:id="@+id/imgAustralia"
-                        android:src="@drawable/australia_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/lblCountries"
+                android:layout_toRightOf="@id/imgFrance"
+                android:id="@+id/imgAustria"
+                android:src="@drawable/austria"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgAustralia"
-                        android:id="@+id/imgFrance"
-                        android:src="@drawable/france_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgGermany"
+                android:id="@+id/imgAustralia"
+                android:src="@drawable/australia"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:visibility="gone" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgFrance"
-                        android:id="@+id/imgGermany"
-                        android:src="@drawable/germany_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgUS"
+                android:layout_toRightOf="@id/imgAustralia"
+                android:id="@+id/imgIreland"
+                android:src="@drawable/ireland"
+                android:layout_marginRight="10dp"
+                android:visibility="gone" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgGermany"
-                        android:id="@+id/imgSpain"
-                        android:src="@drawable/spain_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgUK"
+                android:layout_toRightOf="@id/imgIreland"
+                android:id="@+id/imgItaly"
+                android:src="@drawable/italy"
+                android:layout_marginRight="10dp"
+                android:visibility="gone" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgSpain"
-                        android:id="@+id/imgAustria"
-                        android:src="@drawable/austria_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgSpain"
+                android:layout_toRightOf="@id/imgItaly"
+                android:id="@+id/imgSwitzerland"
+                android:src="@drawable/switzerland"
+                android:layout_marginRight="10dp"
+                android:visibility="gone" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgAustria"
-                        android:id="@+id/imgSwitzerland"
-                        android:src="@drawable/switzerland_small"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgFrance"
+                android:layout_toRightOf="@id/imgSwitzerland"
+                android:id="@+id/imgScandinavia"
+                android:src="@drawable/scandinavia"
+                android:layout_marginRight="10dp"
+                android:visibility="gone" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgSwitzerland"
-                        android:id="@+id/imgScandinavia"
-                        android:src="@drawable/scandinavia_small"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgScandinavia"
-                        android:id="@+id/imgBenelux"
-                        android:src="@drawable/benelux_small"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgBenelux"
-                        android:id="@+id/imgDenmark"
-                        android:src="@drawable/denmark_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgDenmark"
-                        android:id="@+id/imgFinland"
-                        android:src="@drawable/finland_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgFinland"
-                        android:id="@+id/imgGreece"
-                        android:src="@drawable/greece_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgGreece"
-                        android:id="@+id/imgNorway"
-                        android:src="@drawable/norway_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgNorway"
-                        android:id="@+id/imgSweden"
-                        android:src="@drawable/sweden_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgSweden"
-                        android:id="@+id/imgPoland"
-                        android:src="@drawable/poland_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgPoland"
-                        android:id="@+id/imgPortugal"
-                        android:src="@drawable/portugal_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imgUS"
-                        android:layout_toRightOf="@id/imgPoland"
-                        android:src="@drawable/us_small"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone" />
-                </RelativeLayout>
-            </HorizontalScrollView>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/imgAustria"
+                android:layout_toRightOf="@id/imgScandinavia"
+                android:id="@+id/imgBenelux"
+                android:src="@drawable/benelux"
+                android:layout_marginRight="10dp"
+                android:visibility="gone" />
         </RelativeLayout>
 
         <RelativeLayout

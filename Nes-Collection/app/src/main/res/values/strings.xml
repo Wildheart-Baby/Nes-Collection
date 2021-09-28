@@ -686,4 +686,6 @@
     <string name="ListView">View as list</string>
     <string name="GalleryView">View as gallery</string>
     <string name="GamesList">Games lists</string>
+    <string name="title_activity_stats_search_results">StatsSearchResults</string>
+    <string name="Countries">Released in</string>
 </resources>

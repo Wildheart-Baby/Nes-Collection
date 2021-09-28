@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -38,11 +39,19 @@ public class GamesDetail extends AppCompatActivity {
     NesItems nesListItems;
     View v;
     TextView thegameid;
+    ImageView flagAustralia, flagFrance, flagGermany, flagUK, flagUS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_games_detail);
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+
+        if (width <600){setContentView(R.layout.activity_games_detail_small);} else if (width >599){setContentView(R.layout.activity_games_detail);}
+
+
         gameid = getIntent().getIntExtra("gameid", 0); //sets a variable fname with data passed from the main screen
         gamename = getIntent().getStringExtra("name");
         pos = getIntent().getIntExtra("position",0);//sets a variable fname with data passed from the main screen
@@ -63,6 +72,24 @@ public class GamesDetail extends AppCompatActivity {
             }
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        flagAustralia = (ImageView) findViewById(R.id.imgAustralia);
+        flagFrance = (ImageView) findViewById(R.id.imgFrance);
+        flagGermany = (ImageView) findViewById(R.id.imgGermany);
+        flagUK = (ImageView) findViewById(R.id.imgUK);
+        flagUS = (ImageView) findViewById(R.id.imgUS);
+
+        /*flagAustralia.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_australia = 1" + licensed + ")";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(GamesDetail.this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Australian games");
+                startActivity(intent);//start the new screen
+
+            }
+        });*/
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -157,6 +184,11 @@ public class GamesDetail extends AppCompatActivity {
                 nesListItems.setSubgenre((c.getString(c.getColumnIndex("subgenre"))));
                 nesListItems.setDeveloper((c.getString(c.getColumnIndex("developer"))));
                 nesListItems.setSynopsis((c.getString(c.getColumnIndex("synopsis"))));
+                nesListItems.setAustralia(c.getInt(c.getColumnIndex("flag_australia")));
+                nesListItems.setFrance(c.getInt(c.getColumnIndex("flag_france")));
+                nesListItems.setGermany((c.getInt(c.getColumnIndex("flag_germany"))));
+                nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
+                nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
                 nesList.add(nesListItems);//add items to the arraylist
 
                 c.moveToNext();//move to the next record
@@ -268,6 +300,7 @@ public class GamesDetail extends AppCompatActivity {
 
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 licensed = (c.getString(c.getColumnIndex("licensed")));
+                NesPagerAdapter.licensed = (c.getString(c.getColumnIndex("licensed")));
 
                 c.moveToNext();//move to the next record
             }
