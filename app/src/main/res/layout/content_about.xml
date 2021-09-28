@@ -25,22 +25,33 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="@string/Aboutdesc"
+        android:id="@+id/lblHeader"
+        android:layout_below="@+id/imgLogo"
+        android:layout_centerHorizontal="true"
+        android:textColor="#ffffff"
+        android:textSize="20sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="@string/About"
         android:id="@+id/lblName"
         android:textSize="20sp"
         android:textColor="#ffffff"
         android:gravity="center"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="52dp" />
+        android:layout_above="@+id/lblVersion"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Aboutdesc"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/imgLogo"
+        android:text="New Text"
+        android:id="@+id/lblVersion"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="40dp"
         android:textColor="#ffffff"
         android:textSize="20sp" />
+
 </RelativeLayout>

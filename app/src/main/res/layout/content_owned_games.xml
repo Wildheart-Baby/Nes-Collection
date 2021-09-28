@@ -10,7 +10,6 @@
     android:paddingTop="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="uk.co.pixoveeware.nes_collection.OwnedGames"
-    tools:showIn="@layout/activity_owned_games"
     android:background="#c7bda9">
 
     <LinearLayout

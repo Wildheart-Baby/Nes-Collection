@@ -6,7 +6,9 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -23,7 +25,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class NeededGames extends AppCompatActivity {
+public class NeededGames extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
 
 
@@ -93,6 +96,25 @@ public class NeededGames extends AppCompatActivity {
 
         });
 
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        android.support.v7.app.ActionBarDrawerToggle toggle = new android.support.v7.app.ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
     }
 
     @Override
@@ -127,53 +149,6 @@ public class NeededGames extends AppCompatActivity {
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
-        }
-    }
-
-
-
-
-    private void selectItem(int pos) {
-        // update the main content by replacing fragments
-        Log.d("Pixo", "value: " + pos);
-        switch(pos){
-            case '0' :
-                Log.d("Pixo", "selectItem running");
-                Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
-                break;
-            case 1 :
-                intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
-                break;
-            case 2 :
-                intent = new Intent(this, OwnedGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
-                break;
-            case 3 :
-                intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 4 :
-                intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 5 :
-                intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 6 :
-                intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 7 :
-                intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);//start the new screen
-                break;
-            default:
         }
     }
 
@@ -271,6 +246,47 @@ public class NeededGames extends AppCompatActivity {
         //Do what you want on the refresh procedure here
         readList();//run the list tables function
         gamelistView.setSelectionFromTop(index, top);
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_allgames) {
+            Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
+            intent.putExtra("wherestatement", wherestatement);
+            startActivity(intent);
+        } else if (id == R.id.nav_neededgames) {
+            Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
+            intent.putExtra("wherestatement", wherestatement);
+            finish();
+            startActivity(intent);
+        } else if (id == R.id.nav_ownedgames) {
+            Intent intent = new Intent(this, OwnedGames.class);//opens a new screen when the shopping list is clicked
+            intent.putExtra("wherestatement", wherestatement);
+            startActivity(intent);
+        } else if (id == R.id.nav_favouritegames) {
+            Intent intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        } else if (id == R.id.nav_wishlist) {
+            Intent intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        } else if (id == R.id.nav_shelforder) {
+            Intent intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        } else if (id == R.id.nav_statistics) {
+            Intent intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        } else if (id == R.id.nav_settings) {
+            Intent intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 
 }

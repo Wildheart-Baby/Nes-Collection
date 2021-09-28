@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_allgames"
+            android:title="All Games" />
+        <item
+            android:id="@+id/nav_neededgames"
+            android:title="Missing Games" />
+        <item
+            android:id="@+id/nav_ownedgames"
+            android:title="Owned Games" />
+        <item
+            android:id="@+id/nav_favouritegames"
+            android:title="Favourite Games" />
+        <item
+            android:id="@+id/nav_wishlist"
+            android:title="Wishlist" />
+        <item
+            android:id="@+id/nav_shelforder"
+            android:title="Shelf Order" />
+        <item
+            android:id="@+id/nav_statistics"
+            android:title="Statistics" />
+        <item
+            android:id="@+id/nav_settings"
+            android:title="Settings" />
+    </group>
+</menu>

@@ -8,8 +8,10 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,21 +31,15 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class FavouriteGames extends AppCompatActivity {
-
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
-    private String[] mScreenTitles;
+public class FavouriteGames extends AppCompatActivity
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     ListView favouritelistView;
     Context context;
+    TextView thesearchresults;
 
-    String name, readgamename, searchterm,fieldname, wherestatement, title;
-    int readgameid, index, top, count, randomgame, itemId;
+    String name, readgamename, searchterm,fieldname, wherestatement, title, sql;
+    int readgameid, index, top, count, randomgame, itemId, totalResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +61,7 @@ public class FavouriteGames extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
 
         favouritelistView = (ListView) findViewById(R.id.lvFavouriteGames);
+        thesearchresults = (TextView) findViewById(R.id.lblSearchResults);
 
         gameregion();
         readList();
@@ -82,6 +79,15 @@ public class FavouriteGames extends AppCompatActivity {
                 startActivity(intent);//start the new screen
             }
         });
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        android.support.v7.app.ActionBarDrawerToggle toggle = new android.support.v7.app.ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
 
     }
 
@@ -122,51 +128,9 @@ public class FavouriteGames extends AppCompatActivity {
         }
     }
 
-    private void selectItem(int pos) {
-        // update the main content by replacing fragments
-        Log.d("Pixo", "value: " + pos);
-        switch(pos){
-            case 0 :
-                Log.d("Pixo", "selectItem running");
-                Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
-                break;
-            case 1 :
-                intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
-                break;
-            case 2 :
-                intent = new Intent(this, OwnedGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
-                break;
-            case 3 :
-                intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 4 :
-                intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 5 :
-                intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 6 :
-                intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 7 :
-                intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);//start the new screen
-                break;
-            default:
-        }
-    }
 
-        @Override
+
+    @Override
     public void onPause(){
         super.onPause();
 
@@ -175,18 +139,19 @@ public class FavouriteGames extends AppCompatActivity {
         top = (v == null) ? 0 : v.getTop();
     }
 
-    public void readList(){//the readlist function
+    public void readList() {//the readlist function
         ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
         nesList.clear();//clear the shoppingList array
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-        Cursor c = db.rawQuery("SELECT * FROM eu where favourite = 1", null);//select everything from the database table
+        sql = "SELECT * FROM eu where favourite = 1";
+        Cursor c = db.rawQuery(sql, null);//select everything from the database table
         //Cursor c = db.rawQuery("SELECT * FROM " + fname, null);
 
         //Cursor c = db.rawQuery(sql, null);
         if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
+            while (!c.isAfterLast()) {//while there are records to read
                 NesItems nesListItems = new NesItems();//creates a new array
                 nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
                 nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
@@ -199,14 +164,21 @@ public class FavouriteGames extends AppCompatActivity {
                 c.moveToNext();//move to the next record
             }
             //c.getcount(totalgames);
+            c = db.rawQuery(sql, null);
+            totalResults = c.getCount();
             c.close();//close the cursor
         }
         //Cursor c = db.rawQuery("SELECT ID, ITEM, QUANTITY, DEPARTMENT, BASKET FROM " + fname, null);
 
         db.close();//close the database
-
+        if (totalResults == 0){
+            favouritelistView.setVisibility(View.GONE);
+            thesearchresults.setVisibility(View.VISIBLE);
+            thesearchresults.setText("You have no favourite games, oh that's sad, you should add some");
+        }else {
         NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
         favouritelistView.setAdapter(nes);//set the listview with the contents of the arraylist
+    }
     }
 
     @Override
@@ -286,5 +258,47 @@ public class FavouriteGames extends AppCompatActivity {
                     Toast.LENGTH_SHORT);
             toast.show();
         }
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.nav_allgames) {
+            Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
+            intent.putExtra("wherestatement", wherestatement);
+            startActivity(intent);
+        } else if (id == R.id.nav_neededgames) {
+            Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
+            intent.putExtra("wherestatement", wherestatement);
+            finish();
+            startActivity(intent);
+        } else if (id == R.id.nav_ownedgames) {
+            Intent intent = new Intent(this, OwnedGames.class);//opens a new screen when the shopping list is clicked
+            intent.putExtra("wherestatement", wherestatement);
+            startActivity(intent);
+        } else if (id == R.id.nav_favouritegames) {
+            Intent intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
+            finish();
+            startActivity(intent);
+        } else if (id == R.id.nav_wishlist) {
+            Intent intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        } else if (id == R.id.nav_shelforder) {
+            Intent intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        } else if (id == R.id.nav_statistics) {
+            Intent intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        } else if (id == R.id.nav_settings) {
+            Intent intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }

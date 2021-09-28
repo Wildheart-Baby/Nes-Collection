@@ -6,116 +6,123 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="uk.co.pixoveeware.nes_collection.MainActivity"
-    tools:showIn="@layout/activity_main"
     android:background="#C0C0BB">
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnAllGames"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
         android:text="@string/AllGames"
-        android:background="@drawable/btnallgames"
         android:adjustViewBounds="true"
-        android:layout_row="0"
-        android:layout_column="0"
         android:layout_marginTop="25dp"
-        android:scaleType="fitCenter" />
+        android:src="@drawable/btnallgames"
+        android:background="@null"
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="10dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnneeded"
-        android:background="@drawable/btnneededgames"
-        android:layout_row="2"
-        android:layout_column="0"
+        android:src="@drawable/btnneededgames"
+        android:background="@null"
         android:scaleType="fitCenter"
-        android:layout_alignTop="@+id/btnAllGames"
-        android:layout_alignLeft="@+id/btnWishList"
-        android:layout_alignStart="@+id/btnWishList"
-        android:layout_marginLeft="5dp"
-        android:layout_above="@+id/btnFavouriteGames" />
+        android:layout_above="@+id/btnFavouriteGames"
+        android:layout_toLeftOf="@+id/btnShelfOrder"
+        android:layout_toStartOf="@+id/btnShelfOrder"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginRight="10dp" />
 
     <ImageButton
-        android:layout_width="133dp"
-        android:layout_height="133dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/btnowned"
-
-        android:background="@drawable/owned"
-        android:layout_row="0"
-        android:layout_column="1"
-        android:scaleType="fitCenter"
-        android:layout_alignTop="@+id/btnneeded"
+        android:background="@null"
+        android:src="@drawable/owned"
+        android:layout_above="@+id/btnWishList"
         android:layout_toRightOf="@+id/btnneeded"
         android:layout_toEndOf="@+id/btnneeded"
-        android:layout_marginLeft="5dp" />
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="25dp"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="10dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnFavouriteGames"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
-        android:layout_row="2"
-        android:layout_column="1"
-        android:layout_below="@+id/btnAllGames"
-        android:layout_alignLeft="@+id/btnAllGames"
-        android:layout_alignStart="@+id/btnAllGames"
-        android:background="@drawable/btnfavouritegames"
-        android:layout_marginTop="20dp"
-        android:layout_alignRight="@+id/btnAllGames"
-        android:layout_alignEnd="@+id/btnAllGames" />
+        android:src="@drawable/btnfavouritegames"
+        android:layout_below="@id/btnAllGames"
+        android:background="@null"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="10dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnWishList"
         android:src="@drawable/btnwishlist"
+        android:background="@null"
+        android:layout_below="@id/btnneeded"
+        android:layout_toRightOf="@id/btnFavouriteGames"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
         android:scaleType="fitCenter"
-        android:layout_alignTop="@+id/btnFavouriteGames"
-        android:layout_toRightOf="@+id/btnFavouriteGames" />
+        android:layout_alignBottom="@+id/btnFavouriteGames"
+        android:layout_marginRight="10dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnShelfOrder"
         android:src="@drawable/btnshelforder"
-        android:layout_alignTop="@+id/btnFavouriteGames"
-        android:layout_alignLeft="@+id/btnowned"
-        android:layout_alignStart="@+id/btnowned" />
+        android:background="@null"
+        android:layout_below="@id/btnowned"
+        android:layout_toRightOf="@id/btnWishList"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="10dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnStats"
         android:layout_below="@+id/btnFavouriteGames"
-        android:layout_alignLeft="@+id/btnFavouriteGames"
-        android:layout_alignStart="@+id/btnFavouriteGames"
-        android:background="@drawable/btnstats"
+        android:src="@drawable/btnstats"
+        android:background="@null"
         android:layout_marginTop="25dp"
-        android:layout_alignRight="@+id/btnFavouriteGames"
-        android:layout_alignEnd="@+id/btnFavouriteGames" />
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="10dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton3"
         android:src="@drawable/btnuntitled"
-        android:layout_alignTop="@+id/btnStats"
-        android:layout_toRightOf="@+id/btnStats"
-        android:layout_toEndOf="@+id/btnStats" />
+        android:background="@null"
+        android:layout_below="@id/btnWishList"
+        android:layout_toRightOf="@id/btnStats"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="10dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnSettings"
-        android:background="@drawable/btnsettings"
-        android:maxHeight="100dp"
-        android:maxWidth="100dp"
-        android:layout_alignBottom="@+id/btnStats"
-        android:layout_toRightOf="@+id/imageButton3"
-        android:layout_toEndOf="@+id/imageButton3" />
+        android:src="@drawable/btnsettings"
+        android:background="@null"
+        android:layout_below="@id/btnShelfOrder"
+        android:layout_toRightOf="@id/imageButton3"
+        android:layout_marginTop="25dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" />
 
 </RelativeLayout>

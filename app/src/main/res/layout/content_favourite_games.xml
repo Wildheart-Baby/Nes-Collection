@@ -10,7 +10,8 @@
     android:paddingTop="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="uk.co.pixoveeware.nes_collection.OwnedGames"
-    android:background="#C0C0BB">
+    android:background="#C0C0BB"
+    tools:showIn="@layout/activity_favourite_games">
 
     <LinearLayout
         android:orientation="vertical"
@@ -27,6 +28,17 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lblSearchResults"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:textSize="18sp"
+            android:visibility="invisible"
+            android:text="@string/NoResults"
+            android:layout_marginLeft="5dp"
+            android:gravity="center" />
     </LinearLayout>
 
 </RelativeLayout>

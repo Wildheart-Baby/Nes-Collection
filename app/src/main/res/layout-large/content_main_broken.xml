@@ -6,64 +6,67 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="uk.co.pixoveeware.nes_collection.MainActivity"
-    tools:showIn="@layout/activity_main"
+
     android:background="#C0C0BB">
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnAllGames"
-        android:background="@drawable/btnallgames"
+        android:src="@drawable/btnallgames"
         android:scaleType="fitCenter"
         android:layout_marginTop="25dp"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:background="@null"
+        android:minHeight="175dp"
+        android:minWidth="175dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnneeded"
-        android:background="@drawable/btnneededgames"
+        android:background="@null"
         android:layout_row="2"
         android:layout_column="0"
         android:scaleType="fitCenter"
         android:src="@drawable/btnneededgames"
+        android:minHeight="175dp"
+        android:minWidth="175dp"
         android:layout_alignTop="@+id/btnAllGames"
         android:layout_toRightOf="@+id/btnAllGames"
-        android:layout_toEndOf="@+id/btnAllGames"
-        android:layout_marginLeft="15dp" />
+        android:layout_toEndOf="@+id/btnAllGames" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnowned"
-
-        android:background="@drawable/owned"
-        android:layout_row="0"
+        android:background="@null"
+        android:src="@drawable/owned"
         android:layout_column="1"
         android:scaleType="fitCenter"
+        android:minHeight="175dp"
+        android:minWidth="175dp"
         android:layout_alignTop="@+id/btnneeded"
         android:layout_toRightOf="@+id/btnneeded"
         android:layout_toEndOf="@+id/btnneeded"
-        android:layout_above="@+id/btnFavouriteGames"
-        android:layout_marginLeft="15dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnFavouriteGames"
-        android:minHeight="100dp"
-        android:minWidth="100dp"
-        android:layout_row="2"
-        android:layout_column="1"
+        android:background="@null"
+        android:src="@drawable/btnfavouritegames"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="25dp"
+        android:minHeight="175dp"
+        android:minWidth="175dp"
         android:layout_below="@+id/btnAllGames"
         android:layout_alignLeft="@+id/btnAllGames"
         android:layout_alignStart="@+id/btnAllGames"
-        android:background="@drawable/btnfavouritegames"
-        android:layout_marginTop="25dp"
-        android:layout_alignRight="@+id/btnAllGames"
-        android:layout_alignEnd="@+id/btnAllGames"
-        android:src="@drawable/btnfavouritegames"
-        android:scaleType="fitCenter" />
+        android:layout_marginRight="20dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -71,9 +74,14 @@
         android:id="@+id/btnWishList"
         android:src="@drawable/btnwishlist"
         android:scaleType="fitCenter"
+        android:background="@null"
+        android:maxWidth="175dp"
+        android:minHeight="175dp"
         android:layout_alignTop="@+id/btnFavouriteGames"
-        android:layout_toRightOf="@+id/btnFavouriteGames"
-        android:layout_above="@+id/btnStats" />
+        android:layout_alignLeft="@+id/btnneeded"
+        android:layout_alignStart="@+id/btnneeded"
+        android:layout_alignRight="@+id/btnneeded"
+        android:layout_alignEnd="@+id/btnneeded" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -81,10 +89,13 @@
         android:id="@+id/btnShelfOrder"
         android:src="@drawable/btnshelforder"
         android:scaleType="fitCenter"
-        android:layout_alignTop="@+id/btnWishList"
-        android:layout_toRightOf="@+id/btnneeded"
-        android:layout_toEndOf="@+id/btnneeded"
-        android:layout_above="@+id/btnStats" />
+        android:background="@null"
+        android:maxWidth="175dp"
+        android:minHeight="175dp"
+        android:layout_above="@+id/btnStats"
+        android:layout_toRightOf="@+id/btnWishList"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -92,27 +103,37 @@
         android:id="@+id/btnStats"
         android:src="@drawable/btnstats"
         android:scaleType="fitCenter"
+        android:background="@null"
+        android:layout_marginTop="25dp"
+        android:minHeight="175dp"
+        android:minWidth="175dp"
         android:layout_below="@+id/btnFavouriteGames"
         android:layout_alignLeft="@+id/btnFavouriteGames"
-        android:layout_alignStart="@+id/btnFavouriteGames" />
+        android:layout_alignStart="@+id/btnFavouriteGames"
+        android:layout_marginRight="20dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageButton3"
-        android:layout_alignTop="@+id/btnStats"
-        android:layout_alignLeft="@+id/btnWishList"
-        android:layout_alignStart="@+id/btnWishList"
         android:src="@drawable/btnuntitled"
-        android:scaleType="fitCenter" />
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:minHeight="175dp"
+        android:minWidth="175dp"
+        android:layout_alignTop="@+id/btnStats"
+        android:layout_toLeftOf="@+id/btnShelfOrder"
+        android:layout_toStartOf="@+id/btnShelfOrder" />
 
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/btnSettings"
         android:background="@drawable/btnsettings"
+        android:minHeight="175dp"
+        android:minWidth="175dp"
         android:layout_alignTop="@+id/imageButton3"
-        android:layout_alignLeft="@+id/btnShelfOrder"
-        android:layout_alignStart="@+id/btnShelfOrder" />
+        android:layout_alignLeft="@+id/btnowned"
+        android:layout_alignStart="@+id/btnowned" />
 
 </RelativeLayout>
