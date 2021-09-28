@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="uk.co.pixoveeware.nes_collection.OwnedGames"
     tools:showIn="@layout/activity_owned_games"
@@ -40,8 +40,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:textSize="20sp"
-            android:paddingBottom="5dp"
-            android:background="@android:color/transparent" />
+        android:paddingBottom="10dp"
+        android:background="@color/ncbottomGrey"
+            android:paddingTop="5dp"
+            android:textColor="@android:color/white" />
 </LinearLayout>
 
 </RelativeLayout>

@@ -11,7 +11,7 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="uk.co.pixoveeware.nes_collection.EditOwnedGame"
     tools:showIn="@layout/activity_edit_owned_game"
-    android:background="#c7bda9">
+    android:background="#C0C0BB">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -212,7 +212,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Cancel"
-            android:id="@+id/btnCancel"
+            android:id="@+id/rgnCancel"
             android:layout_marginLeft="73dp"
             android:layout_marginStart="73dp"
             android:layout_below="@+id/linManual"
@@ -224,10 +224,10 @@
             android:layout_width="75dp"
             android:layout_height="wrap_content"
             android:text="@string/Ok"
-            android:id="@+id/btnOk"
+            android:id="@+id/rgnOk"
             android:layout_below="@+id/linManual"
-            android:layout_toRightOf="@+id/btnCancel"
-            android:layout_toEndOf="@+id/btnCancel"
+            android:layout_toRightOf="@+id/rgnCancel"
+            android:layout_toEndOf="@+id/rgnCancel"
             android:layout_marginLeft="47dp"
             android:layout_marginStart="47dp" />
     </RelativeLayout>

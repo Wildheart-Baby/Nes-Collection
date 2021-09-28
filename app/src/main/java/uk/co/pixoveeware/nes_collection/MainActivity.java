@@ -1,33 +1,32 @@
 package uk.co.pixoveeware.nes_collection;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
-import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
     String DB_NAME;
     Context context;
 
-    String searchterm,fieldname, wherestatement;
+    String searchterm,fieldname, wherestatement, sql, regionselected;
+    int pala, palb, us;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,16 +38,18 @@ public class MainActivity extends AppCompatActivity {
         ImageButton OwnedGames = (ImageButton) findViewById(R.id.btnowned);
         ImageButton NeededGames = (ImageButton) findViewById(R.id.btnneeded);
         ImageButton FavouriteGames = (ImageButton) findViewById(R.id.btnFavouriteGames);
+        ImageButton Stats = (ImageButton) findViewById(R.id.btnStats);
+        ImageButton Settings = (ImageButton) findViewById(R.id.btnSettings);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        setTitle("Nes Collect");
         AllGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AllGames.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("wherestatement", wherestatement);
                 startActivity(intent);
-                //finish();
+
             }
         });
         OwnedGames.setOnClickListener(new View.OnClickListener() {
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, OwnedGames.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("wherestatement", wherestatement);
                 startActivity(intent);
-               // finish();
+
             }
        });
 
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, NeededGames.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("wherestatement", wherestatement);
                 startActivity(intent);
-               // finish();
+
             }
         });
 
@@ -73,66 +74,56 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);
-                // finish();
+
             }
         });
 
-        checkDataBase();
-        gameregion();
-    }
+        Stats.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
 
-
-    private void copyDataBase() throws IOException {
-
-        // Open your local db as the input stream
-        InputStream myInput = this.getAssets().open("nes.sqlite");
-        // Path to the just created empty db
-
-        String outFileName = getApplicationInfo().dataDir + "/databases/" + "nes.sqlite";
-        //String outFileName =  "/data/data/" +getApplicationContext().getPackageName() + "/databases/" + "nes.sqlite";
-        // Open the empty db as the output stream
-        OutputStream myOutput = new FileOutputStream(outFileName);
-        // transfer bytes from the inputfile to the outputfile
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = myInput.read(buffer)) > 0) {
-            myOutput.write(buffer, 0, length);
-
-        }
-        // Close the streams
-        myOutput.flush();
-        myOutput.close();
-        myInput.close();
-        Toast toast = Toast.makeText(getApplicationContext(),
-                "Creating nes database",
-                Toast.LENGTH_SHORT);
-        toast.show();
-    }
-
-    public void checkDataBase(){
-        File dbfile = getApplicationContext().getDatabasePath("nes.sqlite");
-
-        if(!dbfile.exists())
-        {
-
-            try {
-                SQLiteDatabase checkDB = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "Creating blank database",
-                        Toast.LENGTH_SHORT);
-                toast.show();
-                if(checkDB != null){
-                    Toast toast2 = Toast.makeText(getApplicationContext(),
-                            "Checking blank database",
-                            Toast.LENGTH_SHORT);
-                    toast2.show();
-                    checkDB.close();
-                    copyDataBase();
-                }
-
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+        });
+        Settings.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, Settings.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);//start the new screen
+
+            }
+        });
+
+
+        //checkDataBase();
+        //checksetting();
+        //gameregion();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_allgames, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(MainActivity.this, Settings.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);//start the new screen
+                return true;
+
+            case R.id.action_search:
+                Intent intent2 = new Intent(MainActivity.this, Search.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent2);//start the new screen
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
         }
     }
 
@@ -156,6 +147,12 @@ public class MainActivity extends AppCompatActivity {
             c.close();//close the cursor
         }
         db.close();//close the database
+
+        Toast toast = Toast.makeText(getApplicationContext(),
+                wherestatement,
+                Toast.LENGTH_SHORT);
+        toast.show();
     }
+
 
 }

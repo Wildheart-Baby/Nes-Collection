@@ -1,6 +1,7 @@
 package uk.co.pixoveeware.nes_collection;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,14 +21,15 @@ public class NesCollectionAdapter extends BaseAdapter {
         TextView publisher;
         ImageView cover;
         ImageView owned;
+        TextView separator;
     }
-
-
-    //private Typeface tf; //sets up the typeface into variable called tf
 
     Context context; //sets up a variable as context
     ArrayList<NesItems> nesList; //sets up  an array called shoppingList
     String gameimage;
+    private static final int TYPE_GAME = 0;
+    private static final int TYPE_DIVIDER = 1;
+
     int ownedgame;
 
     public NesCollectionAdapter(Context context, ArrayList<NesItems> list) {
@@ -36,7 +38,6 @@ public class NesCollectionAdapter extends BaseAdapter {
         nesList = list; //sets up a variable as a list
 
     }
-
 
     @Override
     public int getCount() {
@@ -59,28 +60,37 @@ public class NesCollectionAdapter extends BaseAdapter {
 
         if (convertView == null) { //if the layout isn't inflated
             LayoutInflater inflater = (LayoutInflater) context
-                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE); //sets up the layout inflater
-
+            .getSystemService(Context.LAYOUT_INFLATER_SERVICE); //sets up the layout inflater
             convertView = inflater.inflate(R.layout.single_item, null); //use the layout to diaplay the array data
 
+            ViewHolder holder = new ViewHolder();
+            holder.separator = (TextView) convertView.findViewById(R.id.lblDivider);
+            holder.owned = (ImageView) convertView.findViewById(R.id.imgOwned);
+            holder.cover = (ImageView) convertView.findViewById(R.id.imgGameCover);
+            holder.gamename = (TextView) convertView.findViewById(R.id.lblGameName);
+            holder.publisher = (TextView) convertView.findViewById(R.id.lblPublisher);
 
-        ViewHolder holder = new ViewHolder();
-        holder.owned = (ImageView) convertView.findViewById(R.id.imgOwned);
-        holder.cover = (ImageView) convertView.findViewById(R.id.imgGameCover);
-        holder.gamename = (TextView) convertView.findViewById(R.id.lblGameName);
-        holder.publisher = (TextView) convertView.findViewById(R.id.lblPublisher);
             convertView.setTag(holder);
     }
 
         ViewHolder holder = (ViewHolder) convertView.getTag();
+        if (nesListItems.group.equals("no")){ holder.separator.setVisibility(View.GONE); } else { holder.separator.setVisibility(View.VISIBLE); }
+        holder.separator.setText(nesListItems.getGroup());
         gameimage = nesListItems.getImage();
         int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
-
-
         holder.cover.setImageResource(coverid);
         holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
         holder.publisher.setText(nesListItems.getPublisher());
+
         if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}
+
+        if (position % 2 == 0) {
+            convertView.setBackgroundColor(Color.parseColor("#CAC9C5"));
+        } else {
+            convertView.setBackgroundColor(Color.parseColor("#C0C0BB"));
+        }
+
+
         return convertView; //return the convertview and show the listview
     }
 

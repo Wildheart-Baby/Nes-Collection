@@ -35,5 +35,405 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="Title">Nes Collection</string>
     <string name="title_activity_favourite_games">FavouriteGames</string>
+    <string name="whichregion">Which Region Are You Collecting</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="Settings">Settings</string>
+    <string name="Unlicensed">Include unlicensed games</string>
+    <string name="RandomHeading">Your randomly selected game is</string>
 
+    <string-array name="regionsArray">
+        <item>Pal A UK</item>
+        <item>Pal A</item>
+        <item>Pal B</item>
+        <item>Ntsc</item>
+        <item>Pal A + Pal B</item>
+        <item>Pal A + Ntsc</item>
+        <item>Pal B + Ntsc</item>
+        <item>All Regions</item>
+    </string-array>
+
+    <string-array name="searchArray">
+        <item>name</item>
+        <item>publisher</item>
+        <item>developer</item>
+        <item>genre</item>
+        <item>subgenre</item>
+        <item>year</item>
+        <item>synopsis</item>
+    </string-array>
+
+    <string-array name="yearArray">
+        <item>1985</item>
+        <item>1986</item>
+        <item>1987</item>
+        <item>1988</item>
+        <item>1989</item>
+        <item>1990</item>
+        <item>1991</item>
+        <item>1992</item>
+        <item>1993</item>
+        <item>1994</item>
+        <item>1995</item>
+    </string-array>
+
+    <string-array name="publisherArray">
+        <item>ASC</item>
+        <item>ASCII Entertainment</item>
+        <item>ATLUS</item>
+        <item>AVE</item>
+        <item>Absolute Entertainment</item>
+        <item>Acclaim</item>
+        <item>Active Enterprises</item>
+        <item>Activision</item>
+        <item>Advance Communication Company</item>
+        <item>American Game Cartridges</item>
+        <item>American Sammy</item>
+        <item>American Softworks</item>
+        <item>American Video</item>
+        <item>American Video Entertainment</item>
+        <item>Arcadia Systems</item>
+        <item>Asmik Corporation of America</item>
+        <item>Atari Games</item>
+        <item>Atlus</item>
+        <item>Bandai</item>
+        <item>Bandai America Inc</item>
+        <item>Broderbund</item>
+        <item>Bullet Proof Software</item>
+        <item>Bunch Games</item>
+        <item>Bunch Games Inc</item>
+        <item>CBS</item>
+        <item>Caltron</item>
+        <item>Camerica</item>
+        <item>Capcom</item>
+        <item>Codemasters</item>
+        <item>Color Dreams</item>
+        <item>Culture Brain</item>
+        <item>Data East</item>
+        <item>Data East USA</item>
+        <item>Electro Brain</item>
+        <item>Electronic Arts</item>
+        <item>Elite</item>
+        <item>Enix America Inc</item>
+        <item>Exidy</item>
+        <item>FCI</item>
+        <item>FCI Inc</item>
+        <item>GameTek</item>
+        <item>Gremlin</item>
+        <item>HAL</item>
+        <item>HAL Labs</item>
+        <item>HES</item>
+        <item>HES Interactive</item>
+        <item>Hewson Consultants</item>
+        <item>Hi Tech Expressions</item>
+        <item>Hi-Tech</item>
+        <item>Hot B</item>
+        <item>Hudson</item>
+        <item>Hudson Soft</item>
+        <item>INTV</item>
+        <item>Imagineer</item>
+        <item>Infocom</item>
+        <item>Infogrames</item>
+        <item>Irem</item>
+        <item>JVC Musical Industries Inc</item>
+        <item>JVC, Lucasfilm Games</item>
+        <item>Jaleco</item>
+        <item>Jaleco Entertainment</item>
+        <item>Kemco</item>
+        <item>Koei</item>
+        <item>Konami</item>
+        <item>LJN</item>
+        <item>LJN Ltd</item>
+        <item>Laser Beam</item>
+        <item>Loriciel</item>
+        <item>MB</item>
+        <item>Matchbox</item>
+        <item>Mattel</item>
+        <item>Meldac</item>
+        <item>MicroProse</item>
+        <item>Milton Bradley</item>
+        <item>Mindscape</item>
+        <item>Mindscape Inc</item>
+        <item>NTVIC</item>
+        <item>Namco</item>
+        <item>Natsume</item>
+        <item>Nexoft</item>
+        <item>Nihon Bussan</item>
+        <item>Nintendo</item>
+        <item>Ocean</item>
+        <item>Odyssey Software</item>
+        <item>Palcom</item>
+        <item>Parker Brothers</item>
+        <item>Pony Canyon</item>
+        <item>Romstar</item>
+        <item>SNK</item>
+        <item>Sales Curve</item>
+        <item>Sammy</item>
+        <item>Sammy Studios</item>
+        <item>Sei</item>
+        <item>Seika Corp</item>
+        <item>Seta Corporation</item>
+        <item>Sofel</item>
+        <item>Software Toolworks</item>
+        <item>Sony Imagesoft</item>
+        <item>Square</item>
+        <item>SquareSoft</item>
+        <item>SunSoft</item>
+        <item>THQ</item>
+        <item>Taito</item>
+        <item>Taito Corporation</item>
+        <item>Takara</item>
+        <item>Technos</item>
+        <item>Technōs Japan</item>
+        <item>Tecmo</item>
+        <item>Tengen</item>
+        <item>Titus</item>
+        <item>Toho</item>
+        <item>Tradwest</item>
+        <item>Ubi Soft</item>
+        <item>Takeru</item>
+        <item>Tamtex</item>
+        <item>Taxan</item>
+        <item>Technos</item>
+        <item>Tecmo</item>
+        <item>Ultra</item>
+        <item>Ultra Games</item>
+        <item>Vic Tokai</item>
+        <item>Virgin</item>
+        <item>Virgin Games</item>
+        <item>Virgin Interactive</item>
+        <item>Wisdom Tree</item>
+    </string-array>
+
+    <string-array name="developerArray">
+        <item>AI</item>
+        <item>ASCII Entertainment</item>
+        <item>Absolute Entertainment</item>
+        <item>Acclaim</item>
+        <item>Accolade</item>
+        <item>Active Enterprises</item>
+        <item>Activision</item>
+        <item>Advance Communication Company</item>
+        <item>Aicom</item>
+        <item>American Game Cartridges</item>
+        <item>American Technos</item>
+        <item>American Video Entertainment</item>
+        <item>Another</item>
+        <item>Arc System Works</item>
+        <item>Arcadia Syatems</item>
+        <item>Asmik</item>
+        <item>Atari</item>
+        <item>Atari Games</item>
+        <item>Atelier Double</item>
+        <item>Athena</item>
+        <item>Atlus</item>
+        <item>Audiogenic</item>
+        <item>Authentic Entertainment</item>
+        <item>Axes Art Amuse</item>
+        <item>B.I.T.S.</item>
+        <item>BPS</item>
+        <item>Bandai</item>
+        <item>Beam Software</item>
+        <item>Bethesda Softworks</item>
+        <item>Bit Corp</item>
+        <item>Bit Managers</item>
+        <item>Bit Masters</item>
+        <item>Bitmasters</item>
+        <item>Bits Laboratory</item>
+        <item>Bullet Proof Software</item>
+        <item>Bunch Games</item>
+        <item>C and E</item>
+        <item>Capcom</item>
+        <item>Carry Lab</item>
+        <item>Chris Gray Enterprises</item>
+        <item>ChunSoft</item>
+        <item>Codemasters</item>
+        <item>Coleco</item>
+        <item>Color Dreams</item>
+        <item>Compile</item>
+        <item>Cosmo</item>
+        <item>Culture Brain</item>
+        <item>Cyclone System</item>
+        <item>Dark Technologies</item>
+        <item>Data East</item>
+        <item>Disney</item>
+        <item>Distinctive Software</item>
+        <item>EIM</item>
+        <item>Eastridge Technology</item>
+        <item>Electronic Arts</item>
+        <item>Elite</item>
+        <item>Enigma Variations</item>
+        <item>Equilibrium</item>
+        <item>Eurocom</item>
+        <item>Eurocom Entertainment Software</item>
+        <item>Europe</item>
+        <item>Exidy</item>
+        <item>FCI</item>
+        <item>Falcom</item>
+        <item>Farsight Technologies</item>
+        <item>First Star</item>
+        <item>G-Amusements</item>
+        <item>Game Arts</item>
+        <item>Game Freak</item>
+        <item>Game Studio</item>
+        <item>GameTek</item>
+        <item>Graftgold</item>
+        <item>Graphic research</item>
+        <item>Gremlin</item>
+        <item>Gremlin Graphics</item>
+        <item>Grey Matter</item>
+        <item>HAL</item>
+        <item>HAL Labs</item>
+        <item>HES Interactive</item>
+        <item>Hacker International</item>
+        <item>Hewson Consultants</item>
+        <item>Home Data</item>
+        <item>Hot B</item>
+        <item>Hot-B</item>
+        <item>Hudson</item>
+        <item>Hudson Soft</item>
+        <item>Human Entertainment</item>
+        <item>ICOM Simulations</item>
+        <item>ITL</item>
+        <item>Icom Simulations</item>
+        <item>Idea-Tek</item>
+        <item>Imagineering</item>
+        <item>Imagineering Inc</item>
+        <item>Incredible Technologies</item>
+        <item>Infinity</item>
+        <item>Infinity, Imagineer</item>
+        <item>Infogrames</item>
+        <item>Interplay</item>
+        <item>Irem</item>
+        <item>Iwasaki</item>
+        <item>Jaleco</item>
+        <item>Jaleco Entertainment</item>
+        <item>Jim Meuer</item>
+        <item>Joy Van</item>
+        <item>KAZe</item>
+        <item>Kemco</item>
+        <item>Kid</item>
+        <item>Klon Co. Ltd</item>
+        <item>Koei</item>
+        <item>Inis</item>
+        <item>Konami</item>
+        <item>Kotobuki</item>
+        <item>Kotobuki Systems</item>
+        <item>Kyugo</item>
+        <item>LJN Ltd</item>
+        <item>Lenar</item>
+        <item>Lenar</item>
+        <item>Loriciel</item>
+        <item>Lucasfilm Games</item>
+        <item>Marionette</item>
+        <item>Mega Soft</item>
+        <item>MegaSoft</item>
+        <item>MicroProse</item>
+        <item>Micronics</item>
+        <item>Million</item>
+        <item>Minds Eye</item>
+        <item>Mindscape</item>
+        <item>Mindscape Inc</item>
+        <item>Movietime Europe</item>
+        <item>NMK</item>
+        <item>NMS Software</item>
+        <item>Namco</item>
+        <item>Natsume</item>
+        <item>Nichibutsu</item>
+        <item>Nihon Bussan</item>
+        <item>Nintendo</item>
+        <item>Novotrade</item>
+        <item>Now Production</item>
+        <item>Ocean</item>
+        <item>Odyssey Software</item>
+        <item>Origin</item>
+        <item>Oyssey Software Inc</item>
+        <item>Ozark Softscape</item>
+        <item>Pack-In-Video</item>
+        <item>Painting by Numbers</item>
+        <item>Park Place Productions</item>
+        <item>Pixel</item>
+        <item>Prob</item>
+        <item>Probe Entertainment</item>
+        <item>Probe Software</item>
+        <item>Psygnosis</item>
+        <item>Quest</item>
+        <item>RARE</item>
+        <item>RSP</item>
+        <item>Radiance</item>
+        <item>Radical Entertainment</item>
+        <item>Raffaele Cecco</item>
+        <item>Rainbow Arts</item>
+        <item>Rare</item>
+        <item>Rare Ltd</item>
+        <item>Realtime Associates</item>
+        <item>Rocket Science</item>
+        <item>Rocket Science Production</item>
+        <item>Romstar</item>
+        <item>SAS Sakura</item>
+        <item>SNK</item>
+        <item>SSI</item>
+        <item>Sachen</item>
+        <item>Sales Curve</item>
+        <item>Sandcastle</item>
+        <item>Sanritsu</item>
+        <item>Sculptured Brain</item>
+        <item>Sculptured Software</item>
+        <item>Radioactive Software</item>
+        <item>Shouei</item>
+        <item>Sofel</item>
+        <item>Softie Inc</item>
+        <item>Software Creations</item>
+        <item>Software Toolworks</item>
+        <item>Sol</item>
+        <item>Source</item>
+        <item>Source research and Development</item>
+        <item>Special FX</item>
+        <item>Spidersoft</item>
+        <item>Square</item>
+        <item>SquareSoft</item>
+        <item>Sunsoft</item>
+        <item>System 3</item>
+        <item>T and E Soft</item>
+        <item>TOSE</item>
+        <item>Tait Software Creations</item>
+        <item>Tait Toaplan</item>
+        <item>Taito</item>
+        <item>Taito Corporation</item>
+        <item>Teeny Weeny Games</item>
+        <item>Tengen</item>
+        <item>Thin Chen Enterprises</item>
+        <item>Thinking Rabbit</item>
+        <item>Titus</item>
+        <item>Toho</item>
+        <item>Tokai</item>
+        <item>Tose</item>
+        <item>Tradewest</item>
+        <item>Twilight</item>
+        <item>Ultra</item>
+        <item>Unknown</item>
+        <item>Vap</item>
+        <item>Various</item>
+        <item>Vic Tokai</item>
+        <item>Virgin</item>
+        <item>Visco</item>
+        <item>Visual Concepts</item>
+        <item>West One</item>
+        <item>Western Technologies Inc</item>
+        <item>Westwood Associates</item>
+        <item>Westwood Studios</item>
+        <item>Winky Soft</item>
+        <item>WinkySoft</item>
+        <item>Wisdom Tree</item>
+        <item>Zippo Games</item>
+    </string-array>
+
+    <string-array name="genreArray">
+        <item></item>
+    </string-array>
+
+    <string-array name="subgenreArray">
+        <item>Side Scrolling Shoot \'em Up</item>
+    </string-array>
+
+    <string name="title_activity_search">Search</string>
 </resources>

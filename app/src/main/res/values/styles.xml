@@ -3,9 +3,12 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/ncbottomGrey</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/material_blue_grey_900</item>
+        <item name="android:textColorPrimary">@color/ncbuttonRed</item>
+        <item name="android:windowBackground">@color/nctopGrey</item>
+        <item name="android:textColorSecondary">@color/ncbuttonRed</item>
     </style>
 
     <style name="AppTheme.NoActionBar">
@@ -27,6 +30,11 @@
 
     <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
         <item name="android:background">@color/black_overlay</item>
+    </style>
+
+    <style name="Collection" parent="AppTheme.NoActionBar">
+        <item name="colorPrimary">@color/ncbottomGrey</item>
+        <item name="android:colorForeground">@color/ncbuttonRed</item>
     </style>
 
 </resources>

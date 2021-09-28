@@ -4,6 +4,22 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/ncbottomGrey</item>
+    </style>
+
+    <style name="SplashTheme" parent="Theme.AppCompat.NoActionBar">
+        <item name="android:windowBackground">@drawable/background_splash</item>
+    </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/ncbottomGrey</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/material_blue_grey_900</item>
+        <item name="android:statusBarColor">@color/ncbottomGrey</item>
+        <item name="android:navigationBarColor">@color/nctopGrey</item>
+        <item name="android:textColorPrimary">@color/ncbuttonRed</item>
+        <item name="android:windowBackground">@color/nctopGrey</item>
+        <item name="android:textColorSecondary">@color/ncbuttonRed</item>
     </style>
 </resources>

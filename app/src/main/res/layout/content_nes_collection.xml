@@ -19,7 +19,7 @@
         android:id="@+id/btnallgames"
         android:shadowColor="#f4eaea"
         android:textColor="#a6c6c7"
-        android:background="@drawable/btnallgames1"
+
         android:maxHeight="300dp"
         android:minHeight="300dp" />
 
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Owned"
         android:id="@+id/btnowned"
-        android:background="@drawable/btnowned1"
+        android:background="@drawable/owned"
         android:textColor="#a6c6c7"
         android:textSize="44sp"
         android:shadowColor="#f4eaea"
@@ -53,7 +53,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Needed"
         android:id="@+id/btneeded"
-        android:background="@drawable/btnneeded1"
+
         android:maxHeight="300dp"
         android:maxWidth="300dp"
         android:layout_alignParentBottom="true"

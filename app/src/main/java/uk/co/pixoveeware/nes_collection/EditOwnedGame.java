@@ -1,11 +1,8 @@
 package uk.co.pixoveeware.nes_collection;
 
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,7 +14,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -34,8 +30,8 @@ public class EditOwnedGame extends AppCompatActivity {
         setSupportActionBar(toolbar);
         gameid = getIntent().getIntExtra("editgameid", 0);
 
-        Button ok = (Button) findViewById(R.id.btnOk);
-        Button cancel = (Button) findViewById(R.id.btnCancel);
+        Button ok = (Button) findViewById(R.id.rgnOk);
+        Button cancel = (Button) findViewById(R.id.rgnCancel);
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override

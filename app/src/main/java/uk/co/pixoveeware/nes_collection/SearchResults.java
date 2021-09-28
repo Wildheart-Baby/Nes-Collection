@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -39,11 +40,13 @@ public class SearchResults extends AppCompatActivity {
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
         search = getIntent().getStringExtra("searchname"); //sets a variable fname with data passed from the main screen
         field = getIntent().getStringExtra("columnname"); //sets a variable fname with data passed from the main screen
+        sql = getIntent().getStringExtra("sqlstatement");
         Toolbar allgames_toolbar = (Toolbar) findViewById(R.id.allgames_toolbar);
         setSupportActionBar(allgames_toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         gamelistView = (ListView) findViewById(R.id.lvAllGames); //sets up a listview with the name shoplistview
+
         readList();
 
         gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -90,12 +93,13 @@ public class SearchResults extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
+                Intent intent = new Intent(SearchResults.this, Settings.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);//start the new screen
                 return true;
 
             case R.id.action_search:
-                // User chose the "Favorite" action, mark the current item
-                // as a favorite...
+                Intent intent2 = new Intent(SearchResults.this, Search.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent2);//start the new screen
                 return true;
 
             default:
@@ -107,12 +111,13 @@ public class SearchResults extends AppCompatActivity {
     }
 
     public void readList(){//the readlist function
+        Log.d("Pixo", sql);
         ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
         nesList.clear();//clear the shoppingList array
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
-        sql = "SELECT * FROM eu WHERE " + field + " like '%" + search + "%'";
+        //sql = "SELECT * FROM eu WHERE " + field + " like '%" + search + "%'";
         Cursor c = db.rawQuery(sql, null);//select everything from the database table
 
         if (c.moveToFirst()) {//move to the first record

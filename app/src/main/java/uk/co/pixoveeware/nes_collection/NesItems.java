@@ -6,12 +6,15 @@ package uk.co.pixoveeware.nes_collection;
 public class NesItems {
 
 
-    String name, publisher, synopsis, image, genre, region;
+    String name, publisher, synopsis, image, genre, region, group;
     int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual, pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite;
 
 
     public int getItemId() { return _id; }
     public void setItemId(int _id) { this._id = _id; } //returns the item id
+
+    public String getGroup() { return group; }
+    public void setGroup(String group) { this.group = group; }
 
     public String getName() { return name; }
     public void setName(String name) { this.name = name; } //returns the item name

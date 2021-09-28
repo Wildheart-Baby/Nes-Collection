@@ -1,6 +1,7 @@
 package uk.co.pixoveeware.nes_collection;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,8 @@ public class NesOwnedAdapter  extends BaseAdapter {
             TextView gamename, ownedcart, ownedbox,ownedmanual;
             ImageView cover;
             ImageView owned;
+            TextView separator;
         }
-
-
-        //private Typeface tf; //sets up the typeface into variable called tf
 
         Context context; //sets up a variable as context
         ArrayList<NesItems> nesList; //sets up  an array called shoppingList
@@ -34,11 +33,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
 
             this.context = context;//sets up the context for the class
             nesList = list; //sets up a variable as a list
-
-            //this.tf = Typeface.createFromAsset(context.getAssets(), "fonts/bentleyhand.ttf");//sets the font to the tf variable pulled from the fonts folder
         }
-
-
 
         @Override
         public int getCount() {
@@ -67,6 +62,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
 
 
                 ViewHolder holder = new ViewHolder();
+                holder.separator = (TextView) convertView.findViewById(R.id.lblDivider);
                 holder.cover = (ImageView) convertView.findViewById(R.id.imgGameCover);
                 holder.gamename = (TextView) convertView.findViewById(R.id.lblGameName);
                 holder.ownedcart = (TextView) convertView.findViewById(R.id.cart);
@@ -103,6 +99,9 @@ public class NesOwnedAdapter  extends BaseAdapter {
             box = palAbox +  palBbox +  ntscbox;
             manual = palAmanual +  palBmanual + ntscmanual;
             //cover.setImageURI(Uri.parse(gameimage));
+
+            if (nesListItems.group.equals("no")){ holder.separator.setVisibility(View.GONE); } else { holder.separator.setVisibility(View.VISIBLE); }
+            holder.separator.setText(nesListItems.getGroup());
             int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
             holder.cover.setImageResource(coverid);
             holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
@@ -112,6 +111,13 @@ public class NesOwnedAdapter  extends BaseAdapter {
             holder.ownedbox.setText(box);
             holder.ownedmanual.setText(manual);
             if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);}else { holder.owned.setVisibility(View.INVISIBLE);}
+
+            //if (position % 2 == 0) {
+            if (position % 2 == 0){
+                convertView.setBackgroundColor(Color.parseColor("#CAC9C5"));
+            } else {
+                convertView.setBackgroundColor(Color.parseColor("#C0C0BB"));
+            }
 
             return convertView; //return the convertview and show the listview
         }
