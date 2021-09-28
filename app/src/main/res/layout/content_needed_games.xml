@@ -10,14 +10,8 @@
     android:paddingTop="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="uk.co.pixoveeware.nes_collection.NeededGames"
-    tools:showIn="@layout/activity_needed_games">
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="1"
-        android:id="@+id/linearLayout2">
+    tools:showIn="@layout/activity_needed_games"
+    android:background="#C0C0BB">
 
 
         <ListView
@@ -26,28 +20,18 @@
             android:id="@+id/lvNeededGames"
             android:scrollingCache="false"
             android:animationCache="false"
-            android:layout_weight="0.80"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true"/>
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/Totalgames"
-            android:id="@+id/lblTotal"
-            android:textAlignment="center"
-            android:layout_alignBottom="@+id/lvNeededGames"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:textSize="20sp"
-            android:paddingBottom="10dp"
-            android:background="@color/ncbottomGrey"
-            android:paddingTop="5dp"
-            android:textColor="@android:color/white" />
 
-    </LinearLayout>
-
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="3"
+        android:id="@+id/gvAllGames"
+        android:numColumns="3"
+        android:scrollIndicators="none"></GridView>
 
 
 </RelativeLayout>

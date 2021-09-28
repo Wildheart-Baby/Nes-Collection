@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,11 +30,12 @@ public class SearchResults extends AppCompatActivity {
 
     String name, dbfile, readgamename, str, listName,currentDate, pagetitle, search, field, searchname, columnname,sql, currentgroup;
     String prevgroup = "";
-    int readgameid, gameid, totalResults;
+    int readgameid, gameid, totalResults, viewas;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView gamelistView;
     TextView thesearchresults;
+    GridView gamegalleryview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,9 @@ public class SearchResults extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         gamelistView = (ListView) findViewById(R.id.listView); //sets up a listview with the name shoplistview
+        gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
 
+        gameregion();
         readList();
 
         gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -176,14 +180,34 @@ public class SearchResults extends AppCompatActivity {
         if (totalResults == 0){
            gamelistView.setVisibility(View.GONE);
            thesearchresults.setVisibility(View.VISIBLE);
-        }else {
+        }else {if(viewas == 0){
             NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
-            gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
+            gamegalleryview.setVisibility(View.GONE);
+            gamelistView.setAdapter(nes);
+
+        }else if (viewas == 1){
+            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, nesList);//set up an new list adapter from the arraylist
+            gamelistView.setVisibility(View.GONE);
+            gamegalleryview.setAdapter(nes);
         }
-
-
+        }
     }
 
+    public void gameregion(){//selects the region from the database
 
+        SQLiteDatabase db;//sets up the connection to the database
+        db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
+        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+
+                viewas = (c.getInt(c.getColumnIndex("game_view")));
+                c.moveToNext();//move to the next record
+            }
+            c.close();//close the cursor
+        }
+        db.close();//close the database
+    }
 
 }

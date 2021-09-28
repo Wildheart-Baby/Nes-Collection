@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="uk.co.pixoveeware.nes_collection.WishList"
-    tools:showIn="@layout/activity_wish_list">
+    tools:showIn="@layout/activity_wish_list"
+    android:background="#C0C0BB">
 
     <ListView
         android:layout_width="wrap_content"
@@ -27,5 +28,12 @@
         android:text="@string/NoResults"
         android:layout_marginLeft="5dp"
         android:gravity="center" />
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="3"
+        android:id="@+id/gvAllGames"
+        android:numColumns="3"
+        android:scrollIndicators="none"></GridView>
 
 </RelativeLayout>

@@ -38,9 +38,9 @@ public class AllGames extends AppCompatActivity
 
     private  int gridviewVerticalPositionWhenThumbnailTapped;
 
-    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, title, currentgroup, licensed;
+    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, title, currentgroup, licensed, titlestr;
     String prevgroup = "";
-    int readgameid, gameid, index, top, viewas, ListSize, i, AddItems;
+    int readgameid, gameid, index, top, viewas, ListSize, i, AddItems, totalgames;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView gamelistView;
@@ -57,7 +57,6 @@ public class AllGames extends AppCompatActivity
         gameregion();
         readList();
 
-        setTitle("All Games");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -72,7 +71,7 @@ public class AllGames extends AppCompatActivity
         getSupportActionBar().setHomeButtonEnabled(true);
 
         setTitle(title);
-
+        toolbar.setSubtitle(titlestr);
 
         gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -111,9 +110,10 @@ public class AllGames extends AppCompatActivity
                 NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
-                Intent intent = new Intent(AllGames.this, GameDetail.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(AllGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("gameid", readgameid);//passes the table name to the new screen
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
+                intent.putExtra("position", arg2);
                 startActivity(intent);//start the new screen
             }
         });
@@ -240,12 +240,13 @@ public class AllGames extends AppCompatActivity
                 }
                 c.moveToNext();//move to the next record
             }
+            c = db.rawQuery(sql, null);
+            totalgames = c.getCount();
             c.close();//close the cursor
         }
         //Cursor c = db.rawQuery("SELECT ID, ITEM, QUANTITY, DEPARTMENT, BASKET FROM " + fname, null);
         db.close();//close the database
-
-
+        titlestr = "This region has " + totalgames + " games";
 
         if(viewas == 0){
             NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
@@ -273,7 +274,6 @@ public class AllGames extends AppCompatActivity
                 licensed = (c.getString(c.getColumnIndex("licensed")));
                 viewas = (c.getInt(c.getColumnIndex("game_view")));
 
-                Log.d("Pixo", wherestatement);
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
@@ -298,9 +298,10 @@ public class AllGames extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_allgames) {
-
-        } else if (id == R.id.nav_neededgames) {
+        if (id == R.id.nav_mainpage) {
+            Intent intent = new Intent(this, MainActivity.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        }else if (id == R.id.nav_neededgames) {
             Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("wherestatement", wherestatement);
             finish();

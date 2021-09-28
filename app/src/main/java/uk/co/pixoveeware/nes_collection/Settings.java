@@ -177,13 +177,13 @@ public class Settings extends AppCompatActivity {
                 if (regionselected.contains("Ntsc")) {
                     sql = "ntsc_release = 1";
                 }
-                if (regionselected.contains("Pal A + Pal B")) {
+                if (regionselected.contains("Pal A & B")) {
                     sql = "pal_a_release = 1 or pal_b_release = 1";
                 }
-                if (regionselected.contains("Pal A + Ntsc")) {
+                if (regionselected.contains("Pal A & Ntsc")) {
                     sql = "pal_a_release = 1 or ntsc_release = 1";
                 }
-                if (regionselected.contains("Pal B + Ntsc")) {
+                if (regionselected.contains("Pal B & Ntsc")) {
                     sql = "pal_b_release = 1 or ntsc_release = 1";
                 }
                 if (regionselected.contains("All Regions")) {

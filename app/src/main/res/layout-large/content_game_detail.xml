@@ -18,7 +18,7 @@
         android:paddingTop="5dp"
 
         android:paddingLeft="6dp"
-        android:background="#c7bda9">
+        android:background="#C0C0BB">
 
 
         <RelativeLayout

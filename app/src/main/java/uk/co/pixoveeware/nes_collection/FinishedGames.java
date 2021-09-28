@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -29,17 +30,20 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
 
     String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, title, currentgroup, licensed;
     String prevgroup = "";
-    int readgameid, gameid, index, top, totalResults;
+    int readgameid, gameid, index, top, totalResults, viewas;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView finishedgamelistView;
+    GridView gamegalleryview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_finished_games);
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
+        gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
         finishedgamelistView = (ListView) findViewById(R.id.lvFinishedGames); //sets up a listview with the name shoplistview
+
 
         gameregion();
         readList();
@@ -59,6 +63,36 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
         });
 
         finishedgamelistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
+
+                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                final Integer itemId = gameListItems.getItemId();//get the item id
+
+                Intent intent = new Intent(FinishedGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("editgameid", itemId);
+                startActivity(intent);//start the new screen
+
+                return true;//return is equal to true
+            }
+
+        });
+
+        gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
+
+                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                readgameid = gameListItems.getItemId();//get the name of the shopping list table
+                readgamename = gameListItems.getName();//get the name of the shopping list table
+                Intent intent = new Intent(FinishedGames.this, GameDetail.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
+                intent.putExtra("name", readgamename);//passes the table name to the new screen
+                startActivity(intent);//start the new screen
+            }
+        });
+
+        gamegalleryview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
@@ -146,8 +180,16 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
             header.setVisibility(View.VISIBLE);
             header.setText("You have haven't finished any games, you should get to playing");
         }else {
-        NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
-        finishedgamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
+            if(viewas == 0){
+                NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
+                gamegalleryview.setVisibility(View.GONE);
+                finishedgamelistView.setAdapter(nes);
+
+            }else if (viewas == 1){
+                NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, nesList);//set up an new list adapter from the arraylist
+                finishedgamelistView.setVisibility(View.GONE);
+                gamegalleryview.setAdapter(nes);
+            }
         }
     }
 
@@ -160,11 +202,8 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
-                wherestatement = (c.getString(c.getColumnIndex("region")));
-                title = (c.getString(c.getColumnIndex("region_title")));
-                licensed = (c.getString(c.getColumnIndex("licensed")));
+                viewas = (c.getInt(c.getColumnIndex("game_view")));
 
-                Log.d("Pixo", wherestatement);
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor

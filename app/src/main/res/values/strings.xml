@@ -54,9 +54,9 @@
         <item>Pal A</item>
         <item>Pal B</item>
         <item>Ntsc</item>
-        <item>Pal A + Pal B</item>
-        <item>Pal A + Ntsc</item>
-        <item>Pal B + Ntsc</item>
+        <item>Pal A &amp; B</item>
+        <item>Pal A &amp; Ntsc</item>
+        <item>Pal B &amp; Ntsc</item>
         <item>All Regions</item>
     </string-array>
 

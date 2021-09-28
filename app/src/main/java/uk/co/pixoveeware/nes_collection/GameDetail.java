@@ -62,8 +62,9 @@ public class GameDetail extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem fav = menu.findItem(R.id.action_favourite);
-
+        MenuItem own = menu.findItem(R.id.action_edit);
         if(favourite == 1){ fav.setIcon(R.drawable.ic_heart_red_24dp); }
+        if(owned == 0){own.setIcon(R.drawable.ic_add_game24dp);}
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -235,7 +236,7 @@ public class GameDetail extends AppCompatActivity {
                 str = "UPDATE eu SET finished_game = 0 where _id = " + gameid + " "; //update the database basket field with 8783
                 db.execSQL(str);//run the sql command
                 Toast toast = Toast.makeText(getApplicationContext(),
-                        gamename + " removed from finished list",
+                        gamename + " removed from finished games",
                         Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -248,7 +249,9 @@ public class GameDetail extends AppCompatActivity {
         super.onRestart();
         //When BACK BUTTON is pressed, the activity on the stack is restarted
         //Do what you want on the refresh procedure here
+
         readGame();//run the list tables function
+        invalidateOptionsMenu();
     }
 
 }

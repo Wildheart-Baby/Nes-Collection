@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -35,11 +36,12 @@ public class WishList extends AppCompatActivity
 
     ListView gamelistView;
     TextView thesearchresults;
+    GridView gamegalleryview;
 
     Context context;
 
     String name, readgamename, searchterm,fieldname, sql, wherestatement;
-    int readgameid, index, top, count, randomgame, itemId, totalResults;
+    int readgameid, index, top, count, randomgame, itemId, totalResults, viewas;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,9 @@ public class WishList extends AppCompatActivity
 
         thesearchresults = (TextView) findViewById(R.id.lblSearchResults);
         gamelistView = (ListView) findViewById(R.id.listView);
+        gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
         setTitle("Wish List");
+
         readList();
 
         gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -76,6 +80,52 @@ public class WishList extends AppCompatActivity
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
                 startActivity(intent);//start the new screen
             }
+        });
+
+        gamegalleryview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
+
+                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                final Integer itemId = gameListItems.getItemId();//get the item id
+
+                Intent intent = new Intent(WishList.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("editgameid", itemId);
+                startActivity(intent);//start the new screen
+
+                return true;//return is equal to true
+            }
+
+        });
+
+        gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
+
+                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                readgameid = gameListItems.getItemId();//get the name of the shopping list table
+                readgamename = gameListItems.getName();//get the name of the shopping list table
+                Intent intent = new Intent(WishList.this, GameDetail.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
+                intent.putExtra("name", readgamename);//passes the table name to the new screen
+                startActivity(intent);//start the new screen
+            }
+        });
+
+        gamegalleryview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
+
+                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                final Integer itemId = gameListItems.getItemId();//get the item id
+
+                Intent intent = new Intent(WishList.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("editgameid", itemId);
+                startActivity(intent);//start the new screen
+
+                return true;//return is equal to true
+            }
+
         });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -234,9 +284,19 @@ public class WishList extends AppCompatActivity
             thesearchresults.setVisibility(View.VISIBLE);
             thesearchresults.setText("Your wishlist is empty, please add some games to it");
         }else {
+            if(viewas == 0){
             NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
-            gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
+            gamegalleryview.setVisibility(View.GONE);
+            gamelistView.setAdapter(nes);
+
+        }else if (viewas == 1){
+            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, nesList);//set up an new list adapter from the arraylist
+            gamelistView.setVisibility(View.GONE);
+            gamegalleryview.setAdapter(nes);
         }
+        }
+
+
     }
 
     public void gameregion(){//selects the region from the database
@@ -248,7 +308,7 @@ public class WishList extends AppCompatActivity
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
-                wherestatement = (c.getString(c.getColumnIndex("region")));
+                viewas = (c.getInt(c.getColumnIndex("game_view")));
                 //title = (c.getString(c.getColumnIndex("region_title")));
 
                 Log.d("Pixo", wherestatement);

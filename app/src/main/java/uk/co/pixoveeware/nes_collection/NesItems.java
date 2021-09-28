@@ -6,8 +6,8 @@ package uk.co.pixoveeware.nes_collection;
 public class NesItems {
 
 
-    String name, publisher, synopsis, image, genre, region, group;
-    int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual, pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite;
+    String name, publisher, synopsis, image, genre, region, group, subgenre, developer, year;
+    int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual, pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist;
 
 
     public int getItemId() { return _id; }
@@ -30,6 +30,15 @@ public class NesItems {
 
     public String getGenre() { return genre; }
     public void setGenre(String genre) { this.genre = genre; }//returns the item department
+
+    public String getSubgenre() {return subgenre;}
+    public void setSubgenre(String subgenre) {this.subgenre = subgenre;}
+
+    public String getDeveloper() {return subgenre;}
+    public void setDeveloper(String developer) {this.developer = developer;}
+
+    public String getYear() {return year;}
+    public void setYear(String year) {this.year = year;}
 
     public int getOwned() { return owned; }
     public void setOwned(int owned) { this.owned = owned; } //returns the item id
@@ -73,8 +82,10 @@ public class NesItems {
     public int getBoxNtsc() { return ntsc_box; }
     public void setBoxNtsc(int ntsc_box) { this.ntsc_box = ntsc_box; } //returns the item id
 
-    public int getfavourite() { return favourite; }
-    public void setfavourite(int favourite) { this.favourite = favourite; }
+    public int getFavourite() { return favourite; }
+    public void setFavourite(int favourite) { this.favourite = favourite; }
 
+    public int getWishlist() { return wishlist; }
+    public void SetWishlist(int wishlist) { this.wishlist = wishlist; } //returns the item id
 
 }

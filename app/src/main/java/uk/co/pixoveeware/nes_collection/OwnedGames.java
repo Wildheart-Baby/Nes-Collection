@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -35,10 +36,11 @@ public class OwnedGames extends AppCompatActivity
 
     String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, sql1, sql2, sql3, licensed, currentgroup;
     String prevgroup = "";
-    int readgameid, gameid, ownedgames, totalgames, index, top, region1games, region2games,region3games, count, randomgame, itemId;
+    int readgameid, gameid, ownedgames, totalgames, index, top, region1games, region2games,region3games, count, randomgame, itemId, viewas;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView ownedlistView;
+    GridView gamegalleryview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +61,12 @@ public class OwnedGames extends AppCompatActivity
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
         ownedlistView = (ListView) findViewById(R.id.lvOwnedGames); //sets up a listview with the name shoplistview
         gameregion();
         readList();
         gamescount();
-
+        toolbar.setSubtitle(str);
         ownedlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
@@ -93,6 +96,36 @@ public class OwnedGames extends AppCompatActivity
         }
 
     });
+
+        gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
+
+                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                readgameid = gameListItems.getItemId();//get the name of the shopping list table
+                readgamename = gameListItems.getName();//get the name of the shopping list table
+                Intent intent = new Intent(OwnedGames.this, GameDetail.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
+                intent.putExtra("name", readgamename);//passes the table name to the new screen
+                startActivity(intent);//start the new screen
+            }
+        });
+
+        gamegalleryview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
+
+                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                final Integer itemId = gameListItems.getItemId();//get the item id
+
+                Intent intent = new Intent(OwnedGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("editgameid", itemId);
+                startActivity(intent);//start the new screen
+
+                return true;//return is equal to true
+            }
+
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         android.support.v7.app.ActionBarDrawerToggle toggle = new android.support.v7.app.ActionBarDrawerToggle(
@@ -169,15 +202,8 @@ public class OwnedGames extends AppCompatActivity
         //sql = "SELECT * FROM eu where owned = 1 and " + wherestatement + "";
         sql = "SELECT * FROM eu where owned = 1";
         Log.d("Pixo", sql);
-        //Toast toast = Toast.makeText(getApplicationContext(),
-        //        sql,
-        //        Toast.LENGTH_SHORT);
-        //toast.show();
 
-        Cursor c = db.rawQuery(sql, null);//select everything from the database table
-        //Cursor c = db.rawQuery("SELECT * FROM " + fname, null);
-
-        //Cursor c = db.rawQuery(sql, null);
+        Cursor c = db.rawQuery(sql, null);
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
                 NesItems nesListItems = new NesItems();//creates a new array
@@ -233,9 +259,16 @@ public class OwnedGames extends AppCompatActivity
 
         db.close();//close the database
 
+        if(viewas == 0){
+            NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
+            gamegalleryview.setVisibility(View.GONE);
+            ownedlistView.setAdapter(nes);
 
-        NesOwnedAdapter nes = new NesOwnedAdapter(this, nesList);//set up an new list adapter from the arraylist
-        ownedlistView.setAdapter(nes);//set the listview with the contents of the arraylist
+        }else if (viewas == 1){
+            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, nesList);//set up an new list adapter from the arraylist
+            ownedlistView.setVisibility(View.GONE);
+            gamegalleryview.setAdapter(nes);
+        }
     }
 
     public void gameregion(){//selects the region from the database
@@ -249,6 +282,8 @@ public class OwnedGames extends AppCompatActivity
 
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 licensed = (c.getString(c.getColumnIndex("licensed")));
+                viewas = (c.getInt(c.getColumnIndex("game_view")));
+
                 Log.d("Pixo", wherestatement);
 
                 c.moveToNext();//move to the next record
@@ -279,8 +314,6 @@ public class OwnedGames extends AppCompatActivity
         db.close();//close the database
         ownedgames = region1games + region2games + region3games;
         str = "You own " + ownedgames + " games";
-        TextView gamesfooter = (TextView) findViewById(R.id.lblTotal);
-        gamesfooter.setText(str);
     }
 
     public void randomgame(){

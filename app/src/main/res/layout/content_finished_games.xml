@@ -40,5 +40,11 @@
             android:layout_marginLeft="5dp"
             android:gravity="center" />
     </LinearLayout>
-
+    <GridView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnCount="3"
+        android:id="@+id/gvAllGames"
+        android:numColumns="3"
+        android:scrollIndicators="none"></GridView>
 </RelativeLayout>
