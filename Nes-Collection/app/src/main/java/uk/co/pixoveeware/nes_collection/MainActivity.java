@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Nes Collect");
+        setTitle("Nes Collection");
         AllGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AllGames.class);//opens a new screen when the shopping list is clicked

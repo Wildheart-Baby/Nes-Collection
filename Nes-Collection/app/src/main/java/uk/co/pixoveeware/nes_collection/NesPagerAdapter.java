@@ -1,5 +1,6 @@
 package uk.co.pixoveeware.nes_collection;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Parcelable;
@@ -30,8 +31,8 @@ public class NesPagerAdapter extends PagerAdapter {
     Context context; //sets up a variable as context
     ArrayList<NesItems> nesList; //sets up  an array called shoppingList
     String gameimage, synop, gen, subgen, pub, dev, gname, img, theyear, sql;
-    int owned, carttrue, boxtrue, manualtrue, gameid, editgameid, pos, idforgame, favourite;
-    int flagAustralia, flagAustria, flagBenelux, flagFrance, flagGermany, flagIreland, flagItaly, flagScandinavia, flagSpain, flagSwitzerland, flagUK, flagUS ;
+    int owned, carttrue, boxtrue, manualtrue, gameid, editgameid, pos, idforgame, favourite, coverid;
+    int flagAustralia, flagAustria, flagBenelux, flagDenmark, flagFinland, flagFrance, flagGermany, flagGreece, flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS ;
 
     Menu menu;
 
@@ -76,14 +77,21 @@ public class NesPagerAdapter extends PagerAdapter {
         TextView synopsis = (TextView) convertView.findViewById(R.id.lblSynopsis);
 
         ImageView australia = (ImageView) convertView.findViewById(R.id.imgAustralia);
-        ImageView austria = (ImageView) convertView.findViewById(R.id.imgAustria);
+        final ImageView austria = (ImageView) convertView.findViewById(R.id.imgAustria);
         ImageView benelux = (ImageView) convertView.findViewById(R.id.imgBenelux);
+        ImageView denmark = (ImageView) convertView.findViewById(R.id.imgDenmark);
         ImageView france = (ImageView) convertView.findViewById(R.id.imgFrance);
+        ImageView finland = (ImageView) convertView.findViewById(R.id.imgFinland);
         ImageView germany = (ImageView) convertView.findViewById(R.id.imgGermany);
+        ImageView greece = (ImageView) convertView.findViewById(R.id.imgGreece);
         ImageView ireland = (ImageView) convertView.findViewById(R.id.imgIreland);
         ImageView italy = (ImageView) convertView.findViewById(R.id.imgItaly);
+        ImageView norway = (ImageView) convertView.findViewById(R.id.imgNorway);
+        ImageView poland = (ImageView) convertView.findViewById(R.id.imgPoland);
+        ImageView portugal = (ImageView) convertView.findViewById(R.id.imgPortugal);
         ImageView scandinavia = (ImageView) convertView.findViewById(R.id.imgScandinavia);
-        ImageView spain = (ImageView) convertView.findViewById(R.id.imgScandinavia);
+        ImageView spain = (ImageView) convertView.findViewById(R.id.imgSpain);
+        ImageView sweden = (ImageView) convertView.findViewById(R.id.imgSweden);
         ImageView switzerland = (ImageView) convertView.findViewById(R.id.imgSwitzerland);
         ImageView uk = (ImageView) convertView.findViewById(R.id.imgUK);
         ImageView us = (ImageView) convertView.findViewById(R.id.imgUS);
@@ -102,17 +110,24 @@ public class NesPagerAdapter extends PagerAdapter {
         boxtrue = nesListItems.getBox();
         favourite = nesListItems.getFavourite();
         manualtrue = nesListItems.getManual();
-        int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
+        coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
         cover.setImageResource(coverid);
 
         flagAustralia = nesListItems.getAustralia();
         flagAustria = nesListItems.getAustria();
         flagBenelux = nesListItems.getBenelux();
+        flagDenmark = nesListItems.getDenmark();
+        flagFinland = nesListItems.getFinland();
         flagFrance = nesListItems.getFrance();
         flagGermany = nesListItems.getGermany();
+        flagGreece = nesListItems.getGreece();
         flagIreland = nesListItems.getIreland();
         flagItaly = nesListItems.getItaly();
+        flagNorway = nesListItems.getNorway();
+        flagPoland = nesListItems.getPoland();
+        flagPortugal = nesListItems.getPortugal();
         flagScandinavia = nesListItems.getScandinavia();
+        flagSweden = nesListItems.getSweden();
         flagSwitzerland = nesListItems.getSwitzerland();
         flagSpain = nesListItems.getSpain();
         flagUK = nesListItems.getUK();
@@ -122,9 +137,23 @@ public class NesPagerAdapter extends PagerAdapter {
         Log.d("Pixo-flag", "UK: "+flagUK);
         Log.d("Pixo-flag", "US: "+flagUS);
 
-        if (flagAustralia == 1){australia.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Autralian flag");} else{}
+        if (flagAustralia == 1){australia.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Australian flag");} else{}
+        if (flagAustria == 1){austria.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Austrian flag");} else{}
+        if (flagBenelux == 1){benelux.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Benelux flag");} else{}
+        if (flagDenmark == 1){denmark.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Danish flag");} else{}
+        if (flagFinland == 1){finland.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Finnish flag");} else{}
         if (flagFrance == 1){france.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting French flag");} else {}//australia france
         if (flagGermany == 1){germany.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting German flag");}else {}
+        if (flagGreece == 1){greece.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Greek flag");} else{}
+        if (flagIreland == 1){ireland.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Irish flag");} else{}
+        if (flagItaly == 1){italy.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting italina flag");} else{}
+        if (flagNorway == 1){norway.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Norway flag");} else{}
+        if (flagPoland == 1){poland.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Polish flag");} else{}
+        if (flagPortugal == 1){portugal.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Portugal flag");} else{}
+        if (flagScandinavia == 1){scandinavia.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Scandinavian flag");} else{}
+        if (flagSpain == 1){spain.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Spanish flag");} else{}
+        if (flagSweden == 1){sweden.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Sweddish flag");} else{}
+        if (flagSwitzerland == 1){switzerland.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting Swiss flag");} else{}
         if (flagUS == 1){us.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting US flag");} else{}
         if (flagUK == 1){uk.setVisibility(View.VISIBLE); Log.d("Pixo-flag", "setting UK flag");} else {}
 
@@ -135,6 +164,62 @@ public class NesPagerAdapter extends PagerAdapter {
                 Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("pagetitle", "Australian games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "australia");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        austria.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_austria = 1" + licensed + "";
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Austrian games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "austria");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+        benelux.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_benelux = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Benelux games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "benelux");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        denmark.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_denmark = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Danish games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "denmark");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        finland.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_finland = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Finnish games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "finland");
                 v.getContext().startActivity(intent);//start the new screen
 
             }
@@ -147,6 +232,8 @@ public class NesPagerAdapter extends PagerAdapter {
                 Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("pagetitle", "French games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "france");
                 v.getContext().startActivity(intent);//start the new screen
 
             }
@@ -159,6 +246,148 @@ public class NesPagerAdapter extends PagerAdapter {
                 Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("pagetitle", "German games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "germany");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        greece.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_greece = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Greek games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "greece");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        ireland.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_ireland = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Irish games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "ireland");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        italy.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_italy = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Italian games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "italy");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        norway.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_norway = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Norwegian games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "norway");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        poland.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_poland = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Polish games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "poland");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        portugal.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_portugal = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Portuguese games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "portugal");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        scandinavia.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_scandinavian = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Scandinavian games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "scandinavia");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        spain.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_spain = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Spanish games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "spain");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        sweden.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_sweden = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Swedish games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "sweden");
+                v.getContext().startActivity(intent);//start the new screen
+
+            }
+        });
+
+        switzerland.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                sql = "SELECT * FROM eu where flag_switzerland = 1" + licensed + "";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Swiss games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "switzerland");
                 v.getContext().startActivity(intent);//start the new screen
 
             }
@@ -171,8 +400,12 @@ public class NesPagerAdapter extends PagerAdapter {
                 Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("pagetitle", "US games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "us");
+                GamesDetail.listcount ++;
+                GamesDetail.gamedetailcount ++;
                 v.getContext().startActivity(intent);//start the new screen
-
+                if (GamesDetail.gamedetailcount > 0){((Activity) context).finish();}
             }
         });
 
@@ -183,6 +416,8 @@ public class NesPagerAdapter extends PagerAdapter {
                 Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("pagetitle", "UK games");
+                intent.putExtra("showsub", 1);
+                intent.putExtra("flag", "uk");
                 v.getContext().startActivity(intent);//start the new screen
 
             }

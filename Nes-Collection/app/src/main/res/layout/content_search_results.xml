@@ -36,14 +36,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/lblSearchResults"
-        android:layout_below="@+id/adView"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:textSize="18sp"
         android:visibility="invisible"
         android:text="@string/NoResults"
-        android:layout_marginLeft="5dp"
-        android:gravity="center" />
+        android:gravity="center"
+        android:layout_below="@+id/adView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
     <GridView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

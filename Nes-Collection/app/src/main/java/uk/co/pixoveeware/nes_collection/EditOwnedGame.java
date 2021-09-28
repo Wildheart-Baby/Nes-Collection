@@ -1,5 +1,6 @@
 package uk.co.pixoveeware.nes_collection;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -100,15 +101,14 @@ public class EditOwnedGame extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
+            case R.id.action_about:
+                Intent intent3 = new Intent(EditOwnedGame.this, About.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent3);//start the new screen
                 return true;
 
             case R.id.action_favourite:
                 favouritegame();
                 return true;
-
-
 
             default:
                 // If we got here, the user's action was not recognized.

@@ -22,7 +22,7 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
+            android:label="Nes Collection"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -112,7 +112,8 @@
         <activity
             android:name=".StatsSearchResults"
             android:label="@string/title_activity_stats_search_results"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

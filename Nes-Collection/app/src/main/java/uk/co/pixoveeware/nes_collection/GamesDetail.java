@@ -27,6 +27,7 @@ import java.util.Arrays;
 public class GamesDetail extends AppCompatActivity {
     public static int idforgame, favourited, ownedgame, wishlist, finished;
     public static String gamesname;
+    public static int listcount = 0, gamedetailcount = 0;
 
     Context context; //sets up a variable as context
     int gameid, editgameid, coverid, owned, carttrue, boxtrue, manualtrue, favourite, pos;
@@ -73,13 +74,13 @@ public class GamesDetail extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        flagAustralia = (ImageView) findViewById(R.id.imgAustralia);
+        /*flagAustralia = (ImageView) findViewById(R.id.imgAustralia);
         flagFrance = (ImageView) findViewById(R.id.imgFrance);
         flagGermany = (ImageView) findViewById(R.id.imgGermany);
         flagUK = (ImageView) findViewById(R.id.imgUK);
         flagUS = (ImageView) findViewById(R.id.imgUS);
 
-        /*flagAustralia.setOnClickListener(new View.OnClickListener() {
+        flagAustralia.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sql = "SELECT * FROM eu where flag_australia = 1" + licensed + ")";
                 //Log.d("Pixo", sql);
@@ -185,8 +186,22 @@ public class GamesDetail extends AppCompatActivity {
                 nesListItems.setDeveloper((c.getString(c.getColumnIndex("developer"))));
                 nesListItems.setSynopsis((c.getString(c.getColumnIndex("synopsis"))));
                 nesListItems.setAustralia(c.getInt(c.getColumnIndex("flag_australia")));
+                nesListItems.setAustria(c.getInt(c.getColumnIndex("flag_austria")));
+                nesListItems.setBenelux(c.getInt(c.getColumnIndex("flag_benelux")));
+                nesListItems.setDenmark(c.getInt(c.getColumnIndex("flag_denmark")));
+                nesListItems.setFinland(c.getInt(c.getColumnIndex("flag_finland")));
                 nesListItems.setFrance(c.getInt(c.getColumnIndex("flag_france")));
                 nesListItems.setGermany((c.getInt(c.getColumnIndex("flag_germany"))));
+                nesListItems.setGreece(c.getInt(c.getColumnIndex("flag_greece")));
+                nesListItems.setIreland(c.getInt(c.getColumnIndex("flag_ireland")));
+                nesListItems.setItaly(c.getInt(c.getColumnIndex("flag_italy")));
+                nesListItems.setNorway(c.getInt(c.getColumnIndex("flag_norway")));
+                nesListItems.setPoland(c.getInt(c.getColumnIndex("flag_poland")));
+                nesListItems.setPortugal(c.getInt(c.getColumnIndex("flag_portugal")));
+                nesListItems.setScandinavia(c.getInt(c.getColumnIndex("flag_scandinavia")));
+                nesListItems.setSpain(c.getInt(c.getColumnIndex("flag_spain")));
+                nesListItems.setSweden(c.getInt(c.getColumnIndex("flag_sweden")));
+                nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
                 nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                 nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
                 nesList.add(nesListItems);//add items to the arraylist

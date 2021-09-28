@@ -31,14 +31,15 @@ public class StatsSearchResults extends AppCompatActivity {
     final Context context = this;
     SQLiteDatabase sqlDatabase;
 
-    String name, dbfile, readgamename, str, listName,currentDate, pagetitle, search, field, searchname, columnname,sql, currentgroup;
+    String name, dbfile, readgamename, str, listName,currentDate, pagetitle, search, field, searchname, columnname,sql, currentgroup, flagid;
     String prevgroup = "";
-    int readgameid, gameid, totalResults, viewas;
+    int readgameid, gameid, totalResults, viewas, showsubtitle;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView gamelistView;
     TextView thesearchresults;
     GridView gamegalleryview;
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,8 +52,12 @@ public class StatsSearchResults extends AppCompatActivity {
         sql = getIntent().getStringExtra("sqlstatement");
         searchname = getIntent().getStringExtra("searchterm");
         pagetitle = getIntent().getStringExtra("pagetitle");
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        showsubtitle = getIntent().getIntExtra("showsub", 0);
+        flagid = getIntent().getStringExtra("flag");
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //toolbar.setLogo(context.getResources().getIdentifier(flagid, "drawable", context.getPackageName()));
         setTitle(pagetitle);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,7 +86,6 @@ public class StatsSearchResults extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
-
                 NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
@@ -90,6 +94,7 @@ public class StatsSearchResults extends AppCompatActivity {
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("position", arg2);
+                if (GamesDetail.listcount > 0){GamesDetail.listcount = 0; finish();}
                 startActivity(intent);//start the new screen
             }
         });
@@ -222,9 +227,14 @@ public class StatsSearchResults extends AppCompatActivity {
         totalResults = c.getCount();
         db.close();//close the database
 
+        if (showsubtitle == 1){str = totalResults + " were released";
+            toolbar.setSubtitle(str);
+            toolbar.setLogo(context.getResources().getIdentifier(flagid, "drawable", context.getPackageName()));}
+
         if (totalResults == 0){
             gamelistView.setVisibility(View.GONE);
             thesearchresults.setVisibility(View.VISIBLE);
+
         }else {if(viewas == 0){
             StatsCollectionAdapter nes = new StatsCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
             gamegalleryview.setVisibility(View.GONE);
