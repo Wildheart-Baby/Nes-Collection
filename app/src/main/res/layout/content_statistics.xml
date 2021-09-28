@@ -20,41 +20,79 @@
         android:id="@+id/lblHeader"
         android:layout_marginBottom="20dp" />
 
-    <TextView
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="You own "
-        android:id="@+id/lblPalA"
+        android:id="@+id/rlAll"
         android:layout_below="@+id/lblHeader"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp">
 
-    <TextView
-        android:layout_width="fill_parent"
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="New Text"
+            android:id="@+id/lblCost"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="You own"
-        android:id="@+id/lblPalB"
-        android:layout_below="@+id/lblPalA"
+        android:id="@+id/rlPalA"
+        android:layout_below="@+id/rlAll"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="You own "
+            android:id="@+id/lblPalA"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="5dp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rlPalB"
+        android:layout_below="@+id/rlPalA"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginBottom="5dp" />
+        android:layout_marginBottom="5dp">
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="You own"
-        android:id="@+id/lblUS"
-        android:layout_below="@+id/lblPalB"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="5dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="You own"
+            android:id="@+id/lblPalB"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="5dp" />
+    </RelativeLayout>
 
-    <TextView
-        android:layout_width="fill_parent"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/lblCost"
-        android:layout_below="@+id/lblUS"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/rlUS"
+        android:layout_below="@+id/rlPalB"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="5dp">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="You own"
+            android:id="@+id/lblUS"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="5dp" />
+    </RelativeLayout>
+
+
 </RelativeLayout>

@@ -1,11 +1,17 @@
 package uk.co.pixoveeware.nes_collection;
 
 import android.app.Dialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -17,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -39,6 +46,10 @@ public class AllGames extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_all_games);
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
+        gamelistView = (ListView) findViewById(R.id.lvAllGames); //sets up a listview with the name shoplistview
+        gameregion();
+        readList();
+
         setTitle("All Games");
         Toolbar toolbar = (Toolbar) findViewById(R.id.allgames_toolbar);
         setSupportActionBar(toolbar);
@@ -51,10 +62,10 @@ public class AllGames extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        gamelistView = (ListView) findViewById(R.id.lvAllGames); //sets up a listview with the name shoplistview
-        gameregion();
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         setTitle(title);
-        readList();
+
 
         gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -121,6 +132,51 @@ public class AllGames extends AppCompatActivity {
         }
     }
 
+    private void selectItem(int pos) {
+        // update the main content by replacing fragments
+        Log.d("Pixo", "value: " + pos);
+        switch(pos){
+            case '0' :
+                        Log.d("Pixo", "selectItem running");
+                        Intent intent = new Intent(AllGames.this, AllGames.class);//opens a new screen when the shopping list is clicked
+                        intent.putExtra("wherestatement", wherestatement);
+                        startActivity(intent);
+                break;
+            case 1 :
+                        intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
+                        intent.putExtra("wherestatement", wherestatement);
+                        startActivity(intent);
+                break;
+            case 2 :
+                        intent = new Intent(this, OwnedGames.class);//opens a new screen when the shopping list is clicked
+                        intent.putExtra("wherestatement", wherestatement);
+                        startActivity(intent);
+                break;
+            case 3 :
+                        intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
+                        startActivity(intent);
+                break;
+            case 4 :
+                        intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
+                        startActivity(intent);
+                break;
+            case 5 :
+                        intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
+                        startActivity(intent);
+                break;
+            case 6 :
+                        intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
+                        startActivity(intent);
+                break;
+            case 7 :
+                        intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked
+                        startActivity(intent);//start the new screen
+                break;
+            default:
+            }
+    }
+
+
     @Override
     public void onPause(){
         super.onPause();
@@ -134,8 +190,6 @@ public class AllGames extends AppCompatActivity {
         ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
         nesList.clear();//clear the shoppingList array
 
-        int position = 0;
-        boolean isSeparator = false;
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         sql = "SELECT * FROM eu where " + wherestatement + "";

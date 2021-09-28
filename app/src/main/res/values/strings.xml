@@ -632,6 +632,18 @@
         <item>Art Game</item>
     </string-array>
 
+    <string-array name="screenArray">
+        <item>All Games</item>
+        <item>Missing Games</item>
+        <item>Owned Games</item>
+        <item>Favourite Games</item>
+        <item>Wish List</item>
+        <item>Shelf Order</item>
+        <item>Game Statistics</item>
+        <item>Settings</item>
+        <item></item>
+    </string-array>
+
     <string name="title_activity_search">Search</string>
     <string name="title_activity_statistics">Statistics</string>
     <string name="title_activity_about">About</string>
@@ -650,4 +662,8 @@
     <string name="Currency">Currency</string>
     <string name="ShelfSize">Number of games per shelf</string>
     <string name="title_activity_wish_list">WishList</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_games_detail">GamesDetail</string>
 </resources>

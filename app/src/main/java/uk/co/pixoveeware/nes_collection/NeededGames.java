@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -23,6 +25,8 @@ import java.util.ArrayList;
 
 public class NeededGames extends AppCompatActivity {
 
+
+
     final Context context = this;
     SQLiteDatabase sqlDatabase;
 
@@ -39,7 +43,7 @@ public class NeededGames extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_needed_games);
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
-        //wherestatement = getIntent().getStringExtra("wherestatement");
+
         setTitle("Missing Games");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,6 +56,7 @@ public class NeededGames extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         gamelistView = (ListView) findViewById(R.id.lvNeededGames); //sets up a listview with the name shoplistview
         TextView gamesfooter = (TextView) findViewById(R.id.lblTotal);
@@ -97,6 +102,8 @@ public class NeededGames extends AppCompatActivity {
         return true;
     }
 
+
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -120,6 +127,53 @@ public class NeededGames extends AppCompatActivity {
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
+        }
+    }
+
+
+
+
+    private void selectItem(int pos) {
+        // update the main content by replacing fragments
+        Log.d("Pixo", "value: " + pos);
+        switch(pos){
+            case '0' :
+                Log.d("Pixo", "selectItem running");
+                Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("wherestatement", wherestatement);
+                startActivity(intent);
+                break;
+            case 1 :
+                intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("wherestatement", wherestatement);
+                startActivity(intent);
+                break;
+            case 2 :
+                intent = new Intent(this, OwnedGames.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("wherestatement", wherestatement);
+                startActivity(intent);
+                break;
+            case 3 :
+                intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 4 :
+                intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 5 :
+                intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 6 :
+                intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 7 :
+                intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);//start the new screen
+                break;
+            default:
         }
     }
 

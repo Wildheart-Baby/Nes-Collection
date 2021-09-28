@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -22,6 +24,14 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ShelfOrder extends AppCompatActivity {
+
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+
+    private CharSequence mDrawerTitle;
+    private CharSequence mTitle;
+    private String[] mScreenTitles;
 
     final Context context = this;
     SQLiteDatabase sqlDatabase;
@@ -40,6 +50,19 @@ public class ShelfOrder extends AppCompatActivity {
         setContentView(R.layout.activity_search_results);
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
         //wherestatement = getIntent().getStringExtra("wherestatement");
+
+        mTitle = mDrawerTitle = "Nes Collect";
+        mScreenTitles = getResources().getStringArray(R.array.screenArray);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.left_drawer);
+
+        // set a custom shadow that overlays the main content when the drawer opens
+        //mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
+        // set up the drawer's list view with items and click listener
+        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
+                R.layout.drawer_list_item, mScreenTitles));
+        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+
         setTitle("Shelf order");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -52,6 +75,7 @@ public class ShelfOrder extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         gamelistView = (ListView) findViewById(R.id.listView); //sets up a listview with the name shoplistview
 
@@ -88,6 +112,30 @@ public class ShelfOrder extends AppCompatActivity {
 
         });
 
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
+                R.string.drawer_open,  /* "open drawer" description for accessibility */
+                R.string.drawer_close  /* "close drawer" description for accessibility */
+        ) {
+            public void onDrawerClosed(View view) {
+                //getActionBar().setTitle(mTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                //getActionBar().setTitle("Nes Collect");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+
+        if (savedInstanceState == null) {
+            selectItem(0);
+        }
+
     }
 
     @Override
@@ -95,6 +143,13 @@ public class ShelfOrder extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_allgames, menu);
         return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        // If the nav drawer is open, hide action items related to the content view
+        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -121,6 +176,66 @@ public class ShelfOrder extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+
+    /* The click listner for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+            selectItem(pos);
+            Log.d("Pixo", "value: " + pos);
+        }
+    }
+
+    private void selectItem(int pos) {
+        // update the main content by replacing fragments
+        Log.d("Pixo", "value: " + pos);
+        switch(pos){
+            case 0 :
+                Log.d("Pixo", "selectItem running");
+                Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("wherestatement", wherestatement);
+                startActivity(intent);
+                break;
+            case 1 :
+                intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("wherestatement", wherestatement);
+                startActivity(intent);
+                break;
+            case 2 :
+                intent = new Intent(this, OwnedGames.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("wherestatement", wherestatement);
+                startActivity(intent);
+                break;
+            case 3 :
+                intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 4 :
+                intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 5 :
+                intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 6 :
+                intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 7 :
+                intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);//start the new screen
+                break;
+            default:
+        }
+
+
+        // update selected item and title, then close the drawer
+        mDrawerList.setItemChecked(pos, true);
+        //setTitle(mScreenTitles[position]);
+        mDrawerLayout.closeDrawer(mDrawerList);
     }
 
     @Override

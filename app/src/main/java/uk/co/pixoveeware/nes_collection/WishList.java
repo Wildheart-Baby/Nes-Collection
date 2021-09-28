@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -33,7 +35,7 @@ public class WishList extends AppCompatActivity {
 
     Context context;
 
-    String name, readgamename, searchterm,fieldname, sql;
+    String name, readgamename, searchterm,fieldname, sql, wherestatement;
     int readgameid, index, top, count, randomgame, itemId, totalResults;
 
     @Override
@@ -52,6 +54,8 @@ public class WishList extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
         thesearchresults = (TextView) findViewById(R.id.lblSearchResults);
         gamelistView = (ListView) findViewById(R.id.listView);
         setTitle("Wish List");
@@ -70,6 +74,8 @@ public class WishList extends AppCompatActivity {
                 startActivity(intent);//start the new screen
             }
         });
+
+
     }
 
     @Override
@@ -103,6 +109,60 @@ public class WishList extends AppCompatActivity {
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
 
+        }
+    }
+
+
+    /* The click listner for ListView in the navigation drawer */
+    private class DrawerItemClickListener implements ListView.OnItemClickListener {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
+            selectItem(pos);
+            Log.d("Pixo", "value: " + pos);
+        }
+    }
+
+    private void selectItem(int pos) {
+        // update the main content by replacing fragments
+        Log.d("Pixo", "value: " + pos);
+        switch(pos){
+            case '0' :
+                Log.d("Pixo", "selectItem running");
+                Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("wherestatement", wherestatement);
+                startActivity(intent);
+                break;
+            case 1 :
+                intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("wherestatement", wherestatement);
+                startActivity(intent);
+                break;
+            case 2 :
+                intent = new Intent(this, OwnedGames.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("wherestatement", wherestatement);
+                startActivity(intent);
+                break;
+            case 3 :
+                intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 4 :
+                intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 5 :
+                intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 6 :
+                intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+                break;
+            case 7 :
+                intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);//start the new screen
+                break;
+            default:
         }
     }
 
@@ -157,6 +217,26 @@ public class WishList extends AppCompatActivity {
             NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
             gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
         }
+    }
+
+    public void gameregion(){//selects the region from the database
+
+        SQLiteDatabase db;//sets up the connection to the database
+        db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
+        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+
+                wherestatement = (c.getString(c.getColumnIndex("region")));
+                //title = (c.getString(c.getColumnIndex("region_title")));
+
+                Log.d("Pixo", wherestatement);
+                c.moveToNext();//move to the next record
+            }
+            c.close();//close the cursor
+        }
+        db.close();//close the database
     }
 
     @Override
