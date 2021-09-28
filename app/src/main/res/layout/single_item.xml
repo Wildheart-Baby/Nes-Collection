@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:descendantFocusability="blocksDescendants"
+    android:paddingTop="2dp"
+    android:paddingBottom="2dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgGameCover"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/name"
+        android:adjustViewBounds="true"
+        android:maxHeight="75dp"
+        android:maxWidth="50dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/placeholdersml" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgOwned"
+        android:src="@drawable/icon_owned2"
+        android:visibility="invisible"
+        android:scaleType="fitCenter"
+        android:maxHeight="75dp"
+        android:maxWidth="50dp"
+        android:adjustViewBounds="true"
+        android:layout_marginRight="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_alignTop="@+id/imgGameCover"
+        android:layout_toLeftOf="@+id/lblGameName"
+        android:layout_toStartOf="@+id/lblGameName" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="game name"
+        android:id="@+id/lblGameName"
+        android:hint="gamename"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imgGameCover"
+        android:layout_toEndOf="@+id/imgGameCover"
+        android:paddingTop="5dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="publisher"
+        android:id="@+id/lblPublisher"
+        android:layout_below="@+id/lblGameName"
+        android:layout_toRightOf="@+id/imgGameCover"
+        android:layout_toEndOf="@+id/imgGameCover" />
+
+</RelativeLayout>

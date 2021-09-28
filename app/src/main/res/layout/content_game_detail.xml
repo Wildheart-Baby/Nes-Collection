@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="uk.co.pixoveeware.nes_collection.GameDetail"
+    tools:showIn="@layout/activity_game_detail"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingRight="2dp"
+        android:paddingTop="5dp"
+
+        android:paddingLeft="6dp"
+        android:background="#c7bda9">
+
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/gamename"
+            android:id="@+id/lblGameName"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/linearLayout"
+            android:layout_alignEnd="@+id/linearLayout"
+            android:layout_marginBottom="5dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgGameCover"
+            android:scaleType="fitCenter"
+            android:adjustViewBounds="true"
+            android:maxHeight="240dp"
+            android:maxWidth="175dp"
+            android:paddingRight="3dp"
+            android:src="@drawable/placeholder"
+            android:contentDescription="game cover"
+            android:layout_below="@+id/lblGameName"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblGameName"
+            android:layout_toRightOf="@+id/imgGameCover"
+            android:layout_toEndOf="@+id/imgGameCover"
+            android:id="@+id/linearLayout"
+            android:layout_marginBottom="2dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Genre"
+                android:id="@+id/hdrGenre"
+                android:layout_below="@+id/textView"
+                android:layout_toRightOf="@+id/lblGenre"
+                android:layout_toEndOf="@+id/lblGenre"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="genre"
+                android:id="@+id/lblGenre"
+                android:layout_below="@+id/textView"
+                android:layout_toRightOf="@+id/imgGameCover"
+                android:layout_toEndOf="@+id/imgGameCover" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subgenre"
+                android:id="@+id/hdrSubgenre"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="subgenre"
+                android:id="@+id/lblSubgenre" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Publisher"
+                android:id="@+id/hdrPublisher"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="publisher"
+                android:id="@+id/lblPublisher" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Developer"
+                android:id="@+id/hdrDeveloper"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="developer"
+                android:id="@+id/lblDeveloper" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Year"
+                android:id="@+id/hdrYear"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="year"
+                android:id="@+id/lblYear" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toRightOf="@+id/imgGameCover"
+            android:padding="1dp"
+            android:background="#000000"
+            android:id="@+id/frmOwned">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linearLayout"
+                android:layout_toRightOf="@+id/imgGameCover"
+                android:layout_toEndOf="@+id/imgGameCover"
+                android:background="#ffffff"
+                android:paddingLeft="1dp"
+                android:paddingBottom="3dp"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Owned"
+                    android:id="@+id/hdrOwned"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/linearLayout"
+                    android:layout_toRightOf="@+id/imgGameCover"
+                    android:layout_toEndOf="@+id/imgGameCover"
+                    android:textAlignment="center" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgBox"
+                    android:layout_below="@+id/hdrOwned"
+                    android:layout_toRightOf="@+id/imgCart"
+                    android:layout_toEndOf="@+id/imgCart"
+                    android:src="@drawable/box"
+                    android:paddingRight="5dp"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgCart"
+                    android:layout_below="@+id/hdrOwned"
+                    android:layout_toRightOf="@+id/imgGameCover"
+                    android:layout_toEndOf="@+id/imgGameCover"
+                    android:src="@drawable/cart"
+                    android:paddingRight="5dp"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/imgManual"
+                    android:src="@drawable/manual"
+                    android:layout_alignTop="@+id/imgBox"
+                    android:layout_toRightOf="@+id/imgBox"
+                    android:layout_toEndOf="@+id/imgBox"
+                    android:visibility="invisible"
+                    android:layout_marginRight="3dp" />
+            </RelativeLayout>
+        </FrameLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_centerHorizontal="true">
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            android:background="@android:color/darker_gray"
+            android:layout_below="@+id/imgGameCover"
+            android:layout_alignTop="@+id/lblSynTitle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:id="@+id/textView2" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Box synopsis"
+            android:id="@+id/lblSynTitle"
+            android:layout_below="@+id/imgGameCover"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:textStyle="bold"
+            android:layout_marginLeft="3dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="synopsis"
+            android:id="@+id/lblSynopsis"
+            android:layout_below="@+id/lblSynTitle"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="3dp" />
+        </RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

@@ -1,0 +1,74 @@
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/frmSearch"
+        android:background="#000000">
+
+        <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+            android:background="#ffffff"
+            android:layout_margin="1dp"
+            android:padding="2dp">
+
+           <!-- <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Search games"
+                android:id="@+id/lblLabel"
+                android:layout_alignRight="@+id/txtSearch"
+                android:layout_alignEnd="@+id/txtSearch"
+                android:textAlignment="center"
+                android:textSize="16sp" />
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:background="@android:color/darker_gray"
+                android:id="@+id/lblLine"
+                android:layout_alignBottom="@+id/lblLabel"
+                android:layout_below="@+id/lblLabel"
+                android:layout_alignRight="@+id/txtSearch"
+                android:layout_alignEnd="@+id/txtSearch" />-->
+            <EditText
+        android:id="@+id/txtSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+                android:ems="10"
+        android:hint="Type your search here..."
+
+                android:layout_alignLeft="@+id/field_name"
+                android:layout_alignStart="@+id/field_name">
+
+        <requestFocus />
+    </EditText>
+
+    <Spinner
+        android:layout_width="180sp"
+        android:layout_height="25sp"
+        android:id="@+id/field_name"
+        android:layout_below="@+id/txtSearch"
+        android:layout_marginLeft="4dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search"
+        android:id="@+id/btnOk"
+        android:layout_below="@+id/field_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="4dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cancel"
+        android:id="@+id/btnCancel"
+        android:layout_below="@+id/field_name"
+        android:layout_toRightOf="@+id/btnOk"
+        android:layout_toEndOf="@+id/btnOk" />
+
+</RelativeLayout>
+
+    </FrameLayout>

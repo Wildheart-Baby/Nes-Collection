@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Nes-Collection</string>
+    <string name="action_settings">Settings</string>
+    <string name="name">name</string>
+    <string name="title_activity_all_games">AllGames</string>
+    <string name="title_activity_game_detail">GameDetail</string>
+    <string name="title_activity_navigation_menu">NavigationMenu</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_search_results">SearchResults</string>
+    <string name="title_activity_owned_games">OwnedGames</string>
+    <string name="ownedgames">A B Us</string>
+    <string name="cartimage">cartimage</string>
+    <string name="boximage">boximage</string>
+    <string name="manualimage">manualimage</string>
+    <string name="title_activity_edit_owned_game">EditOwnedGame</string>
+    <string name="Owned">Owned</string>
+    <string name="gamename">Game Name</string>
+    <string name="palA">Pal A</string>
+    <string name="palBcart">Pal B</string>
+    <string name="US">US</string>
+    <string name="Ok">Ok</string>
+    <string name="Cancel">Cancel</string>
+    <string name="title_activity_needed_games">NeededGames</string>
+    <string name="Totalgames">Total games</string>
+    <string name="title_activity_nes_collection">NesCollection</string>
+    <string name="AllGames">All Games</string>
+    <string name="Needed">Needed</string>
+    <string name="Stats">Stats</string>
+    <string name="title_activity_main_page">MainPage</string>
+
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="Title">Nes Collection</string>
+    <string name="title_activity_favourite_games">FavouriteGames</string>
+
+</resources>
