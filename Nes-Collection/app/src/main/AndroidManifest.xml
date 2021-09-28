@@ -3,6 +3,7 @@
     package="uk.co.pixoveeware.nes_collection">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -100,13 +101,17 @@
         <activity
             android:name=".GamesDetail"
             android:label="@string/title_activity_games_detail"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".FinishedGames"
             android:label="@string/title_activity_finished_games"
-            android:theme="@style/AppTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".StatsSearchResults"
+            android:label="@string/title_activity_stats_search_results"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

@@ -35,7 +35,7 @@ public class NesItems {
     public String getSubgenre() {return subgenre;}
     public void setSubgenre(String subgenre) {this.subgenre = subgenre;}
 
-    public String getDeveloper() {return subgenre;}
+    public String getDeveloper() {return developer;}
     public void setDeveloper(String developer) {this.developer = developer;}
 
     public String getYear() {return year;}

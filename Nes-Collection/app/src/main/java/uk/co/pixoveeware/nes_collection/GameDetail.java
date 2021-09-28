@@ -128,10 +128,6 @@ public class GameDetail extends AppCompatActivity {
         //Cursor c = db.rawQuery(sql, null);
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-
-                //gamedetail = "Publisher: " + (c.getString(c.getColumnIndex("publisher"))) + "\n Genre: " + (c.getString(c.getColumnIndex("genre"))) + "\n Game synopsis: " + (c.getString(c.getColumnIndex("synopsis")));
-                //headers = "Genre:  \nSubgenre: \nPublisher: \nDeveloper: \nYear: \nOwned";
-
                 editgameid = (c.getInt(c.getColumnIndex("_id")));
                 covername = (c.getString(c.getColumnIndex("image")));
                 owned = (c.getInt(c.getColumnIndex("owned")));

@@ -93,7 +93,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             public void onClick(View v) {
                 sql = "SELECT * FROM eu where owned = 1 and (pal_a_cart = 8783 " + licensed + ")";
                 //Log.d("Pixo", sql);
-                Intent intent = new Intent(Statistics.this, SearchResults.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(Statistics.this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("pagetitle", "Pal A games");
                 startActivity(intent);//start the new screen
@@ -105,7 +105,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             public void onClick(View v) {
                 sql = "SELECT * FROM eu where owned = 1 and (pal_b_cart = 8783 " + licensed + ")";
                 //Log.d("Pixo", sql);
-                Intent intent = new Intent(Statistics.this, SearchResults.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(Statistics.this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("pagetitle", "Pal B games");
                 startActivity(intent);//start the new screen
@@ -117,7 +117,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             public void onClick(View v) {
                 sql = "SELECT * FROM eu where owned = 1 and (ntsc_cart = 8783 " + licensed + ")";
                 //Log.d("Pixo", sql);
-                Intent intent = new Intent(Statistics.this, SearchResults.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(Statistics.this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("pagetitle", "US games");
                 startActivity(intent);//start the new screen
@@ -181,7 +181,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         gamename = data.getName();
         sql = "select * from eu where owned = 1 and genre = '" + gamename + "';";
         //Log.d("Pixo", sql);
-        Intent intent = new Intent(this, SearchResults.class);//opens a new screen when the shopping list is clicked
+        Intent intent = new Intent(this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
         //intent.putExtra("columnname", fieldname);//passes the table name to the new screen
         //intent.putExtra("search", searchterm);//passes the table name to the new screen
         intent.putExtra("sqlstatement", sql);

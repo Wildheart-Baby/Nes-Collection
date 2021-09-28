@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -33,6 +34,7 @@ public class EditOwnedGame extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_owned_game);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         gameid = getIntent().getIntExtra("editgameid", 0);
@@ -133,9 +135,11 @@ public class EditOwnedGame extends AppCompatActivity {
         CheckBox chkusmanual = (CheckBox) findViewById(R.id.chkUSmanual);
         CheckBox onshelf = (CheckBox) findViewById(R.id.chkShelf);
 
+        TextView CostHdr = (TextView) findViewById(R.id.lblCost);
         EditText PalACost = (EditText) findViewById(R.id.txtPalAcost);
         EditText PalBCost = (EditText) findViewById(R.id.txtPalBcost);
         EditText USCost = (EditText) findViewById(R.id.txtUScost);
+        CheckBox BlankChk = (CheckBox) findViewById(R.id.checkBox);
 
         TextView PalACurrency = (TextView) findViewById(R.id.lblCurrencyPalA);
         TextView PalBCurrency = (TextView) findViewById(R.id.lblCurrencyPalB);
@@ -210,8 +214,9 @@ public class EditOwnedGame extends AppCompatActivity {
 
 
         if (ontheshelf == 1){onshelf.setChecked(true);} else { onshelf.setChecked(false);}
-        if (showprice == 0){PalACurrency.setVisibility(View.INVISIBLE); PalBCurrency.setVisibility(View.INVISIBLE); USCurrency.setVisibility(View.INVISIBLE);
-                            PalACost.setVisibility(View.INVISIBLE); PalBCost.setVisibility(View.INVISIBLE); USCost.setVisibility(View.INVISIBLE);}
+        if (showprice == 0){CostHdr.setVisibility(View.GONE); BlankChk.setVisibility(View.GONE);
+                            PalACurrency.setVisibility(View.GONE); PalBCurrency.setVisibility(View.GONE); USCurrency.setVisibility(View.GONE);
+                            PalACost.setVisibility(View.GONE); PalBCost.setVisibility(View.GONE); USCost.setVisibility(View.GONE);}
     }
 
     public void writegame(){

@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * Created by Wildheart on 06/06/2016.
  */
 public class NesCollectionAdapter extends BaseAdapter {
-
+    public static int screenwidth;
     static class ViewHolder {
         TextView gamename;
         TextView publisher;
@@ -30,7 +30,7 @@ public class NesCollectionAdapter extends BaseAdapter {
     private static final int TYPE_GAME = 0;
     private static final int TYPE_DIVIDER = 1;
 
-    int ownedgame, l, screenwidth;
+    int ownedgame, l;
     String test, thegamename;
 
     public NesCollectionAdapter(Context context, ArrayList<NesItems> list) {

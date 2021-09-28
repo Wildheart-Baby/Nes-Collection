@@ -42,6 +42,7 @@ public class NeededGames extends AppCompatActivity
     ArrayList<NesItems> nesList;
     ListView gamelistView;
     GridView gamegalleryview;
+    Toolbar toolbar;
 
 
     @Override
@@ -52,9 +53,9 @@ public class NeededGames extends AppCompatActivity
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        NesOwnedAdapter.screenwidth = metrics.widthPixels;
+        NesCollectionAdapter.screenwidth = metrics.widthPixels;
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -244,18 +245,21 @@ public class NeededGames extends AppCompatActivity
 
                 c.moveToNext();//move to the next record
             }
-            neededgames = c.getCount();
+            //neededgames = c.getCount();
             c.close();//close the cursor
         }
+        sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
+        c = db.rawQuery(sql, null);
+        neededgames = c.getCount();
+
         sql = "SELECT * FROM eu where " + wherestatement + licensed +  "";
-        Log.d("Pixo", sql);
         c = db.rawQuery(sql, null);
         totalgames = c.getCount();
         c.close();
         db.close();//close the database
 
         str = "You need " + neededgames + " of " + totalgames + " games";
-
+        toolbar.setSubtitle(str);
 
         if(viewas == 0){
             NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
