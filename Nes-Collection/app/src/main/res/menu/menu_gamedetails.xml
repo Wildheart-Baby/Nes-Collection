@@ -1,0 +1,30 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="uk.co.pixoveeware.nes_collection.MainActivity">
+
+    <item
+        android:id="@+id/action_edit"
+        android:icon="@drawable/ic_edit_white_24dp"
+        android:title="edit"
+        app:showAsAction="ifRoom"
+        />
+    <item
+        android:id="@+id/action_favourite"
+        android:icon="@drawable/ic_favorite_border_white_24dp"
+        android:title="favourite"
+        app:showAsAction="ifRoom" />
+    <item
+    android:id="@+id/action_wishlist"
+    android:title="@string/title_activity_wish_list"
+    app:showAsAction="never" />
+    <item
+    android:id="@+id/action_finishedgame"
+    android:title="@string/title_activity_finished_games"
+    app:showAsAction="never" />
+    <item
+        android:id="@+id/action_about"
+        android:orderInCategory="101"
+        android:title="@string/title_activity_about"
+        app:showAsAction="never" />
+</menu>

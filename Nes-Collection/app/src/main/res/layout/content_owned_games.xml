@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="0dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
+    android:paddingTop="0dp"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="uk.co.pixoveeware.nes_collection.OwnedGames"
+    android:background="#C0C0BB">
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/lvOwnedGames"
+            android:scrollingCache="false"
+            android:animationCache="false"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:fastScrollEnabled="true"
+            android:fastScrollAlwaysVisible="false"
+            android:drawSelectorOnTop="true" />
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="3"
+            android:id="@+id/gvAllGames"
+            android:numColumns="3"
+            android:scrollIndicators="none" />
+
+</RelativeLayout>

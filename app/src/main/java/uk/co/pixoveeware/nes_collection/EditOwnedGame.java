@@ -187,18 +187,18 @@ public class EditOwnedGame extends AppCompatActivity {
                 PalBCurrency.setText(currency);
                 USCurrency.setText(currency);
 
-                if (regionatrue == 0) { chkpalacart.setEnabled(false); chkpalabox.setEnabled(false); chkpalamanual.setEnabled(false);
+                if (regionatrue == 0) { chkpalacart.setEnabled(false); chkpalabox.setEnabled(false); chkpalamanual.setEnabled(false);  PalACost.setEnabled(false); PalACost.setText("");
                 } else if (regionatrue == 1) { if (palAcart == 8783) { chkpalacart.setChecked(true); } else { chkpalacart.setChecked(false); }
                     if (palAbox == 8783) { chkpalabox.setChecked(true); } else { chkpalabox.setChecked(false); }
                     if (palAmanual == 8783) { chkpalamanual.setChecked(true); } else { chkpalamanual.setChecked(false); }
                 }
 
-                if (regionbtrue == 0) { chkpalbcart.setEnabled(false); chkpalbbox.setEnabled(false); chkpalbmanual.setEnabled(false); }
+                if (regionbtrue == 0) { chkpalbcart.setEnabled(false); chkpalbbox.setEnabled(false); chkpalbmanual.setEnabled(false);  PalBCost.setEnabled(false); PalBCost.setText("");}
                 else if (regionustrue == 1) { if (palBcart == 8783) { chkpalbcart.setChecked(true);  } else { chkpalbcart.setChecked(false); }
                     if (palBbox == 8783) { chkpalbbox.setChecked(true); } else { chkpalbbox.setChecked(false);  }
                     if (palBmanual == 8783) { chkpalbmanual.setChecked(true); } else { chkpalbmanual.setChecked(false);}
                 }
-                if (regionustrue == 0) { chkuscart.setEnabled(false); chkusbox.setEnabled(false); chkusmanual.setEnabled(false); }
+                if (regionustrue == 0) { chkuscart.setEnabled(false); chkusbox.setEnabled(false); chkusmanual.setEnabled(false);  USCost.setEnabled(false); USCost.setText("");}
                 else if (regionustrue == 1) {if (uscart == 8783) { chkuscart.setChecked(true); } else { chkuscart.setChecked(false); }
                 if (usbox == 8783) { chkusbox.setChecked(true); } else { chkusbox.setChecked(false); }
                 if (usmanual == 8783) { chkusmanual.setChecked(true); } else { chkusmanual.setChecked(false);}

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:descendantFocusability="blocksDescendants">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout3">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="separator"
+            android:id="@+id/lblDivider"
+            android:background="#666666"
+            android:textColor="@color/nctopGrey"
+            android:layout_marginBottom="5dp"
+            android:paddingLeft="5dp"
+            android:visibility="gone"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:paddingLeft="10dp"
+        android:paddingTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:paddingBottom="5dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgGameCover"
+        android:scaleType="fitCenter"
+        android:contentDescription="@string/name"
+        android:adjustViewBounds="true"
+        android:maxHeight="75dp"
+        android:maxWidth="50dp"
+        android:paddingRight="5dp"
+        android:src="@drawable/placeholdersml" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgOwned"
+        android:src="@drawable/icon_owned_bronze"
+        android:visibility="invisible"
+        android:scaleType="fitCenter"
+        android:maxHeight="75dp"
+        android:maxWidth="50dp"
+        android:adjustViewBounds="true"
+        android:layout_marginRight="9dp"
+        android:layout_marginEnd="9dp"
+        android:layout_alignTop="@+id/imgGameCover"
+        android:layout_toLeftOf="@+id/lblGameName"
+        android:layout_toStartOf="@+id/lblGameName" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="game name"
+        android:id="@+id/lblGameName"
+        android:hint="gamename"
+        android:paddingTop="5dp"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/imgGameCover"
+        android:layout_toEndOf="@+id/imgGameCover"
+        android:layout_marginLeft="5dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/lblGameName"
+            android:text="New Text"
+            android:id="@+id/lblCost480"
+            android:layout_toRightOf="@+id/imgGameCover"
+            android:layout_toEndOf="@+id/imgGameCover"
+            android:visibility="gone"
+            android:layout_marginLeft="5dp" />
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:id="@+id/carthold"
+            android:layout_toEndOf="@+id/imgGameCover"
+            android:layout_toRightOf="@+id/imgGameCover"
+            android:paddingRight="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_below="@+id/lblCost480">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgCart"
+                android:src="@drawable/cart"
+                android:visibility="visible"
+                android:layout_marginRight="2dp" />
+
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/cart"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imgCart"
+                android:layout_toEndOf="@+id/imgCart"
+                android:text="@string/ownedgames" />
+
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgBox"
+                android:src="@drawable/box"
+                android:visibility="visible"
+                android:contentDescription="@string/boximage"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/cart"
+                android:layout_toEndOf="@+id/cart"
+                android:layout_marginRight="2dp" />
+
+        <TextView
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="@string/ownedgames"
+            android:id="@+id/box"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imgBox"
+            android:layout_toEndOf="@+id/imgBox"
+            android:visibility="visible" />
+
+        <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imgManual"
+                android:src="@drawable/manual"
+                android:visibility="visible"
+                android:layout_alignParentTop="false"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/box"
+                android:layout_toEndOf="@+id/box"
+            android:layout_marginRight="2dp" />
+            <TextView
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="@string/ownedgames"
+                android:id="@+id/manual"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imgManual"
+                android:layout_toEndOf="@+id/imgManual"
+                android:visibility="visible" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:id="@+id/lblCost"
+                android:layout_toRightOf="@+id/manual"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_alignParentRight="true" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

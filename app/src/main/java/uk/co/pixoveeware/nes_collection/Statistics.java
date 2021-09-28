@@ -38,7 +38,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     float[] datapoints;
     int[] piecolours;
 
-    String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll;
+    String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename;
     int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i;
     double percentPalAOwned, percentPalBOwned, percentUSOwned, percentagepalacollection, percentagepalbcollection, percentageuscollection;
     float palacost, palbcost, uscost, totalpalacost, totalpalbcost, totaluscost, totalcost;
@@ -125,10 +125,15 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
 
     @Override
     public void onSliceClick(DataColorSet data) {
-        // When the slice has been clicked. You can decide to call another
-        // activity here. We'll just make a toast
-        Toast.makeText(this, "Value is: " + data.getName(), Toast.LENGTH_SHORT).show();
-        //get datavalue and run search based on
+        gamename = data.getName();
+        sql = "select * from eu where owned = 1 and genre = '" + gamename + "';";
+        Log.d("Pixo", sql);
+        Intent intent = new Intent(this, SearchResults.class);//opens a new screen when the shopping list is clicked
+        //intent.putExtra("columnname", fieldname);//passes the table name to the new screen
+        //intent.putExtra("search", searchterm);//passes the table name to the new screen
+        intent.putExtra("sqlstatement", sql);
+        intent.putExtra("pagetitle", "" + gamename + " games");
+        startActivity(intent);//start the new screen
     }
 
 
@@ -483,7 +488,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             io ++;
         }
         if (ownedroleplayinggame > 0){
-            names[io] = "Role Playing Game";
+            names[io] = "Role-Playing Game";
             datapoints[io] = ownedroleplayinggame;
             piecolours[io] = Color.parseColor("#C0C0C0");
             io ++;
