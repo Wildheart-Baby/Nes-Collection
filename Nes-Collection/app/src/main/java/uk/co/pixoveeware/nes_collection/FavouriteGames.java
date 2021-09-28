@@ -316,7 +316,7 @@ public class FavouriteGames extends AppCompatActivity
             TextView title = (TextView) randomgame.findViewById(R.id.lblTitle);
             ImageView cover = (ImageView) randomgame.findViewById(R.id.imgGameCover);
 
-            randomgame.setTitle("Random game");
+            //randomgame.setTitle("Random game");
             SQLiteDatabase db;//sets up the connection to the database
             db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
             Cursor c = db.rawQuery("SELECT * FROM eu where _id = " + itemId + "", null);//select everything from the database table

@@ -48,7 +48,7 @@ public class GamesDetail extends AppCompatActivity {
         pos = getIntent().getIntExtra("position",0);//sets a variable fname with data passed from the main screen
         sql = getIntent().getStringExtra("sqlstatement");
         //sql = "SELECT * FROM eu where " + sqlstate;
-        Log.d("Pixo", "Value: " + sql);
+        Log.d("pixowned", "Value game id: " + gameid + " position: " + pos + " name: " + gamename);
         //thegameid = (TextView) findViewById(R.id.lblGameid);
         setTitle("Game Details");//sets the screen title with the shopping list name
         gameregion();

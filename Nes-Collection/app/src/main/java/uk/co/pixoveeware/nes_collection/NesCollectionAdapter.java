@@ -30,7 +30,8 @@ public class NesCollectionAdapter extends BaseAdapter {
     private static final int TYPE_GAME = 0;
     private static final int TYPE_DIVIDER = 1;
 
-    int ownedgame;
+    int ownedgame, l, screenwidth;
+    String test, thegamename;
 
     public NesCollectionAdapter(Context context, ArrayList<NesItems> list) {
 
@@ -79,7 +80,11 @@ public class NesCollectionAdapter extends BaseAdapter {
         gameimage = nesListItems.getImage();
         int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
         holder.cover.setImageResource(coverid);
-        holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
+        thegamename = nesListItems.getName();
+        l = thegamename.length();
+        if (screenwidth < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
+        holder.gamename.setText(thegamename); //sets the textview name with data from name
+        //holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
         holder.publisher.setText(nesListItems.getPublisher());
 
         if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}

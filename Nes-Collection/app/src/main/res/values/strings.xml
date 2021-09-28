@@ -8,6 +8,8 @@
     <string name="title_activity_game_detail">GameDetail</string>
     <string name="title_activity_navigation_menu">NavigationMenu</string>
 
+    <string name="banner_ad_unit_id">ca-app-pub-0537596348696744/4062549395</string>
+
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_search_results">SearchResults</string>
@@ -42,6 +44,19 @@
     <string name="Settings">Settings</string>
     <string name="Unlicensed">Include unlicensed games</string>
     <string name="RandomHeading">Your randomly selected game is</string>
+    <string name="action_order_alphabetic">Order alphabetically</string>
+    <string name="action_order_price">Order by price</string>
+
+    <string name="mainAllGames">All games</string>
+    <string name="mainNeededGames">Needed games</string>
+    <string name="mainOwnedGames">Owned games</string>
+    <string name="mainFavouriteGames">Favourites</string>
+    <string name="mainWishList">Wish list</string>
+    <string name="mainShelfOrder">Shelf order</string>
+    <string name="mainStatistics">Statistics</string>
+    <string name="mainFinishedGames">Finished games</string>
+    <string name="mainSettings">Settings</string>
+
 
     <string-array name="currencyArray">
         <item>£</item>

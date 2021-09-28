@@ -27,11 +27,16 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 public class Settings extends AppCompatActivity {
 
     String regionselected, sql, currentregion, licensed, currentcurrency, shelfS, wherestatement;
     int shelfsize, showprice, posF, listtype;
     ArrayAdapter<CharSequence> adapter, adapter2;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +57,11 @@ public class Settings extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-0537596348696744~2585816192");
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         getsettings();
         setregion();
 
@@ -67,6 +77,10 @@ public class Settings extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+            case R.id.action_save:
+                setSetttings();
+                return true;
+
             case R.id.action_about:
                 Intent intent3 = new Intent(this, About.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent3);//start the new screen
@@ -160,10 +174,9 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        ok.setOnClickListener(new View.OnClickListener() {
+        /*ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//read the quantity from the quantity text box and adds one to the total
-
 
                 if (regionselected.contains("Pal A")) {
                     sql = "pal_a_release = 1";
@@ -214,7 +227,7 @@ public class Settings extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
-        });
+        });*/
     }
 
     public void getsettings(){
@@ -239,5 +252,52 @@ public class Settings extends AppCompatActivity {
         db.close();//close the database
     }
 
+    public void setSetttings(){
+        final CheckBox unlicensed = (CheckBox) findViewById(R.id.chkUnlicensed);
+        final TextView shelfspace = (TextView) findViewById(R.id.txtShelfSize);
+        final CheckBox showprices = (CheckBox) findViewById(R.id.chkShowPrices);
+
+            if (regionselected.contains("Pal A")) {
+                sql = "pal_a_release = 1";
+            }
+            if (regionselected.contains("Pal A UK")) {
+                sql = "pal_uk_release = 1";
+            }
+            if (regionselected.contains("Pal B")) {
+                sql = "pal_b_release = 1";
+            }
+            if (regionselected.contains("Ntsc")) {
+                sql = "ntsc_release = 1";
+            }
+            if (regionselected.contains("Pal A & B")) {
+                sql = "pal_a_release = 1 or pal_b_release = 1";
+            }
+            if (regionselected.contains("Pal A & Ntsc")) {
+                sql = "pal_a_release = 1 or ntsc_release = 1";
+            }
+            if (regionselected.contains("Pal B & Ntsc")) {
+                sql = "pal_b_release = 1 or ntsc_release = 1";
+            }
+            if (regionselected.contains("All Regions")) {
+                sql = "pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1";
+            }
+
+            if (unlicensed.isChecked()){ licensed = " and (unlicensed = 0 or 1)";} else  { licensed = " and (unlicensed = 0)"; }
+            if (showprices.isChecked()){ showprice = 1;} else  { showprice = 0; }
+            shelfS = shelfspace.getText().toString();
+
+            if (shelfS.matches("") || !Character.isDigit(shelfS.charAt(0))) {shelfsize = 9;}
+            else {shelfsize = Integer.valueOf(shelfspace.getText().toString());}
+
+            SQLiteDatabase db;//set up the connection to the database
+            db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+            String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "',currency = '" + currentcurrency + "',game_view = '" + listtype + "',show_price = '" + showprice + "'"; //update the database basket field with 8783
+            db.execSQL(str);//run the sql command
+            db.close();//close the database
+            Intent intent = new Intent(Settings.this, MainActivity.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+            finish();
+
+    }
 
 }

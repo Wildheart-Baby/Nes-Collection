@@ -6,9 +6,10 @@ package uk.co.pixoveeware.nes_collection;
 public class NesItems {
 
 
-    String name, publisher, synopsis, image, genre, region, group, subgenre, developer, year;
-    int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual, pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist, finished;
-
+    String name, publisher, synopsis, image, genre, region, group, subgenre, developer, year, currency;
+    int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual,
+            pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist, finished;
+    double pal_a_cost, pal_b_cost, ntsc_cost;
 
     public int getItemId() { return _id; }
     public void setItemId(int _id) { this._id = _id; } //returns the item id
@@ -91,4 +92,15 @@ public class NesItems {
     public int getFinished() { return finished; }
     public void SetFinished(int finished) { this.finished = finished; } //returns the item id
 
+    public double getPalACost() { return pal_a_cost; }
+    public void setPalACost(double pal_a_cost) { this.pal_a_cost = pal_a_cost; } //returns the item id
+
+    public double getPalBCost() { return pal_b_cost; }
+    public void setPalBCost(double pal_b_cost) { this.pal_b_cost = pal_b_cost; } //returns the item id
+
+    public double getNtscCost() { return ntsc_cost; }
+    public void setNtscCost(double ntsc_cost) { this.ntsc_cost = ntsc_cost; } //returns the item id
+
+    public String getCurrency() { return currency; }
+    public void setCurrency(String currency) { this.currency = currency; }//returns the item department
 }

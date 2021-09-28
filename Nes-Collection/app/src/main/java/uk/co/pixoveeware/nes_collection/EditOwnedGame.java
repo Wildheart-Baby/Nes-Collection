@@ -27,7 +27,7 @@ public class EditOwnedGame extends AppCompatActivity {
         palBmanual, uscart, usbox, usmanual, cart, box, manual, owned,
         regionatrue, regionbtrue, regionustrue, favourite, ontheshelf, wishlist, showprice, palaowned, palbowned, usowned;
     String covername, sql, test, currency, PACheck, PBCheck, USCheck;
-    Double  PalAcost,PalBcost, UScost;
+    Double  PalAcost,PalBcost, UScost, price;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -257,15 +257,20 @@ public class EditOwnedGame extends AppCompatActivity {
         if (PACheck.matches("") || !Character.isDigit(PACheck.charAt(0))) {PalAcost = 0.00;}
         else {PalAcost = Double.valueOf(PalACost.getText().toString());}
 
-        if (PBCheck.matches("") || !Character.isDigit(PBCheck.charAt(0))) {PalAcost = 0.00;}
+        if (PBCheck.matches("") || !Character.isDigit(PBCheck.charAt(0))) {PalBcost = 0.00;}
         else {PalBcost = Double.valueOf(PalBCost.getText().toString());}
 
-        if (USCheck.matches("") || !Character.isDigit(USCheck.charAt(0))) {PalAcost = 0.00;}
+        if (USCheck.matches("") || !Character.isDigit(USCheck.charAt(0))) {UScost = 0.00;}
         else {UScost = Double.valueOf(USCost.getText().toString());}
+
+        if (PalAcost > PalBcost && PalAcost > UScost){price = PalAcost;}
+        else if (PalBcost > PalAcost && PalBcost > UScost){price = PalBcost;}
+        else if (UScost > PalAcost && UScost > PalBcost){price = UScost;}
+        //else if (PalAcost OR PalBcost or UScost == 0.0;){price = 0.0;}
 
         SQLiteDatabase db;//set up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-        String str = "UPDATE eu SET owned = " + owned + ", cart = " + cart + ", box = " + box + ", manual = " + manual + ", pal_a_cart = " + palAcart + ", pal_a_box = " + palAbox + ", pal_a_manual = " + palAmanual + ", pal_b_cart = " + palBcart + ", pal_b_box = " + palBbox + ", pal_b_manual = " + palBmanual + ", ntsc_cart = " + uscart + ", ntsc_box = " + usbox + ",  ntsc_manual = " + usmanual + ",  pal_a_cost = " + PalAcost + ",  pal_b_cost = " + PalBcost + ",  ntsc_cost = " + UScost + ",  onshelf = " + ontheshelf +  ",  pal_a_owned = " + palaowned +  ",  pal_b_owned = " + palbowned +  ",  ntsc_owned = " + usowned +  ",  wishlist = 0 where _id = " + gameid + " "; //update the database basket field with 8783
+        String str = "UPDATE eu SET owned = " + owned + ", cart = " + cart + ", box = " + box + ", manual = " + manual + ", pal_a_cart = " + palAcart + ", pal_a_box = " + palAbox + ", pal_a_manual = " + palAmanual + ", pal_b_cart = " + palBcart + ", pal_b_box = " + palBbox + ", pal_b_manual = " + palBmanual + ", ntsc_cart = " + uscart + ", ntsc_box = " + usbox + ",  ntsc_manual = " + usmanual + ",  pal_a_cost = " + PalAcost + ",  pal_b_cost = " + PalBcost + ",  ntsc_cost = " + UScost + ",  price = " + price + ",  onshelf = " + ontheshelf +  ",  pal_a_owned = " + palaowned +  ",  pal_b_owned = " + palbowned +  ",  ntsc_owned = " + usowned +  ",  wishlist = 0 where _id = " + gameid + " "; //update the database basket field with 8783
         db.execSQL(str);//run the sql command
                 Log.d("Pixo", str);
                 //Intent intent = new Intent(EditOwnedGame.this, OwnedGames.class);//opens a new screen when the shopping list is clicked

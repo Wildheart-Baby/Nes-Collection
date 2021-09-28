@@ -26,6 +26,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import org.w3c.dom.Text;
 
 import java.util.Arrays;
@@ -119,6 +123,11 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 startActivity(intent);//start the new screen
             }
         });
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-0537596348696744~2585816192");
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
@@ -215,7 +224,6 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     }
 
     public void readDatabase() {
-        Log.d("Pixo", "Running read database");
         TextView pala = (TextView) findViewById(R.id.lblPalA);
         TextView palb = (TextView) findViewById(R.id.lblPalB);
         TextView us = (TextView) findViewById(R.id.lblUS);
