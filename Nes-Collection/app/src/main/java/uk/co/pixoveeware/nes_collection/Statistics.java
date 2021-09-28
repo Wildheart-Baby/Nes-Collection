@@ -44,6 +44,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
 
     String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename, gamescost, gameorgames;
     int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i, showprices, numberowned, palaMaxCost, palbMaxCost, usMaxCost,totalfinished;
+    //int ownedaction, ownedadventure, ownedbeatemup, ownedactionadventure, ownedarcade, ownedboardgame, ownedcompilation, ownedfighting, ownedother, ownedplatformer, ownedpuzzle, ownedracing, ownedroleplayinggame, ownedshootemup, ownedshooter, ownedsimulation, ownedsports, ownedstrategy, ownedtraditional, ownedtrivia;
     double percentPalAOwned, percentPalBOwned, percentUSOwned, percentagepalacollection, percentagepalbcollection, percentageuscollection;
     float palacost, palbcost, uscost, totalpalacost, totalpalbcost, totaluscost, totalcost;
     int lay = 1;
@@ -496,11 +497,10 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
 
 
     public void piechart(){
-        Log.d("Pixo", "Running piechart");
         i = 0;
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-
+        //Cursor c;
         sql = "SELECT * FROM eu where owned = 1 and genre = 'Action-Adventure'";
         Cursor c = db.rawQuery(sql, null);
         int ownedactionadventure = c.getCount();
@@ -552,7 +552,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         sql = "SELECT * FROM eu where owned = 1 and genre = 'Compilation'";
         c = db.rawQuery(sql, null);
         int ownedcompilation = c.getCount();
-
+        Log.d("compilation set up","value: " + ownedcompilation);
         if (ownedcompilation > 0) {
             i++;
         }
@@ -724,25 +724,28 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         c = db.rawQuery(sql, null);
         int ownedAboardgame = c.getCount();
 
-        sql = "SELECT * FROM eu where pal_b_cost = 8783 and genre = 'Board game'";
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Board game'";
         c = db.rawQuery(sql, null);
         int ownedBboardgame = c.getCount();
 
-        sql = "SELECT * FROM eu where ntsc_cost = 8783 and genre = 'Board game'";
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Board game'";
         c = db.rawQuery(sql, null);
         int ownedUSboardgame = c.getCount();
 
-        sql = "SELECT * FROM eu where pal_a_cost = 8783 and genre = 'Compilation'";
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Compilation'";
         c = db.rawQuery(sql, null);
         int ownedAcompilation = c.getCount();
+        Log.d("compilation pal a","value: " + ownedAcompilation);
 
-        sql = "SELECT * FROM eu where pal_b_cost = 8783 and genre = 'Compilation'";
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Compilation'";
         c = db.rawQuery(sql, null);
         int ownedBcompilation = c.getCount();
+        Log.d("compilation pal a","value: " + ownedBcompilation);
 
-        sql = "SELECT * FROM eu where ntsc_cost = 8783 and genre = 'Compilation'";
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Compilation'";
         c = db.rawQuery(sql, null);
         int ownedUScompilation = c.getCount();
+        Log.d("compilation us","value: " + ownedUScompilation);
 
         sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Fighting'";
         c = db.rawQuery(sql, null);
@@ -929,121 +932,141 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             names[io] = "Action-Adventure";
             datapoints[io] = ownedactionadventure;
             piecolours[io] = Color.parseColor("#FF2B32");
+            Log.d("Pixo", "Colour adventure: " + Color.parseColor("#FF2B32"));
             io++;
         }
         if (ownedaction > 0) {
             names[io] = "Action";
             datapoints[io] = ownedaction;
             piecolours[io] = Color.parseColor("#FF6A00");
+            Log.d("Pixo", "Colour action: " + Color.parseColor("#FF6A00"));
             io++;
         }
         if (ownedadventure > 0) {
             names[io] = "Adventure";
             datapoints[io] = ownedadventure;
             piecolours[io] = Color.parseColor("#FFD800");
+            Log.d("Pixo", "Colour adventure: " + Color.parseColor("#FFD800"));
             io++;
         }
         if (ownedarcade > 0) {
             names[io] = "Arcade";
             datapoints[io] = ownedarcade;
             piecolours[io] = Color.parseColor("#B6FF00");
+            Log.d("Pixo", "Colour arcade: " + Color.parseColor("#B6FF00"));
             io++;
         }
         if (ownedbeatemup > 0) {
             names[io] = "Beat em Up";
             datapoints[io] = ownedbeatemup;
             piecolours[io] = Color.parseColor("#FF004C");
+            Log.d("Pixo", "Colour beat: " + Color.parseColor("#FF004C"));
             io++;
         }
         if (ownedboardgame > 0) {
             names[io] = "Board game";
             datapoints[io] = ownedboardgame;
             piecolours[io] = Color.parseColor("#Ff0Fff");
-            io++;
+            Log.d("Pixo", "Colour boardgame: " + Color.parseColor("#Ff0Fff"));
+
+                    io++;
         }
         if (ownedcompilation > 0) {
             names[io] = "Compilation";
             datapoints[io] = ownedcompilation;
-            piecolours[io] = Color.parseColor("#0094FF");
+            piecolours[io] = Color.parseColor("#0095FF");
+            Log.d("Pixo", "Colour compilation: " + Color.parseColor("#0095FF"));
             io++;
         }
         if (ownedfighting > 0) {
             names[io] = "Fighting";
             datapoints[io] = ownedfighting;
             piecolours[io] = Color.parseColor("#B200FF");
+            Log.d("Pixo", "Colour fighting: " + Color.parseColor("#B200FF"));
             io++;
         }
         if (ownedother > 0) {
             names[io] = "Other";
             datapoints[io] = ownedother;
             piecolours[io] = Color.parseColor("#FF006E");
+            Log.d("Pixo", "Colour other: " + Color.parseColor("#FF006E"));
             io++;
         }
         if (ownedplatformer > 0) {
             names[io] = "Platformer";
             datapoints[io] = ownedplatformer;
             piecolours[io] = Color.parseColor("#FF00DC");
+            Log.d("Pixo", "Colour platformer: " + Color.parseColor("#FF00DC"));
             io++;
         }
         if (ownedpuzzle > 0) {
             names[io] = "Puzzle";
             datapoints[io] = ownedpuzzle;
             piecolours[io] = Color.parseColor("#B002FF");
+            Log.d("Pixo", "Colour puzzle: " + Color.parseColor("#B002FF"));
             io++;
         }
         if (ownedracing > 0) {
             names[io] = "Racing";
-            Log.d("Pixo", ""+ownedracing);
             datapoints[io] = ownedracing;
             piecolours[io] = Color.parseColor("#FF7F7F");
+            Log.d("Pixo", "Colour racing: " + Color.parseColor("#FF7F7F"));
             io++;
         }
         if (ownedroleplayinggame > 0) {
             names[io] = "Role-Playing Game";
             datapoints[io] = ownedroleplayinggame;
             piecolours[io] = Color.parseColor("#C0C0C0");
+            Log.d("Pixo", "Colour rpg: " + Color.parseColor("#C0C0C0"));
             io++;
         }
         if (ownedshootemup > 0) {
             names[io] = "Shoot em Up";
             datapoints[io] = ownedshootemup;
             piecolours[io] = Color.parseColor("#613F7C");
+            Log.d("Pixo", "Colour shmup: " + Color.parseColor("#613F7C"));
             io++;
         }
         if (ownedshooter > 0) {
             names[io] = "Shooter";
             datapoints[io] = ownedshooter;
             piecolours[io] = Color.parseColor("#60C5FF");
+            Log.d("Pixo", "Colour shooter: " + Color.parseColor("#60C5FF"));
             io++;
         }
         if (ownedsimulation > 0) {
             names[io] = "Simulation";
             datapoints[io] = ownedsimulation;
             piecolours[io] = Color.parseColor("#FFAFB5");
+            Log.d("Pixo", "Colour sim: " + Color.parseColor("#FFAFB5"));
             io++;
         }
         if (ownedsports > 0) {
             names[io] = "Sports";
             datapoints[io] = ownedsports;
             piecolours[io] = Color.parseColor("#D5FFBF");
+            Log.d("Pixo", "Colour sports: " + Color.parseColor("#D5FFBF"));
             io++;
         }
         if (ownedstrategy > 0) {
             names[io] = "Strategy";
             datapoints[io] = ownedstrategy;
             piecolours[io] = Color.parseColor("#4FFFBE");
+            Log.d("Pixo", "Colour strat: " + Color.parseColor("#4FFFBE"));
             io++;
         }
         if (ownedtraditional > 0) {
             names[io] = "Traditional";
             datapoints[io] = ownedtraditional;
             piecolours[io] = Color.parseColor("#A856FF");
+            Log.d("Pixo", "Colour trad: " + Color.parseColor("#A856FF"));
             io++;
         }
         if (ownedtrivia > 0) {
             names[io] = "Trivia";
             datapoints[io] = ownedtrivia;
             piecolours[io] = Color.parseColor("#CBFF72");
+            Log.d("Pixo", "Colour trivi9a: " + Color.parseColor("#CBFF72"));
             io++;
         }
 

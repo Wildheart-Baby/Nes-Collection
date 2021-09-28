@@ -18,10 +18,12 @@
             android:id="@+id/lvOwnedGames"
             android:scrollingCache="false"
             android:animationCache="false"
-            android:layout_weight="0.80"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:fastScrollEnabled="true"
+            android:fastScrollAlwaysVisible="false"
+            android:drawSelectorOnTop="true" />
         <GridView
             android:layout_width="match_parent"
             android:layout_height="match_parent"

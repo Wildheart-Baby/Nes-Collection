@@ -238,4 +238,6 @@ public class Settings extends AppCompatActivity {
         }
         db.close();//close the database
     }
+
+
 }

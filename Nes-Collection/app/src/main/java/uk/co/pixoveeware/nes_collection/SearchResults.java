@@ -242,4 +242,10 @@ public class SearchResults extends AppCompatActivity {
         db.close();//close the database
     }
 
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        readList();//run the list tables function
+    }
+
 }
