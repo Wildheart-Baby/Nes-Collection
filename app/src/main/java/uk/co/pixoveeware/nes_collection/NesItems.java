@@ -7,7 +7,7 @@ public class NesItems {
 
 
     String name, publisher, synopsis, image, genre, region, group, subgenre, developer, year;
-    int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual, pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist;
+    int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual, pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist, finished;
 
 
     public int getItemId() { return _id; }
@@ -87,5 +87,8 @@ public class NesItems {
 
     public int getWishlist() { return wishlist; }
     public void SetWishlist(int wishlist) { this.wishlist = wishlist; } //returns the item id
+
+    public int getFinished() { return finished; }
+    public void SetFinished(int finished) { this.finished = finished; } //returns the item id
 
 }

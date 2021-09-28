@@ -160,7 +160,7 @@
                 android:layout_below="@+id/linearLayout"
                 android:layout_toRightOf="@+id/imgGameCover"
                 android:layout_toEndOf="@+id/imgGameCover"
-                android:background="#ffffff"
+                android:background="#d6d6d1"
                 android:paddingLeft="1dp"
                 android:paddingBottom="3dp"
                 android:gravity="center_horizontal">

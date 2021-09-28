@@ -7,7 +7,7 @@
     android:layout_height="fill_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="uk.co.pixoveeware.nes_collection.GameDetail"
-    tools:showIn="@layout/activity_game_detail"
+
     android:fillViewport="true">
 
     <RelativeLayout
@@ -32,7 +32,7 @@
             android:text="@string/gamename"
             android:id="@+id/lblGameName"
             android:textAlignment="center"
-            android:textSize="24sp"
+            android:textSize="30sp"
             android:textStyle="bold"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/linearLayout"
@@ -40,13 +40,11 @@
             android:layout_marginBottom="5dp" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="350dp"
             android:id="@+id/imgGameCover"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
-            android:maxHeight="240dp"
-            android:maxWidth="175dp"
             android:paddingRight="3dp"
             android:src="@drawable/placeholder"
             android:contentDescription="game cover"
@@ -72,7 +70,8 @@
                 android:layout_below="@+id/textView"
                 android:layout_toRightOf="@+id/lblGenre"
                 android:layout_toEndOf="@+id/lblGenre"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="18sp" />
 
 
             <TextView
@@ -82,59 +81,68 @@
                 android:id="@+id/lblGenre"
                 android:layout_below="@+id/textView"
                 android:layout_toRightOf="@+id/imgGameCover"
-                android:layout_toEndOf="@+id/imgGameCover" />
+                android:layout_toEndOf="@+id/imgGameCover"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Subgenre"
                 android:id="@+id/hdrSubgenre"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="subgenre"
-                android:id="@+id/lblSubgenre" />
+                android:id="@+id/lblSubgenre"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Publisher"
                 android:id="@+id/hdrPublisher"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="publisher"
-                android:id="@+id/lblPublisher" />
+                android:id="@+id/lblPublisher"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Developer"
                 android:id="@+id/hdrDeveloper"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="developer"
-                android:id="@+id/lblDeveloper" />
+                android:id="@+id/lblDeveloper"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Year"
                 android:id="@+id/hdrYear"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:textSize="18sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="year"
-                android:id="@+id/lblYear" />
+                android:id="@+id/lblYear"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <FrameLayout
@@ -163,14 +171,13 @@
                     android:text="@string/Owned"
                     android:id="@+id/hdrOwned"
                     android:textStyle="bold"
-                    android:layout_below="@+id/linearLayout"
-                    android:layout_toRightOf="@+id/imgGameCover"
-                    android:layout_toEndOf="@+id/imgGameCover"
-                    android:textAlignment="center" />
+
+                    android:textAlignment="center"
+                    android:textSize="20sp" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:id="@+id/imgBox"
                     android:layout_below="@+id/hdrOwned"
                     android:layout_toRightOf="@+id/imgCart"
@@ -180,8 +187,8 @@
                     android:visibility="invisible" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:id="@+id/imgCart"
                     android:layout_below="@+id/hdrOwned"
                     android:layout_toRightOf="@+id/imgGameCover"
@@ -191,8 +198,8 @@
                     android:visibility="invisible" />
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:id="@+id/imgManual"
                     android:src="@drawable/manual"
                     android:layout_alignTop="@+id/imgBox"
@@ -233,7 +240,8 @@
             android:paddingTop="5dp"
             android:paddingBottom="5dp"
             android:textStyle="bold"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:textSize="20sp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -242,7 +250,8 @@
             android:layout_below="@+id/lblSynTitle"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginLeft="3dp" />
+            android:layout_marginLeft="3dp"
+            android:textSize="20sp" />
         </RelativeLayout>
     </RelativeLayout>
 </ScrollView>

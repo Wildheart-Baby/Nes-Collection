@@ -40,7 +40,8 @@ public class WishList extends AppCompatActivity
 
     Context context;
 
-    String name, readgamename, searchterm,fieldname, sql, wherestatement;
+    String name, readgamename, searchterm,fieldname, sql, currentgroup, wherestatement;
+    String prevgroup = "";
     int readgameid, index, top, count, randomgame, itemId, totalResults, viewas;
 
     @Override
@@ -259,14 +260,28 @@ public class WishList extends AppCompatActivity
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
                 NesItems nesListItems = new NesItems();//creates a new array
-                nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
-                nesListItems.setImage(c.getString(c.getColumnIndex("image")));
-                nesListItems.setName(c.getString(c.getColumnIndex("name")));
-                nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
-                //nesListItems.setOwned(c.getInt(c.getColumnIndex("favourite")));
+                currentgroup = c.getString(c.getColumnIndex("groupheader"));
 
-                nesList.add(nesListItems);//add items to the arraylist
+                if(!currentgroup.equals(prevgroup)){
+                    nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
+                    nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
+                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                    nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
+                    nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
+                    nesList.add(nesListItems);//add items to the arraylist
+                    prevgroup = c.getString(c.getColumnIndex("groupheader"));
+                }
+                else if(currentgroup.equals(prevgroup)){
+                    nesListItems.setGroup("no");
+                    nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
+                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                    nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
+                    nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
+                    nesList.add(nesListItems);//add items to the arraylist
+                    prevgroup = c.getString(c.getColumnIndex("groupheader"));
+                }
                 c.moveToNext();//move to the next record
             }
             //c.getcount(totalgames);

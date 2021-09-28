@@ -170,6 +170,7 @@ public class GameDetail extends AppCompatActivity {
     }
 
     public void editgame(){
+
         Intent intent = new Intent(GameDetail.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
         intent.putExtra("editgameid", editgameid);
         startActivity(intent);//start the new screen
