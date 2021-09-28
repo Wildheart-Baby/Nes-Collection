@@ -1,11 +1,7 @@
 package uk.co.pixoveeware.nes_collection;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +15,7 @@ import java.util.ArrayList;
  * Created by Wildheart on 06/06/2016.
  */
 public class NesCollectionAdapter extends BaseAdapter {
-    public static int screenwidth;
+
     static class ViewHolder {
         TextView gamename;
         TextView publisher;
@@ -34,8 +30,7 @@ public class NesCollectionAdapter extends BaseAdapter {
     private static final int TYPE_GAME = 0;
     private static final int TYPE_DIVIDER = 1;
 
-    int ownedgame, l;
-    String test, thegamename;
+    int ownedgame;
 
     public NesCollectionAdapter(Context context, ArrayList<NesItems> list) {
 
@@ -83,40 +78,12 @@ public class NesCollectionAdapter extends BaseAdapter {
         holder.separator.setText(nesListItems.getGroup());
         gameimage = nesListItems.getImage();
         int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
-        int ownedid;
         holder.cover.setImageResource(coverid);
-
-        thegamename = nesListItems.getName();
-        l = thegamename.length();
-        if (MainActivity.width < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
-        holder.gamename.setText(thegamename); //sets the textview name with data from name
-        //holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
+        holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
         holder.publisher.setText(nesListItems.getPublisher());
 
-
-        if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
-            ownedid=context.getResources().getIdentifier("icon_owned_gold", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 0){
-            ownedid=context.getResources().getIdentifier("icon_owned_silver", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 1 && nesListItems.box == 0 && nesListItems.manual == 1){
-        ownedid=context.getResources().getIdentifier("icon_owned_silver", "drawable", context.getPackageName());
-        holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 0 && nesListItems.box == 1 && nesListItems.manual == 1){
-            ownedid=context.getResources().getIdentifier("icon_owned_silver", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 1 && nesListItems.box == 0 && nesListItems.manual == 0){
-        ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
-        holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 0 && nesListItems.box == 1 && nesListItems.manual == 0){
-            ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 0 && nesListItems.box == 0 && nesListItems.manual == 1){
-            ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }
         if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}
+
         if (position % 2 == 0) {
             convertView.setBackgroundColor(Color.parseColor("#CAC9C5"));
         } else {
@@ -126,6 +93,9 @@ public class NesCollectionAdapter extends BaseAdapter {
 
         return convertView; //return the convertview and show the listview
     }
+
+
+
 
 }
 

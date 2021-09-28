@@ -1,27 +1,29 @@
 package uk.co.pixoveeware.nes_collection;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.Toast;
-
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -31,18 +33,11 @@ public class MainActivity extends AppCompatActivity
 
     String searchterm,fieldname, wherestatement, sql, regionselected;
     int pala, palb, us;
-    public static int width;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        width = metrics.widthPixels;
-
-        if (width <600){setContentView(R.layout.activity_main_small);} else if (width >599){setContentView(R.layout.activity_main);}
-
+        setContentView(R.layout.activity_main);
         //File dbfile = new File(this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite");
 
         ImageButton AllGames = (ImageButton) findViewById(R.id.btnAllGames);
@@ -59,19 +54,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //setTitle("Nes Collection");
-
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        Log.d("Pixo-screen", "The logical density of the display: " + dm.density );
-        Log.d("Pixo-screen", "The screen density expressed as dots-per-inch: " + dm.densityDpi );
-        Log.d("Pixo-screen", "The absolute height of the display in pixels: " + dm.heightPixels );
-        Log.d("Pixo-screen", "The absolute width of the display in pixels: " + dm.widthPixels );
-        Log.d("Pixo-screen", "A scaling factor for fonts displayed on the display: " + dm.scaledDensity );
-        Log.d("Pixo-screen", "The exact physical pixels per inch of the screen in the X dimension: " + dm.xdpi );
-        Log.d("Pixo-screen", "The exact physical pixels per inch of the screen in the Y dimension: " + dm.ydpi );
-
+        setTitle("Nes Collect");
         AllGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, AllGames.class);//opens a new screen when the shopping list is clicked
@@ -147,13 +130,7 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-
         navigationView.setNavigationItemSelectedListener(this);
-
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-0537596348696744~2585816192");
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
     }
 
     @Override

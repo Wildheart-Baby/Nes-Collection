@@ -6,9 +6,9 @@
         <item name="colorPrimary">@color/ncbottomGrey</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/material_blue_grey_900</item>
-        <item name="android:textColorPrimary">@color/ncbottomGrey</item>
+        <item name="android:textColorPrimary">@color/ncbuttonRed</item>
         <item name="android:windowBackground">@color/nctopGrey</item>
-        <item name="android:textColorSecondary">@color/dim_foreground_disabled_material_light</item>
+        <item name="android:textColorSecondary">@color/ncbuttonRed</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

@@ -22,13 +22,7 @@
             android:animationCache="false"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:drawSelectorOnTop="true"
-            android:fastScrollEnabled="true"
-            android:fastScrollAlwaysVisible="false"
-            android:scrollbarThumbVertical="@drawable/custom_scroll_style"
-            android:fastScrollStyle="@drawable/custom_scroll_style"
-            android:textFilterEnabled="true" />
+            android:layout_alignParentEnd="true"/>
 
 
     <GridView

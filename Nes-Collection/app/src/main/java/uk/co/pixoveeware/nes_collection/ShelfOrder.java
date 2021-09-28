@@ -31,9 +31,9 @@ public class ShelfOrder extends AppCompatActivity
     final Context context = this;
     SQLiteDatabase sqlDatabase;
 
-    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, licensed, currentgroup, check, theimage, thename, gamename;
+    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, licensed, currentgroup, check;
     String prevgroup = "";
-    int readgameid, readgameid2, gameid, totalgames, neededgames, index, top, palAcart, palBcart, uscart, pos, pos2, shelf, id, rec, shelfsize, titles, posInList;
+    int readgameid, gameid, totalgames, neededgames, index, top, palAcart, palBcart, uscart, pos, shelf, id, rec, shelfsize;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView gamelistView;
@@ -72,18 +72,9 @@ public class ShelfOrder extends AppCompatActivity
                 NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
-                posInList = gameListItems.getListPosition();
-
                 Intent intent = new Intent(ShelfOrder.this, GameDetail.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("gameid", readgameid);//passes the table name to the new screen
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
-                intent.putExtra("sqlstatement", "SELECT * FROM eu where owned = 1 and onshelf = 1" + licensed +  "");
-                //intent.putExtra("position", arg2);
-                intent.putExtra("position", posInList);
-                intent.putExtra("gamename", thename);
-                intent.putExtra("gameimage", theimage);
-                //Log.d("Shelf", "game id:" + readgameid + " Game name: " + readgamename + " List position: " + arg2);
-                Log.d("Shelf","list position: " + arg2 + " generated position " + posInList +" item id: " + readgameid);
                 startActivity(intent);//start the new screen
             }
         });
@@ -161,14 +152,13 @@ public class ShelfOrder extends AppCompatActivity
         nesList.clear();//clear the shoppingList array
         check = "y";
         pos = 1;
-        posInList = -1;
         shelf = 1;
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-        sql = "SELECT * FROM eu where owned = 1 and cart = 1 and onshelf = 1" + licensed +  "" ;
+        sql = "SELECT * FROM eu where owned = 1 and onshelf = 1";
         //sql = "SELECT * FROM eu where owned = 0";
-        //Log.d("Pixo", sql);
+        Log.d("Pixo", sql);
         Cursor c = db.rawQuery(sql, null);//select everything from the database table
 
         if (c.moveToFirst()) {//move to the first record
@@ -186,10 +176,9 @@ public class ShelfOrder extends AppCompatActivity
                 if (check.equals("y")){
                     rec = 0;
 
-                    if (palAcart == 8783){rec ++; posInList++; Log.d("Pixoif", "first if done");} else {}
-                    if (palBcart == 8783){rec ++; posInList++; Log.d("Pixoif", "second if done");} else {}
-                    if (uscart == 8783){rec ++; posInList++; Log.d("Pixoif", "third if done");} else {}
-
+                    if (palAcart == 8783){rec ++; Log.d("Pixoif", "first if done");} else {}
+                    if (palBcart == 8783){rec ++; Log.d("Pixoif", "second if done");} else {}
+                    if (uscart == 8783){rec ++; Log.d("Pixoif", "third if done");} else {}
                     check = "n";
                 }
 
@@ -198,37 +187,29 @@ public class ShelfOrder extends AppCompatActivity
                 if(pos == 1){
                     nesListItems.setGroup("Shelf " + shelf);
                     nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                    nesListItems.setName(c.getString(c.getColumnIndex(thename)));
-                    gamename = (c.getString(c.getColumnIndex(thename)));
+                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
-                    if (rec > 1){posInList =  posInList - 1;}
-                    nesListItems.setListPos(posInList);
-                    Log.d("shelf", "adding list position: " + posInList);
                     //nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                     nesList.add(nesListItems);//add items to the arraylist
                     shelf ++;
-                    //Log.d("pixo", "added shelf record " + name);
+                    Log.d("pixo", "added shelf record " + name);
 
                 }
                 else {
                     nesListItems.setGroup("no");
                     nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                    nesListItems.setName(c.getString(c.getColumnIndex(thename)));
-                    gamename = (c.getString(c.getColumnIndex(thename)));
+                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
-                    if (rec > 1){posInList =  posInList - 1;}
-                    nesListItems.setListPos(posInList);
-                    Log.d("shelf", "adding list position: " + posInList);
                     //nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                     nesList.add(nesListItems);//add items to the arraylist
                     if (pos == shelfsize){pos = 0;}
-                    //Log.d("pixo", "added other record " + name);
+                    Log.d("pixo", "added other record " + name);
                 }
 
-                if (rec == 1){c.moveToNext(); check = "y"; Log.d("pixoif", "position in the list: " + posInList + " game name: " + gamename);}
-                else if(rec > 1){ rec = rec - 1;  Log.d("pixoif", "position in the list: " + posInList + " game name: " + gamename);}
+                if (rec == 1){c.moveToNext(); check = "y"; Log.d("pixoif", "rec:" + rec);}
+                else if(rec > 1){ rec = rec - 1; Log.d("pixoif", "rec:" + rec);}
                 pos ++;
             }
 
@@ -239,7 +220,6 @@ public class ShelfOrder extends AppCompatActivity
 
         NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
         gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
-
     }
 
 
@@ -255,20 +235,12 @@ public class ShelfOrder extends AppCompatActivity
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 licensed = (c.getString(c.getColumnIndex("licensed")));
                 shelfsize = (c.getInt(c.getColumnIndex("shelf_size")));
-                titles = (c.getInt(c.getColumnIndex("us_titles")));
                 Log.d("Pixo", wherestatement);
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
         db.close();//close the database
-        if (titles == 0){
-            thename = "name";
-            theimage = "image";
-        } else if (titles == 1){
-            thename = "us_name";
-            theimage = "us_image";
-        }
     }
 
     @Override

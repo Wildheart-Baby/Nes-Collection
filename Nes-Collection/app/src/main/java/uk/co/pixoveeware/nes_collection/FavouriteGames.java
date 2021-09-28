@@ -19,7 +19,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,8 +40,8 @@ public class FavouriteGames extends AppCompatActivity
     TextView thesearchresults;
     GridView gamegalleryview;
 
-    String name, readgamename, searchterm,fieldname, wherestatement, title, sql, currentgroup, theimage, thename;
-    int readgameid, index, top, count, randomgame, itemId, totalResults, viewas, titles;
+    String name, readgamename, searchterm,fieldname, wherestatement, title, sql, currentgroup;
+    int readgameid, index, top, count, randomgame, itemId, totalResults, viewas;
     String prevgroup = "";
 
     @Override
@@ -50,7 +49,7 @@ public class FavouriteGames extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_games);
 
-        //setTitle("Favourite Games");
+        setTitle("Favourite Games");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -215,10 +214,9 @@ public class FavouriteGames extends AppCompatActivity
                 nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
                 nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
                 nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
-                nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                nesListItems.setName(c.getString(c.getColumnIndex(thename)));
+                nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                nesListItems.setName(c.getString(c.getColumnIndex("name")));
                 nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
-                nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                 //nesListItems.setOwned(c.getInt(c.getColumnIndex("favourite")));
                 nesList.add(nesListItems);//add items to the arraylist
                 prevgroup = c.getString(c.getColumnIndex("groupheader"));
@@ -226,8 +224,8 @@ public class FavouriteGames extends AppCompatActivity
             else if(currentgroup.equals(prevgroup)){
                 nesListItems.setGroup("no");
                 nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                nesListItems.setName(c.getString(c.getColumnIndex(thename)));
+                nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                nesListItems.setName(c.getString(c.getColumnIndex("name")));
                 nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                 nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                 nesList.add(nesListItems);//add items to the arraylist
@@ -246,7 +244,7 @@ public class FavouriteGames extends AppCompatActivity
         if (totalResults == 0){
             favouritelistView.setVisibility(View.GONE);
             thesearchresults.setVisibility(View.VISIBLE);
-            thesearchresults.setText(getString(R.string.favouriteNoResults));
+            thesearchresults.setText("You have no favourite games, oh that's sad, you should add some");
         }else {
             if(viewas == 0){
                 NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
@@ -282,7 +280,6 @@ public class FavouriteGames extends AppCompatActivity
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 title = (c.getString(c.getColumnIndex("region_title")));
                 viewas = (c.getInt(c.getColumnIndex("game_view")));
-                titles = (c.getInt(c.getColumnIndex("us_titles")));
 
                 Log.d("Pixo", wherestatement);
                 c.moveToNext();//move to the next record
@@ -290,13 +287,6 @@ public class FavouriteGames extends AppCompatActivity
             c.close();//close the cursor
         }
         db.close();//close the database
-        if (titles == 0){
-            thename = "name";
-            theimage = "image";
-        } else if (titles == 1){
-            thename = "us_name";
-            theimage = "us_image";
-        }
     }
 
     public void randomgame(){
@@ -319,16 +309,14 @@ public class FavouriteGames extends AppCompatActivity
             }
 
 
-
             final Dialog randomgame = new Dialog(FavouriteGames.this);//sets up the dialog
-            randomgame.requestWindowFeature(Window.FEATURE_NO_TITLE);
             randomgame.setContentView(R.layout.random_game);//sets up the layout of the dialog box
 
             Button cancel = (Button) randomgame.findViewById(R.id.btnCancel);
             TextView title = (TextView) randomgame.findViewById(R.id.lblTitle);
             ImageView cover = (ImageView) randomgame.findViewById(R.id.imgGameCover);
 
-            //randomgame.setTitle("Random game");
+            randomgame.setTitle("Random game");
             SQLiteDatabase db;//sets up the connection to the database
             db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
             Cursor c = db.rawQuery("SELECT * FROM eu where _id = " + itemId + "", null);//select everything from the database table

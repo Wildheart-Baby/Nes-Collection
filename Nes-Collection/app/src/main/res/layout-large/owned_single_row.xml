@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgOwned"
-        android:src="@drawable/icon_owned_bronze"
+        android:src="@drawable/icon_owned2"
         android:visibility="invisible"
         android:scaleType="fitCenter"
         android:maxHeight="125dp"
@@ -71,26 +71,14 @@
         android:layout_toRightOf="@+id/imgGameCover"
         android:layout_toEndOf="@+id/imgGameCover"
         android:paddingBottom="5dp"
-        android:textSize="20sp"
-        android:layout_marginLeft="5dp" />
+        android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lblGameName"
-            android:text="New Text"
-            android:id="@+id/lblCost480"
-            android:layout_toRightOf="@+id/imgGameCover"
-            android:layout_toEndOf="@+id/imgGameCover"
-            android:visibility="gone"
-            android:textSize="20sp"
-            android:layout_marginLeft="5dp" />
 
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp"
+            android:paddingLeft="10dp"
             android:paddingBottom="3dp"
             android:id="@+id/carthold"
             android:layout_toEndOf="@+id/imgGameCover"
@@ -98,7 +86,7 @@
             android:paddingRight="10dp"
             android:layout_marginRight="5dp"
             android:layout_marginLeft="5dp"
-            android:layout_below="@+id/lblCost480">
+            android:layout_below="@+id/lblGameName">
 
             <ImageView
                 android:layout_width="40dp"
@@ -106,7 +94,7 @@
                 android:id="@+id/imgCart"
                 android:src="@drawable/cart"
                 android:visibility="visible"
-                android:layout_marginRight="2dp" />
+                android:paddingRight="5dp" />
 
             <TextView
                 android:layout_width="65dp"
@@ -127,12 +115,12 @@
                 android:layout_height="40dp"
                 android:id="@+id/imgBox"
                 android:src="@drawable/box"
+                android:paddingRight="5dp"
                 android:visibility="visible"
                 android:contentDescription="@string/boximage"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/cart"
-                android:layout_toEndOf="@+id/cart"
-                android:layout_marginRight="2dp" />
+                android:layout_toEndOf="@+id/cart" />
 
         <TextView
             android:layout_width="65dp"
@@ -157,7 +145,7 @@
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/box"
                 android:layout_toEndOf="@+id/box"
-            android:layout_marginRight="2dp" />
+                android:paddingRight="5dp" />
             <TextView
                 android:layout_width="65dp"
                 android:layout_height="wrap_content"
@@ -169,17 +157,7 @@
                 android:layout_toEndOf="@+id/imgManual"
                 android:visibility="visible"
                 android:textSize="20sp" />
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:id="@+id/lblCost"
-                android:layout_toRightOf="@+id/manual"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="5dp"
-                android:textSize="20sp"
-                android:foregroundGravity="center_horizontal"
-                android:layout_alignParentRight="true" />
+
 
 
         </RelativeLayout>

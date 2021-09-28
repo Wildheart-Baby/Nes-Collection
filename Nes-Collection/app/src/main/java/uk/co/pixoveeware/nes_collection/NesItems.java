@@ -6,11 +6,9 @@ package uk.co.pixoveeware.nes_collection;
 public class NesItems {
 
 
-    String name, publisher, synopsis, image, genre, region, group, subgenre, developer, year, currency;
-    int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual,
-            pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist, finished, listPos;
-     int flagAustralia, flagAustria, flagBenelux, flagDenmark, flagFrance, flagFinland, flagGermany, flagGreece, flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS ;
-    double pal_a_cost, pal_b_cost, ntsc_cost;
+    String name, publisher, synopsis, image, genre, region, group, subgenre, developer, year;
+    int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual, pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist, finished;
+
 
     public int getItemId() { return _id; }
     public void setItemId(int _id) { this._id = _id; } //returns the item id
@@ -36,7 +34,7 @@ public class NesItems {
     public String getSubgenre() {return subgenre;}
     public void setSubgenre(String subgenre) {this.subgenre = subgenre;}
 
-    public String getDeveloper() {return developer;}
+    public String getDeveloper() {return subgenre;}
     public void setDeveloper(String developer) {this.developer = developer;}
 
     public String getYear() {return year;}
@@ -93,75 +91,4 @@ public class NesItems {
     public int getFinished() { return finished; }
     public void SetFinished(int finished) { this.finished = finished; } //returns the item id
 
-    public double getPalACost() { return pal_a_cost; }
-    public void setPalACost(double pal_a_cost) { this.pal_a_cost = pal_a_cost; } //returns the item id
-
-    public double getPalBCost() { return pal_b_cost; }
-    public void setPalBCost(double pal_b_cost) { this.pal_b_cost = pal_b_cost; } //returns the item id
-
-    public double getNtscCost() { return ntsc_cost; }
-    public void setNtscCost(double ntsc_cost) { this.ntsc_cost = ntsc_cost; } //returns the item id
-
-    public String getCurrency() { return currency; }
-    public void setCurrency(String currency) { this.currency = currency; }//returns the item department
-
-    public int getAustralia() { return flagAustralia; }
-    public void setAustralia(int flagAustralia) { this.flagAustralia = flagAustralia; } //returns the item id
-
-    public int getAustria() { return flagAustria; }
-    public void setAustria(int flagAustria) { this.flagAustria = flagAustria; } //returns the item id
-
-    public int getBenelux() { return flagBenelux; }
-    public void setBenelux(int flagBenelux) { this.flagBenelux = flagBenelux; } //returns the item id
-
-    public int getDenmark() { return flagDenmark; }
-    public void setDenmark(int flagDenmark) { this.flagDenmark = flagDenmark; } //returns the item id
-
-    public int getFinland() { return flagFinland; }
-    public void setFinland(int flagFinland) { this.flagFinland = flagFinland; } //returns the item id
-
-    public int getFrance() { return flagFrance; }
-    public void setFrance(int flagFrance) { this.flagFrance = flagFrance; } //returns the item id
-
-    public int getGermany() { return flagGermany; }
-    public void setGermany(int flagGermany) { this.flagGermany = flagGermany; } //returns the item id
-
-    public int getGreece() { return flagGreece; }
-    public void setGreece(int flagGreece) { this.flagGreece = flagGreece; } //returns the item id
-
-    public int getIreland() { return flagIreland; }
-    public void setIreland(int flagIreland) { this.flagIreland = flagIreland; } //returns the item id
-
-    public int getItaly() { return flagItaly; }
-    public void setItaly(int flagItaly) { this.flagItaly = flagItaly; } //returns the item id
-
-    public int getNorway() { return flagNorway; }
-    public void setNorway(int flagNorway) { this.flagNorway = flagNorway; } //returns the item id
-
-    public int getPortugal() { return flagPortugal; }
-    public void setPortugal(int flagPortugal) { this.flagPortugal = flagPortugal; } //returns the item id
-
-    public int getPoland() { return flagPoland; }
-    public void setPoland(int flagPoland) { this.flagPoland = flagPoland; } //returns the item id
-
-    public int getScandinavia() { return flagScandinavia; }
-    public void setScandinavia(int flagScandinavia) { this.flagScandinavia = flagScandinavia; } //returns the item id
-
-    public int getSpain() { return flagAustralia; }
-    public void setSpain(int flagSpain) { this.flagSpain = flagSpain; } //returns the item id
-
-    public int getSweden() { return flagSweden; }
-    public void setSweden(int flagSweden) { this.flagSweden = flagSweden; } //returns the item id
-
-    public int getSwitzerland() { return flagAustria; }
-    public void setSwitzerland(int flagSwitzerland) { this.flagSwitzerland = flagSwitzerland; } //returns the item id
-
-    public int getUK() { return flagUK; }
-    public void setUK(int flagUK) { this.flagUK = flagUK; } //returns the item id
-
-    public int getUS() { return flagUS; }
-    public void setUS(int flagUS) { this.flagUS = flagUS; } //returns the item id
-
-    public int getListPosition() { return listPos; }
-    public void setListPos(int listPos) { this.listPos = listPos; } //returns the item id
 }

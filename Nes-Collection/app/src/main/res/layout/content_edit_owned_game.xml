@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="5dp"
-    android:paddingRight="5dp"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="uk.co.pixoveeware.nes_collection.EditOwnedGame"
     tools:showIn="@layout/activity_edit_owned_game"
     android:background="#C0C0BB">
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,7 +24,7 @@
         android:text="@string/gamename"
         android:id="@+id/lblGame"
         android:textAlignment="center"
-        android:textSize="24dp"
+        android:textSize="24sp"
         android:textStyle="bold"
         android:layout_alignParentTop="true"
         android:layout_alignRight="@+id/linearLayout"
@@ -34,19 +32,17 @@
         android:layout_marginBottom="5dp"/>
 
     <ImageView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/lblGame"
         android:id="@+id/imgCover"
         android:scaleType="fitCenter"
         android:adjustViewBounds="true"
         android:maxHeight="200dp"
         android:maxWidth="150dp"
         android:src="@drawable/placeholder"
-        android:layout_alignParentLeft="false"
-        android:layout_alignParentStart="false"
-        android:layout_centerHorizontal="true"
-        android:foregroundGravity="center_horizontal" />
+        android:layout_below="@+id/lblGame"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     </RelativeLayout>
 
@@ -62,11 +58,11 @@
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/editGameOwned"
+            android:text="@string/Owned"
             android:id="@+id/lblOwned"
             android:textStyle="bold"
             android:textAlignment="center"
-            android:textSize="24dp" />
+            android:textSize="24sp" />
 
         <RelativeLayout
             android:orientation="horizontal"
@@ -74,18 +70,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/linImgs"
             android:layout_below="@+id/lblOwned"
-            android:layout_centerHorizontal="true"
-            android:gravity="center_horizontal">
+            android:layout_centerHorizontal="true">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imgCart"
                 android:src="@drawable/cart"
+                android:layout_marginLeft="48dp"
+                android:layout_marginStart="48dp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginRight="40dp" />
+                android:layout_alignParentStart="true" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -95,44 +91,45 @@
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/imgCart"
                 android:layout_toEndOf="@+id/imgCart"
-                android:layout_marginRight="40dp" />
+                android:layout_marginLeft="40dp"
+                android:layout_marginStart="40dp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/imgManual"
                 android:src="@drawable/manual"
+                android:layout_marginLeft="42dp"
+                android:layout_marginStart="42dp"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/imgBox"
-                android:layout_toEndOf="@+id/imgBox"
-                android:layout_marginRight="40dp" />
+                android:layout_toEndOf="@+id/imgBox" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/editGameCost"
+                android:text="@string/Cost"
                 android:id="@+id/lblCost"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@+id/imgManual"
                 android:layout_toEndOf="@+id/imgManual"
+                android:layout_marginLeft="48dp"
+                android:layout_marginStart="48dp"
                 android:textStyle="bold"
-                android:textSize="16sp"
-                android:visibility="visible"
-                android:gravity="right"
-                android:layout_marginRight="45dp" />
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/linCart"
             android:layout_below="@id/linImgs"
             android:gravity="center_horizontal">
 
             <CheckBox
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:id="@+id/chkPalACart"
             android:layout_toRightOf="@+id/imgCart"
@@ -141,7 +138,7 @@
             android:layout_alignBottom="@+id/imgCart" />
 
             <CheckBox
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:id="@+id/chkPalABox"
             android:layout_below="@+id/lblHeader"
@@ -151,7 +148,7 @@
             android:layout_alignBottom="@+id/imgCart" />
 
             <CheckBox
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:id="@+id/chkPalAmanual"
             android:layout_below="@+id/lblHeader"
@@ -174,8 +171,7 @@
                 android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/txtPalAcost"
-                android:layout_marginLeft="2dp"
-                android:visibility="visible" />
+                android:layout_marginLeft="2dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -189,7 +185,7 @@
             android:gravity="center_horizontal">
 
             <CheckBox
-                android:layout_width="wrap_content"
+                android:layout_width="65dp"
                 android:layout_height="wrap_content"
                 android:text="@string/palBcart"
                 android:id="@+id/chkPalBCart"
@@ -199,7 +195,7 @@
                 android:layout_alignBottom="@+id/chkPalACart" />
 
             <CheckBox
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:text="@string/palBcart"
             android:id="@+id/chkPalBBox"
@@ -209,7 +205,7 @@
             android:layout_alignBottom="@+id/chkPalACart" />
 
             <CheckBox
-            android:layout_width="wrap_content"
+            android:layout_width="65dp"
             android:layout_height="wrap_content"
             android:text="@string/palBcart"
             android:id="@+id/chkPalBmanual"
@@ -231,13 +227,12 @@
                 android:inputType="numberDecimal"
                 android:ems="10"
                 android:id="@+id/txtPalBcost"
-                android:layout_marginLeft="3dp"
-                android:visibility="visible" />
+                android:layout_marginLeft="3dp" />
         </LinearLayout>
 
         <LinearLayout
             android:orientation="horizontal"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linBox"
             android:layout_alignParentLeft="true"
@@ -289,7 +284,7 @@
                 android:ems="10"
                 android:id="@+id/txtUScost"
                 android:layout_marginLeft="2dp"
-                android:visibility="visible" />
+                />
         </LinearLayout>
 
         <RelativeLayout
@@ -307,12 +302,9 @@
             <CheckBox
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/editGameShelf"
+                android:text="@string/Shelf"
                 android:id="@+id/chkShelf"
                 android:checked="false"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
                 android:layout_marginRight="45dp" />
 
             <CheckBox
@@ -328,7 +320,7 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/editGameCancel"
+            android:text="@string/Cancel"
             android:id="@+id/rgnCancel"
             android:layout_below="@+id/linearLayout3"
             android:layout_toLeftOf="@+id/rgnOk"
@@ -338,7 +330,7 @@
             style="?android:attr/buttonStyleSmall"
             android:layout_width="75dp"
             android:layout_height="wrap_content"
-            android:text="@string/editGameOk"
+            android:text="@string/Ok"
             android:id="@+id/rgnOk"
             android:layout_alignTop="@+id/rgnCancel"
             android:layout_alignParentRight="true"
@@ -348,7 +340,6 @@
 
     </RelativeLayout>
 </RelativeLayout>
-</ScrollView>
 
 
 

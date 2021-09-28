@@ -22,12 +22,12 @@
 
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/rlTop">
+            android:id="@+id/relativeLayout">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/gamename"
             android:id="@+id/lblGameName"
@@ -35,9 +35,13 @@
             android:textSize="30sp"
             android:textStyle="bold"
             android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/linearLayout"
+            android:layout_alignEnd="@+id/linearLayout"
             android:layout_marginBottom="5dp" />
 
         <ImageView
+            android:layout_width="300dp"
+            android:layout_height="350dp"
             android:id="@+id/imgGameCover"
             android:scaleType="fitCenter"
             android:adjustViewBounds="true"
@@ -46,13 +50,11 @@
             android:contentDescription="game cover"
             android:layout_below="@+id/lblGameName"
             android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_height="wrap_content"
-            android:layout_width="225dp" />
+            android:layout_alignParentStart="true" />
 
         <LinearLayout
             android:orientation="vertical"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblGameName"
             android:layout_toRightOf="@+id/imgGameCover"
@@ -63,7 +65,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/gameDetailGenre"
+                android:text="Genre"
                 android:id="@+id/hdrGenre"
                 android:layout_below="@+id/textView"
                 android:layout_toRightOf="@+id/lblGenre"
@@ -85,7 +87,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/gameDetailSubGenre"
+                android:text="Subgenre"
                 android:id="@+id/hdrSubgenre"
                 android:textStyle="bold"
                 android:textSize="18sp" />
@@ -100,7 +102,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/gameDetailPublisher"
+                android:text="Publisher"
                 android:id="@+id/hdrPublisher"
                 android:textStyle="bold"
                 android:textSize="18sp" />
@@ -115,7 +117,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/gameDetailDeveloper"
+                android:text="Developer"
                 android:id="@+id/hdrDeveloper"
                 android:textStyle="bold"
                 android:textSize="18sp" />
@@ -130,7 +132,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/gameDetailYear"
+                android:text="Year"
                 android:id="@+id/hdrYear"
                 android:textStyle="bold"
                 android:textSize="18sp" />
@@ -146,8 +148,8 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lblGameName"
-            android:layout_toRightOf="@+id/linearLayout"
+            android:layout_below="@+id/linearLayout"
+            android:layout_toRightOf="@+id/imgGameCover"
             android:padding="1dp"
             android:background="#000000"
             android:id="@+id/frmOwned">
@@ -166,16 +168,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/gameDetailOwned"
+                    android:text="@string/Owned"
                     android:id="@+id/hdrOwned"
+                    android:textStyle="bold"
 
                     android:textAlignment="center"
-                    android:textSize="18sp"
-                    android:layout_alignRight="@+id/imgManual"
-                    android:layout_alignEnd="@+id/imgManual"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:textStyle="bold" />
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:layout_width="25dp"
@@ -193,6 +191,8 @@
                     android:layout_height="25dp"
                     android:id="@+id/imgCart"
                     android:layout_below="@+id/hdrOwned"
+                    android:layout_toRightOf="@+id/imgGameCover"
+                    android:layout_toEndOf="@+id/imgGameCover"
                     android:src="@drawable/cart"
                     android:paddingRight="5dp"
                     android:visibility="invisible" />
@@ -212,232 +212,10 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/rlCountries"
-            android:layout_below="@id/rlTop">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/gameDetailReleasedIn"
-                android:id="@+id/lblCountries"
-                android:layout_marginBottom="3dp"
-                android:textStyle="bold"
-                android:textSize="18sp" />
-
-            <HorizontalScrollView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/lblCountries"
-                android:id="@+id/horizontalScrollView" >
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:id="@+id/rlFlags">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imgUK"
-                        android:src="@drawable/uk"
-                        android:contentDescription="UK Flag"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgUK"
-                        android:id="@+id/imgIreland"
-                        android:src="@drawable/ireland"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgIreland"
-                        android:id="@+id/imgItaly"
-                        android:src="@drawable/italy"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgItaly"
-                        android:id="@+id/imgAustralia"
-                        android:src="@drawable/australia"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgAustralia"
-                        android:id="@+id/imgFrance"
-                        android:src="@drawable/france"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgFrance"
-                        android:id="@+id/imgGermany"
-                        android:src="@drawable/germany"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgGermany"
-                        android:id="@+id/imgSpain"
-                        android:src="@drawable/spain"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgSpain"
-                        android:id="@+id/imgAustria"
-                        android:src="@drawable/austria"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgAustria"
-                        android:id="@+id/imgSwitzerland"
-                        android:src="@drawable/switzerland"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@+id/imgSwitzerland"
-                        android:id="@+id/imgBenelux"
-                        android:src="@drawable/benelux"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgBenelux"
-                        android:id="@+id/imgDenmark"
-                        android:src="@drawable/denmark"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgDenmark"
-                        android:id="@+id/imgFinland"
-                        android:src="@drawable/finland"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgFinland"
-                        android:id="@+id/imgGreece"
-                        android:src="@drawable/greece"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgGreece"
-                        android:id="@+id/imgNorway"
-                        android:src="@drawable/norway"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgNorway"
-                        android:id="@+id/imgSweden"
-                        android:src="@drawable/sweden"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgSweden"
-                        android:id="@+id/imgPoland"
-                        android:src="@drawable/poland"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgPoland"
-                        android:id="@+id/imgPortugal"
-                        android:src="@drawable/portugal"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone"/>
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/imgUS"
-                        android:layout_toRightOf="@id/imgPoland"
-                        android:src="@drawable/us"
-                        android:layout_marginRight="5dp"
-                        android:layout_marginBottom="5dp"
-                        android:visibility="gone" />
-                </RelativeLayout>
-            </HorizontalScrollView>
-        </RelativeLayout>
-
-        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/rlCountries"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/rlBottom">
+            android:layout_below="@+id/relativeLayout"
+            android:layout_centerHorizontal="true">
 
         <View
             android:layout_width="fill_parent"
@@ -445,6 +223,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginBottom="4dp"
             android:background="@android:color/darker_gray"
+            android:layout_below="@+id/imgGameCover"
             android:layout_alignTop="@+id/lblSynTitle"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="15dp"
@@ -453,8 +232,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/gameDetailBoxSynopsis"
+            android:text="Box synopsis"
             android:id="@+id/lblSynTitle"
+            android:layout_below="@+id/imgGameCover"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:paddingTop="5dp"

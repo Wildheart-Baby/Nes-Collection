@@ -79,35 +79,12 @@ public class NesCollectionImageAdapter extends BaseAdapter {
             gameimage = nesListItems.getImage();
             int coverid = context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
             holder.cover.setImageResource(coverid);
-            int ownedid;
 
             if (nesListItems.owned == 1) {
                 holder.owned.setVisibility(View.VISIBLE);
             } else {
                 holder.owned.setVisibility(View.GONE);
             }
-        if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
-            ownedid=context.getResources().getIdentifier("icon_owned_gold2", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 0){
-            ownedid=context.getResources().getIdentifier("icon_owned_silver2", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 1 && nesListItems.box == 0 && nesListItems.manual == 1){
-            ownedid=context.getResources().getIdentifier("icon_owned_silver2", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 0 && nesListItems.box == 1 && nesListItems.manual == 1){
-            ownedid=context.getResources().getIdentifier("icon_owned_silver2", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 1 && nesListItems.box == 0 && nesListItems.manual == 0){
-            ownedid=context.getResources().getIdentifier("icon_owned_bronze2", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 0 && nesListItems.box == 1 && nesListItems.manual == 0){
-            ownedid=context.getResources().getIdentifier("icon_owned_bronze2", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 0 && nesListItems.box == 0 && nesListItems.manual == 1){
-            ownedid=context.getResources().getIdentifier("icon_owned_bronze2", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }
         i++;
         return convertView; //return the convertview and show the listview
         //if(i >= listsize &&  addviews < 3){return convertView;}

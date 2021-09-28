@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="uk.co.pixoveeware.nes_collection.NesCollection"
+    tools:showIn="@layout/activity_nes_collection">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/AllGames"
+        android:id="@+id/btnallgames"
+        android:shadowColor="#f4eaea"
+        android:textColor="#a6c6c7"
+
+        android:maxHeight="300dp"
+        android:minHeight="300dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Owned"
+        android:id="@+id/btnowned"
+        android:background="@drawable/owned"
+        android:textColor="#a6c6c7"
+        android:textSize="44sp"
+        android:shadowColor="#f4eaea"
+        android:textStyle="bold"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/btnallgames"
+        android:layout_toEndOf="@+id/btnallgames" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Stats"
+        android:id="@+id/btnFavouriteGames"
+        android:maxHeight="300dp"
+        android:maxWidth="300dp"
+        android:layout_below="@+id/btnallgames"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Needed"
+        android:id="@+id/btneeded"
+
+        android:maxHeight="300dp"
+        android:maxWidth="300dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/btnFavouriteGames"
+        android:layout_toEndOf="@+id/btnFavouriteGames" />
+
+</RelativeLayout>

@@ -5,20 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -38,15 +34,13 @@ public class OwnedGames extends AppCompatActivity
     final Context context = this;
     SQLiteDatabase sqlDatabase;
 
-    String name, dbfile, readgamename, str, sql, listName,searchterm,fieldname, wherestatement, sql1, sql2, sql3, licensed, currentgroup, order, currency, thename, theimage;
+    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, sql1, sql2, sql3, licensed, currentgroup;
     String prevgroup = "";
-
-    int readgameid, gameid, ownedgames, totalgames, index, top, region1games, region2games,region3games, count, randomgame, itemId, viewas, showprice, ordering, titles;
+    int readgameid, gameid, ownedgames, totalgames, index, top, region1games, region2games,region3games, count, randomgame, itemId, viewas;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView ownedlistView;
     GridView gamegalleryview;
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +49,7 @@ public class OwnedGames extends AppCompatActivity
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
         wherestatement = getIntent().getStringExtra("wherestatement");
         setTitle("Owned Games");
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -69,26 +63,10 @@ public class OwnedGames extends AppCompatActivity
 
         gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
         ownedlistView = (ListView) findViewById(R.id.lvOwnedGames); //sets up a listview with the name shoplistview
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        NesOwnedAdapter.screenwidth = metrics.widthPixels;
-        //int heightPixels = metrics.heightPixels;
-        //int widthPixels = metrics.widthPixels;
-        //Log.d("Pixo", "widthPixels  = " + widthPixels);
-        /*int densityDpi = metrics.densityDpi;
-        float xdpi = metrics.xdpi;
-        float ydpi = metrics.ydpi;
-
-        Log.d("Pixo", "heightPixels = " + heightPixels);
-        Log.d("Pixo", "densityDpi   = " + densityDpi);
-        Log.d("Pixo", "xdpi         = " + xdpi);
-        Log.d("Pixo", "ydpi         = " + ydpi);*/
-
         gameregion();
         readList();
         gamescount();
-        //toolbar.setSubtitle(str);
+        toolbar.setSubtitle(str);
     ownedlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
@@ -99,10 +77,8 @@ public class OwnedGames extends AppCompatActivity
         Intent intent = new Intent(OwnedGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
         intent.putExtra("gameid", readgameid);//passes the table name to the new screen
         intent.putExtra("name", readgamename);//passes the table name to the new screen
-        if (ordering == 0){intent.putExtra("sqlstatement", "SELECT * FROM eu where owned = 1" + licensed +  "");}
-        else if(ordering == 1){intent.putExtra("sqlstatement", "select * from eu where owned = 1 order by price desc" + licensed +  "");}
+        intent.putExtra("sqlstatement", "SELECT * FROM eu where owned = 1");
         intent.putExtra("position", arg2);
-
         startActivity(intent);//start the new screen
         }
     });
@@ -113,7 +89,7 @@ public class OwnedGames extends AppCompatActivity
 
             NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
             final Integer itemId = gameListItems.getItemId();//get the item id
-            Log.d("Owned","list position: " + arg2 + " item id: " + itemId);
+
             Intent intent = new Intent(OwnedGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("editgameid", itemId);
             startActivity(intent);//start the new screen
@@ -198,12 +174,7 @@ public class OwnedGames extends AppCompatActivity
             case R.id.action_random:
                 randomgame();
                 return true;
-            case R.id.action_order_alphabetic:
-                order_alphabetic();
-                return true;
-            case R.id.action_order_price:
-                order_price();
-                return true;
+
             case R.id.action_about:
                 Intent intent3 = new Intent(OwnedGames.this, About.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent3);//start the new screen
@@ -218,16 +189,6 @@ public class OwnedGames extends AppCompatActivity
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu){
-        if (showprice == 0){
-            menu.removeItem(R.id.action_order_alphabetic);
-            menu.removeItem(R.id.action_order_price);
-        }
-
-        return super.onPrepareOptionsMenu(menu);
-    }
-
-    @Override
     public void onPause(){
         super.onPause();
 
@@ -236,80 +197,64 @@ public class OwnedGames extends AppCompatActivity
         top = (v == null) ? 0 : v.getTop();
     }
 
-    public void readList() {//the readlist function
-        Cursor c;
+    public void readList(){//the readlist function
         ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
         nesList.clear();//clear the shoppingList array
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
 
-        if (ordering == 0) {
-            sql = "select * from eu where owned = 1 " + licensed +  ""; }
-        else if(ordering == 1){
-            sql ="select * from eu where owned = 1 " + licensed +  " order by price desc";}
-            c = db.rawQuery(sql, null);
-            if (c.moveToFirst()) {//move to the first record
-                while (!c.isAfterLast()) {//while there are records to read
-                    NesItems nesListItems = new NesItems();//creates a new array
+        //sql = "SELECT * FROM eu where owned = 1 and " + wherestatement + "";
+        sql = "SELECT * FROM eu where owned = 1";
+        Log.d("Pixo", sql);
 
-                    currentgroup = c.getString(c.getColumnIndex("groupheader"));
+        Cursor c = db.rawQuery(sql, null);
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+                NesItems nesListItems = new NesItems();//creates a new array
 
-                    if (!currentgroup.equals(prevgroup)) {
-                        if (ordering == 0) {nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));}
-                        else if (ordering == 1) {nesListItems.setGroup("no");}
-                        nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                        nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                        nesListItems.setName(c.getString(c.getColumnIndex(thename)));
-                        nesListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
-                        nesListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
-                        nesListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
-                        nesListItems.setBoxPalA(c.getInt(c.getColumnIndex("pal_a_box")));
-                        nesListItems.setBoxPalB(c.getInt(c.getColumnIndex("pal_b_box")));
-                        nesListItems.setBoxNtsc(c.getInt(c.getColumnIndex("ntsc_box")));
-                        nesListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
-                        nesListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
-                        nesListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
-                        nesListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
-                        nesListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
-                        nesListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
-                        nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
-                        nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
-                        nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
-                        nesListItems.setCurrency(currency);
-                        prevgroup = c.getString(c.getColumnIndex("groupheader"));
-                        nesList.add(nesListItems);//add items to the arraylist
-                    } else if (currentgroup.equals(prevgroup)) {
-                        nesListItems.setGroup("no");
-                        nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                        nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                        nesListItems.setName(c.getString(c.getColumnIndex(thename)));
-                        nesListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
-                        nesListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
-                        nesListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
-                        nesListItems.setBoxPalA(c.getInt(c.getColumnIndex("pal_a_box")));
-                        nesListItems.setBoxPalB(c.getInt(c.getColumnIndex("pal_b_box")));
-                        nesListItems.setBoxNtsc(c.getInt(c.getColumnIndex("ntsc_box")));
-                        nesListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
-                        nesListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
-                        nesListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
-                        nesListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
-                        nesListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
-                        nesListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
-                        nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
-                        nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
-                        nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
-                        nesListItems.setCurrency(currency);
-                        prevgroup = c.getString(c.getColumnIndex("groupheader"));
-                        nesList.add(nesListItems);//add items to the arraylist
-                    }
-                    c.moveToNext();//move to the next record
+                currentgroup = c.getString(c.getColumnIndex("groupheader"));
+
+                if(!currentgroup.equals(prevgroup)) {
+                    nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
+                    nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
+                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                    nesListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
+                    nesListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
+                    nesListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
+                    nesListItems.setBoxPalA(c.getInt(c.getColumnIndex("pal_a_box")));
+                    nesListItems.setBoxPalB(c.getInt(c.getColumnIndex("pal_b_box")));
+                    nesListItems.setBoxNtsc(c.getInt(c.getColumnIndex("ntsc_box")));
+                    nesListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
+                    nesListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
+                    nesListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
+                    prevgroup = c.getString(c.getColumnIndex("groupheader"));
+                    nesList.add(nesListItems);//add items to the arraylist
                 }
+                else if(currentgroup.equals(prevgroup)){
+                    nesListItems.setGroup("no");
+                    nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
+                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                    nesListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
+                    nesListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
+                    nesListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
+                    nesListItems.setBoxPalA(c.getInt(c.getColumnIndex("pal_a_box")));
+                    nesListItems.setBoxPalB(c.getInt(c.getColumnIndex("pal_b_box")));
+                    nesListItems.setBoxNtsc(c.getInt(c.getColumnIndex("ntsc_box")));
+                    nesListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
+                    nesListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
+                    nesListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
+                    prevgroup = c.getString(c.getColumnIndex("groupheader"));
+                    nesList.add(nesListItems);//add items to the arraylist
+                }
+                c.moveToNext();//move to the next record
             }
             //ownedgames = c.getCount();
             c.close();//close the cursor
-        //}
-
+        }
+        //Cursor c = db.rawQuery("SELECT ID, ITEM, QUANTITY, DEPARTMENT, BASKET FROM " + fname, null);
 
         sql = "SELECT * FROM eu where " + wherestatement + licensed + "";
 
@@ -318,12 +263,13 @@ public class OwnedGames extends AppCompatActivity
         c.close();
 
         db.close();//close the database
-        if (viewas == 0) {
-            NesOwnedAdapter nes = new NesOwnedAdapter(this, nesList);//set up an new list adapter from the arraylist
+
+        if(viewas == 0){
+            NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
             gamegalleryview.setVisibility(View.GONE);
             ownedlistView.setAdapter(nes);
 
-        } else if (viewas == 1) {
+        }else if (viewas == 1){
             NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, nesList);//set up an new list adapter from the arraylist
             ownedlistView.setVisibility(View.GONE);
             gamegalleryview.setAdapter(nes);
@@ -342,11 +288,7 @@ public class OwnedGames extends AppCompatActivity
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 licensed = (c.getString(c.getColumnIndex("licensed")));
                 viewas = (c.getInt(c.getColumnIndex("game_view")));
-                showprice = (c.getInt(c.getColumnIndex("show_price")));
-                NesOwnedAdapter.showprice = (c.getInt(c.getColumnIndex("show_price")));
-                ordering = (c.getInt(c.getColumnIndex("ordered")));
-                currency = (c.getString(c.getColumnIndex("currency")));
-                titles = (c.getInt(c.getColumnIndex("us_titles")));
+
                 Log.d("Pixo", wherestatement);
 
                 c.moveToNext();//move to the next record
@@ -354,13 +296,6 @@ public class OwnedGames extends AppCompatActivity
             c.close();//close the cursor
         }
         db.close();//close the database
-        if (titles == 0){
-            thename = "name";
-            theimage = "image";
-        } else if (titles == 1){
-            thename = "us_name";
-            theimage = "us_image";
-        }
     }
 
     public void gamescount(){
@@ -368,9 +303,9 @@ public class OwnedGames extends AppCompatActivity
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         Cursor c; //= db.rawQuery(sql, null);//select everything from the database table
         //sql = "SELECT * FROM eu where " + wherestatement + "";
-        sql1 = "SELECT * FROM eu where pal_a_cart = 8783 " + licensed +  "";
-        sql2 = "SELECT * FROM eu where pal_b_cart = 8783" + licensed +  "";
-        sql3 = "SELECT * FROM eu where ntsc_cart = 8783" + licensed +  "";
+        sql1 = "SELECT * FROM eu where pal_a_cart = 8783";
+        sql2 = "SELECT * FROM eu where pal_b_cart = 8783";
+        sql3 = "SELECT * FROM eu where ntsc_cart = 8783";
 
         c = db.rawQuery(sql1, null);
         region1games = c.getCount();
@@ -384,7 +319,6 @@ public class OwnedGames extends AppCompatActivity
         db.close();//close the database
         ownedgames = region1games + region2games + region3games;
         str = "You own " + ownedgames + " games";
-        toolbar.setSubtitle(str);
     }
 
     public void randomgame(){
@@ -406,17 +340,14 @@ public class OwnedGames extends AppCompatActivity
                 itemId = gameListItems.getItemId();//get the item id
             }
 
-            final Dialog arandomgame = new Dialog(OwnedGames.this);//sets up the dialog
-            arandomgame.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            arandomgame.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));//sets the dialog background as transparent
-            arandomgame.setContentView(R.layout.random_game);//sets up the layout of the dialog box
+            final Dialog randomgame = new Dialog(OwnedGames.this);//sets up the dialog
+            randomgame.setContentView(R.layout.random_game);//sets up the layout of the dialog box
 
+            Button cancel = (Button) randomgame.findViewById(R.id.btnCancel);
+            TextView title = (TextView) randomgame.findViewById(R.id.lblTitle);
+            ImageView cover = (ImageView) randomgame.findViewById(R.id.imgGameCover);
 
-            Button cancel = (Button) arandomgame.findViewById(R.id.btnCancel);
-            TextView title = (TextView) arandomgame.findViewById(R.id.lblTitle);
-            ImageView cover = (ImageView) arandomgame.findViewById(R.id.imgGameCover);
-
-            //randomgame.setTitle("Random game");
+            randomgame.setTitle("Random game");
             SQLiteDatabase db;//sets up the connection to the database
             db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
             Cursor c = db.rawQuery("SELECT * FROM eu where _id = " + itemId + "", null);//select everything from the database table
@@ -436,10 +367,10 @@ public class OwnedGames extends AppCompatActivity
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    arandomgame.dismiss();
+                    randomgame.dismiss();
                 }
             });
-            arandomgame.show();//show the dialog
+            randomgame.show();//show the dialog
         }
         else if(count <2){
             Toast toast = Toast.makeText(getApplicationContext(),
@@ -447,33 +378,6 @@ public class OwnedGames extends AppCompatActivity
                     Toast.LENGTH_SHORT);
             toast.show();
         }
-    }
-
-    public void order_price(){
-        SQLiteDatabase db;//set up the connection to the database
-        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-
-        //SELECT * FROM (SELECT name, pal_a_cost FROM eu UNION SELECT name, pal_b_cost FROM eu union select name, ntsc_cost from eu)t ORDER BY t.pal_a_cost DESC
-        String str = "UPDATE settings SET ordered = 1"; //update the database basket field with 8783
-        //Log.d("Pixo", str);
-        db.execSQL(str);//run the sql command
-        db.close();
-
-        gameregion();
-        readList();
-    }
-
-    public void order_alphabetic(){
-        SQLiteDatabase db;//set up the connection to the database
-        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-
-        String str = "UPDATE settings SET ordered = 0"; //update the database basket field with 8783
-        Log.d("Pixo", str);
-        db.execSQL(str);//run the sql command
-        db.close();
-
-        gameregion();
-        readList();
     }
 
     @Override

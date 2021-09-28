@@ -15,7 +15,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -39,9 +38,9 @@ public class AllGames extends AppCompatActivity
 
     private  int gridviewVerticalPositionWhenThumbnailTapped;
 
-    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, title, currentgroup, licensed, titlestr, titlept1, titlept2, thename, theimage;
+    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, title, currentgroup, licensed, titlestr;
     String prevgroup = "";
-    int readgameid, gameid, index, top, viewas, ListSize, i, AddItems, totalgames, titles;
+    int readgameid, gameid, index, top, viewas, ListSize, i, AddItems, totalgames;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView gamelistView;
@@ -55,12 +54,8 @@ public class AllGames extends AppCompatActivity
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
         gamelistView = (ListView) findViewById(R.id.lvAllGames); //sets up a listview with the name shoplistview
         gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
-
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        NesOwnedAdapter.screenwidth = metrics.widthPixels;
-
         gameregion();
+
         readList();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -93,8 +88,6 @@ public class AllGames extends AppCompatActivity
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
                 intent.putExtra("position", arg2);
                 intent.putExtra("sqlstatement", sql);
-                intent.putExtra("gamename", thename);
-                intent.putExtra("gameimage", theimage);
 
                 startActivity(intent);//start the new screen
             }
@@ -130,8 +123,6 @@ public class AllGames extends AppCompatActivity
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
                 intent.putExtra("position", arg2);
                 intent.putExtra("sqlstatement", sql);
-                intent.putExtra("currentgamename", thename);
-                intent.putExtra("currentgameimage", theimage);
                 startActivity(intent);//start the new screen
             }
         });
@@ -239,26 +230,20 @@ public class AllGames extends AppCompatActivity
                 if(!currentgroup.equals(prevgroup)){
                     nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
                     nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                    nesListItems.setName(c.getString(c.getColumnIndex(thename)));
+                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                     nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
-                    nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
-                    nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
                     nesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                 }
                 else if(currentgroup.equals(prevgroup)){
                     nesListItems.setGroup("no");
                     nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                    nesListItems.setName(c.getString(c.getColumnIndex(thename)));
+                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                     nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
-                    nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
-                    nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
                     nesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                 }
@@ -270,10 +255,7 @@ public class AllGames extends AppCompatActivity
         }
         //Cursor c = db.rawQuery("SELECT ID, ITEM, QUANTITY, DEPARTMENT, BASKET FROM " + fname, null);
         db.close();//close the database
-
-        titlept1 = getString(R.string.allGamesSubTitle1);
-        titlept2 = getString(R.string.allGamesSubTitle2);
-        titlestr = titlept1 + " " + totalgames + " " + titlept2;
+        titlestr = "This region has " + totalgames + " games";
 
         if(viewas == 0){
             NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
@@ -300,21 +282,12 @@ public class AllGames extends AppCompatActivity
                 title = (c.getString(c.getColumnIndex("region_title")));
                 licensed = (c.getString(c.getColumnIndex("licensed")));
                 viewas = (c.getInt(c.getColumnIndex("game_view")));
-                titles = (c.getInt(c.getColumnIndex("us_titles")));
+
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
         db.close();//close the database
-        if (titles == 0){
-            thename = "name";
-            theimage = "image";
-            Log.d("pixo-the image", theimage);
-        } else if (titles == 1){
-            thename = "us_name";
-            theimage = "us_image";
-            Log.d("pixo-the image", theimage);
-        }
     }
 
     @Override

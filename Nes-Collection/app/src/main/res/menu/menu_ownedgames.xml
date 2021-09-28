@@ -4,23 +4,13 @@
     <item
         android:id="@+id/action_search"
         android:icon="@drawable/abc_ic_search_api_mtrl_alpha"
-        android:title="Search"
+        android:title="search"
         app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_random"
         android:icon="@drawable/controller"
-        android:title="Random Game"
-        app:showAsAction="always"  />
-    <item
-        android:id="@+id/action_order_alphabetic"
-        android:orderInCategory="98"
-        android:title="@string/action_order_alphabetic"
-        app:showAsAction="never" />
-    <item
-        android:id="@+id/action_order_price"
-        android:orderInCategory="99"
-        android:title="@string/action_order_price"
-        app:showAsAction="never" />
+        android:title="controller"
+        app:showAsAction="ifRoom"  />
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
@@ -29,6 +19,6 @@
     <item
         android:id="@+id/action_about"
         android:orderInCategory="101"
-        android:title="@string/title_activity_about"
+        android:title="About"
         app:showAsAction="never" />
 </menu>

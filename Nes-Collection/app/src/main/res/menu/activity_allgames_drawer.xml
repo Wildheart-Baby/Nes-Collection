@@ -4,30 +4,30 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_mainpage"
-            android:title="@string/navMainPage" />
+            android:title="Main Page" />
         <item
             android:id="@+id/nav_neededgames"
-            android:title="@string/navMissingGames" />
+            android:title="Missing Games" />
         <item
             android:id="@+id/nav_ownedgames"
-            android:title="@string/navOwnedGames" />
+            android:title="Owned Games" />
         <item
             android:id="@+id/nav_favouritegames"
-            android:title="@string/navFavouriteGames" />
+            android:title="Favourite Games" />
         <item
             android:id="@+id/nav_wishlist"
-            android:title="@string/navWishList" />
+            android:title="Wishlist" />
         <item
             android:id="@+id/nav_shelforder"
-            android:title="@string/navShelfOrder" />
+            android:title="Shelf Order" />
         <item
             android:id="@+id/nav_statistics"
-            android:title="@string/navStatistics" />
+            android:title="Statistics" />
         <item
             android:id="@+id/nav_finished"
-            android:title="@string/navFinishedGames" />
+            android:title="Finished Games" />
         <item
             android:id="@+id/nav_settings"
-            android:title="@string/navSettings" />
+            android:title="Settings" />
     </group>
 </menu>

@@ -12,7 +12,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -35,14 +34,13 @@ public class NeededGames extends AppCompatActivity
     final Context context = this;
     SQLiteDatabase sqlDatabase;
 
-    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, licensed, currentgroup, title, theimage, thename, regionmissing, regionmissingcheck;
+    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, licensed, currentgroup, title;
     String prevgroup = "";
-    int readgameid, gameid, totalgames, neededgames, index, top, viewas, titles;
+    int readgameid, gameid, totalgames, neededgames, index, top, viewas;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView gamelistView;
     GridView gamegalleryview;
-    Toolbar toolbar;
 
 
     @Override
@@ -51,11 +49,8 @@ public class NeededGames extends AppCompatActivity
         setContentView(R.layout.activity_needed_games);
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
 
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        NesCollectionAdapter.screenwidth = metrics.widthPixels;
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -79,9 +74,7 @@ public class NeededGames extends AppCompatActivity
         gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
-                //sql = "SELECT * FROM eu where " + regionmissingcheck + " and "  + wherestatement + regionmissing + licensed +  "";
                 sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
-                Log.d("pixo-owned", sql);
                 NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
@@ -90,8 +83,6 @@ public class NeededGames extends AppCompatActivity
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("position", arg2);
-                intent.putExtra("gamename", thename);
-                intent.putExtra("gameimage", theimage);
                 startActivity(intent);//start the new screen
             }
         });
@@ -116,7 +107,6 @@ public class NeededGames extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
                 sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
-                Log.d("pixo-owned", sql);
                 NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
@@ -204,25 +194,11 @@ public class NeededGames extends AppCompatActivity
     @Override
     public void onPause(){
         super.onPause();
-        if(viewas == 0){
-            index = gamelistView.getFirstVisiblePosition();
-            View v = gamelistView.getChildAt(0);
-            top = (v == null) ? 0 : v.getTop();
-        } else if(viewas == 1){
-
-            //gridviewVerticalPositionWhenThumbnailTapped = gamegalleryview.getFirstVisiblePosition();
-            index = gamegalleryview.getFirstVisiblePosition();
-            //View v = gamegalleryview.getChildAt(0);
-            //top = (v == null) ? 0 : v.getTop();*/
-        }
-    }
-    /*public void onPause(){
-        super.onPause();
 
         index = gamelistView.getFirstVisiblePosition();
         View v = gamelistView.getChildAt(0);
         top = (v == null) ? 0 : v.getTop();
-    }*/
+    }
 
     public void readList(){//the readlist function
         ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
@@ -230,10 +206,9 @@ public class NeededGames extends AppCompatActivity
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-        //sql = "SELECT * FROM eu where " + regionmissingcheck + " and "  + wherestatement + regionmissing + licensed +  "";
-        sql = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ")";
+        sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
         //sql = "SELECT * FROM eu where owned = 0";
-        Log.d("Pixo-missing", sql);
+        Log.d("Pixo", sql);
         Cursor c = db.rawQuery(sql, null);//select everything from the database table
 
         if (c.moveToFirst()) {//move to the first record
@@ -244,8 +219,8 @@ public class NeededGames extends AppCompatActivity
                 if(!currentgroup.equals(prevgroup)){
                     nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
                     nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                    nesListItems.setName(c.getString(c.getColumnIndex(thename)));
+                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                     nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                     nesList.add(nesListItems);//add items to the arraylist
@@ -254,8 +229,8 @@ public class NeededGames extends AppCompatActivity
                 else if(currentgroup.equals(prevgroup)){
                     nesListItems.setGroup("no");
                     nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                    nesListItems.setName(c.getString(c.getColumnIndex(thename)));
+                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                     nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                     nesList.add(nesListItems);//add items to the arraylist
@@ -265,24 +240,18 @@ public class NeededGames extends AppCompatActivity
 
                 c.moveToNext();//move to the next record
             }
-            //neededgames = c.getCount();
+            neededgames = c.getCount();
             c.close();//close the cursor
         }
-        sql = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ")";
-        //sql = "SELECT * FROM eu where " + regionmissingcheck + " and "  + wherestatement + regionmissing + licensed +  "";
-        c = db.rawQuery(sql, null);
-        neededgames = c.getCount();
-        Log.d("Pixo-missing-count", sql);
-
         sql = "SELECT * FROM eu where " + wherestatement + licensed +  "";
+        Log.d("Pixo", sql);
         c = db.rawQuery(sql, null);
         totalgames = c.getCount();
-        Log.d("Pixo-missing-total", sql);
         c.close();
         db.close();//close the database
 
         str = "You need " + neededgames + " of " + totalgames + " games";
-        toolbar.setSubtitle(str);
+
 
         if(viewas == 0){
             NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
@@ -310,9 +279,6 @@ public class NeededGames extends AppCompatActivity
                 licensed = (c.getString(c.getColumnIndex("licensed")));
                 viewas = (c.getInt(c.getColumnIndex("game_view")));
                 title = (c.getString(c.getColumnIndex("region_title")));
-                titles = (c.getInt(c.getColumnIndex("us_titles")));
-                //regionmissingcheck = (c.getString(c.getColumnIndex("region_missing_check")));
-                //regionmissing = (c.getString(c.getColumnIndex("region_missing")));
 
                 Log.d("Pixo", wherestatement);
                 c.moveToNext();//move to the next record
@@ -320,13 +286,6 @@ public class NeededGames extends AppCompatActivity
             c.close();//close the cursor
         }
         db.close();//close the database
-        if (titles == 0){
-            thename = "name";
-            theimage = "image";
-        } else if (titles == 1){
-            thename = "us_name";
-            theimage = "us_image";
-        }
     }
 
     @Override
@@ -336,7 +295,6 @@ public class NeededGames extends AppCompatActivity
         //Do what you want on the refresh procedure here
         readList();//run the list tables function
         gamelistView.setSelectionFromTop(index, top);
-        gamegalleryview.setSelection(index);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
