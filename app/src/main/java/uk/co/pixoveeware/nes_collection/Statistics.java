@@ -3,6 +3,7 @@ package uk.co.pixoveeware.nes_collection;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,27 +12,35 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
 
-public class Statistics extends AppCompatActivity {
+public class Statistics extends AppCompatActivity implements PieChartView.Callback {
 
     String[] palanames;
     String[] palbnames;
     String[] usnames;
-    String[] pienames;
-    int[] pienumbers;
+    String[] names;
+    String popgenre;
+    float[] datapoints;
+    int[] piecolours;
 
-    String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, pienames2, pienumbers2;
+    String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll;
     int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i;
-    double percentPalAOwned, percentPalBOwned, percentUSOwned;
+    double percentPalAOwned, percentPalBOwned, percentUSOwned, percentagepalacollection, percentagepalbcollection, percentageuscollection;
     float palacost, palbcost, uscost, totalpalacost, totalpalbcost, totaluscost, totalcost;
+    int lay = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,16 +62,87 @@ public class Statistics extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+
+        run();
+    }
+
+    public void run(){
         gameregion();
         readDatabase();
 
+        PieChartView pieChartView = (PieChartView) findViewById(R.id.pie_chart);
+        pieChartView.setDataPoints(datapoints, names, piecolours);
+        // Because this activity is of the type PieChartView.Callback
+        pieChartView.setCallback(Statistics.this);
     }
+
+    @Override
+    public void onDrawFinised(DataColorSet[] data) {
+        // When the chart has finished drawing it will return the colors used
+        // and the value along (for our key)
+
+        LinearLayout keyContainer = (LinearLayout) findViewById(R.id.key);
+        if (keyContainer.getChildCount() > 0)
+            keyContainer.removeAllViews(); // Empty all views if any found
+
+        for (int i = 0; i < data.length; i++) {
+            DataColorSet dataColorSet = data[i];
+
+            LinearLayout keyItem = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.key_item, null);
+            LinearLayout colorView = (LinearLayout) keyItem.findViewById(R.id.color);
+            TextView name = (TextView) keyItem.findViewById(R.id.names);
+            TextView valueView = (TextView) keyItem.findViewById(R.id.value);
+
+            colorView.setBackgroundColor(Color.parseColor("#" + dataColorSet.getColor()));
+            name.setText("" + dataColorSet.getName());
+            valueView.setText("" + dataColorSet.getDataValue());
+
+            // Add the key to the container
+            keyContainer.addView(keyItem, i);
+        }
+
+    }
+
+    @Override
+    public void onSliceClick(DataColorSet data) {
+        // When the slice has been clicked. You can decide to call another
+        // activity here. We'll just make a toast
+        Toast.makeText(this, "Value is: " + data.getName(), Toast.LENGTH_SHORT).show();
+        //get datavalue and run search based on
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_allgames, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(Statistics.this, Settings.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);//start the new screen
+                return true;
+
+            case R.id.action_search:
+                Intent intent2 = new Intent(Statistics.this, Search.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent2);//start the new screen
+                return true;
+
+            case R.id.action_about:
+                Intent intent3 = new Intent(Statistics.this, About.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent3);//start the new screen
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 
     public void readDatabase(){
@@ -74,9 +154,9 @@ public class Statistics extends AppCompatActivity {
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+
         sql = "SELECT SUM(pal_a_cost) FROM eu ";
         Cursor c = db.rawQuery(sql, null);//select everything from the database table
-
         c.moveToFirst();
         palacost = c.getFloat(0);
         c.close();
@@ -93,8 +173,8 @@ public class Statistics extends AppCompatActivity {
         uscost = c.getFloat(0);
         c.close();
 
-        gamecost = "You spent " + palacost + " on pal a, " + palbcost + " on pal b and " + uscost + " on US games";
-        cost.setText(gamecost);
+        totalcost = palacost + palbcost + uscost;
+
 
         sql = "SELECT * FROM eu where pal_a_release = 1 " + licensed +  "";
         c = db.rawQuery(sql, null);
@@ -104,6 +184,93 @@ public class Statistics extends AppCompatActivity {
         Log.d("Pixo", sql);
         c = db.rawQuery(sql, null);
         ownedPalA = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_release = 1 " + licensed +  "";
+        c = db.rawQuery(sql, null);
+        totalPalB = c.getCount();
+        sql = "SELECT * FROM eu where owned = 1 and (pal_b_cart = 8783 " + licensed +  ")";
+        Log.d("Pixo", sql);
+        c = db.rawQuery(sql, null);
+        ownedPalB = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_release = 1 " + licensed +  "";
+        c = db.rawQuery(sql, null);
+        totalUS = c.getCount();
+
+        sql = "SELECT * FROM eu where owned = 1 and (ntsc_cart = 8783 " + licensed +  ")";
+        c = db.rawQuery(sql, null);
+        Log.d("Pixo", sql);
+        ownedUS = c.getCount();
+
+        sql = "SELECT * FROM eu where 1 " + licensed +  "";
+        c = db.rawQuery(sql, null);
+        totalReleased = c.getCount();
+
+        sql = "SELECT * FROM eu where owned = 1 " + licensed +  "";
+        c = db.rawQuery(sql, null);
+        totalOwned = c.getCount();
+
+        sql = "select name from eu where owned = 1 and pal_a_cost=(select max(pal_a_cost) from eu)";
+        c = db.rawQuery(sql, null);
+        i = c.getCount();
+        Log.d("pixo", "value:"+i);
+        if (i > 1){palaadd = "Your most expensive games are";} else {palaadd = "Your most expensive game is";}
+        String[] palanames = new String[i];
+
+        if (c.moveToFirst()) {//move to the first record
+            io = 0;
+            while ( !c.isAfterLast() ) {//while there are records to read
+                palanames[io] = c.getString(c.getColumnIndex("name")) + " ";
+                c.moveToNext();
+                io ++;
+            }
+            palanames2 = Arrays.toString(palanames);
+            palanames2 = palanames2.substring(1, palanames2.length() -1);
+            Log.d("pixo", palanames2);
+        }
+
+
+        sql = "select name from eu where owned = 1 and pal_b_cost=(select max(pal_b_cost) from eu)";
+        c = db.rawQuery(sql, null);
+        i = c.getCount();
+        if (i > 1){palbadd = "Your most expensive games are";} else {palbadd = "Your most expensive game is";}
+        String[] palbnames = new String[i];
+        if (c.moveToFirst()) {//move to the first record
+            io=0;
+            while ( !c.isAfterLast() ) {//while there are records to read
+                palbnames[io] = c.getString(c.getColumnIndex("name")) + " ";
+                c.moveToNext();
+                io++;
+            }
+            palbnames2 = Arrays.toString(palbnames);
+            palbnames2 = palbnames2.substring(1, palbnames2.length() -1);
+        }
+
+        sql = "select name from eu where owned = 1 and ntsc_cost=(select max(ntsc_cost) from eu)";
+        c = db.rawQuery(sql, null);
+        i = c.getCount();
+        if (i > 1){usadd = "Your most expensive games are";} else {usadd = "Your most expensive game is";}
+        String[] usnames = new String[i];
+        if (c.moveToFirst()) {//move to the first record
+            io = 0;
+            while ( !c.isAfterLast() ) {//while there are records to read
+                usnames[io] = c.getString(c.getColumnIndex("name")) + " ";
+                c.moveToNext();
+                io ++;
+            }
+            usnames2 = Arrays.toString(usnames);
+            usnames2 = usnames2.substring(1, usnames2.length() -1);
+        }
+
+        sql = "select genre, COUNT(genre) AS MOST_FREQUENT from eu where owned = 1 GROUP BY genre ORDER BY COUNT(genre) DESC limit 1";
+        c = db.rawQuery(sql, null);
+        c.moveToFirst();
+        popgenre = c.getString(c.getColumnIndex("genre"));
+
+        sql = "select publisher, COUNT(publisher) AS MOST_FREQUENT from eu where owned = 1 GROUP BY genre ORDER BY COUNT(publisher) DESC limit 1";
+        c = db.rawQuery(sql, null);
+        c.moveToFirst();
+        poppublisher = c.getString(c.getColumnIndex("publisher"));
 
         i = 0;
 
@@ -225,202 +392,166 @@ public class Statistics extends AppCompatActivity {
 
         if (ownedvehicularsimulation > 0){ i++;}
 
-        pienames = new String[i];
-        pienumbers = new int[i];
+        names = new String[i];
+        datapoints = new float[i];
+        piecolours = new int[i];
         io = 0;
         if (ownedactionadventure > 0){
-            pienames[io] = "Action-Adventure";
-            pienumbers[io] = ownedactionadventure;
+            names[io] = "Action-Adventure";
+            datapoints[io] = ownedactionadventure;
+            piecolours[io] = Color.parseColor("#FF2B32");
             io ++;
         }
         if (ownedaction > 0){
-            pienames[io] = "Action";
-            pienumbers[io] = ownedaction;
+            names[io] = "Action";
+            datapoints[io] = ownedaction;
+            piecolours[io] = Color.parseColor("#FF6A00");
             io ++;
         }
         if (ownedadventure > 0){
-            pienames[io] = "Adventure";
-            pienumbers[io] = ownedadventure;
+            names[io] = "Adventure";
+            datapoints[io] = ownedadventure;
+            piecolours[io] = Color.parseColor("#FFD800");
             io ++;
         }
         if (ownedarcade > 0){
-            pienames[io] = "Arcade";
-            pienumbers[io] = ownedarcade;
+            names[io] = "Arcade";
+            datapoints[io] = ownedarcade;
+            piecolours[io] = Color.parseColor("#B6FF00");
             io ++;
         }
         if (ownedbeatemup > 0){
-            pienames[io] = "Beat em Up";
-            pienumbers[io] = ownedbeatemup;
+            names[io] = "Beat em Up";
+            datapoints[io] = ownedbeatemup;
+            piecolours[io] = Color.parseColor("#4CFF00");
             io ++;
         }
         if (ownedboardgame > 0){
-            pienames[io] = "Board Game";
-            pienumbers[io] = ownedboardgame;
+            names[io] = "Board Game";
+            datapoints[io] = ownedboardgame;
+            piecolours[io] = Color.parseColor("#00FF90");
             io ++;
         }
         if (ownedcompilation > 0){
-            pienames[io] = "Compilation";
-            pienumbers[io] = ownedcompilation;
+            names[io] = "Compilation";
+            datapoints[io] = ownedcompilation;
+            piecolours[io] = Color.parseColor("#0094FF");
             io ++;
         }
         if (ownedfighting > 0){
-            pienames[io] = "Fighting";
-            pienumbers[io] = ownedfighting;
+            names[io] = "Fighting";
+            datapoints[io] = ownedfighting;
+            piecolours[io] = Color.parseColor("#B200FF");
             io ++;
         }
         if (ownedplatformer > 0){
-            pienames[io] = "Platformer";
-            pienumbers[io] = ownedplatformer;
+            names[io] = "Platformer";
+            datapoints[io] = ownedplatformer;
+            piecolours[io] = Color.parseColor("#FF00DC");
             io ++;
         }
         if (ownedpuzzle > 0){
-            pienames[io] = "Puzzle";
-            pienumbers[io] = ownedpuzzle;
+            names[io] = "Puzzle";
+            datapoints[io] = ownedpuzzle;
+            piecolours[io] = Color.parseColor("#FF006E");
             io ++;
         }
         if (ownedracing > 0){
-            pienames[io] = "Racing";
-            pienumbers[io] = ownedracing;
+            names[io] = "Racing";
+            datapoints[io] = ownedracing;
+            piecolours[io] = Color.parseColor("#FF7F7F");
             io ++;
         }
         if (ownedroleplayinggame > 0){
-            pienames[io] = "Role Playing Game";
-            pienumbers[io] = ownedroleplayinggame;
+            names[io] = "Role Playing Game";
+            datapoints[io] = ownedroleplayinggame;
+            piecolours[io] = Color.parseColor("#C0C0C0");
             io ++;
         }
         if (ownedshootemup > 0){
-            pienames[io] = "Shoot em Up";
-            pienumbers[io] = ownedshootemup;
+            names[io] = "Shoot em Up";
+            datapoints[io] = ownedshootemup;
+            piecolours[io] = Color.parseColor("#613F7C");
             io ++;
         }
         if (ownedshooter > 0){
-            pienames[io] = "Shooter";
-            pienumbers[io] = ownedshooter;
+            names[io] = "Shooter";
+            datapoints[io] = ownedshooter;
+            piecolours[io] = Color.parseColor("#60C5FF");
             io ++;
         }
         if (ownedsimulation > 0){
-            pienames[io] = "Simulation";
-            pienumbers[io] = ownedsimulation;
+            names[io] = "Simulation";
+            datapoints[io] = ownedsimulation;
+            piecolours[io] = Color.parseColor("#FFAFB5");
             io ++;
         }
         if (ownedsports > 0){
-            pienames[io] = "Sports";
-            pienumbers[io] = ownedsports;
+            names[io] = "Sports";
+            datapoints[io] = ownedsports;
+            piecolours[io] = Color.parseColor("#D5FFBF");
             io ++;
         }
         if (ownedstrategy > 0){
-            pienames[io] = "Strategy";
-            pienumbers[io] = ownedstrategy;
+            names[io] = "Strategy";
+            datapoints[io] = ownedstrategy;
+            piecolours[io] = Color.parseColor("#4FFFBE");
             io ++;
         }
         if (ownedtraditional > 0){
-            pienames[io] = "Traditional";
-            pienumbers[io] = ownedtraditional;
+            names[io] = "Traditional";
+            datapoints[io] = ownedtraditional;
+            piecolours[io] = Color.parseColor("#A856FF");
             io ++;
         }
         if (ownedtrivia > 0){
-            pienames[io] = "Trivia";
-            pienumbers[io] = ownedtrivia;
+            names[io] = "Trivia";
+            datapoints[io] = ownedtrivia;
+            piecolours[io] = Color.parseColor("#CBFF72");
             io ++;
         }
         if (ownedvehicularsimulation > 0){
-            pienames[io] = "Vehicular Simulation";
-            pienumbers[io] = ownedvehicularsimulation;
+            names[io] = "Vehicular Simulation";
+            datapoints[io] = ownedvehicularsimulation;
+            piecolours[io] = Color.parseColor("#613F7C");
             io ++;
-        }
-
-        pienames2 = Arrays.toString(pienames);
-        pienumbers2 = Arrays.toString(pienumbers);
-        pienames2 = pienames2.substring(1, pienames2.length() -1);
-        pienumbers2 = pienumbers2.substring(1, pienumbers2.length() -1);
-
-        Log.d("Pixo", "Pie names: " + pienames2 + "\nPie Numbers: " + pienumbers2);
-
-        sql = "SELECT * FROM eu where pal_b_release = 1 " + licensed +  "";
-        c = db.rawQuery(sql, null);
-        totalPalB = c.getCount();
-        sql = "SELECT * FROM eu where owned = 1 and (pal_b_cart = 8783 " + licensed +  ")";
-        Log.d("Pixo", sql);
-        c = db.rawQuery(sql, null);
-        ownedPalB = c.getCount();
-
-        sql = "SELECT * FROM eu where ntsc_release = 1 " + licensed +  "";
-        c = db.rawQuery(sql, null);
-        totalUS = c.getCount();
-
-        sql = "SELECT * FROM eu where owned = 1 and (ntsc_cart = 8783 " + licensed +  ")";
-        c = db.rawQuery(sql, null);
-        Log.d("Pixo", sql);
-        ownedUS = c.getCount();
-
-        sql = "SELECT * FROM eu where 1 " + licensed +  "";
-        c = db.rawQuery(sql, null);
-        totalReleased = c.getCount();
-
-        sql = "SELECT * FROM eu where owned = 1 " + licensed +  "";
-        c = db.rawQuery(sql, null);
-        totalOwned = c.getCount();
-
-        sql = "select name from eu where owned = 1 and pal_a_cost=(select max(pal_a_cost) from eu)";
-        c = db.rawQuery(sql, null);
-        i = c.getCount();
-        Log.d("pixo", "value:"+i);
-        if (i > 1){palaadd = "Your most expensive games are";} else {palaadd = " Your most expensive game is ";}
-        String[] palanames = new String[i];
-
-        if (c.moveToFirst()) {//move to the first record
-            io = 0;
-            while ( !c.isAfterLast() ) {//while there are records to read
-                palanames[io] = c.getString(c.getColumnIndex("name")) + " ";
-                c.moveToNext();
-                io ++;
-            }
-            palanames2 = Arrays.toString(palanames);
-
-            palanames2 = palanames2.substring(1, palanames2.length() -1);
-            Log.d("pixo", palanames2);
-        }
-
-
-        sql = "select name from eu where owned = 1 and pal_b_cost=(select max(pal_b_cost) from eu)";
-        c = db.rawQuery(sql, null);
-        i = c.getCount();
-        if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
-
-                //palbnames[i] = c.getString(c.getColumnIndex("name")) + " ";
-                c.moveToNext();
-             }
-        }
-
-        sql = "select name from eu where owned = 1 and ntsc_cost=(select max(ntsc_cost) from eu)";
-        c = db.rawQuery(sql, null);
-        i = c.getCount();
-        if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
-
-                //usnames[i] = c.getString(c.getColumnIndex("name")) + " ";
-                c.moveToNext();
-            }
         }
 
         c.close();
         db.close();//close the database
+        totalOwned = ownedPalA + ownedPalB + ownedUS;
+        gamecost = "You have spent " + currency + totalcost + " on games for your collection\n" +
+                "You own a total of " + totalOwned + " games\n" +
+                "The top publisher for your games is " + poppublisher + "\n" +
+                "The most popular genre you have is " + popgenre;
+        cost.setText(gamecost);
 
         percentPalAOwned = ((double)ownedPalA / totalPalA) * 100;
+        percentagepalacollection = ((double)ownedPalA / totalOwned) * 100;
         s = String.format("%.2f", percentPalAOwned);
+        perpalacoll = String.format("%.2f", percentagepalacollection);
         PalA = "You own " + ownedPalA + " of the " + totalPalA + " Pal A games released.\n" +
-                palaadd + " " + palanames2;
+                "Pal A games make up " + perpalacoll + "% of your collection\n"
+                 +palaadd + " " + palanames2;
         pala.setText(PalA);
 
         percentPalBOwned = ((double)ownedPalB / totalPalB) * 100;
+        percentagepalbcollection = ((double)ownedPalB / totalOwned) * 100;
         s = String.format("%.2f", percentPalBOwned);
-        PalB = "You own " + ownedPalB + " of the " + totalPalB + " Pal B games released.";
+        perpalbcoll = String.format("%.2f", percentagepalbcollection);
+        PalB = "You own " + ownedPalB + " of the " + totalPalB + " Pal B games released.\n" +
+                "Pal B games make up " + perpalbcoll + "% of your collection\n"
+                +palbadd + " " + palbnames2;
         palb.setText(PalB);
 
         percentUSOwned = ((double)ownedUS / totalUS) * 100;
-        s = String.format("%.2f", percentPalBOwned);
-        US = "You own " + ownedUS + "  of the " + totalUS + " US games released.";
+        Log.d("Pixo", "PalB% owned:" +percentUSOwned);
+        s = String.format("%.2f", percentUSOwned);
+        percentageuscollection = ((double)ownedUS / totalOwned) * 100;
+        peruscoll = String.format("%.2f", percentageuscollection);
+        US = "You own " + ownedUS + " of the " + totalUS + " US games released.\n" +
+                "US games make up " + peruscoll + "% of your collection\n"
+                +usadd + " " + usnames2;
         us.setText(US);
 
         Log.d("Pixo", "Owned PalA: " + ownedPalA);
@@ -440,12 +571,22 @@ public class Statistics extends AppCompatActivity {
 
                 licensed = (c.getString(c.getColumnIndex("licensed")));
                 wherestatement = (c.getString(c.getColumnIndex("region")));
+                currency = (c.getString(c.getColumnIndex("currency")));
 
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
         db.close();//close the database
+    }
+
+    @Override
+    public void onRestart() {
+        super.onRestart();
+        //When BACK BUTTON is pressed, the activity on the stack is restarted
+        //Do what you want on the refresh procedure here
+        run();//run the list tables function
+
     }
 
 }

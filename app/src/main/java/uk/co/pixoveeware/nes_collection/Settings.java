@@ -26,14 +26,6 @@ import android.widget.TextView;
 
 public class Settings extends AppCompatActivity {
 
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-
-    private CharSequence mDrawerTitle;
-    private CharSequence mTitle;
-    private String[] mScreenTitles;
-
     String regionselected, sql, currentregion, licensed, currentcurrency, shelfS, wherestatement;
     int shelfsize;
     ArrayAdapter<CharSequence> adapter, adapter2;
@@ -42,18 +34,6 @@ public class Settings extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-
-        mTitle = mDrawerTitle = "Nes Collect";
-        mScreenTitles = getResources().getStringArray(R.array.screenArray);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
-
-        // set a custom shadow that overlays the main content when the drawer opens
-        //mDrawerLayout.setDrawerShadow(R.drawable.drawer_shadow, GravityCompat.START);
-        // set up the drawer's list view with items and click listener
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this,
-                R.layout.drawer_list_item, mScreenTitles));
-        mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,30 +52,6 @@ public class Settings extends AppCompatActivity {
         getsettings();
         setregion();
 
-        mDrawerToggle = new ActionBarDrawerToggle(
-                this,                  /* host Activity */
-                mDrawerLayout,         /* DrawerLayout object */
-                R.drawable.ic_drawer,  /* nav drawer image to replace 'Up' caret */
-                R.string.drawer_open,  /* "open drawer" description for accessibility */
-                R.string.drawer_close  /* "close drawer" description for accessibility */
-        ) {
-            public void onDrawerClosed(View view) {
-                //getActionBar().setTitle(mTitle);
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-
-            public void onDrawerOpened(View drawerView) {
-                //getActionBar().setTitle("Nes Collect");
-                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
-            }
-        };
-
-        mDrawerLayout.setDrawerListener(mDrawerToggle);
-
-        if (savedInstanceState == null) {
-            selectItem(0);
-        }
-
     }
 
     @Override
@@ -104,14 +60,6 @@ public class Settings extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_allgames, menu);
         return true;
     }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        // If the nav drawer is open, hide action items related to the content view
-        boolean drawerOpen = mDrawerLayout.isDrawerOpen(mDrawerList);
-        return super.onPrepareOptionsMenu(menu);
-    }
-
 
     public void setregion() {
         //region;
@@ -210,7 +158,7 @@ public class Settings extends AppCompatActivity {
 
                 SQLiteDatabase db;//set up the connection to the database
                 db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-                String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "' "; //update the database basket field with 8783
+                String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "',currency = '" + currentcurrency + "'"; //update the database basket field with 8783
                 db.execSQL(str);//run the sql command
                 db.close();//close the database
                 Intent intent = new Intent(Settings.this, MainActivity.class);//opens a new screen when the shopping list is clicked
@@ -228,66 +176,6 @@ public class Settings extends AppCompatActivity {
         });
     }
 
-
-    /* The click listner for ListView in the navigation drawer */
-    private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int pos, long id) {
-            selectItem(pos);
-            Log.d("Pixo", "value: " + pos);
-        }
-    }
-
-    private void selectItem(int pos) {
-        // update the main content by replacing fragments
-        Log.d("Pixo", "value: " + pos);
-        switch(pos){
-            case '0' :
-                Log.d("Pixo", "selectItem running");
-                Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
-                break;
-            case 1 :
-                intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
-                break;
-            case 2 :
-                intent = new Intent(this, OwnedGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
-                break;
-            case 3 :
-                intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 4 :
-                intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 5 :
-                intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 6 :
-                intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);
-                break;
-            case 7 :
-                intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);//start the new screen
-                break;
-            default:
-        }
-
-
-        // update selected item and title, then close the drawer
-        mDrawerList.setItemChecked(pos, true);
-        //setTitle(mScreenTitles[position]);
-        mDrawerLayout.closeDrawer(mDrawerList);
-    }
-
     public void getsettings(){
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
@@ -301,7 +189,6 @@ public class Settings extends AppCompatActivity {
                 currentcurrency = (c.getString(c.getColumnIndex("currency")));
                 shelfsize = (c.getInt(c.getColumnIndex("shelf_size")));
                 wherestatement = (c.getString(c.getColumnIndex("region")));
-                Log.d("Pixo", "Values: " + currentregion + " " + licensed + " " + currentcurrency + " " + shelfsize);
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
