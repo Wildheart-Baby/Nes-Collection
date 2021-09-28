@@ -35,9 +35,13 @@ public class MainActivity extends AppCompatActivity {
         //File dbfile = new File(this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite");
 
         ImageButton AllGames = (ImageButton) findViewById(R.id.btnAllGames);
-        ImageButton OwnedGames = (ImageButton) findViewById(R.id.btnowned);
         ImageButton NeededGames = (ImageButton) findViewById(R.id.btnneeded);
+        ImageButton OwnedGames = (ImageButton) findViewById(R.id.btnowned);
+
         ImageButton FavouriteGames = (ImageButton) findViewById(R.id.btnFavouriteGames);
+        ImageButton WishList = (ImageButton) findViewById(R.id.btnWishList);
+        ImageButton ShelfOrder = (ImageButton) findViewById(R.id.btnShelfOrder);
+
         ImageButton Stats = (ImageButton) findViewById(R.id.btnStats);
         ImageButton Settings = (ImageButton) findViewById(R.id.btnSettings);
 
@@ -52,14 +56,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        OwnedGames.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, OwnedGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
-
-            }
-       });
 
         NeededGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -70,26 +66,45 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        OwnedGames.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, OwnedGames.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("wherestatement", wherestatement);
+                startActivity(intent);
+            }
+       });
+
         FavouriteGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);
+            }
+        });
 
+        WishList.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, WishList.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
+            }
+        });
+
+        ShelfOrder.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent);
             }
         });
 
         Stats.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(MainActivity.this, Statistics.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);
-
             }
         });
         Settings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Settings.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);//start the new screen
-
             }
         });
 
@@ -117,6 +132,11 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_search:
                 Intent intent2 = new Intent(MainActivity.this, Search.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent2);//start the new screen
+                return true;
+
+            case R.id.action_about:
+                Intent intent3 = new Intent(MainActivity.this, About.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent3);//start the new screen
                 return true;
 
             default:

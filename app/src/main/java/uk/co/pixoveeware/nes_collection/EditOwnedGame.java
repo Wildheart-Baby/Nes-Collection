@@ -12,15 +12,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class EditOwnedGame extends AppCompatActivity {
 
-    int gameid, coverid, palAcart, palAbox, palAmanual, palBcart, palBbox, palBmanual, uscart, usbox, usmanual, cart, box, manual, owned, regionatrue, regionbtrue, regionustrue, favourite;
-    String covername, sql, test;
+    int gameid, coverid, palAcart, palAbox, palAmanual, palBcart, palBbox,
+        palBmanual, uscart, usbox, usmanual, cart, box, manual, owned,
+        regionatrue, regionbtrue, regionustrue, favourite, ontheshelf, wishlist;
+    String covername, sql, test, currency, PACheck, PBCheck, USCheck;
+    Double  PalAcost,PalBcost, UScost;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +36,9 @@ public class EditOwnedGame extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         gameid = getIntent().getIntExtra("editgameid", 0);
+        final EditText PalACost = (EditText) findViewById(R.id.txtPalAcost);
+        final EditText PalBCost = (EditText) findViewById(R.id.txtPalBcost);
+        final EditText USCost = (EditText) findViewById(R.id.txtUScost);
 
         Button ok = (Button) findViewById(R.id.rgnOk);
         Button cancel = (Button) findViewById(R.id.rgnCancel);
@@ -39,15 +49,33 @@ public class EditOwnedGame extends AppCompatActivity {
                 writegame();
             }
         });
-
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+        PalACost.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                PalACost.setText("");
+            }
+        });
+        PalBCost.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                PalBCost.getText().clear();;
+            }
+        });
+        USCost.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                USCost.setText("");
+            }
+        });
 
-        setTitle("What do you own");
+        setTitle("Which items do you own");
+        readSettings();
         readGame();
     }
 
@@ -78,6 +106,8 @@ public class EditOwnedGame extends AppCompatActivity {
                 favouritegame();
                 return true;
 
+
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -86,14 +116,11 @@ public class EditOwnedGame extends AppCompatActivity {
         }
     }
 
-
-
     public void readGame() {//the readlist function
         ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
         nesList.clear();//clear the shoppingList array
         TextView gamename = (TextView) findViewById(R.id.lblGame);
         ImageView cover = (ImageView) findViewById(R.id.imgCover);
-
 
         CheckBox chkpalacart = (CheckBox) findViewById(R.id.chkPalACart);
         CheckBox chkpalabox = (CheckBox) findViewById(R.id.chkPalABox);
@@ -104,8 +131,15 @@ public class EditOwnedGame extends AppCompatActivity {
         CheckBox chkuscart = (CheckBox) findViewById(R.id.chkUSCart);
         CheckBox chkusbox = (CheckBox) findViewById(R.id.chkUSBox);
         CheckBox chkusmanual = (CheckBox) findViewById(R.id.chkUSmanual);
+        CheckBox onshelf = (CheckBox) findViewById(R.id.chkShelf);
 
-        //TextView synopsis = (TextView) findViewById(R.id.lblSynopsis);
+        EditText PalACost = (EditText) findViewById(R.id.txtPalAcost);
+        EditText PalBCost = (EditText) findViewById(R.id.txtPalBcost);
+        EditText USCost = (EditText) findViewById(R.id.txtUScost);
+
+        TextView PalACurrency = (TextView) findViewById(R.id.lblCurrencyPalA);
+        TextView PalBCurrency = (TextView) findViewById(R.id.lblCurrencyPalB);
+        TextView USCurrency = (TextView) findViewById(R.id.lblCurrencyUS);
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
@@ -137,9 +171,21 @@ public class EditOwnedGame extends AppCompatActivity {
                 regionustrue = (c.getInt(c.getColumnIndex("ntsc_release")));
 
                 favourite = (c.getInt(c.getColumnIndex("favourite")));
+                PalAcost = (c.getDouble(c.getColumnIndex("pal_a_cost")));
+                PalBcost = (c.getDouble(c.getColumnIndex("pal_b_cost")));
+                UScost = c.getDouble(c.getColumnIndex("ntsc_cost"));
 
-                test = palAcart + " " + palAbox + " " + palAmanual + " " + palBcart + " " + palBbox + " " + palBmanual + " " + uscart + " " + usbox + " " + usmanual;
-                Log.d("pixo", test);
+                ontheshelf = (c.getInt(c.getColumnIndex("onshelf")));
+                wishlist = (c.getInt(c.getColumnIndex("wishlist")));
+
+
+                PalACost.setText(String.format("%.2f",PalAcost));
+                PalBCost.setText(String.format("%.2f",PalBcost));
+                USCost.setText(String.format("%.2f",UScost));
+
+                PalACurrency.setText(currency);
+                PalBCurrency.setText(currency);
+                USCurrency.setText(currency);
 
                 if (regionatrue == 0) { chkpalacart.setEnabled(false); chkpalabox.setEnabled(false); chkpalamanual.setEnabled(false);
                 } else if (regionatrue == 1) { if (palAcart == 8783) { chkpalacart.setChecked(true); } else { chkpalacart.setChecked(false); }
@@ -156,15 +202,15 @@ public class EditOwnedGame extends AppCompatActivity {
                 else if (regionustrue == 1) {if (uscart == 8783) { chkuscart.setChecked(true); } else { chkuscart.setChecked(false); }
                 if (usbox == 8783) { chkusbox.setChecked(true); } else { chkusbox.setChecked(false); }
                 if (usmanual == 8783) { chkusmanual.setChecked(true); } else { chkusmanual.setChecked(false);}
+
+                if (ontheshelf == 1){onshelf.setChecked(true);} else { onshelf.setChecked(false);}
                 }
                     c.moveToNext();//move to the next record
                 }
                 c.close();//close the cursor
             }
-
             db.close();//close the database
         }
-
 
     public void writegame(){
 
@@ -177,6 +223,10 @@ public class EditOwnedGame extends AppCompatActivity {
         CheckBox chkuscart = (CheckBox) findViewById(R.id.chkUSCart);
         CheckBox chkusbox = (CheckBox) findViewById(R.id.chkUSBox);
         CheckBox chkusmanual = (CheckBox) findViewById(R.id.chkUSmanual);
+        CheckBox onshelf = (CheckBox) findViewById(R.id.chkShelf);
+        EditText PalACost = (EditText) findViewById(R.id.txtPalAcost);
+        EditText PalBCost = (EditText) findViewById(R.id.txtPalBcost);
+        EditText USCost = (EditText) findViewById(R.id.txtUScost);
 
         if (chkpalacart.isChecked()){ palAcart = 8783; cart = 1; owned = 1;} else  { palAcart = 32573; }
         if (chkpalabox.isChecked()){ palAbox = 8783; box = 1; owned = 1;} else { palAbox = 32573; }
@@ -190,17 +240,30 @@ public class EditOwnedGame extends AppCompatActivity {
         if (chkusbox.isChecked()){ usbox = 8783; box = 1; owned = 1;} else { usbox = 32573;  }
         if (chkusmanual.isChecked()){ usmanual = 8783; manual = 1; owned = 1;} else { usmanual = 32573; }
 
-        //if (chkpalacart.setChecked(false)){ if (chkpalbcart.setChecked(false) { if chkuscart.setChecked(false){cart = 0;}}}
-        //  if (chkpalacart.isChecked(false))  (chkpalabox.setChecked(false)) && (chkpalamanual.setChecked(false)) &&  && (chkpalbbox.setChecked(false) && chkpalbmanual.setChecked(false) &&  && chkusbox.setChecked(false) && chkusmanual.setChecked(false){} ;
+        if (onshelf.isChecked()){ontheshelf = 1;} else { ontheshelf = 0;}
+
         if (palAcart == 32573 && palBcart == 32573 && uscart == 32573) { cart = 0; }
         if (palAbox == 32573 && palBbox == 32573 && usbox == 32573) { box = 0; }
         if (palAmanual == 32573 && palBmanual == 32573 && usmanual == 32573) { manual = 0; }
 
         if (cart == 0 && box == 0 && manual == 0) {owned = 0;}
 
-                SQLiteDatabase db;//set up the connection to the database
-                db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-                String str = "UPDATE eu SET owned = " + owned + ", cart = " + cart + ", box = " + box + ", manual = " + manual + ", pal_a_cart = " + palAcart + ", pal_a_box = " + palAbox + ", pal_a_manual = " + palAmanual + ", pal_b_cart = " + palBcart + ", pal_b_box = " + palBbox + ", pal_b_manual = " + palBmanual + ", ntsc_cart = " + uscart + ", ntsc_box = " + usbox + ",  ntsc_manual = " + usmanual + " where _id = " + gameid + " "; //update the database basket field with 8783
+        PACheck = PalACost.getText().toString();
+        PBCheck = PalBCost.getText().toString();
+        USCheck = USCost.getText().toString();
+
+        if (PACheck.matches("") || !Character.isDigit(PACheck.charAt(0))) {PalAcost = 0.00;}
+        else {PalAcost = Double.valueOf(PalACost.getText().toString());}
+
+        if (PBCheck.matches("") || !Character.isDigit(PBCheck.charAt(0))) {PalAcost = 0.00;}
+        else {PalBcost = Double.valueOf(PalBCost.getText().toString());}
+
+        if (USCheck.matches("") || !Character.isDigit(USCheck.charAt(0))) {PalAcost = 0.00;}
+        else {UScost = Double.valueOf(USCost.getText().toString());}
+
+        SQLiteDatabase db;//set up the connection to the database
+        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+        String str = "UPDATE eu SET owned = " + owned + ", cart = " + cart + ", box = " + box + ", manual = " + manual + ", pal_a_cart = " + palAcart + ", pal_a_box = " + palAbox + ", pal_a_manual = " + palAmanual + ", pal_b_cart = " + palBcart + ", pal_b_box = " + palBbox + ", pal_b_manual = " + palBmanual + ", ntsc_cart = " + uscart + ", ntsc_box = " + usbox + ",  ntsc_manual = " + usmanual + ",  pal_a_cost = " + PalAcost + ",  pal_b_cost = " + PalBcost + ",  ntsc_cost = " + UScost + ",  onshelf = " + ontheshelf +  ",  wishlist = 0 where _id = " + gameid + " "; //update the database basket field with 8783
         db.execSQL(str);//run the sql command
                 Log.d("Pixo", str);
                 //Intent intent = new Intent(EditOwnedGame.this, OwnedGames.class);//opens a new screen when the shopping list is clicked
@@ -208,6 +271,7 @@ public class EditOwnedGame extends AppCompatActivity {
                 //startActivity(intent);//start the new screen
                 finish();
             }
+
     public void favouritegame(){
         SQLiteDatabase db;//set up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
@@ -223,5 +287,15 @@ public class EditOwnedGame extends AppCompatActivity {
         invalidateOptionsMenu();
     }
 
+
+
+    public void readSettings(){
+        SQLiteDatabase db;//sets up the connection to the database
+        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+        sql = "SELECT * FROM settings";
+        Cursor c = db.rawQuery(sql, null);//select everything from the database table
+        c.moveToFirst();
+        currency = (c.getString(c.getColumnIndex("currency")));
+    }
 }
 

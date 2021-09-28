@@ -6,7 +6,7 @@
 
     <color name="black_overlay">#66000000</color>
     <color name="grey">#CAC7C1</color>
-    <color name="nctopGrey">#c7bd96</color>
+    <color name="nctopGrey">#cccac7</color>
     <color name="ncbottomGrey">#716f6f</color>
     <color name="ncbuttonRed">#e84545</color>
 </resources>

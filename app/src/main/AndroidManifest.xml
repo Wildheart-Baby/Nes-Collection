@@ -36,7 +36,6 @@
         <activity
             android:name=".SearchResults"
             android:label="@string/title_activity_search_results"
-            android:parentActivityName=".MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
@@ -71,6 +70,31 @@
         <activity
             android:name=".Search"
             android:label="@string/title_activity_search"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Statistics"
+            android:label="@string/title_activity_statistics"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".About"
+            android:label="@string/title_activity_about"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".Credits"
+            android:label="@string/title_activity_credits"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ShelfOrder"
+            android:label="@string/title_activity_shelf_order"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".WishList"
+            android:label="@string/title_activity_wish_list"
             android:theme="@style/AppTheme"></activity>
     </application>
 

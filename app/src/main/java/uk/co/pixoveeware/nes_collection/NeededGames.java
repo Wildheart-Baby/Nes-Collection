@@ -40,7 +40,7 @@ public class NeededGames extends AppCompatActivity {
         setContentView(R.layout.activity_needed_games);
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
         //wherestatement = getIntent().getStringExtra("wherestatement");
-        setTitle("Needed Games");
+        setTitle("Missing Games");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -108,6 +108,11 @@ public class NeededGames extends AppCompatActivity {
             case R.id.action_search:
                 Intent intent2 = new Intent(NeededGames.this, Search.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent2);//start the new screen
+                return true;
+
+            case R.id.action_about:
+                Intent intent3 = new Intent(NeededGames.this, About.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent3);//start the new screen
                 return true;
 
             default:

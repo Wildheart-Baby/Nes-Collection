@@ -12,6 +12,18 @@
     tools:context="uk.co.pixoveeware.nes_collection.Search"
     tools:showIn="@layout/activity_search">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SearchTerm"
+        android:id="@+id/lblGame"
+        android:layout_alignBaseline="@+id/txtSearch"
+        android:layout_alignBottom="@+id/txtSearch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textSize="16sp"
+        android:layout_marginRight="5dp" />
+
     <EditText
         android:id="@+id/txtSearch"
         android:layout_width="wrap_content"
@@ -20,47 +32,80 @@
         android:ems="10"
         android:hint="Type your search here..."
 
+        android:layout_alignParentTop="true"
         android:layout_alignLeft="@+id/field_name"
         android:layout_alignStart="@+id/field_name">
 
         <requestFocus />
     </EditText>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/FieldName"
+        android:id="@+id/lblField"
+        android:layout_below="@+id/txtSearch"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginRight="5dp" />
+
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/field_name"
+        android:spinnerMode="dropdown"
         android:layout_below="@+id/txtSearch"
-        android:layout_marginLeft="4dp"
-        android:spinnerMode="dropdown"/>
+        android:layout_alignLeft="@+id/field_selection"
+        android:layout_alignStart="@+id/field_selection" />
 
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/field_selection"
-        android:layout_below="@+id/field_name"
-        android:layout_marginLeft="4dp"
         android:spinnerMode="dropdown"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:layout_below="@+id/field_name"
+        android:layout_toRightOf="@+id/lblField"
+        android:layout_toEndOf="@+id/lblField"
+        android:layout_marginBottom="10dp" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/AllRegions"
+        android:id="@+id/chkAllRegions"
+        android:layout_below="@+id/field_selection"
+        android:layout_alignLeft="@+id/rgnOk"
+        android:layout_alignStart="@+id/rgnOk"
+        android:layout_marginBottom="10dp" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Search"
         android:id="@+id/rgnOk"
-        android:layout_below="@+id/field_selection"
+        android:layout_below="@+id/chkAllRegions"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginLeft="4dp" />
+        android:layout_alignParentStart="true" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
         android:id="@+id/rgnCancel"
-        android:layout_below="@+id/field_selection"
-        android:layout_toRightOf="@+id/rgnOk"
-        android:layout_toEndOf="@+id/rgnOk" />
+        android:layout_below="@+id/chkAllRegions"
+        android:layout_alignLeft="@+id/field_selection"
+        android:layout_alignStart="@+id/field_selection" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/SubGenre"
+        android:id="@+id/lblSubGenre"
+        android:visibility="invisible"
+        android:layout_below="@+id/field_name"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

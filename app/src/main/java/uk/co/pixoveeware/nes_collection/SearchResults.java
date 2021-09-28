@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,26 +27,36 @@ public class SearchResults extends AppCompatActivity {
     final Context context = this;
     SQLiteDatabase sqlDatabase;
 
-    String name, dbfile, readgamename, str, listName,currentDate, search, field, searchname, columnname,sql;
-    int readgameid, gameid;
+    String name, dbfile, readgamename, str, listName,currentDate, pagetitle, search, field, searchname, columnname,sql, currentgroup;
+    String prevgroup = "";
+    int readgameid, gameid, totalResults;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView gamelistView;
-
+    TextView thesearchresults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_all_games);
+        setContentView(R.layout.activity_search_results);
+        thesearchresults = (TextView) findViewById(R.id.lblSearchResults);
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
         search = getIntent().getStringExtra("searchname"); //sets a variable fname with data passed from the main screen
         field = getIntent().getStringExtra("columnname"); //sets a variable fname with data passed from the main screen
         sql = getIntent().getStringExtra("sqlstatement");
-        Toolbar allgames_toolbar = (Toolbar) findViewById(R.id.allgames_toolbar);
-        setSupportActionBar(allgames_toolbar);
-
+        searchname = getIntent().getStringExtra("searchterm");
+        pagetitle = getIntent().getStringExtra("pagetitle");
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        setTitle(pagetitle);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        gamelistView = (ListView) findViewById(R.id.lvAllGames); //sets up a listview with the name shoplistview
+        gamelistView = (ListView) findViewById(R.id.listView); //sets up a listview with the name shoplistview
 
         readList();
 
@@ -80,6 +91,8 @@ public class SearchResults extends AppCompatActivity {
 
         });
 
+
+
     }
 
     @Override
@@ -102,6 +115,11 @@ public class SearchResults extends AppCompatActivity {
                 startActivity(intent2);//start the new screen
                 return true;
 
+            case R.id.action_about:
+                Intent intent3 = new Intent(SearchResults.this, About.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent3);//start the new screen
+                return true;
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -112,6 +130,7 @@ public class SearchResults extends AppCompatActivity {
 
     public void readList(){//the readlist function
         Log.d("Pixo", sql);
+
         ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
         nesList.clear();//clear the shoppingList array
 
@@ -121,25 +140,48 @@ public class SearchResults extends AppCompatActivity {
         Cursor c = db.rawQuery(sql, null);//select everything from the database table
 
         if (c.moveToFirst()) {//move to the first record
-
                 while ( !c.isAfterLast() ) {//while there are records to read
                 NesItems nesListItems = new NesItems();//creates a new array
-                nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                nesListItems.setImage(c.getString(c.getColumnIndex("image")));
-                nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                nesListItems.setName(c.getString(c.getColumnIndex("name")));
-                nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
+                    currentgroup = c.getString(c.getColumnIndex("groupheader"));
 
-                nesList.add(nesListItems);//add items to the arraylist
-                c.moveToNext();//move to the next record
+                    if(!currentgroup.equals(prevgroup)){
+                        nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
+                        nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
+                        nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                        nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
+                        nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                        nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
+                        nesList.add(nesListItems);//add items to the arraylist
+                        prevgroup = c.getString(c.getColumnIndex("groupheader"));
+                    }
+                    else if(currentgroup.equals(prevgroup)){
+                        nesListItems.setGroup("no");
+                        nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
+                        nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                        nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
+                        nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                        nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
+                        nesList.add(nesListItems);//add items to the arraylist
+                        prevgroup = c.getString(c.getColumnIndex("groupheader"));
+                    }
+                    c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
         //Cursor c = db.rawQuery("SELECT ID, ITEM, QUANTITY, DEPARTMENT, BASKET FROM " + fname, null);
+        c = db.rawQuery(sql, null);
+        totalResults = c.getCount();
         db.close();//close the database
 
-        NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
-        gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
+        if (totalResults == 0){
+           gamelistView.setVisibility(View.GONE);
+           thesearchresults.setVisibility(View.VISIBLE);
+        }else {
+            NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
+            gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
+        }
+
+
     }
 
 

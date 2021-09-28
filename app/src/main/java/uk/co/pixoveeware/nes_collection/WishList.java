@@ -26,19 +26,21 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class FavouriteGames extends AppCompatActivity {
+public class WishList extends AppCompatActivity {
 
-    ListView favouritelistView;
+    ListView gamelistView;
+    TextView thesearchresults;
+
     Context context;
 
-    String name, readgamename, searchterm,fieldname;
-    int readgameid, index, top, count, randomgame, itemId;
+    String name, readgamename, searchterm,fieldname, sql;
+    int readgameid, index, top, count, randomgame, itemId, totalResults;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_favourite_games);
-        setTitle("Favourite Games");
+        setContentView(R.layout.activity_search_results);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -50,53 +52,49 @@ public class FavouriteGames extends AppCompatActivity {
         });
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        favouritelistView = (ListView) findViewById(R.id.lvFavouriteGames);
-
+        thesearchresults = (TextView) findViewById(R.id.lblSearchResults);
+        gamelistView = (ListView) findViewById(R.id.listView);
+        setTitle("Wish List");
         readList();
 
-        favouritelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
                 NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
-                Intent intent = new Intent(FavouriteGames.this, GameDetail.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(WishList.this, GameDetail.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("gameid", readgameid);//passes the table name to the new screen
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
                 startActivity(intent);//start the new screen
             }
         });
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_favouritegames, menu);
+        getMenuInflater().inflate(R.menu.menu_allgames, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_random:
-                    randomgame();
-                return true;
 
             case R.id.action_settings:
-                Intent intent = new Intent(FavouriteGames.this, Settings.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(WishList.this, Settings.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);//start the new screen
                 return true;
 
             case R.id.action_search:
-                Intent intent2 = new Intent(FavouriteGames.this, Search.class);//opens a new screen when the shopping list is clicked
+                Intent intent2 = new Intent(WishList.this, Search.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent2);//start the new screen
                 return true;
 
             case R.id.action_about:
-                Intent intent3 = new Intent(FavouriteGames.this, About.class);//opens a new screen when the shopping list is clicked
+                Intent intent3 = new Intent(WishList.this, About.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent3);//start the new screen
                 return true;
 
@@ -112,8 +110,8 @@ public class FavouriteGames extends AppCompatActivity {
     public void onPause(){
         super.onPause();
 
-        index = favouritelistView.getFirstVisiblePosition();
-        View v = favouritelistView.getChildAt(0);
+        index = gamelistView.getFirstVisiblePosition();
+        View v = gamelistView.getChildAt(0);
         top = (v == null) ? 0 : v.getTop();
     }
 
@@ -123,7 +121,8 @@ public class FavouriteGames extends AppCompatActivity {
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-        Cursor c = db.rawQuery("SELECT * FROM eu where favourite = 1", null);//select everything from the database table
+        sql ="SELECT * FROM eu where wishlist = 1";
+        Cursor c = db.rawQuery(sql, null);//select everything from the database table
         //Cursor c = db.rawQuery("SELECT * FROM " + fname, null);
 
         //Cursor c = db.rawQuery(sql, null);
@@ -145,10 +144,19 @@ public class FavouriteGames extends AppCompatActivity {
         }
         //Cursor c = db.rawQuery("SELECT ID, ITEM, QUANTITY, DEPARTMENT, BASKET FROM " + fname, null);
 
+        c = db.rawQuery(sql, null);
+        totalResults = c.getCount();
+        c.close();
         db.close();//close the database
 
-        NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
-        favouritelistView.setAdapter(nes);//set the listview with the contents of the arraylist
+        if (totalResults == 0){
+            gamelistView.setVisibility(View.GONE);
+            thesearchresults.setVisibility(View.VISIBLE);
+            thesearchresults.setText("Your wishlist is empty, please add some games to it");
+        }else {
+            NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
+            gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
+        }
     }
 
     @Override
@@ -157,57 +165,6 @@ public class FavouriteGames extends AppCompatActivity {
         //When BACK BUTTON is pressed, the activity on the stack is restarted
         //Do what you want on the refresh procedure here
         readList();//run the list tables function
-        favouritelistView.setSelectionFromTop(index, top);
-    }
-
-
-    public void randomgame(){
-        count = favouritelistView.getAdapter().getCount();
-        if (count >2) {
-
-            Random rand = new Random();
-            randomgame = rand.nextInt(count);
-
-            NesItems gameListItems = (NesItems) favouritelistView.getItemAtPosition(randomgame);//get the position of the item on the list
-            itemId = gameListItems.getItemId();//get the item id
-
-            final Dialog randomgame = new Dialog(FavouriteGames.this);//sets up the dialog
-            randomgame.setContentView(R.layout.random_game);//sets up the layout of the dialog box
-
-            Button cancel = (Button) randomgame.findViewById(R.id.btnCancel);
-            TextView title = (TextView) randomgame.findViewById(R.id.lblTitle);
-            ImageView cover = (ImageView) randomgame.findViewById(R.id.imgGameCover);
-
-            randomgame.setTitle("Random game");
-            SQLiteDatabase db;//sets up the connection to the database
-            db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-            Cursor c = db.rawQuery("SELECT * FROM eu where _id = " + itemId + "", null);//select everything from the database table
-
-            if (c.moveToFirst()) {//move to the first record
-                while (!c.isAfterLast()) {//while there are records to read
-
-                    title.setText(c.getString(c.getColumnIndex("name")));
-                    String gameimage = (c.getString(c.getColumnIndex("image")));
-                    int coverid = FavouriteGames.this.getResources().getIdentifier(gameimage, "drawable", FavouriteGames.this.getPackageName());
-                    cover.setImageResource(coverid);
-                    c.moveToNext();//move to the next record
-                }
-                c.close();//close the cursor
-            }
-            db.close();//close the database
-            cancel.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    randomgame.dismiss();
-                }
-            });
-            randomgame.show();//show the dialog
-        }
-        else if(count <2){
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "Sorry you don't have enough games to make a random selection",
-                    Toast.LENGTH_SHORT);
-            toast.show();
-        }
+        gamelistView.setSelectionFromTop(index, top);
     }
 }

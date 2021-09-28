@@ -108,6 +108,11 @@ public class AllGames extends AppCompatActivity {
                 startActivity(intent2);//start the new screen
                 return true;
 
+            case R.id.action_about:
+                Intent intent3 = new Intent(AllGames.this, About.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent3);//start the new screen
+                return true;
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.

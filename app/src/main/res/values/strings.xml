@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Nes-Collection</string>
     <string name="action_settings">Settings</string>
+    <string name="action_credits">Credits</string>
+    <string name="action_wishlist">Wish list</string>
     <string name="name">name</string>
     <string name="title_activity_all_games">AllGames</string>
     <string name="title_activity_game_detail">GameDetail</string>
@@ -27,7 +29,7 @@
     <string name="title_activity_nes_collection">NesCollection</string>
     <string name="AllGames">All Games</string>
     <string name="Needed">Needed</string>
-    <string name="Stats">Stats</string>
+    <string name="Stats">Statistics</string>
     <string name="title_activity_main_page">MainPage</string>
 
     <string name="title_activity_splash">SplashActivity</string>
@@ -35,11 +37,17 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="Title">Nes Collection</string>
     <string name="title_activity_favourite_games">FavouriteGames</string>
-    <string name="whichregion">Which Region Are You Collecting</string>
+    <string name="whichregion">Collecting Region</string>
     <string name="title_activity_settings">Settings</string>
     <string name="Settings">Settings</string>
     <string name="Unlicensed">Include unlicensed games</string>
     <string name="RandomHeading">Your randomly selected game is</string>
+
+    <string-array name="currencyArray">
+        <item>£</item>
+        <item>€</item>
+        <item>$</item>
+    </string-array>
 
     <string-array name="regionsArray">
         <item>Pal A UK</item>
@@ -51,6 +59,7 @@
         <item>Pal B + Ntsc</item>
         <item>All Regions</item>
     </string-array>
+
 
     <string-array name="searchArray">
         <item>name</item>
@@ -428,12 +437,217 @@
     </string-array>
 
     <string-array name="genreArray">
-        <item></item>
+        <item>Action</item>
+        <item>Action Adventure</item>
+        <item>Adventure</item>
+        <item>Application</item>
+        <item>Arcade</item>
+        <item>Beat em Up</item>
+        <item>Board game</item>
+        <item>Compilation</item>
+        <item>Fighting</item>
+        <item>Fitness game</item>
+        <item>Other</item>
+        <item>Personal Development</item>
+        <item>Platformer</item>
+        <item>Puzzle</item>
+        <item>Racing</item>
+        <item>Role-Playing Game</item>
+        <item>Shoot em Up</item>
+        <item>Shooter</item>
+        <item>Simulation</item>
+        <item>Sports</item>
+        <item>Strategy</item>
+        <item>Traditional</item>
+        <item>Trivia</item>
+        <item>Vehicular Simulation</item>
     </string-array>
 
     <string-array name="subgenreArray">
-        <item>Side Scrolling Shoot \'em Up</item>
+        <item>Side Scrolling Shoot em Up</item>
+        <item>Hybrid Shoot em Up</item>
+        <item>2D Action Adventure</item>
+        <item>2D Action Platformer</item>
+        <item>2D Side Scrolling</item>
+        <item>Action</item>
+        <item>Action Adventure</item>
+        <item>Action RPG</item>
+        <item>Action Strategy Hybrid</item>
+        <item>Action-Adventure</item>
+        <item>Aerial Swordplay</item>
+        <item>Aeroshooter</item>
+        <item>Arcade</item>
+        <item>Arcade Action</item>
+        <item>Arcade Platformer</item>
+        <item>Arcade Racing</item>
+        <item>Arena Shooter</item>
+        <item>Athletics</item>
+        <item>Ball and Paddle</item>
+        <item>Baseball</item>
+        <item>Basketball</item>
+        <item>Battle Racing</item>
+        <item>Beat em Up</item>
+        <item>Boardgame</item>
+        <item>Bowling</item>
+        <item>Campaign Strategy</item>
+        <item>Card Game</item>
+        <item>Carnage Racing</item>
+        <item>Cartoon Sports</item>
+        <item>Casino</item>
+        <item>Character Control Puzzle</item>
+        <item>Chase Racing</item>
+        <item>Chess</item>
+        <item>Christian</item>
+        <item>Cinematic Platformer</item>
+        <item>Colour Match</item>
+        <item>Combat Simulation</item>
+        <item>Comical Action</item>
+        <item>Compilation</item>
+        <item>Connecting Puzzle</item>
+        <item>Cricket</item>
+        <item>Cue Sport</item>
+        <item>Darts</item>
+        <item>Digging Game</item>
+        <item>Direct Control Adventure</item>
+        <item>Dodgeball</item>
+        <item>Driving</item>
+        <item>Duel RPG</item>
+        <item>Dungeon Crawler</item>
+        <item>Educational</item>
+        <item>Edutainment</item>
+        <item>Extreme Sports</item>
+        <item>Falling Blocks</item>
+        <item>Fantasy Sport</item>
+        <item>Fighting</item>
+        <item>First Person Shooter</item>
+        <item>Fishing</item>
+        <item>Fixed Screen</item>
+        <item>Fixed Screen Racing</item>
+        <item>Flight Simulator</item>
+        <item>Football</item>
+        <item>Formula 1</item>
+        <item>Formula Racing</item>
+        <item>Futuristic Hockey</item>
+        <item>Game Show</item>
+        <item>Golf</item>
+        <item>Grid Shuffling</item>
+        <item>Head-to-head Fighting</item>
+        <item>Helicopter Rescue</item>
+        <item>Hidden Object</item>
+        <item>Hockey</item>
+        <item>Horizontal Shoot em Up</item>
+        <item>Hybrid Shoot em Up</item>
+        <item>Hybrid Shooter</item>
+        <item>Ice Hockey</item>
+        <item>Isometric Action Adventure</item>
+        <item>Isometric Platformer</item>
+        <item>Isometric Racer</item>
+        <item>Jump n Run</item>
+        <item>Jump n Shoot</item>
+        <item>Jump n Slay</item>
+        <item>Jump n Run</item>
+        <item>Jump n Shoot</item>
+        <item>Jump n Slay</item>
+        <item>Light Gun Game</item>
+        <item>Light Gun Shooter</item>
+        <item>Linear</item>
+        <item>Looping Shoot em Up</item>
+        <item>Management</item>
+        <item>Martial Arts</item>
+        <item>Match Game</item>
+        <item>Math Coach</item>
+        <item>Maze Game</item>
+        <item>Menu Driven Adventure</item>
+        <item>Mini Games</item>
+        <item>Mini-Game Collection</item>
+        <item>Mission Based Driving</item>
+        <item>Movement Puzzle</item>
+        <item>Multi Sports</item>
+        <item>Multi directional Shoot em up</item>
+        <item>Music Coach</item>
+        <item>Obstacle Course</item>
+        <item>Off Road Racing</item>
+        <item>Other Racing</item>
+        <item>Personal Fitness</item>
+        <item>Pinball</item>
+        <item>Platform Adventure</item>
+        <item>Platform Fighter</item>
+        <item>Platformer</item>
+        <item>Playfield Puzzle</item>
+        <item>Point and Click Adventure</item>
+        <item>Poker</item>
+        <item>Puzzle</item>
+        <item>Puzzle Game</item>
+        <item>Puzzle Platformer</item>
+        <item>Rail Shooter</item>
+        <item>Roaming Shoot em Up</item>
+        <item>Role-Playing Sport</item>
+        <item>Run n Gun</item>
+        <item>Run n Gun Shooter</item>
+        <item>Sandbox Game</item>
+        <item>Scroling Racer</item>
+        <item>Scrolling Action-Adventure</item>
+        <item>Scrolling Fighter</item>
+        <item>Scrolling Shoot em Up</item>
+        <item>Scrolling Shooter</item>
+        <item>Shoot em up</item>
+        <item>Shooter</item>
+        <item>Shooting Gallery</item>
+        <item>Side Scrolling</item>
+        <item>Side Scrolling Platform</item>
+        <item>Side Scrolling Role-Playing Game</item>
+        <item>Side Scrolling Shoot em Up</item>
+        <item>Side Scrolling Shooter</item>
+        <item>Side scrolling</item>
+        <item>Single Screen Arcade</item>
+        <item>Skating</item>
+        <item>Sliding Puzzle</item>
+        <item>Snowboard</item>
+        <item>Softball</item>
+        <item>Space Shuttle Simulation</item>
+        <item>Starship Simulation</item>
+        <item>Stealth Game</item>
+        <item>Stock Car Racing</item>
+        <item>Strategy</item>
+        <item>Stroll and Gun</item>
+        <item>Submarine Simulation</item>
+        <item>Survival Horror</item>
+        <item>Tarot Reading</item>
+        <item>Tennis</item>
+        <item>Top Down  Shoot em Up</item>
+        <item>Top Down Racer</item>
+        <item>Top Down Shooter</item>
+        <item>Track and Field</item>
+        <item>Turn-Based Tactics</item>
+        <item>Vehicular Combat</item>
+        <item>Vertical Racing</item>
+        <item>Vertical Scrolling</item>
+        <item>Vertical Scrolling Shooter</item>
+        <item>Vertical Shoot em Up</item>
+        <item>Virtual Board Game</item>
+        <item>Virtual Racing</item>
+        <item>Volleyball</item>
+        <item>Winter Sports</item>
+        <item>Wrestling</item>
+        <item>Art Game</item>
     </string-array>
 
     <string name="title_activity_search">Search</string>
+    <string name="title_activity_statistics">Statistics</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_credits">Credits</string>
+    <string name="Aboutdesc">Your game collecting companion</string>
+    <string name="About">© Pixoveeware 2016 \n  All rights reserved.</string>
+    <string name="Cost">Cost</string>
+    <string name="title_activity_shelf_order">ShelfOrder</string>
+    <string name="SearchTerm">Game Title</string>
+    <string name="FieldName">Field to search</string>
+    <string name="SubGenre">Sub genre</string>
+    <string name="NoResults">Sorry there are no results</string>
+    <string name="AllRegions">Only search collecting region</string>
+    <string name="HeaderStats">This is a breakdown of the games that you have in your collection by region.</string>
+    <string name="Shelf">Store on shelf</string>
+    <string name="Currency">Currency</string>
+    <string name="ShelfSize">Number of games per shelf</string>
+    <string name="title_activity_wish_list">WishList</string>
 </resources>

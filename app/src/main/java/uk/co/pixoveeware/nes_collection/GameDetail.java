@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class GameDetail extends AppCompatActivity {
 
     Context context; //sets up a variable as context
-    int gameid, editgameid, coverid, owned, carttrue, boxtrue, manualtrue, favourite;
+    int gameid, editgameid, coverid, owned, carttrue, boxtrue, manualtrue, favourite, wishlist;
     String covername, gamename, headers;
 
     private Menu menu;
@@ -41,6 +41,13 @@ public class GameDetail extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
     }
 
@@ -73,6 +80,15 @@ public class GameDetail extends AppCompatActivity {
 
             case R.id.action_favourite:
                 favouritegame();
+                return true;
+
+            case R.id.action_wishlist:
+                wishlist();
+                return true;
+
+            case R.id.action_about:
+                Intent intent3 = new Intent(GameDetail.this, About.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent3);//start the new screen
                 return true;
 
             default:
@@ -118,6 +134,7 @@ public class GameDetail extends AppCompatActivity {
                 boxtrue = (c.getInt(c.getColumnIndex("box")));
                 manualtrue = (c.getInt(c.getColumnIndex("manual")));
                 favourite = (c.getInt(c.getColumnIndex("favourite")));
+                wishlist = (c.getInt(c.getColumnIndex("wishlist")));
                 coverid = getResources().getIdentifier(covername, "drawable", getPackageName());
                 gamename.setText((c.getString(c.getColumnIndex("name"))));
                 cover.setImageResource(coverid);
@@ -166,6 +183,38 @@ public class GameDetail extends AppCompatActivity {
         readGame();
         invalidateOptionsMenu();
     }
+
+    public void wishlist(){
+        SQLiteDatabase db;//set up the connection to the database
+        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+        String str ="";
+        if (owned == 1){Toast toast = Toast.makeText(getApplicationContext(),
+                "You already own this game",
+                Toast.LENGTH_SHORT);
+            toast.show();}
+        else if (owned == 0) {
+
+            if (wishlist == 0) {
+                str = "UPDATE eu SET wishlist = 1 where _id = " + gameid + " "; //update the database basket field with 8783
+                db.execSQL(str);//run the sql command
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Game added to wishlist",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            } else if (wishlist == 1) {
+                str = "UPDATE eu SET wishlist = 0 where _id = " + gameid + " "; //update the database basket field with 8783
+                db.execSQL(str);//run the sql command
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "Game removed from wishlist",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
+        //Log.d("Pixo", str);
+        readGame();
+        //invalidateOptionsMenu();
+    }
+
 
     @Override
     public void onRestart() {

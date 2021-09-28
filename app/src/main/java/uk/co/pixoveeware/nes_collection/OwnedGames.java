@@ -115,6 +115,11 @@ public class OwnedGames extends AppCompatActivity {
                 randomgame();
                 return true;
 
+            case R.id.action_about:
+                Intent intent3 = new Intent(OwnedGames.this, About.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent3);//start the new screen
+                return true;
+
             default:
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
@@ -313,6 +318,7 @@ public class OwnedGames extends AppCompatActivity {
         //Do what you want on the refresh procedure here
         readList();//run the list tables function
         ownedlistView.setSelectionFromTop(index, top);
+        gamescount();
     }
 
 }

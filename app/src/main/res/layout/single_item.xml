@@ -71,7 +71,8 @@
         android:paddingTop="5dp"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imgGameCover"
-        android:layout_toEndOf="@+id/imgGameCover" />
+        android:layout_toEndOf="@+id/imgGameCover"
+        android:layout_marginLeft="2dp" />
 
     <TextView
         android:layout_width="match_parent"
@@ -81,7 +82,8 @@
         android:id="@+id/lblPublisher"
         android:layout_below="@+id/lblGameName"
         android:layout_toRightOf="@+id/imgGameCover"
-        android:layout_toEndOf="@+id/imgGameCover" />
+        android:layout_toEndOf="@+id/imgGameCover"
+        android:layout_marginLeft="2dp" />
     </RelativeLayout>
 
 </RelativeLayout>

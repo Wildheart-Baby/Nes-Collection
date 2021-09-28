@@ -16,12 +16,15 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Chronometer;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 public class Settings extends AppCompatActivity {
 
-    String regionselected, sql, currentregion, licensed;
-    ArrayAdapter<CharSequence> adapter;
+    String regionselected, sql, currentregion, licensed, currentcurrency, shelfS;
+    int shelfsize;
+    ArrayAdapter<CharSequence> adapter, adapter2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +43,7 @@ public class Settings extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getregion();
+        getsettings();
         setregion();
 
 
@@ -49,24 +52,31 @@ public class Settings extends AppCompatActivity {
     public void setregion() {
         //region;
         final Spinner region = (Spinner) findViewById(R.id.dropRegion);
+        final Spinner currency = (Spinner) findViewById(R.id.dropCurrency);
         final CheckBox unlicensed = (CheckBox) findViewById(R.id.chkUnlicensed);
+        final TextView shelfspace = (TextView) findViewById(R.id.txtShelfSize);
         Button ok = (Button) findViewById(R.id.rgnOk);
         Button cancel = (Button) findViewById(R.id.rgnCancel);
 
-        //String[] regions = {"Pal A", "Pal B", "Ntsc", "Pal A + Pal B", "Pal A + Ntsc", "Pal B + Ntsc", "All Regions"};
-        //ArrayAdapter<String> wsaa1 = new ArrayAdapter<String>(getBaseContext(), R.layout.support_simple_spinner_dropdown_item, regions);
+        shelfspace.setText(String.valueOf(shelfsize));
+
+
         adapter = ArrayAdapter.createFromResource(getBaseContext(),
                 R.array.regionsArray, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the adapter to the spinner
         region.setAdapter(adapter);
-
-        //wsaa1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //region.setAdapter(wsaa1);
-
         int spinnerPosition = adapter.getPosition(currentregion);
         region.setSelection(spinnerPosition);
+
+        adapter2 = ArrayAdapter.createFromResource(getBaseContext(),
+                R.array.currencyArray, android.R.layout.simple_spinner_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        currency.setAdapter(adapter2);
+        spinnerPosition = adapter2.getPosition(currentcurrency);
+        currency.setSelection(spinnerPosition);
 
         if (licensed.contains(" and (unlicensed = 0 or 1)")) { unlicensed.setChecked(true); } else { unlicensed.setChecked(false);}
 
@@ -80,6 +90,22 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        currency.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                currentcurrency = (String) currency.getSelectedItem();
+            }
+
+            public void onNothingSelected(
+                    AdapterView<?> adapterView) {
+            }
+        });
+
+        shelfspace.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                shelfspace.setText("");
+            }
+        });
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,9 +139,14 @@ public class Settings extends AppCompatActivity {
 
                 if (unlicensed.isChecked()){ licensed = " and (unlicensed = 0 or 1)";} else  { licensed = " and (unlicensed = 0)"; }
 
+                shelfS = shelfspace.getText().toString();
+
+                if (shelfS.matches("") || !Character.isDigit(shelfS.charAt(0))) {shelfsize = 9;}
+                else {shelfsize = Integer.valueOf(shelfspace.getText().toString());}
+
                 SQLiteDatabase db;//set up the connection to the database
                 db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-                String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',licensed = '" + licensed + "' "; //update the database basket field with 8783
+                String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "' "; //update the database basket field with 8783
                 db.execSQL(str);//run the sql command
                 db.close();//close the database
                 Intent intent = new Intent(Settings.this, MainActivity.class);//opens a new screen when the shopping list is clicked
@@ -133,7 +164,7 @@ public class Settings extends AppCompatActivity {
         });
     }
 
-    public void getregion(){
+    public void getsettings(){
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
         Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
@@ -143,7 +174,9 @@ public class Settings extends AppCompatActivity {
 
                 currentregion = (c.getString(c.getColumnIndex("region_title")));
                 licensed = (c.getString(c.getColumnIndex("licensed")));
-                //Log.d("Pixo", wherestatement);
+                currentcurrency = (c.getString(c.getColumnIndex("currency")));
+                shelfsize = (c.getInt(c.getColumnIndex("shelf_size")));
+                Log.d("Pixo", "Values: " + currentregion + " " + licensed + " " + currentcurrency + " " + shelfsize);
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor

@@ -70,8 +70,6 @@ public class Statistics extends AppCompatActivity {
         uscost = c.getFloat(0);
         c.close();
 
-
-
         gamecost = "You spent " + palacost + " on pal a, " + palbcost + " on pal b and " + uscost + " on US games";
         cost.setText(gamecost);
 
