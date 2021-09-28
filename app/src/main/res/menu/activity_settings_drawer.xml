@@ -3,6 +3,9 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_mainpage"
+            android:title="Main Page" />
+        <item
             android:id="@+id/nav_allgames"
             android:title="All Games" />
         <item
@@ -26,8 +29,5 @@
         <item
             android:id="@+id/nav_finished"
             android:title="Finished Games" />
-        <item
-            android:id="@+id/nav_settings"
-            android:title="Settings" />
     </group>
 </menu>

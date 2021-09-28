@@ -22,13 +22,15 @@ import android.widget.CheckBox;
 import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 public class Settings extends AppCompatActivity {
 
     String regionselected, sql, currentregion, licensed, currentcurrency, shelfS, wherestatement;
-    int shelfsize;
+    int shelfsize, showprice, posF, listtype;
     ArrayAdapter<CharSequence> adapter, adapter2;
 
     @Override
@@ -84,6 +86,10 @@ public class Settings extends AppCompatActivity {
         final Spinner currency = (Spinner) findViewById(R.id.dropCurrency);
         final CheckBox unlicensed = (CheckBox) findViewById(R.id.chkUnlicensed);
         final TextView shelfspace = (TextView) findViewById(R.id.txtShelfSize);
+        final CheckBox showprices = (CheckBox) findViewById(R.id.chkShowPrices);
+        final RadioGroup List = (RadioGroup) findViewById(R.id.rgLayout);
+        RadioButton ListView = (RadioButton) findViewById(R.id.rbListView);
+        RadioButton GalleryView = (RadioButton) findViewById(R.id.rbGallery);
         Button ok = (Button) findViewById(R.id.rgnOk);
         Button cancel = (Button) findViewById(R.id.rgnCancel);
 
@@ -108,6 +114,8 @@ public class Settings extends AppCompatActivity {
         currency.setSelection(spinnerPosition);
 
         if (licensed.contains(" and (unlicensed = 0 or 1)")) { unlicensed.setChecked(true); } else { unlicensed.setChecked(false);}
+        if (showprice == 1) { showprices.setChecked(true); } else { showprices.setChecked(false);}
+        if (listtype == 0) {ListView.setChecked(true);} else {GalleryView.setChecked(true);}
 
         region.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -126,6 +134,22 @@ public class Settings extends AppCompatActivity {
 
             public void onNothingSelected(
                     AdapterView<?> adapterView) {
+            }
+        });
+
+        List.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                posF = List.indexOfChild(findViewById(checkedId));
+                switch (posF) {
+                    case 0:
+                        listtype = 0;
+                        break;
+                    case 1:
+                        listtype = 1;
+                        break;
+                }
             }
         });
 
@@ -167,7 +191,7 @@ public class Settings extends AppCompatActivity {
                 }
 
                 if (unlicensed.isChecked()){ licensed = " and (unlicensed = 0 or 1)";} else  { licensed = " and (unlicensed = 0)"; }
-
+                if (showprices.isChecked()){ showprice = 1;} else  { showprice = 0; }
                 shelfS = shelfspace.getText().toString();
 
                 if (shelfS.matches("") || !Character.isDigit(shelfS.charAt(0))) {shelfsize = 9;}
@@ -175,7 +199,7 @@ public class Settings extends AppCompatActivity {
 
                 SQLiteDatabase db;//set up the connection to the database
                 db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-                String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "',currency = '" + currentcurrency + "'"; //update the database basket field with 8783
+                String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "',currency = '" + currentcurrency + "',game_view = '" + listtype + "',show_price = '" + showprice + "'"; //update the database basket field with 8783
                 db.execSQL(str);//run the sql command
                 db.close();//close the database
                 Intent intent = new Intent(Settings.this, MainActivity.class);//opens a new screen when the shopping list is clicked
@@ -206,6 +230,8 @@ public class Settings extends AppCompatActivity {
                 currentcurrency = (c.getString(c.getColumnIndex("currency")));
                 shelfsize = (c.getInt(c.getColumnIndex("shelf_size")));
                 wherestatement = (c.getString(c.getColumnIndex("region")));
+                showprice = (c.getInt(c.getColumnIndex("show_price")));
+                listtype = (c.getInt(c.getColumnIndex("game_view")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor

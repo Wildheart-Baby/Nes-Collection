@@ -103,7 +103,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton3"
+        android:id="@+id/btnFinished"
         android:src="@drawable/btnuntitled"
         android:background="@null"
         android:layout_below="@id/btnWishList"
@@ -120,7 +120,7 @@
         android:src="@drawable/btnsettings"
         android:background="@null"
         android:layout_below="@id/btnShelfOrder"
-        android:layout_toRightOf="@id/imageButton3"
+        android:layout_toRightOf="@id/btnFinished"
         android:layout_marginTop="25dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp" />

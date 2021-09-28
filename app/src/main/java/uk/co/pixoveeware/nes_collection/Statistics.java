@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,13 +34,14 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     String[] palanames;
     String[] palbnames;
     String[] usnames;
+    String[] gamenames;
     String[] names;
     String popgenre;
     float[] datapoints;
     int[] piecolours;
 
-    String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename;
-    int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i;
+    String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename, gamescost, gameorgames;
+    int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i, showprices, numberowned, palaMaxCost, palbMaxCost, usMaxCost,totalfinished;
     double percentPalAOwned, percentPalBOwned, percentUSOwned, percentagepalacollection, percentagepalbcollection, percentageuscollection;
     float palacost, palbcost, uscost, totalpalacost, totalpalbcost, totaluscost, totalcost;
     int lay = 1;
@@ -89,11 +91,9 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     public void run(){
         gameregion();
         readDatabase();
+        piechart();
 
-        PieChartView pieChartView = (PieChartView) findViewById(R.id.pie_chart);
-        pieChartView.setDataPoints(datapoints, names, piecolours);
-        // Because this activity is of the type PieChartView.Callback
-        pieChartView.setCallback(Statistics.this);
+
     }
 
     @Override
@@ -114,8 +114,9 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             TextView valueView = (TextView) keyItem.findViewById(R.id.value);
 
             colorView.setBackgroundColor(Color.parseColor("#" + dataColorSet.getColor()));
-            name.setText("" + dataColorSet.getName());
-            valueView.setText("" + dataColorSet.getDataValue());
+            name.setText("" + dataColorSet.getName() + "  ");
+            String pievalue = String.format("%.0f",dataColorSet.getDataValue());
+            valueView.setText(pievalue);
 
             // Add the key to the container
             keyContainer.addView(keyItem, i);
@@ -127,7 +128,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     public void onSliceClick(DataColorSet data) {
         gamename = data.getName();
         sql = "select * from eu where owned = 1 and genre = '" + gamename + "';";
-        Log.d("Pixo", sql);
+        //Log.d("Pixo", sql);
         Intent intent = new Intent(this, SearchResults.class);//opens a new screen when the shopping list is clicked
         //intent.putExtra("columnname", fieldname);//passes the table name to the new screen
         //intent.putExtra("search", searchterm);//passes the table name to the new screen
@@ -170,423 +171,268 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         }
     }
 
-    public void readDatabase(){
-
+    public void readDatabase() {
+        Log.d("Pixo", "Running read database");
         TextView pala = (TextView) findViewById(R.id.lblPalA);
         TextView palb = (TextView) findViewById(R.id.lblPalB);
         TextView us = (TextView) findViewById(R.id.lblUS);
         TextView cost = (TextView) findViewById(R.id.lblCost);
+        TextView header = (TextView) findViewById(R.id.lblHeader);
+        RelativeLayout RlPie = (RelativeLayout) findViewById(R.id.rlPieChart);
+        RelativeLayout RlAll = (RelativeLayout) findViewById(R.id.rlAll);
+        RelativeLayout RlPalA = (RelativeLayout) findViewById(R.id.rlPalA);
+        RelativeLayout RlPalB = (RelativeLayout) findViewById(R.id.rlPalB);
+        RelativeLayout RlUS = (RelativeLayout) findViewById(R.id.rlUS);
+        TextView Div1 = (TextView) findViewById(R.id.lblDivider);
+        TextView Div2 = (TextView) findViewById(R.id.lblDivider2);
+        TextView Div3 = (TextView) findViewById(R.id.lblDivider3);
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
 
-        sql = "SELECT SUM(pal_a_cost) FROM eu ";
-        Cursor c = db.rawQuery(sql, null);//select everything from the database table
-        c.moveToFirst();
-        palacost = c.getFloat(0);
-        c.close();
+        sql = "select * from eu where owned = 1";
+        Cursor c = db.rawQuery(sql, null);
+        numberowned = c.getCount();
 
-        sql = "SELECT SUM(pal_b_cost) FROM eu ";
-        c = db.rawQuery(sql, null);//select everything from the database table
-        c.moveToFirst();
-        palbcost = c.getFloat(0);
-        c.close();
+        if (numberowned == 0) {
+            header.setText("You currently have no games, so sadly there are no statistics");
+            RlPie.setVisibility(View.INVISIBLE);
+            RlAll.setVisibility(View.INVISIBLE);
+            RlAll.setVisibility(View.INVISIBLE);
+            RlPalA.setVisibility(View.INVISIBLE);
+            RlPalB.setVisibility(View.INVISIBLE);
+            RlUS.setVisibility(View.INVISIBLE);
+            Div1.setVisibility(View.INVISIBLE);
+            Div2.setVisibility(View.INVISIBLE);
+            Div3.setVisibility(View.INVISIBLE);
+        } else if (numberowned >0) {
 
-        sql = "SELECT SUM(ntsc_cost) FROM eu ";
-        c = db.rawQuery(sql, null);//select everything from the database table
-        c.moveToFirst();
-        uscost = c.getFloat(0);
-        c.close();
+            sql = "SELECT SUM(pal_a_cost) FROM eu ";
+            c = db.rawQuery(sql, null);//select everything from the database table
+            c.moveToFirst();
+            palacost = c.getFloat(0);
+            c.close();
 
-        totalcost = palacost + palbcost + uscost;
+            sql = "SELECT SUM(pal_b_cost) FROM eu ";
+            c = db.rawQuery(sql, null);//select everything from the database table
+            c.moveToFirst();
+            palbcost = c.getFloat(0);
+            c.close();
 
+            sql = "SELECT SUM(ntsc_cost) FROM eu ";
+            c = db.rawQuery(sql, null);//select everything from the database table
+            c.moveToFirst();
+            uscost = c.getFloat(0);
+            c.close();
 
-        sql = "SELECT * FROM eu where pal_a_release = 1 " + licensed +  "";
-        c = db.rawQuery(sql, null);
-        totalPalA = c.getCount();
+            totalcost = palacost + palbcost + uscost;
 
-        sql = "SELECT * FROM eu where owned = 1 and (pal_a_cart = 8783 " + licensed +  ")";
-        Log.d("Pixo", sql);
-        c = db.rawQuery(sql, null);
-        ownedPalA = c.getCount();
+            sql = "Select finished_game from eu where finished_game = 1";
+            c = db.rawQuery(sql, null);
+            totalfinished = c.getCount();
 
-        sql = "SELECT * FROM eu where pal_b_release = 1 " + licensed +  "";
-        c = db.rawQuery(sql, null);
-        totalPalB = c.getCount();
-        sql = "SELECT * FROM eu where owned = 1 and (pal_b_cart = 8783 " + licensed +  ")";
-        Log.d("Pixo", sql);
-        c = db.rawQuery(sql, null);
-        ownedPalB = c.getCount();
+            sql = "SELECT * FROM eu where pal_a_release = 1 " + licensed + "";
+            c = db.rawQuery(sql, null);
+            totalPalA = c.getCount();
 
-        sql = "SELECT * FROM eu where ntsc_release = 1 " + licensed +  "";
-        c = db.rawQuery(sql, null);
-        totalUS = c.getCount();
+            sql = "SELECT * FROM eu where owned = 1 and (pal_a_cart = 8783 " + licensed + ")";
+            //Log.d("Pixo", sql);
+            c = db.rawQuery(sql, null);
+            ownedPalA = c.getCount();
 
-        sql = "SELECT * FROM eu where owned = 1 and (ntsc_cart = 8783 " + licensed +  ")";
-        c = db.rawQuery(sql, null);
-        Log.d("Pixo", sql);
-        ownedUS = c.getCount();
+            sql = "SELECT * FROM eu where pal_b_release = 1 " + licensed + "";
+            c = db.rawQuery(sql, null);
+            totalPalB = c.getCount();
+            sql = "SELECT * FROM eu where owned = 1 and (pal_b_cart = 8783 " + licensed + ")";
+            //Log.d("Pixo", sql);
+            c = db.rawQuery(sql, null);
+            ownedPalB = c.getCount();
 
-        sql = "SELECT * FROM eu where 1 " + licensed +  "";
-        c = db.rawQuery(sql, null);
-        totalReleased = c.getCount();
+            sql = "SELECT * FROM eu where ntsc_release = 1 " + licensed + "";
+            c = db.rawQuery(sql, null);
+            totalUS = c.getCount();
 
-        sql = "SELECT * FROM eu where owned = 1 " + licensed +  "";
-        c = db.rawQuery(sql, null);
-        totalOwned = c.getCount();
+            sql = "SELECT * FROM eu where owned = 1 and (ntsc_cart = 8783 " + licensed + ")";
+            c = db.rawQuery(sql, null);
+            //Log.d("Pixo", sql);
+            ownedUS = c.getCount();
 
-        sql = "select name from eu where owned = 1 and pal_a_cost=(select max(pal_a_cost) from eu)";
-        c = db.rawQuery(sql, null);
-        i = c.getCount();
-        Log.d("pixo", "value:"+i);
-        if (i > 1){palaadd = "Your most expensive games are";} else {palaadd = "Your most expensive game is";}
-        String[] palanames = new String[i];
+            sql = "SELECT * FROM eu where 1 " + licensed + "";
+            c = db.rawQuery(sql, null);
+            totalReleased = c.getCount();
 
-        if (c.moveToFirst()) {//move to the first record
-            io = 0;
-            while ( !c.isAfterLast() ) {//while there are records to read
-                palanames[io] = c.getString(c.getColumnIndex("name")) + " ";
-                c.moveToNext();
-                io ++;
+            sql = "SELECT * FROM eu where owned = 1 " + licensed + "";
+            c = db.rawQuery(sql, null);
+            totalOwned = c.getCount();
+
+            sql = "select name from eu where pal_a_owned = 1 and pal_a_cost >0 and pal_a_cost=(select max(pal_a_cost) from eu) limit 1";
+            c = db.rawQuery(sql, null);
+            i = c.getCount();
+            //Log.d("pixo", "value:" + i);
+            if (i > 1) {
+                palaadd = "Your most expensive games are";
+            } else {
+                palaadd = "Your most expensive game is";
             }
-            palanames2 = Arrays.toString(palanames);
-            palanames2 = palanames2.substring(1, palanames2.length() -1);
-            Log.d("pixo", palanames2);
-        }
-
-
-        sql = "select name from eu where owned = 1 and pal_b_cost=(select max(pal_b_cost) from eu)";
-        c = db.rawQuery(sql, null);
-        i = c.getCount();
-        if (i > 1){palbadd = "Your most expensive games are";} else {palbadd = "Your most expensive game is";}
-        String[] palbnames = new String[i];
-        if (c.moveToFirst()) {//move to the first record
-            io=0;
-            while ( !c.isAfterLast() ) {//while there are records to read
-                palbnames[io] = c.getString(c.getColumnIndex("name")) + " ";
-                c.moveToNext();
-                io++;
+            if (ownedPalA == 0) {
+                RlPalA.setVisibility(View.GONE);
+                Div2.setVisibility(View.GONE);
             }
-            palbnames2 = Arrays.toString(palbnames);
-            palbnames2 = palbnames2.substring(1, palbnames2.length() -1);
-        }
-
-        sql = "select name from eu where owned = 1 and ntsc_cost=(select max(ntsc_cost) from eu)";
-        c = db.rawQuery(sql, null);
-        i = c.getCount();
-        if (i > 1){usadd = "Your most expensive games are";} else {usadd = "Your most expensive game is";}
-        String[] usnames = new String[i];
-        if (c.moveToFirst()) {//move to the first record
-            io = 0;
-            while ( !c.isAfterLast() ) {//while there are records to read
-                usnames[io] = c.getString(c.getColumnIndex("name")) + " ";
-                c.moveToNext();
-                io ++;
+            palanames = new String[i];
+            if (c.moveToFirst()) {//move to the first record
+                io = 0;
+                while (!c.isAfterLast()) {//while there are records to read
+                    palanames[io] = c.getString(c.getColumnIndex("name")) + " ";
+                    c.moveToNext();
+                    io++;
+                }
+                palanames2 = Arrays.toString(palanames);
+                palanames2 = palanames2.substring(1, palanames2.length() - 1);
+                Log.d("Pixo", "Pal A: " + palanames2);
+                //i = 0;
             }
-            usnames2 = Arrays.toString(usnames);
-            usnames2 = usnames2.substring(1, usnames2.length() -1);
+            sql = "select name from eu where pal_b_owned = 1 and pal_b_cost >0 and pal_b_cost=(select max(pal_b_cost) from eu) limit 1";
+            c = db.rawQuery(sql, null);
+            i = c.getCount();
+
+            if (i > 1) {
+                palbadd = "Your most expensive games are";
+            } else {
+                palbadd = "Your most expensive game is";
+            }
+            if (ownedPalB == 0) {
+                RlPalB.setVisibility(View.GONE);
+                Div3.setVisibility(View.GONE);
+            }
+                palbnames = new String[i];
+                if (c.moveToFirst()) {//move to the first record
+                    io = 0;
+                    while (!c.isAfterLast()) {//while there are records to read
+                        palbnames[io] = c.getString(c.getColumnIndex("name")) + " ";
+                        c.moveToNext();
+                        io++;
+                    }
+                    palbnames2 = Arrays.toString(palbnames);
+                    palbnames2 = palbnames2.substring(1, palbnames2.length() - 1);
+                    Log.d("Pixo", "Pal B: " + palbnames2);
+                }
+
+            sql = "select name from eu where ntsc_owned = 1 and ntsc_cost >0 and ntsc_cost=(select max(ntsc_cost) from eu)";
+            c = db.rawQuery(sql, null);
+            i = c.getCount();
+
+            if (i > 1) {
+                usadd = "Your most expensive games are";
+            } else {
+                usadd = "Your most expensive game is";
+            }
+            if (ownedUS == 0) {
+                RlUS.setVisibility(View.GONE);
+                //Div3.setVisibility(View.GONE);
+            }
+                usnames = new String[i];
+                if (c.moveToFirst()) {//move to the first record
+                    io = 0;
+                    while (!c.isAfterLast()) {//while there are records to read
+                        usnames[io] = c.getString(c.getColumnIndex("name")) + " ";
+                        c.moveToNext();
+                        io++;
+                    }
+                    usnames2 = Arrays.toString(usnames);
+                    usnames2 = usnames2.substring(1, usnames2.length() - 1);
+                    Log.d("Pixo", "US: " + usnames2);
+
+            }
+
+            sql = "select genre, COUNT(genre) AS MOST_FREQUENT from eu where owned = 1 GROUP BY genre ORDER BY COUNT(genre) DESC limit 1";
+            c = db.rawQuery(sql, null);
+            c.moveToFirst();
+            popgenre = c.getString(c.getColumnIndex("genre"));
+
+            sql = "select publisher, COUNT(publisher) AS MOST_FREQUENT from eu where owned = 1 GROUP BY genre ORDER BY COUNT(publisher) DESC limit 1";
+            c = db.rawQuery(sql, null);
+            c.moveToFirst();
+            poppublisher = c.getString(c.getColumnIndex("publisher"));
+
+            i = 0;
+
+
+
+            c.close();
+            db.close();//close the database
+            totalOwned = ownedPalA + ownedPalB + ownedUS;
+            if (showprices == 1) {
+                if(totalcost > 0){gamescost = "You have spent " + currency + String.format("%.2f",totalcost) + " on games for your collection\n";}
+                else if (totalcost == 0 ){gamescost = "";}
+            } else if (showprices == 0) {
+                gamescost = "";
+            }
+            if (totalOwned > 1){gameorgames = "games";} else {gameorgames = "game";}
+            //gamecost = "You have spent " + currency + totalcost + " on games for your collection\n" +
+            gamecost = gamescost +
+                    "You own a total of " + totalOwned + " " + gameorgames + "\n" +
+                    "The top publisher for your games is " + poppublisher + "\n" +
+                    "The most popular genre you have is " + popgenre + "\n" +
+                    "You have finished a total of " + totalfinished + " Nes games";
+            cost.setText(gamecost);
+
+            if (showprices == 1) {
+                gamescost = "\n" + palaadd + " " + palanames2;
+            } else {
+                gamescost = "";
+            }
+            if (palacost == 0 ){ gamescost = ""; }
+            percentPalAOwned = ((double) ownedPalA / totalPalA) * 100;
+            percentagepalacollection = ((double) ownedPalA / totalOwned) * 100;
+            s = String.format("%.2f", percentPalAOwned);
+            perpalacoll = String.format("%.2f", percentagepalacollection);
+            PalA = "You own " + ownedPalA + " of the " + totalPalA + " Pal A games released.\n" +
+                    "Pal A games make up " + perpalacoll + "% of your collection"
+                    + gamescost;
+            pala.setText(PalA);
+            //Log.d("Pixo",PalA);
+
+            if (showprices == 1) {
+                gamescost = "\n" + palbadd + " " + palbnames2;
+            } else {
+                gamescost = "";
+            }
+            if (palbcost == 0 ){ gamescost = ""; }
+            percentPalBOwned = ((double) ownedPalB / totalPalB) * 100;
+            percentagepalbcollection = ((double) ownedPalB / totalOwned) * 100;
+            s = String.format("%.2f", percentPalBOwned);
+            perpalbcoll = String.format("%.2f", percentagepalbcollection);
+            PalB = "You own " + ownedPalB + " of the " + totalPalB + " Pal B games released.\n" +
+                    "Pal B games make up " + perpalbcoll + "% of your collection"
+                    + gamescost;
+            palb.setText(PalB);
+            //Log.d("Pixo",PalB);
+
+            if (showprices == 1) {
+                gamescost = "\n" + usadd + " " + usnames2;
+            } else {
+                gamescost = "";
+            }
+            if (uscost == 0 ){ gamescost = ""; }
+            percentUSOwned = ((double) ownedUS / totalUS) * 100;
+            //Log.d("Pixo", "PalB% owned:" + percentUSOwned);
+            s = String.format("%.2f", percentUSOwned);
+            percentageuscollection = ((double) ownedUS / totalOwned) * 100;
+            peruscoll = String.format("%.2f", percentageuscollection);
+            US = "You own " + ownedUS + " of the " + totalUS + " US games released.\n" +
+                    "US games make up " + peruscoll + "% of your collection"
+                    + gamescost;
+            us.setText(US);
+            //Log.d("Pixo",US);
+
+            //.d("Pixo", "Owned PalA: " + ownedPalA);
+            //Log.d("Pixo", "Owned PalB: " + ownedPalB);
+            //Log.d("Pixo", "Owned US: " + ownedUS);
         }
-
-        sql = "select genre, COUNT(genre) AS MOST_FREQUENT from eu where owned = 1 GROUP BY genre ORDER BY COUNT(genre) DESC limit 1";
-        c = db.rawQuery(sql, null);
-        c.moveToFirst();
-        popgenre = c.getString(c.getColumnIndex("genre"));
-
-        sql = "select publisher, COUNT(publisher) AS MOST_FREQUENT from eu where owned = 1 GROUP BY genre ORDER BY COUNT(publisher) DESC limit 1";
-        c = db.rawQuery(sql, null);
-        c.moveToFirst();
-        poppublisher = c.getString(c.getColumnIndex("publisher"));
-
-        i = 0;
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Action-Adventure'";
-        c = db.rawQuery(sql, null);
-        int ownedactionadventure = c.getCount();
-
-        if (ownedactionadventure > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Action'";
-        c = db.rawQuery(sql, null);
-        int ownedaction = c.getCount();
-
-        if (ownedaction > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Adventure'";
-        c = db.rawQuery(sql, null);
-        int ownedadventure = c.getCount();
-
-        if (ownedadventure > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Arcade'";
-        c = db.rawQuery(sql, null);
-        int ownedarcade = c.getCount();
-
-        if (ownedarcade > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Beat em Up'";
-        c = db.rawQuery(sql, null);
-        int ownedbeatemup = c.getCount();
-
-        if (ownedbeatemup > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Board Game'";
-        c = db.rawQuery(sql, null);
-        int ownedboardgame = c.getCount();
-
-        if (ownedboardgame > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Compilation'";
-        c = db.rawQuery(sql, null);
-        int ownedcompilation = c.getCount();
-
-        if (ownedcompilation > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Fighting'";
-        c = db.rawQuery(sql, null);
-        int ownedfighting = c.getCount();
-
-        if (ownedfighting > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Platformer'";
-        c = db.rawQuery(sql, null);
-        int ownedplatformer = c.getCount();
-
-        if (ownedplatformer > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Puzzle'";
-        c = db.rawQuery(sql, null);
-        int ownedpuzzle = c.getCount();
-
-        if (ownedpuzzle > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Racing'";
-        c = db.rawQuery(sql, null);
-        int ownedracing = c.getCount();
-
-        if (ownedracing > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Racing'";
-        c = db.rawQuery(sql, null);
-        int ownedroleplayinggame = c.getCount();
-
-        if (ownedroleplayinggame > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Shoot em Up'";
-        c = db.rawQuery(sql, null);
-        int ownedshootemup = c.getCount();
-
-        if (ownedshootemup > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Shooter'";
-        c = db.rawQuery(sql, null);
-        int ownedshooter = c.getCount();
-
-        if (ownedshooter > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Simulation'";
-        c = db.rawQuery(sql, null);
-        int ownedsimulation = c.getCount();
-
-        if (ownedsimulation > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Sports'";
-        c = db.rawQuery(sql, null);
-        int ownedsports = c.getCount();
-
-        if (ownedsports > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Strategy'";
-        c = db.rawQuery(sql, null);
-        int ownedstrategy = c.getCount();
-
-        if (ownedstrategy > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Traditional'";
-        c = db.rawQuery(sql, null);
-        int ownedtraditional = c.getCount();
-        if (ownedtraditional > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Trivia'";
-        c = db.rawQuery(sql, null);
-        int ownedtrivia = c.getCount();
-        if (ownedtrivia > 0){ i++;}
-
-        sql = "SELECT * FROM eu where owned = 1 and  genre = 'Vehicular Simulation'";
-        c = db.rawQuery(sql, null);
-        int ownedvehicularsimulation = c.getCount();
-
-        if (ownedvehicularsimulation > 0){ i++;}
-
-        names = new String[i];
-        datapoints = new float[i];
-        piecolours = new int[i];
-        io = 0;
-        if (ownedactionadventure > 0){
-            names[io] = "Action-Adventure";
-            datapoints[io] = ownedactionadventure;
-            piecolours[io] = Color.parseColor("#FF2B32");
-            io ++;
-        }
-        if (ownedaction > 0){
-            names[io] = "Action";
-            datapoints[io] = ownedaction;
-            piecolours[io] = Color.parseColor("#FF6A00");
-            io ++;
-        }
-        if (ownedadventure > 0){
-            names[io] = "Adventure";
-            datapoints[io] = ownedadventure;
-            piecolours[io] = Color.parseColor("#FFD800");
-            io ++;
-        }
-        if (ownedarcade > 0){
-            names[io] = "Arcade";
-            datapoints[io] = ownedarcade;
-            piecolours[io] = Color.parseColor("#B6FF00");
-            io ++;
-        }
-        if (ownedbeatemup > 0){
-            names[io] = "Beat em Up";
-            datapoints[io] = ownedbeatemup;
-            piecolours[io] = Color.parseColor("#4CFF00");
-            io ++;
-        }
-        if (ownedboardgame > 0){
-            names[io] = "Board Game";
-            datapoints[io] = ownedboardgame;
-            piecolours[io] = Color.parseColor("#00FF90");
-            io ++;
-        }
-        if (ownedcompilation > 0){
-            names[io] = "Compilation";
-            datapoints[io] = ownedcompilation;
-            piecolours[io] = Color.parseColor("#0094FF");
-            io ++;
-        }
-        if (ownedfighting > 0){
-            names[io] = "Fighting";
-            datapoints[io] = ownedfighting;
-            piecolours[io] = Color.parseColor("#B200FF");
-            io ++;
-        }
-        if (ownedplatformer > 0){
-            names[io] = "Platformer";
-            datapoints[io] = ownedplatformer;
-            piecolours[io] = Color.parseColor("#FF00DC");
-            io ++;
-        }
-        if (ownedpuzzle > 0){
-            names[io] = "Puzzle";
-            datapoints[io] = ownedpuzzle;
-            piecolours[io] = Color.parseColor("#FF006E");
-            io ++;
-        }
-        if (ownedracing > 0){
-            names[io] = "Racing";
-            datapoints[io] = ownedracing;
-            piecolours[io] = Color.parseColor("#FF7F7F");
-            io ++;
-        }
-        if (ownedroleplayinggame > 0){
-            names[io] = "Role-Playing Game";
-            datapoints[io] = ownedroleplayinggame;
-            piecolours[io] = Color.parseColor("#C0C0C0");
-            io ++;
-        }
-        if (ownedshootemup > 0){
-            names[io] = "Shoot em Up";
-            datapoints[io] = ownedshootemup;
-            piecolours[io] = Color.parseColor("#613F7C");
-            io ++;
-        }
-        if (ownedshooter > 0){
-            names[io] = "Shooter";
-            datapoints[io] = ownedshooter;
-            piecolours[io] = Color.parseColor("#60C5FF");
-            io ++;
-        }
-        if (ownedsimulation > 0){
-            names[io] = "Simulation";
-            datapoints[io] = ownedsimulation;
-            piecolours[io] = Color.parseColor("#FFAFB5");
-            io ++;
-        }
-        if (ownedsports > 0){
-            names[io] = "Sports";
-            datapoints[io] = ownedsports;
-            piecolours[io] = Color.parseColor("#D5FFBF");
-            io ++;
-        }
-        if (ownedstrategy > 0){
-            names[io] = "Strategy";
-            datapoints[io] = ownedstrategy;
-            piecolours[io] = Color.parseColor("#4FFFBE");
-            io ++;
-        }
-        if (ownedtraditional > 0){
-            names[io] = "Traditional";
-            datapoints[io] = ownedtraditional;
-            piecolours[io] = Color.parseColor("#A856FF");
-            io ++;
-        }
-        if (ownedtrivia > 0){
-            names[io] = "Trivia";
-            datapoints[io] = ownedtrivia;
-            piecolours[io] = Color.parseColor("#CBFF72");
-            io ++;
-        }
-        if (ownedvehicularsimulation > 0){
-            names[io] = "Vehicular Simulation";
-            datapoints[io] = ownedvehicularsimulation;
-            piecolours[io] = Color.parseColor("#613F7C");
-            io ++;
-        }
-
-        c.close();
-        db.close();//close the database
-        totalOwned = ownedPalA + ownedPalB + ownedUS;
-        gamecost = "You have spent " + currency + totalcost + " on games for your collection\n" +
-                "You own a total of " + totalOwned + " games\n" +
-                "The top publisher for your games is " + poppublisher + "\n" +
-                "The most popular genre you have is " + popgenre;
-        cost.setText(gamecost);
-
-        percentPalAOwned = ((double)ownedPalA / totalPalA) * 100;
-        percentagepalacollection = ((double)ownedPalA / totalOwned) * 100;
-        s = String.format("%.2f", percentPalAOwned);
-        perpalacoll = String.format("%.2f", percentagepalacollection);
-        PalA = "You own " + ownedPalA + " of the " + totalPalA + " Pal A games released.\n" +
-                "Pal A games make up " + perpalacoll + "% of your collection\n"
-                 +palaadd + " " + palanames2;
-        pala.setText(PalA);
-
-        percentPalBOwned = ((double)ownedPalB / totalPalB) * 100;
-        percentagepalbcollection = ((double)ownedPalB / totalOwned) * 100;
-        s = String.format("%.2f", percentPalBOwned);
-        perpalbcoll = String.format("%.2f", percentagepalbcollection);
-        PalB = "You own " + ownedPalB + " of the " + totalPalB + " Pal B games released.\n" +
-                "Pal B games make up " + perpalbcoll + "% of your collection\n"
-                +palbadd + " " + palbnames2;
-        palb.setText(PalB);
-
-        percentUSOwned = ((double)ownedUS / totalUS) * 100;
-        Log.d("Pixo", "PalB% owned:" +percentUSOwned);
-        s = String.format("%.2f", percentUSOwned);
-        percentageuscollection = ((double)ownedUS / totalOwned) * 100;
-        peruscoll = String.format("%.2f", percentageuscollection);
-        US = "You own " + ownedUS + " of the " + totalUS + " US games released.\n" +
-                "US games make up " + peruscoll + "% of your collection\n"
-                +usadd + " " + usnames2;
-        us.setText(US);
-
-        Log.d("Pixo", "Owned PalA: " + ownedPalA);
-        Log.d("Pixo", "Owned PalB: " + ownedPalB);
-        Log.d("Pixo", "Owned US: " + ownedUS);
-
     }
 
     public void gameregion(){//selects the region from the database
-
+        Log.d("Pixo","Running game region");
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
         Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
@@ -597,6 +443,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 licensed = (c.getString(c.getColumnIndex("licensed")));
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 currency = (c.getString(c.getColumnIndex("currency")));
+                showprices = (c.getInt(c.getColumnIndex("show_price")));
 
                 c.moveToNext();//move to the next record
             }
@@ -605,11 +452,576 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         db.close();//close the database
     }
 
+
+    public void piechart(){
+        Log.d("Pixo", "Running piechart");
+        i = 0;
+        SQLiteDatabase db;//sets up the connection to the database
+        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Action-Adventure'";
+        Cursor c = db.rawQuery(sql, null);
+        int ownedactionadventure = c.getCount();
+
+        if (ownedactionadventure > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Action'";
+        c = db.rawQuery(sql, null);
+        int ownedaction = c.getCount();
+
+        if (ownedaction > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Adventure'";
+        c = db.rawQuery(sql, null);
+        int ownedadventure = c.getCount();
+
+        if (ownedadventure > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Arcade'";
+        c = db.rawQuery(sql, null);
+        int ownedarcade = c.getCount();
+
+        if (ownedarcade > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Beat em Up'";
+        c = db.rawQuery(sql, null);
+        int ownedbeatemup = c.getCount();
+
+        if (ownedbeatemup > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Board game'";
+        c = db.rawQuery(sql, null);
+        int ownedboardgame = c.getCount();
+
+        if (ownedboardgame > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Compilation'";
+        c = db.rawQuery(sql, null);
+        int ownedcompilation = c.getCount();
+
+        if (ownedcompilation > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Fighting'";
+        c = db.rawQuery(sql, null);
+        int ownedfighting = c.getCount();
+
+        if (ownedfighting > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Other'";
+        c = db.rawQuery(sql, null);
+        int ownedother = c.getCount();
+
+        if (ownedother > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Platformer'";
+        c = db.rawQuery(sql, null);
+        int ownedplatformer = c.getCount();
+
+        if (ownedplatformer > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Puzzle'";
+        c = db.rawQuery(sql, null);
+        int ownedpuzzle = c.getCount();
+
+        if (ownedpuzzle > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Racing'";
+        c = db.rawQuery(sql, null);
+        int ownedracing = c.getCount();
+
+        if (ownedracing > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Role-Playing Game'";
+        c = db.rawQuery(sql, null);
+        int ownedroleplayinggame = c.getCount();
+
+        if (ownedroleplayinggame > 0) {
+            i++;
+        }
+
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Shoot em Up'";
+        c = db.rawQuery(sql, null);
+        int ownedshootemup = c.getCount();
+
+        if (ownedshootemup > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Shooter'";
+        c = db.rawQuery(sql, null);
+        int ownedshooter = c.getCount();
+
+        if (ownedshooter > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Simulation'";
+        c = db.rawQuery(sql, null);
+        int ownedsimulation = c.getCount();
+
+        if (ownedsimulation > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Sports'";
+        c = db.rawQuery(sql, null);
+        int ownedsports = c.getCount();
+
+        if (ownedsports > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Strategy'";
+        c = db.rawQuery(sql, null);
+        int ownedstrategy = c.getCount();
+
+        if (ownedstrategy > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Traditional'";
+        c = db.rawQuery(sql, null);
+        int ownedtraditional = c.getCount();
+        if (ownedtraditional > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where owned = 1 and genre = 'Trivia'";
+        c = db.rawQuery(sql, null);
+        int ownedtrivia = c.getCount();
+        if (ownedtrivia > 0) {
+            i++;
+        }
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Action-Adventure'";
+        c = db.rawQuery(sql, null);
+        int ownedAactionadventure = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Action-Adventure'";
+        c = db.rawQuery(sql, null);
+        int ownedBactionadventure = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Action-Adventure'";
+        c = db.rawQuery(sql, null);
+        int ownedUSactionadventure = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Action'";
+        c = db.rawQuery(sql, null);
+        int ownedAaction = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Action'";
+        c = db.rawQuery(sql, null);
+        int ownedBaction = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Action'";
+        c = db.rawQuery(sql, null);
+        int ownedUSaction = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Adventure'";
+        c = db.rawQuery(sql, null);
+        int ownedAadventure = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Adventure'";
+        c = db.rawQuery(sql, null);
+        int ownedBadventure = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Adventure'";
+        c = db.rawQuery(sql, null);
+        int ownedUSadventure = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Arcade'";
+        c = db.rawQuery(sql, null);
+        int ownedAarcade = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Arcade'";
+        c = db.rawQuery(sql, null);
+        int ownedBarcade = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Arcade'";
+        c = db.rawQuery(sql, null);
+        int ownedUSarcade = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Beat em Up'";
+        c = db.rawQuery(sql, null);
+        int ownedAbeatemup = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Beat em Up'";
+        c = db.rawQuery(sql, null);
+        int ownedBbeatemup = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Beat em Up'";
+        c = db.rawQuery(sql, null);
+        int ownedUSbeatemup = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Board game'";
+        c = db.rawQuery(sql, null);
+        int ownedAboardgame = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cost = 8783 and genre = 'Board game'";
+        c = db.rawQuery(sql, null);
+        int ownedBboardgame = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cost = 8783 and genre = 'Board game'";
+        c = db.rawQuery(sql, null);
+        int ownedUSboardgame = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cost = 8783 and genre = 'Compilation'";
+        c = db.rawQuery(sql, null);
+        int ownedAcompilation = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cost = 8783 and genre = 'Compilation'";
+        c = db.rawQuery(sql, null);
+        int ownedBcompilation = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cost = 8783 and genre = 'Compilation'";
+        c = db.rawQuery(sql, null);
+        int ownedUScompilation = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Fighting'";
+        c = db.rawQuery(sql, null);
+        int ownedAfighting = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Fighting'";
+        c = db.rawQuery(sql, null);
+        int ownedBfighting = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Fighting'";
+        c = db.rawQuery(sql, null);
+        int ownedUSfighting = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Other'";
+        c = db.rawQuery(sql, null);
+        int ownedAother = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Other'";
+        c = db.rawQuery(sql, null);
+        int ownedBother = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Other'";
+        c = db.rawQuery(sql, null);
+        int ownedUSother = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Platformer'";
+        c = db.rawQuery(sql, null);
+        int ownedAplatformer = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Platformer'";
+        c = db.rawQuery(sql, null);
+        int ownedBplatformer = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Platformer'";
+        c = db.rawQuery(sql, null);
+        int ownedUSplatformer = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Puzzle'";
+        c = db.rawQuery(sql, null);
+        int ownedApuzzle = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Puzzle'";
+        c = db.rawQuery(sql, null);
+        int ownedBpuzzle = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Puzzle'";
+        c = db.rawQuery(sql, null);
+        int ownedUSpuzzle = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Racing'";
+        c = db.rawQuery(sql, null);
+        int ownedAracing = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Racing'";
+        c = db.rawQuery(sql, null);
+        int ownedBracing = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Racing'";
+        c = db.rawQuery(sql, null);
+        int ownedUSracing = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Role-Playing Game'";
+        c = db.rawQuery(sql, null);
+        int ownedAroleplayinggame = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Role-Playing Game'";
+        c = db.rawQuery(sql, null);
+        int ownedBroleplayinggame = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Role-Playing Game'";
+        c = db.rawQuery(sql, null);
+        int ownedUSroleplayinggame = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Shoot em Up'";
+        c = db.rawQuery(sql, null);
+        int ownedAshootemup = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Shoot em Up'";
+        c = db.rawQuery(sql, null);
+        int ownedBshootemup = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Shoot em Up'";
+        c = db.rawQuery(sql, null);
+        int ownedUSshootemup = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Shooter'";
+        c = db.rawQuery(sql, null);
+        int ownedAshooter = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Shooter'";
+        c = db.rawQuery(sql, null);
+        int ownedBshooter = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Shooter'";
+        c = db.rawQuery(sql, null);
+        int ownedUSshooter = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Simulation'";
+        c = db.rawQuery(sql, null);
+        int ownedAsimulation = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Simulation'";
+        c = db.rawQuery(sql, null);
+        int ownedBsimulation = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Simulation'";
+        c = db.rawQuery(sql, null);
+        int ownedUSsimulation = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Sports'";
+        c = db.rawQuery(sql, null);
+        int ownedAsports = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Sports'";
+        c = db.rawQuery(sql, null);
+        int ownedBsports = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Sports'";
+        c = db.rawQuery(sql, null);
+        int ownedUSsports = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Strategy'";
+        c = db.rawQuery(sql, null);
+        int ownedAstrategy = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Strategy'";
+        c = db.rawQuery(sql, null);
+        int ownedBstrategy = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Strategy'";
+        c = db.rawQuery(sql, null);
+        int ownedUSstrategy = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Traditional'";
+        c = db.rawQuery(sql, null);
+        int ownedAtraditional = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Traditional'";
+        c = db.rawQuery(sql, null);
+        int ownedBtraditional = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Traditional'";
+        c = db.rawQuery(sql, null);
+        int ownedUStraditional = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Trivia'";
+        c = db.rawQuery(sql, null);
+        int ownedAtrivia = c.getCount();
+
+        sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Trivia'";
+        c = db.rawQuery(sql, null);
+        int ownedBtrivia = c.getCount();
+
+        sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Trivia'";
+        c = db.rawQuery(sql, null);
+        int ownedUStrivia = c.getCount();
+
+        ownedaction = ownedAaction + ownedBaction + ownedUSaction;
+        ownedactionadventure = ownedAactionadventure + ownedBactionadventure + ownedUSactionadventure;
+        ownedadventure = ownedAadventure + ownedBadventure + ownedUSadventure;
+        ownedarcade = ownedAarcade + ownedBarcade + ownedUSarcade;
+        ownedbeatemup = ownedAbeatemup + ownedBbeatemup + ownedUSbeatemup;
+        ownedboardgame = ownedAboardgame + ownedBboardgame + ownedUSboardgame;
+        ownedcompilation = ownedAcompilation + ownedBcompilation + ownedUScompilation;
+        ownedfighting = ownedAfighting + ownedBfighting + ownedUSfighting;
+        ownedother = ownedAother + ownedBother + ownedUSother;
+        ownedplatformer = ownedAplatformer + ownedBplatformer + ownedUSplatformer;
+        ownedpuzzle = ownedApuzzle + ownedBpuzzle + ownedUSpuzzle;
+        ownedracing = ownedAracing + ownedBracing + ownedUSracing;
+        ownedroleplayinggame = ownedAroleplayinggame + ownedBroleplayinggame + ownedUSroleplayinggame;
+        ownedshootemup = ownedAshootemup + ownedBshootemup + ownedUSshootemup;
+        ownedshooter = ownedAshooter + ownedBshooter + ownedUSshooter;
+        ownedsimulation = ownedAsimulation + ownedBsimulation + ownedUSsimulation;
+        ownedsports = ownedAsports + ownedBsports + ownedUSsports;
+        ownedstrategy = ownedAstrategy + ownedBstrategy + ownedUSstrategy;
+        ownedtraditional = ownedAtraditional + ownedBtraditional + ownedUStraditional;
+        ownedtrivia = ownedAtrivia + ownedBtrivia + ownedUStrivia;
+
+        names = new String[i];
+        datapoints = new float[i];
+        piecolours = new int[i];
+        io = 0;
+        if (ownedactionadventure > 0) {
+            names[io] = "Action-Adventure";
+            datapoints[io] = ownedactionadventure;
+            piecolours[io] = Color.parseColor("#FF2B32");
+            io++;
+        }
+        if (ownedaction > 0) {
+            names[io] = "Action";
+            datapoints[io] = ownedaction;
+            piecolours[io] = Color.parseColor("#FF6A00");
+            io++;
+        }
+        if (ownedadventure > 0) {
+            names[io] = "Adventure";
+            datapoints[io] = ownedadventure;
+            piecolours[io] = Color.parseColor("#FFD800");
+            io++;
+        }
+        if (ownedarcade > 0) {
+            names[io] = "Arcade";
+            datapoints[io] = ownedarcade;
+            piecolours[io] = Color.parseColor("#B6FF00");
+            io++;
+        }
+        if (ownedbeatemup > 0) {
+            names[io] = "Beat em Up";
+            datapoints[io] = ownedbeatemup;
+            piecolours[io] = Color.parseColor("#FF004C");
+            io++;
+        }
+        if (ownedboardgame > 0) {
+            names[io] = "Board game";
+            datapoints[io] = ownedboardgame;
+            piecolours[io] = Color.parseColor("#Ff0Fff");
+            io++;
+        }
+        if (ownedcompilation > 0) {
+            names[io] = "Compilation";
+            datapoints[io] = ownedcompilation;
+            piecolours[io] = Color.parseColor("#0094FF");
+            io++;
+        }
+        if (ownedfighting > 0) {
+            names[io] = "Fighting";
+            datapoints[io] = ownedfighting;
+            piecolours[io] = Color.parseColor("#B200FF");
+            io++;
+        }
+        if (ownedother > 0) {
+            names[io] = "Other";
+            datapoints[io] = ownedother;
+            piecolours[io] = Color.parseColor("#FF006E");
+            io++;
+        }
+        if (ownedplatformer > 0) {
+            names[io] = "Platformer";
+            datapoints[io] = ownedplatformer;
+            piecolours[io] = Color.parseColor("#FF00DC");
+            io++;
+        }
+        if (ownedpuzzle > 0) {
+            names[io] = "Puzzle";
+            datapoints[io] = ownedpuzzle;
+            piecolours[io] = Color.parseColor("#B002FF");
+            io++;
+        }
+        if (ownedracing > 0) {
+            names[io] = "Racing";
+            Log.d("Pixo", ""+ownedracing);
+            datapoints[io] = ownedracing;
+            piecolours[io] = Color.parseColor("#FF7F7F");
+            io++;
+        }
+        if (ownedroleplayinggame > 0) {
+            names[io] = "Role-Playing Game";
+            datapoints[io] = ownedroleplayinggame;
+            piecolours[io] = Color.parseColor("#C0C0C0");
+            io++;
+        }
+        if (ownedshootemup > 0) {
+            names[io] = "Shoot em Up";
+            datapoints[io] = ownedshootemup;
+            piecolours[io] = Color.parseColor("#613F7C");
+            io++;
+        }
+        if (ownedshooter > 0) {
+            names[io] = "Shooter";
+            datapoints[io] = ownedshooter;
+            piecolours[io] = Color.parseColor("#60C5FF");
+            io++;
+        }
+        if (ownedsimulation > 0) {
+            names[io] = "Simulation";
+            datapoints[io] = ownedsimulation;
+            piecolours[io] = Color.parseColor("#FFAFB5");
+            io++;
+        }
+        if (ownedsports > 0) {
+            names[io] = "Sports";
+            datapoints[io] = ownedsports;
+            piecolours[io] = Color.parseColor("#D5FFBF");
+            io++;
+        }
+        if (ownedstrategy > 0) {
+            names[io] = "Strategy";
+            datapoints[io] = ownedstrategy;
+            piecolours[io] = Color.parseColor("#4FFFBE");
+            io++;
+        }
+        if (ownedtraditional > 0) {
+            names[io] = "Traditional";
+            datapoints[io] = ownedtraditional;
+            piecolours[io] = Color.parseColor("#A856FF");
+            io++;
+        }
+        if (ownedtrivia > 0) {
+            names[io] = "Trivia";
+            datapoints[io] = ownedtrivia;
+            piecolours[io] = Color.parseColor("#CBFF72");
+            io++;
+        }
+
+        c.close();
+        db.close();
+
+        if (i > 0){PieChartView pieChartView = (PieChartView) findViewById(R.id.pie_chart);
+            pieChartView.setDataPoints(datapoints, names, piecolours);
+            // Because this activity is of the type PieChartView.Callback
+            pieChartView.setCallback(Statistics.this);}
+
+    }
+
+
     @Override
     public void onRestart() {
         super.onRestart();
         //When BACK BUTTON is pressed, the activity on the stack is restarted
         //Do what you want on the refresh procedure here
+        Log.d("Pixo", "Running run function");
         run();//run the list tables function
 
     }
@@ -619,8 +1031,10 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_allgames) {
+        if (id == R.id.nav_mainpage){
+            Intent intent = new Intent(this, MainActivity.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        } else if (id == R.id.nav_allgames) {
             Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("wherestatement", wherestatement);
             startActivity(intent);
@@ -642,9 +1056,8 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         } else if (id == R.id.nav_shelforder) {
             Intent intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
-        } else if (id == R.id.nav_statistics) {
-            Intent intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
-            finish();
+        } else if (id == R.id.nav_finished) {
+            Intent intent = new Intent(this, FinishedGames.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked

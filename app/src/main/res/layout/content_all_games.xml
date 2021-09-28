@@ -13,20 +13,30 @@
     tools:showIn="@layout/activity_all_games"
     android:background="@color/nctopGrey">
 
-    <ListView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/lvAllGames"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
-        android:scrollingCache="false"
-        android:animationCache="false"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:paddingLeft="0dp"
-        android:paddingTop="0dp"
-        android:paddingRight="0dp"
-        android:paddingBottom="0dp" />
+
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/lvAllGames"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:scrollingCache="false"
+            android:animationCache="false"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:paddingLeft="0dp"
+            android:paddingTop="0dp"
+            android:paddingRight="0dp"
+            android:paddingBottom="0dp" />
+
+        <GridView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:columnCount="3"
+            android:id="@+id/gvAllGames"
+            android:numColumns="3"
+            android:scrollIndicators="none"
+            android:background="#C7BD96"></GridView>
 </RelativeLayout>

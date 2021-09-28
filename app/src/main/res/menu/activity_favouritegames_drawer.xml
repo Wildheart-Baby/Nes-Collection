@@ -3,6 +3,9 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_mainpage"
+            android:title="Main Page" />
+        <item
             android:id="@+id/nav_allgames"
             android:title="All Games" />
         <item
@@ -11,9 +14,6 @@
         <item
             android:id="@+id/nav_ownedgames"
             android:title="Owned Games" />
-        <item
-            android:id="@+id/nav_favouritegames"
-            android:title="Favourite Games" />
         <item
             android:id="@+id/nav_wishlist"
             android:title="Wishlist" />

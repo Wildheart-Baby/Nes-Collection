@@ -22,7 +22,8 @@
         android:layout_height="wrap_content"
         android:text="@string/HeaderStats"
         android:id="@+id/lblHeader"
-        android:layout_marginBottom="20dp" />
+        android:layout_marginBottom="20dp"
+        android:gravity="center" />
 
     <RelativeLayout
         android:layout_width="wrap_content"

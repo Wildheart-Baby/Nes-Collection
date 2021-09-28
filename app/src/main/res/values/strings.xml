@@ -438,17 +438,14 @@
 
     <string-array name="genreArray">
         <item>Action</item>
-        <item>Action Adventure</item>
+        <item>Action-Adventure</item>
         <item>Adventure</item>
-        <item>Application</item>
         <item>Arcade</item>
         <item>Beat em Up</item>
         <item>Board game</item>
         <item>Compilation</item>
         <item>Fighting</item>
-        <item>Fitness game</item>
         <item>Other</item>
-        <item>Personal Development</item>
         <item>Platformer</item>
         <item>Puzzle</item>
         <item>Racing</item>
@@ -460,7 +457,6 @@
         <item>Strategy</item>
         <item>Traditional</item>
         <item>Trivia</item>
-        <item>Vehicular Simulation</item>
     </string-array>
 
     <string-array name="subgenreArray">
@@ -666,8 +662,13 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_games_detail">GamesDetail</string>
-    <string name="PieGenres">Breakdown by Genre</string>
+    <string name="PieGenres">Game Genres</string>
     <string name="PalAGames">Pal A Games</string>
     <string name="PalBGames">Pal B Games</string>
     <string name="USGames">US Games</string>
+    <string name="ShowPrices">Show prices paid for games</string>
+    <string name="title_activity_finished_games">FinishedGames</string>
+    <string name="ListView">View as list</string>
+    <string name="GalleryView">View as gallery</string>
+    <string name="GamesList">Games lists</string>
 </resources>

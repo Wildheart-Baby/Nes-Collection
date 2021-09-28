@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity
         ImageButton ShelfOrder = (ImageButton) findViewById(R.id.btnShelfOrder);
 
         ImageButton Stats = (ImageButton) findViewById(R.id.btnStats);
+        ImageButton Finished = (ImageButton) findViewById(R.id.btnFinished);
         ImageButton Settings = (ImageButton) findViewById(R.id.btnSettings);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -106,6 +108,14 @@ public class MainActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+
+        Finished.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                    Intent intent = new Intent(MainActivity.this, FinishedGames.class);//opens a new screen when the shopping list is clicked
+                    startActivity(intent);
+            }
+        });
+
         Settings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, Settings.class);//opens a new screen when the shopping list is clicked
@@ -121,10 +131,6 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
-        //checkDataBase();
-        //checksetting();
-        //gameregion();
     }
 
     @Override
@@ -226,6 +232,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_statistics) {
             Intent intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        } else if (id == R.id.nav_finished) {
+            Intent intent = new Intent(this, FinishedGames.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked

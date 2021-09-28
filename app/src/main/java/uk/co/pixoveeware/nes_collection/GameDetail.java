@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class GameDetail extends AppCompatActivity {
 
     Context context; //sets up a variable as context
-    int gameid, editgameid, coverid, owned, carttrue, boxtrue, manualtrue, favourite, wishlist;
+    int gameid, editgameid, coverid, owned, carttrue, boxtrue, manualtrue, favourite, wishlist, finished;
     String covername, gamename, headers;
 
     private Menu menu;
@@ -82,6 +82,10 @@ public class GameDetail extends AppCompatActivity {
                 favouritegame();
                 return true;
 
+            case R.id.action_finishedgame:
+                finishedgame();
+                return true;
+
             case R.id.action_wishlist:
                 wishlist();
                 return true;
@@ -136,6 +140,7 @@ public class GameDetail extends AppCompatActivity {
                 favourite = (c.getInt(c.getColumnIndex("favourite")));
                 wishlist = (c.getInt(c.getColumnIndex("wishlist")));
                 coverid = getResources().getIdentifier(covername, "drawable", getPackageName());
+                finished = (c.getInt(c.getColumnIndex("finished_game")));
                 gamename.setText((c.getString(c.getColumnIndex("name"))));
                 cover.setImageResource(coverid);
                 genre.setText((c.getString(c.getColumnIndex("genre"))));
@@ -198,14 +203,14 @@ public class GameDetail extends AppCompatActivity {
                 str = "UPDATE eu SET wishlist = 1 where _id = " + gameid + " "; //update the database basket field with 8783
                 db.execSQL(str);//run the sql command
                 Toast toast = Toast.makeText(getApplicationContext(),
-                        "Game added to wishlist",
+                        gamename + " added to wishlist",
                         Toast.LENGTH_SHORT);
                 toast.show();
             } else if (wishlist == 1) {
                 str = "UPDATE eu SET wishlist = 0 where _id = " + gameid + " "; //update the database basket field with 8783
                 db.execSQL(str);//run the sql command
                 Toast toast = Toast.makeText(getApplicationContext(),
-                        "Game removed from wishlist",
+                        gamename + " removed from wish list",
                         Toast.LENGTH_SHORT);
                 toast.show();
             }
@@ -213,6 +218,28 @@ public class GameDetail extends AppCompatActivity {
         //Log.d("Pixo", str);
         readGame();
         //invalidateOptionsMenu();
+    }
+
+    public void finishedgame(){
+        SQLiteDatabase db;//set up the connection to the database
+        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+        String str ="";
+           if (finished == 0) {
+                str = "UPDATE eu SET finished_game = 1 where _id = " + gameid + " "; //update the database basket field with 8783
+                db.execSQL(str);//run the sql command
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        "You finished " + gamename,
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            } else if (finished == 1) {
+                str = "UPDATE eu SET finished_game = 0 where _id = " + gameid + " "; //update the database basket field with 8783
+                db.execSQL(str);//run the sql command
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        gamename + " removed from finished list",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        readGame();
     }
 
 

@@ -22,6 +22,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -35,12 +36,15 @@ public class AllGames extends AppCompatActivity
     final Context context = this;
     SQLiteDatabase sqlDatabase;
 
+    private  int gridviewVerticalPositionWhenThumbnailTapped;
+
     String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, title, currentgroup, licensed;
     String prevgroup = "";
-    int readgameid, gameid, index, top;
+    int readgameid, gameid, index, top, viewas, ListSize, i, AddItems;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView gamelistView;
+    GridView gamegalleryview;
 
 
     @Override
@@ -49,6 +53,7 @@ public class AllGames extends AppCompatActivity
         setContentView(R.layout.activity_all_games);
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
         gamelistView = (ListView) findViewById(R.id.lvAllGames); //sets up a listview with the name shoplistview
+        gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
         gameregion();
         readList();
 
@@ -84,6 +89,36 @@ public class AllGames extends AppCompatActivity
         });
 
         gamelistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
+
+                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                final Integer itemId = gameListItems.getItemId();//get the item id
+
+                Intent intent = new Intent(AllGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("editgameid", itemId);
+                startActivity(intent);//start the new screen
+
+                return true;//return is equal to true
+            }
+
+        });
+
+        gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
+
+                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                readgameid = gameListItems.getItemId();//get the name of the shopping list table
+                readgamename = gameListItems.getName();//get the name of the shopping list table
+                Intent intent = new Intent(AllGames.this, GameDetail.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
+                intent.putExtra("name", readgamename);//passes the table name to the new screen
+                startActivity(intent);//start the new screen
+            }
+        });
+
+        gamegalleryview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
@@ -155,10 +190,17 @@ public class AllGames extends AppCompatActivity
     @Override
     public void onPause(){
         super.onPause();
-
+        if(viewas == 0){
         index = gamelistView.getFirstVisiblePosition();
         View v = gamelistView.getChildAt(0);
         top = (v == null) ? 0 : v.getTop();
+        } else if(viewas == 1){
+
+        //gridviewVerticalPositionWhenThumbnailTapped = gamegalleryview.getFirstVisiblePosition();
+        index = gamegalleryview.getFirstVisiblePosition();
+        //View v = gamegalleryview.getChildAt(0);
+        //top = (v == null) ? 0 : v.getTop();*/
+        }
     }
 
     public void readList(){//the readlist function
@@ -196,8 +238,6 @@ public class AllGames extends AppCompatActivity
                     nesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                 }
-
-
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
@@ -205,8 +245,18 @@ public class AllGames extends AppCompatActivity
         //Cursor c = db.rawQuery("SELECT ID, ITEM, QUANTITY, DEPARTMENT, BASKET FROM " + fname, null);
         db.close();//close the database
 
-        NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
-        gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
+
+
+        if(viewas == 0){
+            NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
+            gamegalleryview.setVisibility(View.GONE);
+            gamelistView.setAdapter(nes);
+
+        }else if (viewas == 1){
+            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, nesList);//set up an new list adapter from the arraylist
+            gamelistView.setVisibility(View.GONE);
+            gamegalleryview.setAdapter(nes);
+            }
     }
 
     public void gameregion(){//selects the region from the database
@@ -221,6 +271,7 @@ public class AllGames extends AppCompatActivity
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 title = (c.getString(c.getColumnIndex("region_title")));
                 licensed = (c.getString(c.getColumnIndex("licensed")));
+                viewas = (c.getInt(c.getColumnIndex("game_view")));
 
                 Log.d("Pixo", wherestatement);
                 c.moveToNext();//move to the next record
@@ -237,6 +288,8 @@ public class AllGames extends AppCompatActivity
         //Do what you want on the refresh procedure here
         readList();//run the list tables function
         gamelistView.setSelectionFromTop(index, top);
+        //gamegalleryview.setSelection(gridviewVerticalPositionWhenThumbnailTapped);
+        gamegalleryview.setSelection(index);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")
@@ -246,10 +299,7 @@ public class AllGames extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_allgames) {
-            Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-            intent.putExtra("wherestatement", wherestatement);
-            finish();
-            startActivity(intent);
+
         } else if (id == R.id.nav_neededgames) {
             Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("wherestatement", wherestatement);
@@ -270,6 +320,9 @@ public class AllGames extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_statistics) {
             Intent intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        } else if (id == R.id.nav_finished) {
+            Intent intent = new Intent(this, FinishedGames.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked

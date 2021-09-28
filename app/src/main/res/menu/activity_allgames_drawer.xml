@@ -3,8 +3,8 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_allgames"
-            android:title="All Games" />
+            android:id="@+id/nav_mainpage"
+            android:title="Main Page" />
         <item
             android:id="@+id/nav_neededgames"
             android:title="Missing Games" />

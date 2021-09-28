@@ -25,7 +25,7 @@ public class EditOwnedGame extends AppCompatActivity {
 
     int gameid, coverid, palAcart, palAbox, palAmanual, palBcart, palBbox,
         palBmanual, uscart, usbox, usmanual, cart, box, manual, owned,
-        regionatrue, regionbtrue, regionustrue, favourite, ontheshelf, wishlist;
+        regionatrue, regionbtrue, regionustrue, favourite, ontheshelf, wishlist, showprice, palaowned, palbowned, usowned;
     String covername, sql, test, currency, PACheck, PBCheck, USCheck;
     Double  PalAcost,PalBcost, UScost;
 
@@ -64,7 +64,7 @@ public class EditOwnedGame extends AppCompatActivity {
         PalBCost.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                PalBCost.getText().clear();;
+                PalBCost.getText().clear();
             }
         });
         USCost.setOnClickListener(new View.OnClickListener(){
@@ -177,7 +177,11 @@ public class EditOwnedGame extends AppCompatActivity {
 
                 ontheshelf = (c.getInt(c.getColumnIndex("onshelf")));
                 wishlist = (c.getInt(c.getColumnIndex("wishlist")));
-
+                c.moveToNext();//move to the next record
+                            }
+                        c.close();//close the cursor
+                    }
+                db.close();//close the database
 
                 PalACost.setText(String.format("%.2f",PalAcost));
                 PalBCost.setText(String.format("%.2f",PalBcost));
@@ -194,7 +198,7 @@ public class EditOwnedGame extends AppCompatActivity {
                 }
 
                 if (regionbtrue == 0) { chkpalbcart.setEnabled(false); chkpalbbox.setEnabled(false); chkpalbmanual.setEnabled(false);  PalBCost.setEnabled(false); PalBCost.setText("");}
-                else if (regionustrue == 1) { if (palBcart == 8783) { chkpalbcart.setChecked(true);  } else { chkpalbcart.setChecked(false); }
+                else if (regionbtrue == 1) { if (palBcart == 8783) { chkpalbcart.setChecked(true);  } else { chkpalbcart.setChecked(false); }
                     if (palBbox == 8783) { chkpalbbox.setChecked(true); } else { chkpalbbox.setChecked(false);  }
                     if (palBmanual == 8783) { chkpalbmanual.setChecked(true); } else { chkpalbmanual.setChecked(false);}
                 }
@@ -202,15 +206,13 @@ public class EditOwnedGame extends AppCompatActivity {
                 else if (regionustrue == 1) {if (uscart == 8783) { chkuscart.setChecked(true); } else { chkuscart.setChecked(false); }
                 if (usbox == 8783) { chkusbox.setChecked(true); } else { chkusbox.setChecked(false); }
                 if (usmanual == 8783) { chkusmanual.setChecked(true); } else { chkusmanual.setChecked(false);}
+                }
 
-                if (ontheshelf == 1){onshelf.setChecked(true);} else { onshelf.setChecked(false);}
-                }
-                    c.moveToNext();//move to the next record
-                }
-                c.close();//close the cursor
-            }
-            db.close();//close the database
-        }
+
+        if (ontheshelf == 1){onshelf.setChecked(true);} else { onshelf.setChecked(false);}
+        if (showprice == 0){PalACurrency.setVisibility(View.INVISIBLE); PalBCurrency.setVisibility(View.INVISIBLE); USCurrency.setVisibility(View.INVISIBLE);
+                            PalACost.setVisibility(View.INVISIBLE); PalBCost.setVisibility(View.INVISIBLE); USCost.setVisibility(View.INVISIBLE);}
+    }
 
     public void writegame(){
 
@@ -228,15 +230,15 @@ public class EditOwnedGame extends AppCompatActivity {
         EditText PalBCost = (EditText) findViewById(R.id.txtPalBcost);
         EditText USCost = (EditText) findViewById(R.id.txtUScost);
 
-        if (chkpalacart.isChecked()){ palAcart = 8783; cart = 1; owned = 1;} else  { palAcart = 32573; }
+        if (chkpalacart.isChecked()){ palAcart = 8783; cart = 1; palaowned = 1; owned = 1;} else  { palAcart = 32573; }
         if (chkpalabox.isChecked()){ palAbox = 8783; box = 1; owned = 1;} else { palAbox = 32573; }
         if (chkpalamanual.isChecked()){ palAmanual = 8783; manual = 1; owned = 1;} else { palAmanual = 32573; }
 
-        if (chkpalbcart.isChecked()){ palBcart = 8783; cart = 1; owned = 1;} else { palBcart = 32573; }
+        if (chkpalbcart.isChecked()){ palBcart = 8783; cart = 1; palbowned = 1; owned = 1;} else { palBcart = 32573; }
         if (chkpalbbox.isChecked()){ palBbox = 8783; box = 1; owned = 1;} else { palBbox = 32573; }
         if (chkpalbmanual.isChecked()){ palBmanual = 8783; manual = 1; owned = 1;} else { palBmanual = 32573; }
 
-        if (chkuscart.isChecked()){ uscart = 8783; cart = 1; owned = 1;} else { uscart = 32573; }
+        if (chkuscart.isChecked()){ uscart = 8783; cart = 1; usowned = 1; owned = 1;} else { uscart = 32573; }
         if (chkusbox.isChecked()){ usbox = 8783; box = 1; owned = 1;} else { usbox = 32573;  }
         if (chkusmanual.isChecked()){ usmanual = 8783; manual = 1; owned = 1;} else { usmanual = 32573; }
 
@@ -263,7 +265,7 @@ public class EditOwnedGame extends AppCompatActivity {
 
         SQLiteDatabase db;//set up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-        String str = "UPDATE eu SET owned = " + owned + ", cart = " + cart + ", box = " + box + ", manual = " + manual + ", pal_a_cart = " + palAcart + ", pal_a_box = " + palAbox + ", pal_a_manual = " + palAmanual + ", pal_b_cart = " + palBcart + ", pal_b_box = " + palBbox + ", pal_b_manual = " + palBmanual + ", ntsc_cart = " + uscart + ", ntsc_box = " + usbox + ",  ntsc_manual = " + usmanual + ",  pal_a_cost = " + PalAcost + ",  pal_b_cost = " + PalBcost + ",  ntsc_cost = " + UScost + ",  onshelf = " + ontheshelf +  ",  wishlist = 0 where _id = " + gameid + " "; //update the database basket field with 8783
+        String str = "UPDATE eu SET owned = " + owned + ", cart = " + cart + ", box = " + box + ", manual = " + manual + ", pal_a_cart = " + palAcart + ", pal_a_box = " + palAbox + ", pal_a_manual = " + palAmanual + ", pal_b_cart = " + palBcart + ", pal_b_box = " + palBbox + ", pal_b_manual = " + palBmanual + ", ntsc_cart = " + uscart + ", ntsc_box = " + usbox + ",  ntsc_manual = " + usmanual + ",  pal_a_cost = " + PalAcost + ",  pal_b_cost = " + PalBcost + ",  ntsc_cost = " + UScost + ",  onshelf = " + ontheshelf +  ",  pal_a_owned = " + palaowned +  ",  pal_b_owned = " + palbowned +  ",  ntsc_owned = " + usowned +  ",  wishlist = 0 where _id = " + gameid + " "; //update the database basket field with 8783
         db.execSQL(str);//run the sql command
                 Log.d("Pixo", str);
                 //Intent intent = new Intent(EditOwnedGame.this, OwnedGames.class);//opens a new screen when the shopping list is clicked
@@ -296,6 +298,8 @@ public class EditOwnedGame extends AppCompatActivity {
         Cursor c = db.rawQuery(sql, null);//select everything from the database table
         c.moveToFirst();
         currency = (c.getString(c.getColumnIndex("currency")));
+        showprice = (c.getInt(c.getColumnIndex("show_price")));
+        c.close();
     }
 }
 

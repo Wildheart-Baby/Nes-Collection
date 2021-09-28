@@ -348,18 +348,15 @@ public class OwnedGames extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
-
-        if (id == R.id.nav_allgames) {
+        if (id == R.id.nav_mainpage){
+            Intent intent = new Intent(this, MainActivity.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        }else if (id == R.id.nav_allgames) {
             Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("wherestatement", wherestatement);
             startActivity(intent);
         } else if (id == R.id.nav_neededgames) {
             Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
-            intent.putExtra("wherestatement", wherestatement);
-            finish();
-            startActivity(intent);
-        } else if (id == R.id.nav_ownedgames) {
-            Intent intent = new Intent(this, OwnedGames.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("wherestatement", wherestatement);
             finish();
             startActivity(intent);
@@ -374,6 +371,9 @@ public class OwnedGames extends AppCompatActivity
             startActivity(intent);
         } else if (id == R.id.nav_statistics) {
             Intent intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
+            startActivity(intent);
+        } else if (id == R.id.nav_finished) {
+            Intent intent = new Intent(this, FinishedGames.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         } else if (id == R.id.nav_settings) {
             Intent intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked

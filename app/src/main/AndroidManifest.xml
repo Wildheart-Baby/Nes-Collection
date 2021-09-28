@@ -99,6 +99,10 @@
         <activity
             android:name=".GamesDetail"
             android:label="@string/title_activity_games_detail"
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".FinishedGames"
+            android:label="@string/title_activity_finished_games"
             android:theme="@style/AppTheme"></activity>
     </application>
 

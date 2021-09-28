@@ -115,7 +115,7 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/imageButton3"
+        android:id="@+id/btnFinished"
         android:src="@drawable/btnuntitled"
         android:scaleType="fitCenter"
         android:background="@null"
@@ -132,7 +132,7 @@
         android:background="@drawable/btnsettings"
         android:minHeight="175dp"
         android:minWidth="175dp"
-        android:layout_alignTop="@+id/imageButton3"
+        android:layout_alignTop="@+id/btnFinished"
         android:layout_alignLeft="@+id/btnowned"
         android:layout_alignStart="@+id/btnowned" />
 
