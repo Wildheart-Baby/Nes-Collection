@@ -27,9 +27,9 @@ public class GameDetail extends AppCompatActivity {
     public static int listcount = 0, gamedetailcount = 0;
 
     Context context; //sets up a variable as context
-    int gameid, editgameid, coverid, owned, pos;
+    int gameid, editgameid, coverid, owned, pos, titles;
 
-    String gamename, sql, wherestatement, licensed;
+    String gamename, sql, wherestatement, licensed, thename, theimage;
     ViewPager viewPager;
     NesPagerAdapter adapter;
     private Menu menu;
@@ -157,8 +157,8 @@ public class GameDetail extends AppCompatActivity {
             while ( !c.isAfterLast() ) {//while there are records to read
                 nesListItems = new NesItems();//creates a new array
                 nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                nesListItems.setImage(c.getString(c.getColumnIndex("image")));
-                nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                nesListItems.setName(c.getString(c.getColumnIndex(thename)));
                 nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                 nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                 nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
@@ -300,6 +300,7 @@ public class GameDetail extends AppCompatActivity {
 
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 licensed = (c.getString(c.getColumnIndex("licensed")));
+                titles = (c.getInt(c.getColumnIndex("us_titles")));
                 NesPagerAdapter.licensed = (c.getString(c.getColumnIndex("licensed")));
 
                 c.moveToNext();//move to the next record
@@ -307,5 +308,12 @@ public class GameDetail extends AppCompatActivity {
             c.close();//close the cursor
         }
         db.close();//close the database
+        if (titles == 0){
+            thename = "name";
+            theimage = "image";
+        } else if (titles == 1){
+            thename = "us_name";
+            theimage = "us_image";
+        }
     }
 }

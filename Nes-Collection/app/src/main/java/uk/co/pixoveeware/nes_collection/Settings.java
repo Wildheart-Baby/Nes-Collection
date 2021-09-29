@@ -50,7 +50,7 @@ import java.io.InputStreamReader;
 public class Settings extends AppCompatActivity {
 
     String regionselected, sql, currentregion, licensed, currentcurrency, shelfS, wherestatement, regionmissing, missingsql, missingchecked, regionmissingcheck;
-    int shelfsize, showprice, posF, listtype, total_games;
+    int shelfsize, showprice, posF, posT, listtype, titles, total_games, titlestype;
     ArrayAdapter<CharSequence> adapter, adapter2;
     Button btnexport, btnimport;
 
@@ -145,6 +145,9 @@ public class Settings extends AppCompatActivity {
         final RadioGroup List = (RadioGroup) findViewById(R.id.rgLayout);
         RadioButton ListView = (RadioButton) findViewById(R.id.rbListView);
         RadioButton GalleryView = (RadioButton) findViewById(R.id.rbGallery);
+        final RadioGroup Titles = (RadioGroup) findViewById(R.id.rgTitles);
+        RadioButton EuTitles = (RadioButton) findViewById(R.id.rbTitles);
+        RadioButton UsTitles = (RadioButton) findViewById(R.id.rbUStitles);
         Button ok = (Button) findViewById(R.id.rgnOk);
         Button cancel = (Button) findViewById(R.id.rgnCancel);
 
@@ -172,6 +175,7 @@ public class Settings extends AppCompatActivity {
         //if (regionmissingcheck.contains("(owned = 0 or 1") ){ missingregion.setChecked(true); } else { missingregion.setChecked(false);}
         if (showprice == 1) { showprices.setChecked(true); } else { showprices.setChecked(false);}
         if (listtype == 0) {ListView.setChecked(true);} else {GalleryView.setChecked(true);}
+        if (titles == 0) {EuTitles.setChecked(true);} else {UsTitles.setChecked(true);}
 
         region.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -209,6 +213,22 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        Titles.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                posT = Titles.indexOfChild(findViewById(checkedId));
+                switch (posT) {
+                    case 0:
+                        titlestype = 0;
+                        break;
+                    case 1:
+                        titlestype = 1;
+                        break;
+                }
+            }
+        });
+
         shelfspace.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -232,6 +252,7 @@ public class Settings extends AppCompatActivity {
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 showprice = (c.getInt(c.getColumnIndex("show_price")));
                 listtype = (c.getInt(c.getColumnIndex("game_view")));
+                titles = (c.getInt(c.getColumnIndex("us_titles")));
                 //regionmissingcheck = (c.getString(c.getColumnIndex("region_missing_check")));
                 c.moveToNext();//move to the next record
             }
@@ -274,7 +295,7 @@ public class Settings extends AppCompatActivity {
                 sql = "(pal_b_release = 1 or ntsc_release = 1)";
                 //missingsql = "and (pal_b_cart = 32573 or pal_b_cart = 32573)";
             }
-            if (regionselected.contains("All Regions")) {
+            if (regionselected.contains(getString(R.string.regionname01))) {
                 sql = "(pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1)";
                 //missingsql = "";
             }
@@ -282,6 +303,7 @@ public class Settings extends AppCompatActivity {
             //if (missingregion.isChecked()){ regionmissing = missingsql; missingchecked = "(owned = 0 or 1)";} else {regionmissing = ""; missingchecked = "( owned = 0)";}
             if (unlicensed.isChecked()){ licensed = " and (unlicensed = 0 or 1)";} else  { licensed = " and (unlicensed = 0)"; }
             if (showprices.isChecked()){ showprice = 1;} else  { showprice = 0; }
+
             shelfS = shelfspace.getText().toString();
 
             if (shelfS.matches("") || !Character.isDigit(shelfS.charAt(0))) {shelfsize = 9;}
@@ -290,8 +312,9 @@ public class Settings extends AppCompatActivity {
             SQLiteDatabase db;//set up the connection to the database
             db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
             //String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',region_missing = '" + regionmissing + "',region_missing_check = '" + missingchecked + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "',currency = '" + currentcurrency + "',game_view = '" + listtype + "',show_price = '" + showprice + "'"; //update the database basket field with 8783
-            String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "',currency = '" + currentcurrency + "',game_view = '" + listtype + "',show_price = '" + showprice + "'"; //update the database basket field with 8783
-            db.execSQL(str);//run the sql command
+            String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "',currency = '" + currentcurrency + "',game_view = '" + listtype + "',us_titles = '" + titlestype +"',show_price = '" + showprice + "'"; //update the database basket field with 8783
+        Log.d("settings", str);
+        db.execSQL(str);//run the sql command
             db.close();//close the database
             Intent intent = new Intent(Settings.this, MainActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);

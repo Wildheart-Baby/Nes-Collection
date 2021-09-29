@@ -33,9 +33,9 @@ public class SearchResults extends AppCompatActivity {
     final Context context = this;
     SQLiteDatabase sqlDatabase;
 
-    String name, dbfile, readgamename, str, listName,currentDate, pagetitle, search, field, searchname, columnname,sql, currentgroup;
+    String name, dbfile, readgamename, str, listName,currentDate, pagetitle, search, field, searchname, columnname,sql, currentgroup, thename, theimage;
     String prevgroup = "";
-    int readgameid, gameid, totalResults, viewas;
+    int readgameid, gameid, totalResults, viewas, titles;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView gamelistView;
@@ -51,7 +51,7 @@ public class SearchResults extends AppCompatActivity {
         search = getIntent().getStringExtra("searchname"); //sets a variable fname with data passed from the main screen
         field = getIntent().getStringExtra("columnname"); //sets a variable fname with data passed from the main screen
         sql = getIntent().getStringExtra("sqlstatement");
-        Log.d("Pixo search", "value" + sql);
+        Log.d("Pixo search", "value: " + sql);
         searchname = getIntent().getStringExtra("searchterm");
         pagetitle = getIntent().getStringExtra("pagetitle");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -199,9 +199,9 @@ public class SearchResults extends AppCompatActivity {
                     if(!currentgroup.equals(prevgroup)){
                         nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
                         nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                        nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                        nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                        nesListItems.setName(c.getString(c.getColumnIndex(thename)));
                         nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                        nesListItems.setName(c.getString(c.getColumnIndex("name")));
                         nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                         nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
                         nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
@@ -212,9 +212,9 @@ public class SearchResults extends AppCompatActivity {
                     else if(currentgroup.equals(prevgroup)){
                         nesListItems.setGroup("no");
                         nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                        nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                        nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                        nesListItems.setName(c.getString(c.getColumnIndex(thename)));
                         nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                        nesListItems.setName(c.getString(c.getColumnIndex("name")));
                         nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                         nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
                         nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
@@ -257,11 +257,19 @@ public class SearchResults extends AppCompatActivity {
             while ( !c.isAfterLast() ) {//while there are records to read
 
                 viewas = (c.getInt(c.getColumnIndex("game_view")));
+                titles = (c.getInt(c.getColumnIndex("us_titles")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
         db.close();//close the database
+        if (titles == 0){
+            thename = "name";
+            theimage = "image";
+        } else if (titles == 1){
+            thename = "us_name";
+            theimage = "us_image";
+        }
     }
 
     @Override

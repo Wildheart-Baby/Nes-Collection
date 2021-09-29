@@ -41,8 +41,8 @@ public class FavouriteGames extends AppCompatActivity
     TextView thesearchresults;
     GridView gamegalleryview;
 
-    String name, readgamename, searchterm,fieldname, wherestatement, title, sql, currentgroup;
-    int readgameid, index, top, count, randomgame, itemId, totalResults, viewas;
+    String name, readgamename, searchterm,fieldname, wherestatement, title, sql, currentgroup, theimage, thename;
+    int readgameid, index, top, count, randomgame, itemId, totalResults, viewas, titles;
     String prevgroup = "";
 
     @Override
@@ -215,8 +215,8 @@ public class FavouriteGames extends AppCompatActivity
                 nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
                 nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
                 nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
-                nesListItems.setImage(c.getString(c.getColumnIndex("image")));
-                nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                nesListItems.setName(c.getString(c.getColumnIndex(thename)));
                 nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                 nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                 //nesListItems.setOwned(c.getInt(c.getColumnIndex("favourite")));
@@ -226,8 +226,8 @@ public class FavouriteGames extends AppCompatActivity
             else if(currentgroup.equals(prevgroup)){
                 nesListItems.setGroup("no");
                 nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                nesListItems.setImage(c.getString(c.getColumnIndex("image")));
-                nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                nesListItems.setName(c.getString(c.getColumnIndex(thename)));
                 nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                 nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                 nesList.add(nesListItems);//add items to the arraylist
@@ -246,7 +246,7 @@ public class FavouriteGames extends AppCompatActivity
         if (totalResults == 0){
             favouritelistView.setVisibility(View.GONE);
             thesearchresults.setVisibility(View.VISIBLE);
-            thesearchresults.setText("You have no favourite games, oh that's sad, you should add some");
+            thesearchresults.setText(getString(R.string.favouriteNoResults));
         }else {
             if(viewas == 0){
                 NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
@@ -282,6 +282,7 @@ public class FavouriteGames extends AppCompatActivity
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 title = (c.getString(c.getColumnIndex("region_title")));
                 viewas = (c.getInt(c.getColumnIndex("game_view")));
+                titles = (c.getInt(c.getColumnIndex("us_titles")));
 
                 Log.d("Pixo", wherestatement);
                 c.moveToNext();//move to the next record
@@ -289,6 +290,13 @@ public class FavouriteGames extends AppCompatActivity
             c.close();//close the cursor
         }
         db.close();//close the database
+        if (titles == 0){
+            thename = "name";
+            theimage = "image";
+        } else if (titles == 1){
+            thename = "us_name";
+            theimage = "us_image";
+        }
     }
 
     public void randomgame(){

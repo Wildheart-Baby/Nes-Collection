@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:largeHeap="true"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -120,6 +120,7 @@
             android:name=".TrophyRoom"
             android:label="@string/title_activity_trophy_room"
             android:theme="@style/AppTheme"></activity>
+        <meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIlNbQL51vLuZiNqUKLDLNMmT47DxS0_mw89RVsQ" />
     </application>
 
 </manifest>

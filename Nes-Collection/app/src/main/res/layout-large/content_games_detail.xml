@@ -341,18 +341,7 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgSwitzerland"
-                        android:id="@+id/imgScandinavia"
-                        android:src="@drawable/scandinavia"
-                        android:layout_marginRight="5dp"
-                        android:visibility="gone"
-                        android:maxHeight="15dp"
-                        android:maxWidth="22dp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_toRightOf="@id/imgScandinavia"
+                        android:layout_toRightOf="@+id/imgSwitzerland"
                         android:id="@+id/imgBenelux"
                         android:src="@drawable/benelux"
                         android:layout_marginRight="5dp"

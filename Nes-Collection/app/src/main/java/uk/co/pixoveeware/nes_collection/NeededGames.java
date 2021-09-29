@@ -35,9 +35,9 @@ public class NeededGames extends AppCompatActivity
     final Context context = this;
     SQLiteDatabase sqlDatabase;
 
-    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, licensed, currentgroup, title, regionmissing, regionmissingcheck;
+    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, licensed, currentgroup, title, theimage, thename, regionmissing, regionmissingcheck;
     String prevgroup = "";
-    int readgameid, gameid, totalgames, neededgames, index, top, viewas;
+    int readgameid, gameid, totalgames, neededgames, index, top, viewas, titles;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView gamelistView;
@@ -90,6 +90,8 @@ public class NeededGames extends AppCompatActivity
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("position", arg2);
+                intent.putExtra("gamename", thename);
+                intent.putExtra("gameimage", theimage);
                 startActivity(intent);//start the new screen
             }
         });
@@ -242,8 +244,8 @@ public class NeededGames extends AppCompatActivity
                 if(!currentgroup.equals(prevgroup)){
                     nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));
                     nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
-                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                    nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                    nesListItems.setName(c.getString(c.getColumnIndex(thename)));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                     nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                     nesList.add(nesListItems);//add items to the arraylist
@@ -252,8 +254,8 @@ public class NeededGames extends AppCompatActivity
                 else if(currentgroup.equals(prevgroup)){
                     nesListItems.setGroup("no");
                     nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    nesListItems.setImage(c.getString(c.getColumnIndex("image")));
-                    nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                    nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                    nesListItems.setName(c.getString(c.getColumnIndex(thename)));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                     nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                     nesList.add(nesListItems);//add items to the arraylist
@@ -308,6 +310,7 @@ public class NeededGames extends AppCompatActivity
                 licensed = (c.getString(c.getColumnIndex("licensed")));
                 viewas = (c.getInt(c.getColumnIndex("game_view")));
                 title = (c.getString(c.getColumnIndex("region_title")));
+                titles = (c.getInt(c.getColumnIndex("us_titles")));
                 //regionmissingcheck = (c.getString(c.getColumnIndex("region_missing_check")));
                 //regionmissing = (c.getString(c.getColumnIndex("region_missing")));
 
@@ -317,6 +320,13 @@ public class NeededGames extends AppCompatActivity
             c.close();//close the cursor
         }
         db.close();//close the database
+        if (titles == 0){
+            thename = "name";
+            theimage = "image";
+        } else if (titles == 1){
+            thename = "us_name";
+            theimage = "us_image";
+        }
     }
 
     @Override

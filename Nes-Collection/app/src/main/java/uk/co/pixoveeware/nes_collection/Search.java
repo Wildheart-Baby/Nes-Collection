@@ -23,6 +23,7 @@ import android.widget.TextView;
 public class Search extends AppCompatActivity {
 
     String searchterm, fieldname, sql, searchname, wherestatement;
+    int titles;
     ArrayAdapter<CharSequence> adapter, search;
 
     @Override
@@ -114,6 +115,7 @@ public class Search extends AppCompatActivity {
             public void onClick(View v) {//read the quantity from the quantity text box and adds one to the total
 
                 if (fieldname.contains("name")){
+                        if (titles == 0){ fieldname = "name";} else if (titles == 1 ){ fieldname = "us_name"; }
                         searchterm = String.valueOf(searchTerm.getText().toString());//get the name from the item name text box
                         if (all.isChecked()) {
                             sql = "SELECT * FROM eu WHERE " + fieldname + " like '%" + searchterm + "%'" + wherestatement + "";
@@ -132,6 +134,7 @@ public class Search extends AppCompatActivity {
                 intent.putExtra("sqlstatement", sql);
                 intent.putExtra("searchterm", fieldname);
                 intent.putExtra("pagetitle", "Search results");
+                Log.d("search", "titles: " + titles + " sql is: " + sql);
                 startActivity(intent);//start the new screen
                 finish();
 
@@ -222,6 +225,7 @@ public class Search extends AppCompatActivity {
             while ( !c.isAfterLast() ) {//while there are records to read
 
                 wherestatement = "and ( " + (c.getString(c.getColumnIndex("region"))) + ")";
+                titles = (c.getInt(c.getColumnIndex("us_titles")));
                 //title = (c.getString(c.getColumnIndex("region_title")));
 
                 Log.d("Pixo", wherestatement);

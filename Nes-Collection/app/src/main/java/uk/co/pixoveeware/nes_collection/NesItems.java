@@ -8,7 +8,7 @@ public class NesItems {
 
     String name, publisher, synopsis, image, genre, region, group, subgenre, developer, year, currency;
     int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual,
-            pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist, finished;
+            pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist, finished, listPos;
      int flagAustralia, flagAustria, flagBenelux, flagDenmark, flagFrance, flagFinland, flagGermany, flagGreece, flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS ;
     double pal_a_cost, pal_b_cost, ntsc_cost;
 
@@ -162,4 +162,6 @@ public class NesItems {
     public int getUS() { return flagUS; }
     public void setUS(int flagUS) { this.flagUS = flagUS; } //returns the item id
 
+    public int getListPosition() { return listPos; }
+    public void setListPos(int listPos) { this.listPos = listPos; } //returns the item id
 }

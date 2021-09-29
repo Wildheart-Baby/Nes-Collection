@@ -648,7 +648,7 @@
     <string name="title_activity_about">About</string>
     <string name="title_activity_credits">Credits</string>
     <string name="Aboutdesc">Your game collecting companion</string>
-    <string name="About">© Pixoveeware 2016 \n  All rights reserved.</string>
+    <string name="About">© Pixoveeware 2017 \n  All rights reserved.</string>
 
     <string name="title_activity_shelf_order">Shelf Order</string>
 
@@ -680,8 +680,8 @@
     <string name="title_activity_trophy_room">TrophyRoom</string>
     <string name="RegionMissing">Show games missing from collecting region</string>
 
-
-
+    <string name="favouriteNoResults">You have no favourite games, oh that\'s sad, you should add some</string>
+    <string name="wishlisNoResults">Your wishlist is empty, please add some games to it</string>
 
     <string name="mainAllGames">All games</string>
     <string name="mainNeededGames">Needed games</string>
@@ -704,7 +704,10 @@
     <string name="settingsGalleryView">View as gallery</string>
     <string name="settingsExportDatabase">Games data</string>
     <string name="settingsSettingsExport">Export Data</string>
-    <string name="settingsImport">Import</string>
+    <string name="settingsImport">Import Data</string>
+    <string name="settingsTitlesType">Games Names</string>
+    <string name="settingsEuroTitles">European Names</string>
+    <string name="settingsUsTitles">US Names</string>
 
     <string name="navMainPage">Main page</string>
     <string name="navAllGames">All games</string>
@@ -802,6 +805,8 @@
     <string name="regionsAUS">Pal A &amp; US</string>
     <string name="regionsBUS">Pal B &amp; US</string>
     <string name="regionsAll">all regions</string>
+
+    <string name="regionname01">All Regions</string>
 
 </resources>
 

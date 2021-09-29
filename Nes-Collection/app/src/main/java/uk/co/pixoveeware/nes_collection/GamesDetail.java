@@ -30,9 +30,9 @@ public class GamesDetail extends AppCompatActivity {
     public static int listcount = 0, gamedetailcount = 0;
 
     Context context; //sets up a variable as context
-    int gameid, editgameid, coverid, owned, pos, position;
+    int gameid, editgameid, coverid, owned, pos, position, titles;
 
-    String gamename, sql, wherestatement, licensed, previd;
+    String gamename, sql, wherestatement, licensed, previd, thename, theimage;
     ViewPager viewPager;
     NesPagerAdapter adapter;
     private Menu menu;
@@ -64,8 +64,7 @@ public class GamesDetail extends AppCompatActivity {
         pos = getIntent().getIntExtra("position",0);//sets a variable fname with data passed from the main screen
         sql = getIntent().getStringExtra("sqlstatement");
         //sql = "SELECT * FROM eu where " + sqlstate;
-        Log.d("shelf", "Value game id: " + gameid + " position: " + pos + " name: " + gamename);
-
+        //Log.d("shelf", "list position: " + pos + " game id: " + gameid +  " name: " + gamename);
         //setTitle("@string/gameDetailPageTitle");//sets the screen title with the shopping list name
         gameregion();
         readGame();
@@ -160,15 +159,16 @@ public class GamesDetail extends AppCompatActivity {
             while ( !c.isAfterLast() ) {//while there are records to read
                 nesListItems = new NesItems();//creates a new array
                 nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                nesListItems.setImage(c.getString(c.getColumnIndex("image")));
-                nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                nesListItems.setName(c.getString(c.getColumnIndex(thename)));
                 nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                 nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                 nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
                 nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
                 nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
                 nesListItems.setFavourite(c.getInt(c.getColumnIndex("favourite")));
-                nesListItems.setYear(c.getString(c.getColumnIndex("year")));
+                nesListItems.setYear(c.getString(c.getColumnIndex("year"))); //re-edit this after testing
+                //nesListItems.setYear(c.getString(c.getColumnIndex("Field62")));
                 nesListItems.setGenre((c.getString(c.getColumnIndex("genre"))));
                 nesListItems.setSubgenre((c.getString(c.getColumnIndex("subgenre"))));
                 nesListItems.setDeveloper((c.getString(c.getColumnIndex("developer"))));
@@ -186,7 +186,7 @@ public class GamesDetail extends AppCompatActivity {
                 nesListItems.setNorway(c.getInt(c.getColumnIndex("flag_norway")));
                 nesListItems.setPoland(c.getInt(c.getColumnIndex("flag_poland")));
                 nesListItems.setPortugal(c.getInt(c.getColumnIndex("flag_portugal")));
-                nesListItems.setScandinavia(c.getInt(c.getColumnIndex("flag_scandinavia")));
+                //nesListItems.setScandinavia(c.getInt(c.getColumnIndex("flag_scandinavia")));
                 nesListItems.setSpain(c.getInt(c.getColumnIndex("flag_spain")));
                 nesListItems.setSweden(c.getInt(c.getColumnIndex("flag_sweden")));
                 nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
@@ -304,6 +304,7 @@ public class GamesDetail extends AppCompatActivity {
 
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 licensed = (c.getString(c.getColumnIndex("licensed")));
+                titles = (c.getInt(c.getColumnIndex("us_titles")));
                 NesPagerAdapter.licensed = (c.getString(c.getColumnIndex("licensed")));
 
                 c.moveToNext();//move to the next record
@@ -311,6 +312,13 @@ public class GamesDetail extends AppCompatActivity {
             c.close();//close the cursor
         }
         db.close();//close the database
+        if (titles == 0){
+            thename = "name";
+            theimage = "image";
+        } else if (titles == 1){
+            thename = "us_name";
+            theimage = "us_image";
+        }
     }
 
 }

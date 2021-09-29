@@ -38,10 +38,10 @@ public class OwnedGames extends AppCompatActivity
     final Context context = this;
     SQLiteDatabase sqlDatabase;
 
-    String name, dbfile, readgamename, str, sql, listName,searchterm,fieldname, wherestatement, sql1, sql2, sql3, licensed, currentgroup, order, currency;
+    String name, dbfile, readgamename, str, sql, listName,searchterm,fieldname, wherestatement, sql1, sql2, sql3, licensed, currentgroup, order, currency, thename, theimage;
     String prevgroup = "";
 
-    int readgameid, gameid, ownedgames, totalgames, index, top, region1games, region2games,region3games, count, randomgame, itemId, viewas, showprice, ordering;
+    int readgameid, gameid, ownedgames, totalgames, index, top, region1games, region2games,region3games, count, randomgame, itemId, viewas, showprice, ordering, titles;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView ownedlistView;
@@ -99,8 +99,8 @@ public class OwnedGames extends AppCompatActivity
         Intent intent = new Intent(OwnedGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
         intent.putExtra("gameid", readgameid);//passes the table name to the new screen
         intent.putExtra("name", readgamename);//passes the table name to the new screen
-        if (ordering == 0){intent.putExtra("sqlstatement", "SELECT * FROM eu where owned = 1");}
-        else if(ordering == 1){intent.putExtra("sqlstatement", "select * from eu where owned = 1 order by price desc");}
+        if (ordering == 0){intent.putExtra("sqlstatement", "SELECT * FROM eu where owned = 1" + licensed +  "");}
+        else if(ordering == 1){intent.putExtra("sqlstatement", "select * from eu where owned = 1 order by price desc" + licensed +  "");}
         intent.putExtra("position", arg2);
 
         startActivity(intent);//start the new screen
@@ -259,8 +259,8 @@ public class OwnedGames extends AppCompatActivity
                         if (ordering == 0) {nesListItems.setGroup(c.getString(c.getColumnIndex("groupheader")));}
                         else if (ordering == 1) {nesListItems.setGroup("no");}
                         nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                        nesListItems.setImage(c.getString(c.getColumnIndex("image")));
-                        nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                        nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                        nesListItems.setName(c.getString(c.getColumnIndex(thename)));
                         nesListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
                         nesListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
                         nesListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
@@ -282,8 +282,8 @@ public class OwnedGames extends AppCompatActivity
                     } else if (currentgroup.equals(prevgroup)) {
                         nesListItems.setGroup("no");
                         nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                        nesListItems.setImage(c.getString(c.getColumnIndex("image")));
-                        nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                        nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                        nesListItems.setName(c.getString(c.getColumnIndex(thename)));
                         nesListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
                         nesListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
                         nesListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
@@ -346,7 +346,7 @@ public class OwnedGames extends AppCompatActivity
                 NesOwnedAdapter.showprice = (c.getInt(c.getColumnIndex("show_price")));
                 ordering = (c.getInt(c.getColumnIndex("ordered")));
                 currency = (c.getString(c.getColumnIndex("currency")));
-
+                titles = (c.getInt(c.getColumnIndex("us_titles")));
                 Log.d("Pixo", wherestatement);
 
                 c.moveToNext();//move to the next record
@@ -354,6 +354,13 @@ public class OwnedGames extends AppCompatActivity
             c.close();//close the cursor
         }
         db.close();//close the database
+        if (titles == 0){
+            thename = "name";
+            theimage = "image";
+        } else if (titles == 1){
+            thename = "us_name";
+            theimage = "us_image";
+        }
     }
 
     public void gamescount(){

@@ -90,7 +90,7 @@ public class NesPagerAdapter extends PagerAdapter {
         ImageView norway = (ImageView) convertView.findViewById(R.id.imgNorway);
         ImageView poland = (ImageView) convertView.findViewById(R.id.imgPoland);
         ImageView portugal = (ImageView) convertView.findViewById(R.id.imgPortugal);
-        ImageView scandinavia = (ImageView) convertView.findViewById(R.id.imgScandinavia);
+        //ImageView scandinavia = (ImageView) convertView.findViewById(R.id.imgScandinavia);
         ImageView spain = (ImageView) convertView.findViewById(R.id.imgSpain);
         ImageView sweden = (ImageView) convertView.findViewById(R.id.imgSweden);
         ImageView switzerland = (ImageView) convertView.findViewById(R.id.imgSwitzerland);
@@ -129,7 +129,7 @@ public class NesPagerAdapter extends PagerAdapter {
         flagNorway = nesListItems.getNorway();
         flagPoland = nesListItems.getPoland();
         flagPortugal = nesListItems.getPortugal();
-        flagScandinavia = nesListItems.getScandinavia();
+        //flagScandinavia = nesListItems.getScandinavia();
         flagSweden = nesListItems.getSweden();
         flagSwitzerland = nesListItems.getSwitzerland();
         flagSpain = nesListItems.getSpain();
