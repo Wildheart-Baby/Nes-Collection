@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.adapters.FillGamesAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesPagerAdapter;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
 
 public class GamesDetail extends AppCompatActivity {
     public static int idforgame, favourited, ownedgame, wishlist, finished;

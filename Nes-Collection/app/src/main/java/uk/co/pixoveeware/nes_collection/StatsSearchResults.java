@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import uk.co.pixoveeware.nes_collection.adapters.NesOwnedAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.StatsCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.StatsCollectionImageAdapter;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
 
 public class StatsSearchResults extends AppCompatActivity {
 

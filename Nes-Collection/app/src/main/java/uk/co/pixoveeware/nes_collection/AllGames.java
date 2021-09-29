@@ -28,10 +28,14 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
+import uk.co.pixoveeware.nes_collection.adapters.LightCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionImageAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesOwnedAdapter;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
+import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
 public class AllGames extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -51,7 +55,7 @@ public class AllGames extends AppCompatActivity
     ListView gamelistView, alphaIndex;
     GridView gamegalleryview;
     DatabaseHelper dbh;
-    ArrayList<GameItems> gamesList;
+    ArrayList<GameListItems> gamesList;
     ArrayList<GameItemsIndex> indexList;
 
     @Override
@@ -84,9 +88,9 @@ public class AllGames extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        setTitle(" " + dbh.regionTitle());
-        toolbar.setSubtitle(dbh.gamesCount("all"));
-        toolbar.setLogo(context.getResources().getIdentifier(dbh.regionFlag(), "drawable", context.getPackageName()));
+        //setTitle(" " + dbh.regionTitle());
+        //toolbar.setSubtitle(dbh.gamesCount("all"));
+        //toolbar.setLogo(context.getResources().getIdentifier(dbh.regionFlag(), "drawable", context.getPackageName()));
 
         /*alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -251,16 +255,16 @@ public class AllGames extends AppCompatActivity
     }
 
     public void readList(){//the readlist function
-        gamesList = dbh.getGames("all");
-        indexList = dbh.gamesIndex("all");
+        gamesList = dbh.getGameslist("all");
+        //indexList = dbh.gamesIndex("all");
 
         viewas = dbh.viewType();
 
         if(viewas == 0){
-            NesCollectionAdapter nes = new NesCollectionAdapter(this, gamesList);//set up an new list adapter from the arraylist
+            LightCollectionAdapter nes = new LightCollectionAdapter(this, gamesList);//set up an new list adapter from the arraylist
             gamegalleryview.setVisibility(View.GONE);
             gamelistView.setAdapter(nes);
-            NesIndexAdapter nii = new NesIndexAdapter(this, indexList);
+            /*NesIndexAdapter nii = new NesIndexAdapter(this, indexList);
             alphaIndex.setAdapter(nii);
 
             alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -272,7 +276,7 @@ public class AllGames extends AppCompatActivity
                     gamelistView.setSelection(readindexid);
                     //gamegalleryview.setSelection(readindexid);
                 }
-            });
+            });*/
 
             gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
@@ -313,7 +317,7 @@ public class AllGames extends AppCompatActivity
 
             });
 
-        }else if (viewas == 1){
+        }/*else if (viewas == 1){
             NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, gamesList);//set up an new list adapter from the arraylist
             gamelistView.setVisibility(View.GONE);
             gamegalleryview.setAdapter(nes);
@@ -355,7 +359,7 @@ public class AllGames extends AppCompatActivity
                 }
 
             });
-            }
+            }*/
     }
 
     public void gameregion(){//selects the region from the database

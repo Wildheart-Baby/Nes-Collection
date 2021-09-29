@@ -27,6 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionImageAdapter;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
 
 public class FinishedGames extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 

@@ -26,6 +26,10 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
+import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
+import uk.co.pixoveeware.nes_collection.models.GameListItems;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 

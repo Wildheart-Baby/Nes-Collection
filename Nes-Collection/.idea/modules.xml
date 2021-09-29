@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Nes-Collection_-_19-12-15.iml" filepath="$PROJECT_DIR$/.idea/modules/Nes-Collection_-_19-12-15.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Nes-Collection_-_19-12-15.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Nes-Collection_-_19-12-15.app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Nes-Collection.iml" filepath="$PROJECT_DIR$/.idea/modules/Nes-Collection.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/Nes-Collection.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/Nes-Collection.app.iml" />
     </modules>
   </component>
 </project>

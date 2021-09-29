@@ -21,6 +21,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.adapters.NesPagerAdapter;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
 
 public class GameDetail extends AppCompatActivity {
 

@@ -9,6 +9,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import uk.co.pixoveeware.nes_collection.models.GameItems;
+
 /**
  * Created by Wildheart on 10/09/2018.
  */

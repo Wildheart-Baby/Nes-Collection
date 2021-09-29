@@ -34,6 +34,7 @@ import java.util.Random;
 
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionImageAdapter;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
 
 public class FavouriteGames extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

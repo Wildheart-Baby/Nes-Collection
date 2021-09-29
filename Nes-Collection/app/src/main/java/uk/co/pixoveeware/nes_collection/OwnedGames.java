@@ -41,6 +41,8 @@ import uk.co.pixoveeware.nes_collection.adapters.NesCollectionImageAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesOwnedAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesOwnedPriceAdapter;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 
 public class OwnedGames extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import uk.co.pixoveeware.nes_collection.models.GameItems;
+
 /**
  * Created by Wildheart on 11/06/2016.
  */

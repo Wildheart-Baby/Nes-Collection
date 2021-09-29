@@ -1,4 +1,4 @@
-package uk.co.pixoveeware.nes_collection;
+package uk.co.pixoveeware.nes_collection.adapters;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -11,12 +11,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.R;
+import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
-/**
- * Created by Wildheart on 06/06/2016.
- */
-public class NesCollectionAdapter extends BaseAdapter {
+public class LightCollectionAdapter extends BaseAdapter {
     public static int screenwidth;
     static class ViewHolder {
         TextView gamename;
@@ -27,7 +25,7 @@ public class NesCollectionAdapter extends BaseAdapter {
     }
 
     Context context; //sets up a variable as context
-    //ArrayList<GameItems> nesList; //sets up  an array called shoppingList
+    ArrayList<GameListItems> gameList; //sets up  an array called shoppingList
     String gameimage;
     private static final int TYPE_GAME = 0;
     private static final int TYPE_DIVIDER = 1;
@@ -35,21 +33,21 @@ public class NesCollectionAdapter extends BaseAdapter {
     int ownedgame, l;
     String test, thegamename;
 
-    public NesCollectionAdapter(Context context, ArrayList<GameItems> list) {
+    public LightCollectionAdapter(Context context, ArrayList<GameListItems> list) {
 
         this.context = context;//sets up the context for the class
-        MainActivity.nesList = list; //sets up a variable as a list
+        gameList = list; //sets up a variable as a list
 
     }
 
     @Override
     public int getCount() {
-        return MainActivity.nesList.size();
+        return gameList.size();
     } //returns the number of items in the array
 
     @Override
     public Object getItem(int position) {
-        return MainActivity.nesList.get(position);
+        return gameList.get(position);
     } //gets the position within the list
 
     @Override
@@ -59,14 +57,14 @@ public class NesCollectionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        GameItems nesListItems = MainActivity.nesList.get(position); //gets the item position from the array
+        GameListItems gameListItems = gameList.get(position); //gets the item position from the array
 
         if (convertView == null) { //if the layout isn't inflated
             LayoutInflater inflater = (LayoutInflater) context
-            .getSystemService(Context.LAYOUT_INFLATER_SERVICE); //sets up the layout inflater
+                    .getSystemService(Context.LAYOUT_INFLATER_SERVICE); //sets up the layout inflater
             convertView = inflater.inflate(R.layout.single_item, null); //use the layout to diaplay the array data
 
-            ViewHolder holder = new ViewHolder();
+            NesCollectionAdapter.ViewHolder holder = new NesCollectionAdapter.ViewHolder();
             holder.separator = (TextView) convertView.findViewById(R.id.lblDivider);
             holder.owned = (ImageView) convertView.findViewById(R.id.imgOwned);
             holder.cover = (ImageView) convertView.findViewById(R.id.imgGameCover);
@@ -74,25 +72,25 @@ public class NesCollectionAdapter extends BaseAdapter {
             holder.publisher = (TextView) convertView.findViewById(R.id.lblPublisher);
 
             convertView.setTag(holder);
-    }
+        }
 
-        ViewHolder holder = (ViewHolder) convertView.getTag();
-        if (nesListItems.group.equals("no")){ holder.separator.setVisibility(View.GONE); } else { holder.separator.setVisibility(View.VISIBLE); }
-        holder.separator.setText(nesListItems.getGroup());
-        gameimage = nesListItems.getImage();
+        NesCollectionAdapter.ViewHolder holder = (NesCollectionAdapter.ViewHolder) convertView.getTag();
+        if (gameListItems.group.equals("no")){ holder.separator.setVisibility(View.GONE); } else { holder.separator.setVisibility(View.VISIBLE); }
+        holder.separator.setText(gameListItems.getGroup());
+        gameimage = gameListItems.getImage();
         int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
         int ownedid;
         holder.cover.setImageResource(coverid);
 
-        thegamename = nesListItems.getName();
+        thegamename = gameListItems.getName();
         l = thegamename.length();
-        if (MainActivity.width < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
+        //if (MainActivity.width < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
         holder.gamename.setText(thegamename); //sets the textview name with data from name
         //holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
-        holder.publisher.setText(nesListItems.getPublisher());
+        holder.publisher.setText(gameListItems.getPublisher());
 
 
-        if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
+        /*if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
             ownedid=context.getResources().getIdentifier("icon_owned_gold", "drawable", context.getPackageName());
             holder.owned.setImageResource(ownedid);
         }else if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 0){
@@ -113,8 +111,8 @@ public class NesCollectionAdapter extends BaseAdapter {
         }else if (nesListItems.cart == 0 && nesListItems.box == 0 && nesListItems.manual == 1){
             ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
             holder.owned.setImageResource(ownedid);
-        }
-        if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}
+        }*/
+        if (gameListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}
         if (position % 2 == 0) {
             convertView.setBackgroundColor(Color.parseColor("#CAC9C5"));
         } else {
@@ -125,9 +123,5 @@ public class NesCollectionAdapter extends BaseAdapter {
         return convertView; //return the convertview and show the listview
     }
 
+
 }
-
-
-
-
-

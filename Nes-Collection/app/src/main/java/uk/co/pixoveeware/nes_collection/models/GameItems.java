@@ -1,4 +1,4 @@
-package uk.co.pixoveeware.nes_collection;
+package uk.co.pixoveeware.nes_collection.models;
 
 /**
  * Created by Wildheart on 06/06/2016.

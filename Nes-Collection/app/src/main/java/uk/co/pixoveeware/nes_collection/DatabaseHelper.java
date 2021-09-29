@@ -8,6 +8,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Timer;
+
+import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
+import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
 /**
  * Created by Wildheart on 28/08/2019.
@@ -66,6 +71,115 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
+
+    public ArrayList<GameListItems> getGameslist(String games){
+        
+        ArrayList<GameListItems> gamesList = new ArrayList<>();
+        gamesList.clear();
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+
+                wherestatement = (c.getString(c.getColumnIndex("region")));
+                title = (c.getString(c.getColumnIndex("region_title")));
+                licensed = (c.getString(c.getColumnIndex("licensed")));
+                titles = (c.getInt(c.getColumnIndex("us_titles")));
+                orderby = (c.getString(c.getColumnIndex("orderedby")));
+                groupHeader = (c.getString(c.getColumnIndex("group_header")));
+                ordering = (c.getInt(c.getColumnIndex("ordered")));
+                currency = (c.getString(c.getColumnIndex("currency")));
+                conditionstatement = (c.getInt(c.getColumnIndex("show_condition")));
+                c.moveToNext();//move to the next record
+            }
+            c.close();//close the cursor
+        }
+        //db.close();//close the database
+        if (titles == 0){
+            thename = "eu_name";
+            theimage = "image";
+            thePublisher = "eu_publisher";
+            Log.d("pixo-the image", theimage);
+        } else if (titles == 1){
+            thename = "us_name";
+            theimage = "us_image";
+            thePublisher = "us_publisher";
+            Log.d("pixo-the image", theimage);
+        }
+
+        switch (games){
+            case "all":
+                searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + orderby +"";
+                String t = "select * from eu where " + wherestatement + licensed + "";
+                break;
+            case "owned":
+                if (ordering == 0) {
+                    //"SELECT * FROM eu where " + wherestatement + licensed +  "";
+                    //sql = "select * from eu where owned = 1 " + " order by " + orderby +"";
+                    searchQuery = "select * from eu where owned = 1 " + " order by " + orderby +"";}
+                else if(ordering == 1){
+                    //sql = "select * from eu where owned = 1 order by price desc";
+                    searchQuery = "select * from eu where owned = 1 order by price desc";}
+                break;
+            case "needed":
+                searchQuery = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ") order by " + orderby +"";
+                break;
+            case "favourites":
+                searchQuery = "SELECT * FROM eu where favourite = 1 " + wherestatement + " order by " + orderby +"";
+                break;
+            case "wishlist":
+                searchQuery = "SELECT * FROM eu where wishlist = 1 " + wherestatement + "order by " + orderby +"";
+                break;
+            case "finished":
+                searchQuery ="SELECT * FROM eu where finished_game = 1 " + wherestatement + "order by " + orderby +"";
+                break;
+            case "search":
+                //searchQuery = SearchResults.searchString + " order by " + orderby;
+                Log.i("dbhSearch", "query: " + searchQuery);
+                break;
+            case "statsearch":
+                //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
+                Log.i("dbhSearch", "query: " + searchQuery);
+                break;
+        }
+
+        c = db.rawQuery(searchQuery, null);
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+                GameListItems gameListItems = new GameListItems();//creates a new array
+
+                String currentgroup = c.getString(c.getColumnIndex(groupHeader));
+
+                if(!currentgroup.equals(prevgroup)){
+                    gameListItems.setGroup(c.getString(c.getColumnIndex(groupHeader)));
+                    gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
+                    gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                    gameListItems.setName(c.getString(c.getColumnIndex(thename)));
+                    gameListItems.setPublisher(c.getString(c.getColumnIndex(thePublisher)));
+                    gamesList.add(gameListItems);//add items to the arraylist
+                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
+                }
+                else if(currentgroup.equals(prevgroup)){
+                    gameListItems.setGroup("no");
+                    gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
+                    gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                    gameListItems.setName(c.getString(c.getColumnIndex(thename)));
+                    gameListItems.setPublisher(c.getString(c.getColumnIndex(thePublisher)));
+                    gamesList.add(gameListItems);//add items to the arraylist
+                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
+
+                }
+                c.moveToNext();//move to the next record
+            }
+            //c = db.rawQuery(MainActivity.sqlstatement, null);
+            c.close();//close the cursor
+        }
+        return gamesList;
+    }
+
 
     public ArrayList<GameItems> getGames(String games) {
         ArrayList<GameItems> gamesList = new ArrayList<>();

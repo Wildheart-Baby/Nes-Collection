@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
-import uk.co.pixoveeware.nes_collection.GameItems;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.MainActivity;
 import uk.co.pixoveeware.nes_collection.R;
 

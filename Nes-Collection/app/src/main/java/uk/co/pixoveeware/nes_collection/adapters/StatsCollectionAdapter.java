@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import uk.co.pixoveeware.nes_collection.GameItems;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.MainActivity;
 import uk.co.pixoveeware.nes_collection.R;
 

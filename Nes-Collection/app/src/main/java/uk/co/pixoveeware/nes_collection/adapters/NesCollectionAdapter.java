@@ -11,9 +11,10 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import uk.co.pixoveeware.nes_collection.GameItems;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.MainActivity;
 import uk.co.pixoveeware.nes_collection.R;
+import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
 /**
  * Created by Wildheart on 06/06/2016.
@@ -94,7 +95,7 @@ public class NesCollectionAdapter extends BaseAdapter {
         holder.publisher.setText(nesListItems.getPublisher());
 
 
-        if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
+        /*if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
             ownedid=context.getResources().getIdentifier("icon_owned_gold", "drawable", context.getPackageName());
             holder.owned.setImageResource(ownedid);
         }else if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 0){
@@ -115,7 +116,7 @@ public class NesCollectionAdapter extends BaseAdapter {
         }else if (nesListItems.cart == 0 && nesListItems.box == 0 && nesListItems.manual == 1){
             ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
             holder.owned.setImageResource(ownedid);
-        }
+        }*/
         if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}
         if (position % 2 == 0) {
             convertView.setBackgroundColor(Color.parseColor("#CAC9C5"));

@@ -13,6 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 
+import uk.co.pixoveeware.nes_collection.models.GameItems;
+
 public class TrophyRoom extends AppCompatActivity {
 
     Context context;

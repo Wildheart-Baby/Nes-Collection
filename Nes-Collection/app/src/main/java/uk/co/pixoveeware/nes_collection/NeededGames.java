@@ -31,6 +31,8 @@ import java.util.ArrayList;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionImageAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 
 public class NeededGames extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

@@ -23,6 +23,8 @@ import androidx.appcompat.widget.Toolbar;
 
 import java.util.ArrayList;
 
+import uk.co.pixoveeware.nes_collection.models.GameItems;
+
 public class EditOwnedGame extends AppCompatActivity {
 
     int gameid, coverid, palAcart, palAbox, palAmanual, palBcart, palBbox, gamepos,

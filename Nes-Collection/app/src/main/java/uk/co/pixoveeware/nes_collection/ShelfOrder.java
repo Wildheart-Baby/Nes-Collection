@@ -27,6 +27,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.adapters.ShelfCollectionAdapter;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
 
 public class ShelfOrder extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {

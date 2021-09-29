@@ -9,9 +9,10 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import uk.co.pixoveeware.nes_collection.GameItems;
+import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.MainActivity;
 import uk.co.pixoveeware.nes_collection.R;
+import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
 /**
  * Created by Wildheart on 28/07/2016.
@@ -84,7 +85,7 @@ public class NesCollectionImageAdapter extends BaseAdapter {
             } else {
                 holder.owned.setVisibility(View.GONE);
             }
-        if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
+        /*if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
             ownedid=context.getResources().getIdentifier("icon_owned_gold2", "drawable", context.getPackageName());
             holder.owned.setImageResource(ownedid);
         }else if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 0){
@@ -105,7 +106,7 @@ public class NesCollectionImageAdapter extends BaseAdapter {
         }else if (nesListItems.cart == 0 && nesListItems.box == 0 && nesListItems.manual == 1){
             ownedid=context.getResources().getIdentifier("icon_owned_bronze2", "drawable", context.getPackageName());
             holder.owned.setImageResource(ownedid);
-        }
+        }*/
         i++;
         return convertView; //return the convertview and show the listview
         //if(i >= listsize &&  addviews < 3){return convertView;}
