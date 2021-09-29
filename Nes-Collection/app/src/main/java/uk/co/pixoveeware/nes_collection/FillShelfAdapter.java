@@ -41,7 +41,7 @@ public class FillShelfAdapter {
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                NesItems nesListItems = new NesItems();//creates a new array
+                GameItems nesListItems = new GameItems();//creates a new array
                 id = c.getInt(c.getColumnIndex("_id"));
 
                 name = c.getString(c.getColumnIndex("name"));

@@ -23,11 +23,11 @@ public class StatsCollectionImageAdapter extends BaseAdapter {
     }
 
     Context context; //sets up a variable as context
-    ArrayList<NesItems> nesList; //sets up  an array called shoppingList
+    ArrayList<GameItems> nesList; //sets up  an array called shoppingList
     String gameimage;
     int i, listsize, addviews = 0;
 
-    public StatsCollectionImageAdapter(Context context, ArrayList<NesItems> list) {
+    public StatsCollectionImageAdapter(Context context, ArrayList<GameItems> list) {
 
         this.context = context;//sets up the context for the class
         MainActivity.nesList = list; //sets up a variable as a list
@@ -55,7 +55,7 @@ public class StatsCollectionImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        NesItems nesListItems = MainActivity.nesList.get(position); //gets the item position from the array
+        GameItems nesListItems = MainActivity.nesList.get(position); //gets the item position from the array
         ViewHolder holder;
 
         if (convertView == null) { //if the layout isn't inflated

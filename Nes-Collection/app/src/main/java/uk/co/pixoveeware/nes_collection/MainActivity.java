@@ -17,7 +17,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.AdRequest;
@@ -37,8 +36,8 @@ public class MainActivity extends AppCompatActivity
     int pala, palb, us, totalgames, titles;
     public static int width, totalGames, viewas;
 
-    public static ArrayList<NesItems> nesList;
-    public static ArrayList<NesItemsIndex> indexList;
+    public static ArrayList<GameItems> nesList;
+    public static ArrayList<GameItemsIndex> indexList;
     public static String sqlstatement;
 
     @Override
@@ -210,7 +209,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public static void readList(){//the readlist function
-        nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
+        nesList = new ArrayList<GameItems>();//sets up an array list called shoppingList
         nesList.clear();//clear the shoppingList array
     }
 

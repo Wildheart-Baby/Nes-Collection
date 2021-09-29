@@ -3,24 +3,18 @@ package uk.co.pixoveeware.nes_collection;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Vector;
 
 /**
  * Created by Wildheart on 31/07/2016.
@@ -30,16 +24,16 @@ public class NesPagerAdapter extends PagerAdapter {
     public static String licensed;
 
     Context context; //sets up a variable as context
-    ArrayList<NesItems> nesList; //sets up  an array called shoppingList
+    ArrayList<GameItems> nesList; //sets up  an array called shoppingList
     String gameimage, synop, gen, subgen, pub, dev, gname, img, theyear, sql;
     int owned, carttrue, boxtrue, manualtrue, gameid, editgameid, pos, idforgame, favourite, coverid;
     int flagAustralia, flagAustria, flagBenelux, flagDenmark, flagFinland, flagFrance, flagGermany, flagGreece, flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS ;
 
     Menu menu;
 
-    NesItems nesListItems;
+    GameItems nesListItems;
 
-    public NesPagerAdapter(Context context, ArrayList<NesItems> list) {
+    public NesPagerAdapter(Context context, ArrayList<GameItems> list) {
         this.context = context;//sets up the context for the class
         MainActivity.nesList = list; //sets up a variable as a list
     }

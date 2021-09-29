@@ -281,21 +281,90 @@ public class Settings extends AppCompatActivity {
                 sql = "(pal_b_release = 1)";
                 //missingsql = "and (pal_b_cart = 32573)";
             }
-            if (regionselected.contains("Ntsc")) {
+            if (regionselected.contains("US")) {
                 sql = "(ntsc_release = 1)";
                 //missingsql = "and (ntsc_cart = 32573)";
             }
-            if (regionselected.contains("Pal A & B")) {
+            if (regionselected.contains("Europe")) {
                 sql = "(pal_a_release = 1 or pal_b_release = 1)";
                 //missingsql = "and (pal_a_cart = 32573 or pal_b_cart = 32573)";
             }
-            if (regionselected.contains("Pal A & Ntsc")) {
-                sql = "(pal_a_release = 1 or ntsc_release = 1)";
+
+            if (regionselected.contains("Australia")) {
+                sql = " flag_australia = 1";
+                //missingsql = "and (ntsc_cart = 32573)";
+            }
+            if (regionselected.contains("Austria")) {
+                sql = " flag_austria = 1";
+                //missingsql = "and (pal_a_cart = 32573 or pal_b_cart = 32573)";
+            }
+            if (regionselected.contains("Benelux")) {
+                sql = " flag_benelux = 1";
                 //missingsql = "and (pal_a_cart = 32573 or ntsc_cart = 32573)";
             }
-            if (regionselected.contains("Pal B & Ntsc")) {
-                sql = "(pal_b_release = 1 or ntsc_release = 1)";
+            if (regionselected.contains("Brazil")) {
+                sql = " sa_release = 1";
+                //missingsql = "and (pal_a_cart = 32573 or ntsc_cart = 32573)";
+            }
+            if (regionselected.contains("Canada")) {
+                sql = " flag_canada = 1";
                 //missingsql = "and (pal_b_cart = 32573 or pal_b_cart = 32573)";
+            }
+            if (regionselected.contains("Denmark")) {
+                sql = " flag_denmark = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Finland")) {
+                sql = " flag_finland = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("France")) {
+                sql = " flag_france = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Germany")) {
+                sql = " flag_germany = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Greece")) {
+                sql = " flag_greece = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Ireland")) {
+                sql = " flag_ireland = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Italy")) {
+                sql = " flag_italy = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Norway")) {
+                sql = " flag_norway = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Poland")) {
+                sql = " flag_poland = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Portugal")) {
+                sql = " flag_portugal = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Scandinavia")) {
+                sql = " flag_scandinavia = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Spain")) {
+                sql = " flag_spain = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Sweden")) {
+                sql = " flag_sweden = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
+            }
+            if (regionselected.contains("Switzerland")) {
+                sql = " flag_switzerland = 1";
+                //missingsql = "and (pal_a_cart = 32573)";
             }
             if (regionselected.contains(getString(R.string.regionname01))) {
                 sql = "(pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1)";

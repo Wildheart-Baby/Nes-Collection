@@ -28,7 +28,7 @@ public class FillGamesAdapter {
 
         if (MainActivity.nesList == null){ MainActivity.readList(); }
         MainActivity.nesList.clear();//clear the shoppingList array
-        MainActivity.indexList = new ArrayList<NesItemsIndex>();
+        MainActivity.indexList = new ArrayList<GameItemsIndex>();
         MainActivity.indexList.clear();
         indexpos = 0;
         //SQLiteDatabase db;//sets up the connection to the database
@@ -39,8 +39,8 @@ public class FillGamesAdapter {
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                NesItems nesListItems = new NesItems();//creates a new array
-                NesItemsIndex indexListItems = new NesItemsIndex();
+                GameItems nesListItems = new GameItems();//creates a new array
+                GameItemsIndex indexListItems = new GameItemsIndex();
                 currentgroup = c.getString(c.getColumnIndex("groupheader"));
 
                 if(!currentgroup.equals(prevgroup)){
@@ -62,7 +62,7 @@ public class FillGamesAdapter {
                     nesListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
                     nesListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
                     nesListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
-                    nesListItems.setPrice(c.getDouble(c.getColumnIndex("price")));
+                    nesListItems.setGamePrice(c.getDouble(c.getColumnIndex("price")));
                     nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
                     nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
                     nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
@@ -118,7 +118,7 @@ public class FillGamesAdapter {
                     nesListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
                     nesListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
                     nesListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
-                    nesListItems.setPrice(c.getDouble(c.getColumnIndex("price")));
+                    nesListItems.setGamePrice(c.getDouble(c.getColumnIndex("price")));
                     nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
                     nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
                     nesListItems.setBox(c.getInt(c.getColumnIndex("box")));

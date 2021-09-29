@@ -32,8 +32,8 @@ public class GamesDetail extends AppCompatActivity {
     ViewPager viewPager;
     NesPagerAdapter adapter;
     private Menu menu;
-    ArrayList<NesItems> nesList;
-    NesItems nesListItems;
+    ArrayList<GameItems> nesList;
+    GameItems nesListItems;
     View v;
     Cursor c;
     SQLiteDatabase db;//sets up the connection to the database
@@ -295,7 +295,7 @@ public class GamesDetail extends AppCompatActivity {
         c = db.rawQuery(sql, null);
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                nesListItems = new NesItems();//creates a new array
+                nesListItems = new GameItems();//creates a new array
                 nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
                 nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
                 nesListItems.setName(c.getString(c.getColumnIndex(thename)));

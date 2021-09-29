@@ -5,11 +5,7 @@
 package uk.co.pixoveeware.nes_collection;
 
         import android.content.Context;
-        import android.content.res.Resources;
-        import android.graphics.Bitmap;
-        import android.graphics.BitmapFactory;
         import android.graphics.Color;
-        import android.util.Log;
         import android.view.LayoutInflater;
         import android.view.View;
         import android.view.ViewGroup;
@@ -33,7 +29,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
     }
 
     Context context; //sets up a variable as context
-    //ArrayList<NesItems> nesList; //sets up  an array called shoppingList
+    //ArrayList<GameItems> nesList; //sets up  an array called shoppingList
     String gameimage;
     private static final int TYPE_GAME = 0;
     private static final int TYPE_DIVIDER = 1;
@@ -41,7 +37,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
     int ownedgame, l;
     String test, thegamename;
 
-    public ShelfCollectionAdapter(Context context, ArrayList<NesItems> list) {
+    public ShelfCollectionAdapter(Context context, ArrayList<GameItems> list) {
 
         this.context = context;//sets up the context for the class
         MainActivity.nesList = list; //sets up a variable as a list
@@ -65,7 +61,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        NesItems nesListItems = MainActivity.nesList.get(position); //gets the item position from the array
+        GameItems nesListItems = MainActivity.nesList.get(position); //gets the item position from the array
 
         if (convertView == null) { //if the layout isn't inflated
             LayoutInflater inflater = (LayoutInflater) context

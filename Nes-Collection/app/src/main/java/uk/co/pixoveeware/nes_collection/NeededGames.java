@@ -1,13 +1,11 @@
 package uk.co.pixoveeware.nes_collection;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -19,11 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -43,11 +38,13 @@ public class NeededGames extends AppCompatActivity
     String prevgroup = "";
     int readgameid, gameid, totalgames, neededgames, index, top, viewas, titles, readindexid;
     ArrayAdapter<CharSequence> adapter;
-    ArrayList<NesItems> nesList;
+    ArrayList<GameItems> nesList;
     ListView gamelistView, alphaIndex;
     GridView gamegalleryview;
     Toolbar toolbar;
-
+    DatabaseHelper dbh;
+    ArrayList<GameItems> gamesList;
+    ArrayList<GameItemsIndex> indexList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,17 +72,23 @@ public class NeededGames extends AppCompatActivity
         gamelistView = (ListView) findViewById(R.id.lvNeededGames); //sets up a listview with the name shoplistview
         gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
         alphaIndex = (ListView) findViewById(R.id.lvAlphaIndex);
+        dbh = new DatabaseHelper(this);
 
-
-        gameregion();
+        //gameregion();
         readList();
         //setTitle(title);
         //toolbar.setSubtitle(str);
 
+        setTitle(" " + dbh.gamesCount("needed"));
+
+        toolbar.setSubtitle(dbh.needGamesCount());
+        toolbar.setLogo(context.getResources().getIdentifier(dbh.regionFlag(), "drawable", context.getPackageName()));
+
+
         alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                NesItemsIndex indexListItems = (NesItemsIndex) arg0.getItemAtPosition(arg2);
+                GameItemsIndex indexListItems = (GameItemsIndex) arg0.getItemAtPosition(arg2);
                 readindexid = indexListItems.getItemid();
                 //readindexid = readindexid - 1;
                 gamelistView.setSelection(readindexid);
@@ -99,7 +102,7 @@ public class NeededGames extends AppCompatActivity
                 //sql = "SELECT * FROM eu where " + regionmissingcheck + " and "  + wherestatement + regionmissing + licensed +  "";
                 sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
                 Log.d("pixo-owned", sql);
-                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
                 Intent intent = new Intent(NeededGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
@@ -118,7 +121,7 @@ public class NeededGames extends AppCompatActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                 final Integer itemId = gameListItems.getItemId();//get the item id
 
                 Intent intent = new Intent(NeededGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
@@ -136,7 +139,7 @@ public class NeededGames extends AppCompatActivity
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
                 sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
                 Log.d("pixo-owned", sql);
-                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
                 Intent intent = new Intent(NeededGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
@@ -153,7 +156,7 @@ public class NeededGames extends AppCompatActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                 final Integer itemId = gameListItems.getItemId();//get the item id
 
                 Intent intent = new Intent(NeededGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
@@ -249,10 +252,15 @@ public class NeededGames extends AppCompatActivity
     }*/
 
     public void readList(){//the readlist function
-        MainActivity.sqlstatement = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ")";
-        new FillGamesAdapter(this);
+        //MainActivity.sqlstatement = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ")";
+        //new FillGamesAdapter(this);
 
-        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+        gamesList = dbh.getGames("all");
+        indexList = dbh.gamesIndex("all");
+
+        viewas = dbh.viewType();
+
+        /*db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         //sql = "SELECT * FROM eu where " + regionmissingcheck + " and "  + wherestatement + regionmissing + licensed +  "";
         sql = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ")";
         //sql = "SELECT * FROM eu where owned = 0";
@@ -274,17 +282,17 @@ public class NeededGames extends AppCompatActivity
 
         setTitle(title);
         str = "You need " + neededgames + " of " + totalgames;
-        toolbar.setSubtitle(str);
+        toolbar.setSubtitle(str);*/
 
-        if(MainActivity.viewas == 0){
-            NesCollectionAdapter nes = new NesCollectionAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
+        if(viewas == 0){
+            NesCollectionAdapter nes = new NesCollectionAdapter(this, gamesList);//set up an new list adapter from the arraylist
             gamegalleryview.setVisibility(View.GONE);
             gamelistView.setAdapter(nes);
-            NesIndexAdapter nii = new NesIndexAdapter(this, MainActivity.indexList);
+            NesIndexAdapter nii = new NesIndexAdapter(this, indexList);
             alphaIndex.setAdapter(nii);
 
-        }else if (MainActivity.viewas == 1){
-            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
+        }else if (viewas == 1){
+            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, gamesList);//set up an new list adapter from the arraylist
             gamelistView.setVisibility(View.GONE);
             gamegalleryview.setAdapter(nes);
         }

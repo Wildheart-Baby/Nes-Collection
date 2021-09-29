@@ -22,7 +22,7 @@ public class NesIndexAdapter extends BaseAdapter {
     Context context;
     //ArrayList<SnesItemsIndex> indexList;
 
-    public NesIndexAdapter(Context context, ArrayList<NesItemsIndex> list) {
+    public NesIndexAdapter(Context context, ArrayList<GameItemsIndex> list) {
         this.context = context;//sets up the context for the class
         MainActivity.indexList = list; //sets up a variable as a list
     }
@@ -44,7 +44,7 @@ public class NesIndexAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        NesItemsIndex indexListItems = MainActivity.indexList.get(position); //gets the item position from the array
+        GameItemsIndex indexListItems = MainActivity.indexList.get(position); //gets the item position from the array
 
         if (convertView == null) { //if the layout isn't inflated
             LayoutInflater inflater = (LayoutInflater) context

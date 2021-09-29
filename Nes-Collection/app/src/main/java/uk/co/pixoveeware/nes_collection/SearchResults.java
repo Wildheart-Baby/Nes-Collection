@@ -5,14 +5,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,7 +17,6 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -37,7 +33,7 @@ public class SearchResults extends AppCompatActivity {
     String prevgroup = "";
     int readgameid, gameid, totalResults, viewas, titles;
     ArrayAdapter<CharSequence> adapter;
-    ArrayList<NesItems> nesList;
+    ArrayList<GameItems> nesList;
     ListView gamelistView;
     TextView thesearchresults;
     GridView gamegalleryview;
@@ -87,7 +83,7 @@ public class SearchResults extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
 
-                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
                 Intent intent = new Intent(SearchResults.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
@@ -103,7 +99,7 @@ public class SearchResults extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                 final Integer itemId = gameListItems.getItemId();//get the item id
 
                 Intent intent = new Intent(SearchResults.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
@@ -118,7 +114,7 @@ public class SearchResults extends AppCompatActivity {
         gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
-                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
                 Intent intent = new Intent(SearchResults.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
@@ -134,7 +130,7 @@ public class SearchResults extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                 final Integer itemId = gameListItems.getItemId();//get the item id
 
                 Intent intent = new Intent(SearchResults.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
@@ -191,7 +187,7 @@ public class SearchResults extends AppCompatActivity {
 
         if (c.moveToFirst()) {//move to the first record
                 while ( !c.isAfterLast() ) {//while there are records to read
-                NesItems nesListItems = new NesItems();//creates a new array
+                GameItems nesListItems = new GameItems();//creates a new array
                     currentgroup = c.getString(c.getColumnIndex("groupheader"));
 
                     if(!currentgroup.equals(prevgroup)){

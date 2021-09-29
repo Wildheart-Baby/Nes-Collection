@@ -19,10 +19,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 
 public class EditOwnedGame extends AppCompatActivity {
@@ -124,7 +121,7 @@ public class EditOwnedGame extends AppCompatActivity {
     }
 
     public void readGame() {//the readlist function
-        ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
+        ArrayList<GameItems> nesList = new ArrayList<GameItems>();//sets up an array list called shoppingList
         nesList.clear();//clear the shoppingList array
         TextView gamename = (TextView) findViewById(R.id.lblGame);
         ImageView cover = (ImageView) findViewById(R.id.imgCover);

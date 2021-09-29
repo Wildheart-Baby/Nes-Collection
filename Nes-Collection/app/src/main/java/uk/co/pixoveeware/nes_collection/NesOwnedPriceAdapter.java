@@ -27,13 +27,13 @@ public class NesOwnedPriceAdapter extends BaseAdapter {
         }
 
         Context context; //sets up a variable as context
-        ArrayList<NesItems> nesList; //sets up  an array called shoppingList
+        ArrayList<GameItems> nesList; //sets up  an array called shoppingList
         String gameimage, cart, box, manual;
         String  palAcart, palBcart, ntscart, palAbox, palBbox, ntscbox, palAmanual, palBmanual, ntscmanual, gamescost, currency, thegamename;
         int palAcartlist, palBcartlist, uscartlist, palAboxlist, palBboxlist, usboxlist, palAmanuallist, palBmanuallist, usmanuallist, l, ownedCart, ownedBox, ownedManual;
         double palAcost, palBcost, ntsccost, thegamecost;
 
-        public NesOwnedPriceAdapter(Context context, ArrayList<NesItems> list) {
+        public NesOwnedPriceAdapter(Context context, ArrayList<GameItems> list) {
 
             this.context = context;//sets up the context for the class
             MainActivity.nesList = list; //sets up a variable as a list
@@ -56,7 +56,7 @@ public class NesOwnedPriceAdapter extends BaseAdapter {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            NesItems nesListItems = MainActivity.nesList.get(position); //gets the item position from the array
+            GameItems nesListItems = MainActivity.nesList.get(position); //gets the item position from the array
 
             if (convertView == null) { //if the layout isn't inflated
                 LayoutInflater inflater = (LayoutInflater) context
@@ -100,7 +100,7 @@ public class NesOwnedPriceAdapter extends BaseAdapter {
             ownedCart = nesListItems.getCart();
             ownedBox = nesListItems.getBox();
             ownedManual = nesListItems.getManual();
-            thegamecost = nesListItems.getPrice();
+            thegamecost = nesListItems.getGamePrice();
 
 
             if(ownedCart == 0){holder.Cart.setVisibility(View.INVISIBLE);}

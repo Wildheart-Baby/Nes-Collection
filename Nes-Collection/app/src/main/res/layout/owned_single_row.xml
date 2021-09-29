@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:descendantFocusability="blocksDescendants">
@@ -7,55 +9,72 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/relativeLayout3">
+
         <TextView
+            android:id="@+id/lblDivider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="separator"
-            android:id="@+id/lblDivider"
-            android:background="#666666"
-            android:textColor="@color/nctopGrey"
             android:layout_marginBottom="5dp"
+            android:background="#1e1e1e"
             android:paddingLeft="5dp"
-            android:visibility="gone"
+            android:text="separator"
+            android:textColor="@android:color/white"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relativeLayout3"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
         android:paddingLeft="10dp"
         android:paddingTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:paddingBottom="5dp">
+        android:paddingBottom="5dp"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/relativeLayout3">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgGameCover"
-        android:scaleType="fitCenter"
-        android:contentDescription="@string/name"
-        android:adjustViewBounds="true"
-        android:maxHeight="75dp"
-        android:maxWidth="50dp"
-        android:paddingRight="5dp"
-        android:src="@drawable/placeholdersml" />
+        <ImageView
+            android:id="@+id/imgGameCover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="@string/name"
+            android:maxWidth="45dp"
+            android:paddingRight="5dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/placeholdersml" />
+
+        <ImageView
+            android:id="@+id/imgOwned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imgGameCover"
+            android:layout_marginEnd="9dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="10dp"
+            android:layout_toLeftOf="@+id/lblGameName"
+            android:layout_toStartOf="@+id/lblGameName"
+            android:adjustViewBounds="true"
+            android:maxWidth="45dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_owned_bronze"
+            android:visibility="invisible" />
 
         <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="game name"
-        android:id="@+id/lblGameName"
-        android:hint="gamename"
-        android:paddingTop="5dp"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/imgGameCover"
-        android:layout_toEndOf="@+id/imgGameCover"
-        android:layout_marginLeft="5dp" />
-
+            android:id="@+id/lblGameName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_toEndOf="@+id/imgGameCover"
+            android:layout_toRightOf="@+id/imgGameCover"
+            android:hint="gamename"
+            android:paddingBottom="5dp"
+            android:text="game name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,96 +85,162 @@
             android:layout_toRightOf="@+id/imgGameCover"
             android:layout_toEndOf="@+id/imgGameCover"
             android:visibility="gone"
+            android:textSize="20sp"
             android:layout_marginLeft="5dp" />
 
+
         <RelativeLayout
+            android:id="@+id/carthold"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="3dp"
-            android:id="@+id/carthold"
+            android:layout_below="@+id/lblCost480"
+            android:layout_marginLeft="1dp"
+            android:layout_marginRight="5dp"
             android:layout_toEndOf="@+id/imgGameCover"
             android:layout_toRightOf="@+id/imgGameCover"
-            android:paddingRight="5dp"
-            android:layout_marginRight="5dp"
-            android:layout_marginLeft="5dp"
-            android:layout_below="@+id/lblCost480">
+            android:paddingBottom="3dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="10dp">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/imgCart"
-                android:src="@drawable/cart"
-                android:visibility="visible"
-                android:layout_marginRight="2dp" />
-
-            <TextView
-                android:layout_width="50dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:id="@+id/cart"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imgCart"
-                android:layout_toEndOf="@+id/imgCart"
-                android:text="@string/ownedgames" />
+                android:layout_marginRight="2dp"
+                android:contentDescription="Cart icon"
+                android:src="@drawable/cart"
+                android:visibility="visible" />
 
+            <ImageView
+                android:id="@+id/imgPalACart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imgCart"
+                android:layout_toRightOf="@+id/imgCart"
+                app:srcCompat="@drawable/pal_a_smallest" />
+
+            <ImageView
+                android:id="@+id/imgPalBCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_toEndOf="@+id/imgPalACart"
+                android:layout_toRightOf="@+id/imgPalACart"
+                app:srcCompat="@drawable/euro_smallest" />
+
+            <ImageView
+                android:id="@+id/imgUsCart"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_toEndOf="@+id/imgPalBCart"
+                android:layout_toRightOf="@+id/imgPalBCart"
+                app:srcCompat="@drawable/us_smallest" />
 
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/imgBox"
-                android:src="@drawable/box"
-                android:visibility="visible"
-                android:contentDescription="@string/boximage"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/cart"
-                android:layout_toEndOf="@+id/cart"
-                android:layout_marginRight="2dp" />
-
-        <TextView
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="@string/ownedgames"
-            android:id="@+id/box"
-            android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/imgBox"
-            android:layout_toEndOf="@+id/imgBox"
-            android:visibility="visible" />
-
-        <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="2dp"
+                android:layout_toEndOf="@+id/imgUsCart"
+                android:layout_toRightOf="@+id/imgUsCart"
+                android:contentDescription="@string/boximage"
+                android:src="@drawable/box"
+                android:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/imgPalABox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imgBox"
+                android:layout_toRightOf="@+id/imgBox"
+                app:srcCompat="@drawable/pal_a_smallest" />
+
+            <ImageView
+                android:id="@+id/imgPalBBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_toEndOf="@+id/imgPalABox"
+                android:layout_toRightOf="@+id/imgPalABox"
+                app:srcCompat="@drawable/euro_smallest" />
+
+            <ImageView
+                android:id="@+id/imgUsBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="2dp"
+                android:layout_toEndOf="@+id/imgPalBBox"
+                android:layout_toRightOf="@+id/imgPalBBox"
+                app:srcCompat="@drawable/us_smallest" />
+
+            <ImageView
                 android:id="@+id/imgManual"
-                android:src="@drawable/manual"
-                android:visibility="visible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentTop="false"
                 android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/box"
-                android:layout_toEndOf="@+id/box"
-            android:layout_marginRight="2dp" />
-            <TextView
-                android:layout_width="50dp"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="@string/ownedgames"
-                android:id="@+id/manual"
-                android:layout_centerVertical="true"
-                android:layout_toRightOf="@+id/imgManual"
-                android:layout_toEndOf="@+id/imgManual"
+                android:layout_marginRight="2dp"
+                android:layout_toEndOf="@+id/imgUsBox"
+                android:layout_toRightOf="@+id/imgUsBox"
+                android:contentDescription="Manual icon"
+                android:src="@drawable/manual"
                 android:visibility="visible" />
 
-            <TextView
+            <ImageView
+                android:id="@+id/imgPalAMan"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imgManual"
+                android:layout_toRightOf="@+id/imgManual"
+                app:srcCompat="@drawable/pal_a_smallest" />
+
+            <ImageView
+                android:id="@+id/imgPalBMan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_toEndOf="@+id/imgPalAMan"
+                android:layout_toRightOf="@+id/imgPalAMan"
+                app:srcCompat="@drawable/euro_smallest" />
+
+            <ImageView
+                android:id="@+id/imgUsMan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="2dp"
+                android:layout_toEndOf="@+id/imgPalBMan"
+                android:layout_toRightOf="@+id/imgPalBMan"
+                app:srcCompat="@drawable/us_smallest" />
+
+
+            <TextView
                 android:id="@+id/lblCost"
-                android:layout_toRightOf="@+id/manual"
-                android:gravity="center_horizontal"
-                android:layout_marginTop="5dp"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:visibility="visible" />
+                android:layout_alignTop="@+id/imgManual"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="5dp"
+                android:layout_toEndOf="@+id/imgUsMan"
+                android:layout_toRightOf="@+id/imgUsMan"
+                android:foregroundGravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text=""
+                android:textSize="12sp" />
 
 
         </RelativeLayout>

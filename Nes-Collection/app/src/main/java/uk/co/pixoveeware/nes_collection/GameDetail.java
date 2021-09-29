@@ -15,7 +15,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -33,8 +32,8 @@ public class GameDetail extends AppCompatActivity {
     ViewPager viewPager;
     NesPagerAdapter adapter;
     private Menu menu;
-    ArrayList<NesItems> nesList;
-    NesItems nesListItems;
+    ArrayList<GameItems> nesList;
+    GameItems nesListItems;
     View v;
 
     ImageView flagAustralia, flagFrance, flagGermany, flagUK, flagUS;
@@ -146,7 +145,7 @@ public class GameDetail extends AppCompatActivity {
     }
 
     public void readGame(){//the readlist function
-        ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
+        ArrayList<GameItems> nesList = new ArrayList<GameItems>();//sets up an array list called shoppingList
         nesList.clear();//clear the shoppingList array
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
@@ -155,7 +154,7 @@ public class GameDetail extends AppCompatActivity {
         Cursor c = db.rawQuery(sql, null);
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                nesListItems = new NesItems();//creates a new array
+                nesListItems = new GameItems();//creates a new array
                 nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
                 nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
                 nesListItems.setName(c.getString(c.getColumnIndex(thename)));
