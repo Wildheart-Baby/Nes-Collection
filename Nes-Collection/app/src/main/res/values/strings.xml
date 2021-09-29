@@ -691,4 +691,6 @@
     <string name="ExportDatabase">Games data</string>
     <string name="SettingsExport">Export Data</string>
     <string name="Import">Import</string>
+    <string name="title_activity_trophy_room">TrophyRoom</string>
+    <string name="RegionMissing">Show games missing from collecting region</string>
 </resources>

@@ -80,7 +80,7 @@ public class ShelfOrder extends AppCompatActivity
                 Log.d("Shelf", "game id:" + readgameid + " Game name: " + readgamename + " List position: " + arg2);
                 startActivity(intent);//start the new screen
             }
-        });
+        });*/
 
         gamelistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -96,7 +96,7 @@ public class ShelfOrder extends AppCompatActivity
                 return true;//return is equal to true
             }
 
-        });*/
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         android.support.v7.app.ActionBarDrawerToggle toggle = new android.support.v7.app.ActionBarDrawerToggle(
@@ -159,7 +159,7 @@ public class ShelfOrder extends AppCompatActivity
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-        sql = "SELECT * FROM eu where owned = 1 and onshelf = 1";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1 and onshelf = 1";
         //sql = "SELECT * FROM eu where owned = 0";
         Log.d("Pixo", sql);
         Cursor c = db.rawQuery(sql, null);//select everything from the database table
@@ -223,6 +223,7 @@ public class ShelfOrder extends AppCompatActivity
 
         NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
         gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
+
     }
 
 

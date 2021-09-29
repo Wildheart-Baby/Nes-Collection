@@ -49,7 +49,7 @@ import java.io.InputStreamReader;
 
 public class Settings extends AppCompatActivity {
 
-    String regionselected, sql, currentregion, licensed, currentcurrency, shelfS, wherestatement;
+    String regionselected, sql, currentregion, licensed, currentcurrency, shelfS, wherestatement, regionmissing, missingsql, missingchecked, regionmissingcheck;
     int shelfsize, showprice, posF, listtype, total_games;
     ArrayAdapter<CharSequence> adapter, adapter2;
     Button btnexport, btnimport;
@@ -141,6 +141,7 @@ public class Settings extends AppCompatActivity {
         final CheckBox unlicensed = (CheckBox) findViewById(R.id.chkUnlicensed);
         final TextView shelfspace = (TextView) findViewById(R.id.txtShelfSize);
         final CheckBox showprices = (CheckBox) findViewById(R.id.chkShowPrices);
+        //final CheckBox missingregion = (CheckBox) findViewById(R.id.chkRegionMissing);
         final RadioGroup List = (RadioGroup) findViewById(R.id.rgLayout);
         RadioButton ListView = (RadioButton) findViewById(R.id.rbListView);
         RadioButton GalleryView = (RadioButton) findViewById(R.id.rbGallery);
@@ -168,6 +169,7 @@ public class Settings extends AppCompatActivity {
         currency.setSelection(spinnerPosition);
 
         if (licensed.contains(" and (unlicensed = 0 or 1)")) { unlicensed.setChecked(true); } else { unlicensed.setChecked(false);}
+        //if (regionmissingcheck.contains("(owned = 0 or 1") ){ missingregion.setChecked(true); } else { missingregion.setChecked(false);}
         if (showprice == 1) { showprices.setChecked(true); } else { showprices.setChecked(false);}
         if (listtype == 0) {ListView.setChecked(true);} else {GalleryView.setChecked(true);}
 
@@ -230,6 +232,7 @@ public class Settings extends AppCompatActivity {
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 showprice = (c.getInt(c.getColumnIndex("show_price")));
                 listtype = (c.getInt(c.getColumnIndex("game_view")));
+                //regionmissingcheck = (c.getString(c.getColumnIndex("region_missing_check")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
@@ -241,32 +244,42 @@ public class Settings extends AppCompatActivity {
         final CheckBox unlicensed = (CheckBox) findViewById(R.id.chkUnlicensed);
         final TextView shelfspace = (TextView) findViewById(R.id.txtShelfSize);
         final CheckBox showprices = (CheckBox) findViewById(R.id.chkShowPrices);
+        final CheckBox missingregion = (CheckBox) findViewById(R.id.chkRegionMissing);
 
             if (regionselected.contains("Pal A")) {
-                sql = "pal_a_release = 1";
+                sql = "(pal_a_release = 1)";
+                //missingsql = "and (pal_a_cart = 32573)";
             }
             if (regionselected.contains("Pal A UK")) {
-                sql = "pal_uk_release = 1";
+                sql = "(pal_uk_release = 1)";
+                //missingsql = "and (pal_a_cart = 32573)";
             }
             if (regionselected.contains("Pal B")) {
-                sql = "pal_b_release = 1";
+                sql = "(pal_b_release = 1)";
+                //missingsql = "and (pal_b_cart = 32573)";
             }
             if (regionselected.contains("Ntsc")) {
-                sql = "ntsc_release = 1";
+                sql = "(ntsc_release = 1)";
+                //missingsql = "and (ntsc_cart = 32573)";
             }
             if (regionselected.contains("Pal A & B")) {
-                sql = "pal_a_release = 1 or pal_b_release = 1";
+                sql = "(pal_a_release = 1 or pal_b_release = 1)";
+                //missingsql = "and (pal_a_cart = 32573 or pal_b_cart = 32573)";
             }
             if (regionselected.contains("Pal A & Ntsc")) {
-                sql = "pal_a_release = 1 or ntsc_release = 1";
+                sql = "(pal_a_release = 1 or ntsc_release = 1)";
+                //missingsql = "and (pal_a_cart = 32573 or ntsc_cart = 32573)";
             }
             if (regionselected.contains("Pal B & Ntsc")) {
-                sql = "pal_b_release = 1 or ntsc_release = 1";
+                sql = "(pal_b_release = 1 or ntsc_release = 1)";
+                //missingsql = "and (pal_b_cart = 32573 or pal_b_cart = 32573)";
             }
             if (regionselected.contains("All Regions")) {
-                sql = "pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1";
+                sql = "(pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1)";
+                //missingsql = "";
             }
 
+            //if (missingregion.isChecked()){ regionmissing = missingsql; missingchecked = "(owned = 0 or 1)";} else {regionmissing = ""; missingchecked = "( owned = 0)";}
             if (unlicensed.isChecked()){ licensed = " and (unlicensed = 0 or 1)";} else  { licensed = " and (unlicensed = 0)"; }
             if (showprices.isChecked()){ showprice = 1;} else  { showprice = 0; }
             shelfS = shelfspace.getText().toString();
@@ -276,6 +289,7 @@ public class Settings extends AppCompatActivity {
 
             SQLiteDatabase db;//set up the connection to the database
             db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+            //String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',region_missing = '" + regionmissing + "',region_missing_check = '" + missingchecked + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "',currency = '" + currentcurrency + "',game_view = '" + listtype + "',show_price = '" + showprice + "'"; //update the database basket field with 8783
             String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "',currency = '" + currentcurrency + "',game_view = '" + listtype + "',show_price = '" + showprice + "'"; //update the database basket field with 8783
             db.execSQL(str);//run the sql command
             db.close();//close the database
@@ -299,7 +313,7 @@ public class Settings extends AppCompatActivity {
 
              //main code begins here
                 try {
-                    String sql = "select _id, name, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_a_cost, pal_b_cart, pal_b_box, pal_b_manual, pal_b_cost, ntsc_cart, ntsc_box, ntsc_manual,  ntsc_cost, price, favourite, wishlist, onshelf, pal_a_owned, pal_b_owned, ntsc_owned, finished_game from eu where owned = 1 or favourite = 1 or wishlist = 1 or finished_game = 1";
+                    String sql = "select _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_a_cost, pal_b_cart, pal_b_box, pal_b_manual, pal_b_cost, ntsc_cart, ntsc_box, ntsc_manual,  ntsc_cost, price, favourite, wishlist, onshelf, pal_a_owned, pal_b_owned, ntsc_owned, finished_game from eu where owned = 1 or favourite = 1 or wishlist = 1 or finished_game = 1";
                     c = db.rawQuery(sql, null);
                     int rowcount = 0;
                     int colcount = 0;
@@ -402,6 +416,7 @@ public class Settings extends AppCompatActivity {
                 finished = row[24];
 
                 String str = "UPDATE eu SET owned = " + own + ", cart = " + cartridge + ", box = " + boxed + ", manual = " + man + ", pal_a_cart = " + palAcart + ", pal_a_box = " + palAbox + ", pal_a_manual = " + palAmanual + ", pal_b_cart = " + palBcart + ", pal_b_box = " + palBbox + ", pal_b_manual = " + palBmanual + ", ntsc_cart = " + UScart + ", ntsc_box = " + USbox + ",  ntsc_manual = " + USmanual + ",  pal_a_cost = " + palAcost + ",  pal_b_cost = " + palBcost + ",  ntsc_cost = " + UScost + ",  favourite = " + fave + ",price = " + gameprice + ",  pal_a_owned = " + palAowned +  ",  pal_b_owned = " + palBowned +  ",  ntsc_owned = " + USowned +  ",  wishlist = " + wish + ", onshelf = " + ontheshelf + ", finished_game = " + finished + " where _id = " + gameid + " "; //update the database basket field with 8783
+                Log.d("pixovee", str);
                 db.execSQL(str);//run the sql command
             }
             btnexport.setEnabled(true);

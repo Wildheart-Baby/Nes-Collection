@@ -245,9 +245,9 @@ public class OwnedGames extends AppCompatActivity
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
 
         if (ordering == 0) {
-            sql = "select * from eu where owned = 1"; }
+            sql = "select * from eu where owned = 1 " + licensed +  ""; }
         else if(ordering == 1){
-            sql ="select * from eu where owned = 1 order by price desc";}
+            sql ="select * from eu where owned = 1 " + licensed +  " order by price desc";}
             c = db.rawQuery(sql, null);
             if (c.moveToFirst()) {//move to the first record
                 while (!c.isAfterLast()) {//while there are records to read
@@ -361,9 +361,9 @@ public class OwnedGames extends AppCompatActivity
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         Cursor c; //= db.rawQuery(sql, null);//select everything from the database table
         //sql = "SELECT * FROM eu where " + wherestatement + "";
-        sql1 = "SELECT * FROM eu where pal_a_cart = 8783";
-        sql2 = "SELECT * FROM eu where pal_b_cart = 8783";
-        sql3 = "SELECT * FROM eu where ntsc_cart = 8783";
+        sql1 = "SELECT * FROM eu where pal_a_cart = 8783 " + licensed +  "";
+        sql2 = "SELECT * FROM eu where pal_b_cart = 8783" + licensed +  "";
+        sql3 = "SELECT * FROM eu where ntsc_cart = 8783" + licensed +  "";
 
         c = db.rawQuery(sql1, null);
         region1games = c.getCount();

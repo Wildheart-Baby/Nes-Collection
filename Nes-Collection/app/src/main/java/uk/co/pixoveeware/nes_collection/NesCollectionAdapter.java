@@ -1,7 +1,11 @@
 package uk.co.pixoveeware.nes_collection;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -81,6 +85,7 @@ public class NesCollectionAdapter extends BaseAdapter {
         int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
         int ownedid;
         holder.cover.setImageResource(coverid);
+
         thegamename = nesListItems.getName();
         l = thegamename.length();
         if (screenwidth < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
@@ -121,9 +126,6 @@ public class NesCollectionAdapter extends BaseAdapter {
 
         return convertView; //return the convertview and show the listview
     }
-
-
-
 
 }
 

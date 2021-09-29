@@ -45,8 +45,6 @@
                 android:id="@+id/imgGameCover"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
-                android:maxHeight="240dp"
-                android:maxWidth="175dp"
                 android:paddingRight="3dp"
                 android:src="@drawable/placeholder"
                 android:contentDescription="game cover"

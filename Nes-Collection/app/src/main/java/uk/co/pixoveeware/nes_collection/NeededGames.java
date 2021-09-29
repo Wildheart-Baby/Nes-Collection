@@ -35,7 +35,7 @@ public class NeededGames extends AppCompatActivity
     final Context context = this;
     SQLiteDatabase sqlDatabase;
 
-    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, licensed, currentgroup, title;
+    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, licensed, currentgroup, title, regionmissing, regionmissingcheck;
     String prevgroup = "";
     int readgameid, gameid, totalgames, neededgames, index, top, viewas;
     ArrayAdapter<CharSequence> adapter;
@@ -79,7 +79,9 @@ public class NeededGames extends AppCompatActivity
         gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
+                //sql = "SELECT * FROM eu where " + regionmissingcheck + " and "  + wherestatement + regionmissing + licensed +  "";
                 sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
+                Log.d("pixo-owned", sql);
                 NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
@@ -112,6 +114,7 @@ public class NeededGames extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
                 sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
+                Log.d("pixo-owned", sql);
                 NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
@@ -225,9 +228,10 @@ public class NeededGames extends AppCompatActivity
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+        //sql = "SELECT * FROM eu where " + regionmissingcheck + " and "  + wherestatement + regionmissing + licensed +  "";
         sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
         //sql = "SELECT * FROM eu where owned = 0";
-        Log.d("Pixo", sql);
+        Log.d("Pixo-missing", sql);
         Cursor c = db.rawQuery(sql, null);//select everything from the database table
 
         if (c.moveToFirst()) {//move to the first record
@@ -263,12 +267,15 @@ public class NeededGames extends AppCompatActivity
             c.close();//close the cursor
         }
         sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
+        //sql = "SELECT * FROM eu where " + regionmissingcheck + " and "  + wherestatement + regionmissing + licensed +  "";
         c = db.rawQuery(sql, null);
         neededgames = c.getCount();
+        Log.d("Pixo-missing-count", sql);
 
         sql = "SELECT * FROM eu where " + wherestatement + licensed +  "";
         c = db.rawQuery(sql, null);
         totalgames = c.getCount();
+        Log.d("Pixo-missing-total", sql);
         c.close();
         db.close();//close the database
 
@@ -301,6 +308,8 @@ public class NeededGames extends AppCompatActivity
                 licensed = (c.getString(c.getColumnIndex("licensed")));
                 viewas = (c.getInt(c.getColumnIndex("game_view")));
                 title = (c.getString(c.getColumnIndex("region_title")));
+                //regionmissingcheck = (c.getString(c.getColumnIndex("region_missing_check")));
+                //regionmissing = (c.getString(c.getColumnIndex("region_missing")));
 
                 Log.d("Pixo", wherestatement);
                 c.moveToNext();//move to the next record

@@ -266,30 +266,33 @@ public class EditOwnedGame extends AppCompatActivity {
 
         if (cart == 0 && box == 0 && manual == 0) {owned = 0;}
 
-        PACheck = PalACost.getText().toString();
-        PACheck = PACheck.replaceAll("[^0-9.]", "");
+        PACheck = PalACost.getText().toString().replaceAll("[^0-9.]", "");
+        //PACheck = PACheck.replaceAll("[^0-9.]", "");
 
-        PBCheck = PalBCost.getText().toString();
-        PBCheck = PBCheck.replaceAll("[^0-9.]", "");
+        PBCheck = PalBCost.getText().toString().replaceAll("[^0-9.]", "");
+        //PBCheck = PBCheck.replaceAll("[^0-9.]", "");
 
-        USCheck = USCost.getText().toString();
-        USCheck = USCheck.replaceAll("[^0-9.]", "");
+        USCheck = USCost.getText().toString().replaceAll("[^0-9.]", "");
+        //USCheck = USCheck.replaceAll("[^0-9.]", "");
 
-        if (PACheck.matches("") || !Character.isDigit(PACheck.charAt(0))) {PalAcost = 0.00;}
+        Log.d("pixo", " " + PACheck + " " + PBCheck + " " + USCheck  );
+
+        if (PACheck.matches("") || !Character.isDigit(PACheck.charAt(0))) {PalAcost = 0.0;}
         else {PalAcost = Double.parseDouble(PACheck);}
 
-        if (PBCheck.matches("") || !Character.isDigit(PBCheck.charAt(0))) {PalBcost = 0.00;}
+        if (PBCheck.matches("") || !Character.isDigit(PBCheck.charAt(0))) {PalBcost = 0.0;}
         else {PalBcost = Double.parseDouble(PBCheck);}
         //else {PalBcost = Double.valueOf(PalBCost.getText().toString());}
 
-        if (USCheck.matches("") || !Character.isDigit(USCheck.charAt(0))) {UScost = 0.00;}
+        if (USCheck.matches("") || !Character.isDigit(USCheck.charAt(0))) {UScost = 0.0;}
         else {UScost = Double.parseDouble(USCheck);}
         //else {UScost = Double.valueOf(USCost.getText().toString());}
 
         if (PalAcost > PalBcost && PalAcost > UScost){price = PalAcost;}
         else if (PalBcost > PalAcost && PalBcost > UScost){price = PalBcost;}
         else if (UScost > PalAcost && UScost > PalBcost){price = UScost;}
-        //else if (PalAcost OR PalBcost or UScost == 0.0;){price = 0.0;}
+
+        if (PACheck.equals("0.00") && PBCheck.equals("0.00") && USCheck.equals("0.00")){price = 0.00;}
 
         SQLiteDatabase db;//set up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database

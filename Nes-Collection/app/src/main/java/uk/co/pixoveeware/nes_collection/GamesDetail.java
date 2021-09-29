@@ -49,6 +49,12 @@ public class GamesDetail extends AppCompatActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+        int densityDpi = metrics.densityDpi;
+
+        //Log.d("pixo height: ", " " + height);
+        //Log.d("pixo ", "width: " + width);
+        //Log.d("pixo ", "density: " + densityDpi);
 
         if (width <600){setContentView(R.layout.activity_games_detail_small);} else if (width >599){setContentView(R.layout.activity_games_detail);}
 

@@ -45,6 +45,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     String popgenre;
     float[] datapoints;
     int[] piecolours;
+    int completeinbox;
 
     String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename, gamescost, gameorgames;
     int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i, showprices, numberowned, palaMaxCost, palbMaxCost, usMaxCost,totalfinished;
@@ -87,6 +88,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         TextView PalALabel = (TextView) findViewById(R.id.lblPalATitle);
         TextView PalBLabel = (TextView) findViewById(R.id.lblPalBTitle);
         TextView USLabel = (TextView) findViewById(R.id.lblUSTitle);
+        TextView CompleteLabel = (TextView) findViewById(R.id.lblCompleteTitle);
 
         PalALabel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,6 +125,21 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 startActivity(intent);//start the new screen
             }
         });
+
+       /* CompleteLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /*sql = "SELECT * FROM eu where owned = 1 and (cart = 1 and manual = 1 and box = 1 " + licensed + ")";
+                //Log.d("Pixo", sql);
+                Intent intent = new Intent(Statistics.this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("pagetitle", "Complete in box games");*/
+               /* getIntent().putExtra("games", completeinbox);
+                Log.d("pixo", "games " + completeinbox);
+                Intent intent = new Intent(Statistics.this, TrophyRoom.class);
+                startActivity(intent);//start the new screen
+            }
+        });*/
 
         MobileAds.initialize(getApplicationContext(), "ca-app-pub-0537596348696744~2585816192");
         AdView mAdView = (AdView) findViewById(R.id.adView);
@@ -228,15 +245,18 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         TextView palb = (TextView) findViewById(R.id.lblPalB);
         TextView us = (TextView) findViewById(R.id.lblUS);
         TextView cost = (TextView) findViewById(R.id.lblCost);
+        TextView cib = (TextView) findViewById(R.id.lblCompleteInfo);
         TextView header = (TextView) findViewById(R.id.lblHeader);
         RelativeLayout RlPie = (RelativeLayout) findViewById(R.id.rlPieChart);
         RelativeLayout RlAll = (RelativeLayout) findViewById(R.id.rlAll);
         RelativeLayout RlPalA = (RelativeLayout) findViewById(R.id.rlPalA);
         RelativeLayout RlPalB = (RelativeLayout) findViewById(R.id.rlPalB);
         RelativeLayout RlUS = (RelativeLayout) findViewById(R.id.rlUS);
+        RelativeLayout RlCib = (RelativeLayout) findViewById(R.id.rlComplete);
         TextView Div1 = (TextView) findViewById(R.id.lblDivider);
         TextView Div2 = (TextView) findViewById(R.id.lblDivider2);
         TextView Div3 = (TextView) findViewById(R.id.lblDivider3);
+        TextView Div4 = (TextView) findViewById(R.id.lblDivider4);
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
@@ -253,9 +273,11 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             RlPalA.setVisibility(View.INVISIBLE);
             RlPalB.setVisibility(View.INVISIBLE);
             RlUS.setVisibility(View.INVISIBLE);
+            RlCib.setVisibility(View.INVISIBLE);
             Div1.setVisibility(View.INVISIBLE);
             Div2.setVisibility(View.INVISIBLE);
             Div3.setVisibility(View.INVISIBLE);
+            Div4.setVisibility(View.INVISIBLE);
         } else if (numberowned >0) {
 
             sql = "SELECT SUM(pal_a_cost) FROM eu ";
@@ -407,11 +429,15 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
 
             i = 0;
 
-
+            sql = "select * from eu where owned = 1 and cart = 1 and box = 1 and manual = 1";
+            c = db.rawQuery(sql, null);
+            c.moveToFirst();
+            completeinbox = c.getCount();
 
             c.close();
             db.close();//close the database
             totalOwned = ownedPalA + ownedPalB + ownedUS;
+            Log.d("pixo-stats", "Total owned " +totalOwned + " Total counted " + numberowned);
             if (showprices == 1) {
                 if(totalcost > 0){gamescost = "You have spent " + currency + String.format("%.2f",totalcost) + " on games for your collection\n";}
                 else if (totalcost == 0 ){gamescost = "";}
@@ -474,6 +500,9 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                     "US games make up " + peruscoll + "% of your collection"
                     + gamescost;
             us.setText(US);
+            String CIB = "You own " + completeinbox + " games that are complete in box";
+            cib.setText(CIB);
+
             //Log.d("Pixo",US);
 
             //.d("Pixo", "Owned PalA: " + ownedPalA);
@@ -509,7 +538,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         //Cursor c;
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Action-Adventure'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1 and genre = 'Action-Adventure'";
         Cursor c = db.rawQuery(sql, null);
         int ownedactionadventure = c.getCount();
 
@@ -517,7 +546,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Action'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Action'";
         c = db.rawQuery(sql, null);
         int ownedaction = c.getCount();
 
@@ -525,7 +554,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Adventure'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Adventure'";
         c = db.rawQuery(sql, null);
         int ownedadventure = c.getCount();
 
@@ -533,7 +562,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Arcade'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Arcade'";
         c = db.rawQuery(sql, null);
         int ownedarcade = c.getCount();
 
@@ -541,7 +570,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Beat em Up'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Beat em Up'";
         c = db.rawQuery(sql, null);
         int ownedbeatemup = c.getCount();
 
@@ -549,7 +578,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Board game'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Board game'";
         c = db.rawQuery(sql, null);
         int ownedboardgame = c.getCount();
 
@@ -557,7 +586,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Compilation'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Compilation'";
         c = db.rawQuery(sql, null);
         int ownedcompilation = c.getCount();
         Log.d("compilation set up","value: " + ownedcompilation);
@@ -565,7 +594,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Fighting'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Fighting'";
         c = db.rawQuery(sql, null);
         int ownedfighting = c.getCount();
 
@@ -573,7 +602,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Other'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Other'";
         c = db.rawQuery(sql, null);
         int ownedother = c.getCount();
 
@@ -581,7 +610,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Platformer'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Platformer'";
         c = db.rawQuery(sql, null);
         int ownedplatformer = c.getCount();
 
@@ -589,7 +618,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Puzzle'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Puzzle'";
         c = db.rawQuery(sql, null);
         int ownedpuzzle = c.getCount();
 
@@ -597,7 +626,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Racing'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Racing'";
         c = db.rawQuery(sql, null);
         int ownedracing = c.getCount();
 
@@ -605,7 +634,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Role-Playing Game'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Role-Playing Game'";
         c = db.rawQuery(sql, null);
         int ownedroleplayinggame = c.getCount();
 
@@ -614,7 +643,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         }
 
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Shoot em Up'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Shoot em Up'";
         c = db.rawQuery(sql, null);
         int ownedshootemup = c.getCount();
 
@@ -622,7 +651,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Shooter'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Shooter'";
         c = db.rawQuery(sql, null);
         int ownedshooter = c.getCount();
 
@@ -630,7 +659,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Simulation'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Simulation'";
         c = db.rawQuery(sql, null);
         int ownedsimulation = c.getCount();
 
@@ -638,7 +667,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Sports'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Sports'";
         c = db.rawQuery(sql, null);
         int ownedsports = c.getCount();
 
@@ -646,7 +675,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Strategy'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Strategy'";
         c = db.rawQuery(sql, null);
         int ownedstrategy = c.getCount();
 
@@ -654,14 +683,14 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Traditional'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Traditional'";
         c = db.rawQuery(sql, null);
         int ownedtraditional = c.getCount();
         if (ownedtraditional > 0) {
             i++;
         }
 
-        sql = "SELECT * FROM eu where owned = 1 and genre = 'Trivia'";
+        sql = "SELECT * FROM eu where owned = 1 and cart = 1  and genre = 'Trivia'";
         c = db.rawQuery(sql, null);
         int ownedtrivia = c.getCount();
         if (ownedtrivia > 0) {
@@ -743,17 +772,14 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Compilation'";
         c = db.rawQuery(sql, null);
         int ownedAcompilation = c.getCount();
-        Log.d("compilation pal a","value: " + ownedAcompilation);
 
         sql = "SELECT * FROM eu where pal_b_cart = 8783 and genre = 'Compilation'";
         c = db.rawQuery(sql, null);
         int ownedBcompilation = c.getCount();
-        Log.d("compilation pal a","value: " + ownedBcompilation);
 
         sql = "SELECT * FROM eu where ntsc_cart = 8783 and genre = 'Compilation'";
         c = db.rawQuery(sql, null);
         int ownedUScompilation = c.getCount();
-        Log.d("compilation us","value: " + ownedUScompilation);
 
         sql = "SELECT * FROM eu where pal_a_cart = 8783 and genre = 'Fighting'";
         c = db.rawQuery(sql, null);
@@ -940,7 +966,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             names[io] = "Action-Adventure";
             datapoints[io] = ownedactionadventure;
             piecolours[io] = Color.parseColor("#FF2B32");
-            Log.d("Pixo", "Colour adventure: " + Color.parseColor("#FF2B32"));
+            Log.d("Pixo", "Colour action-adventure: " + Color.parseColor("#FF2B32"));
             io++;
         }
         if (ownedaction > 0) {
@@ -974,8 +1000,8 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         if (ownedboardgame > 0) {
             names[io] = "Board game";
             datapoints[io] = ownedboardgame;
-            piecolours[io] = Color.parseColor("#Ff0Fff");
-            Log.d("Pixo", "Colour boardgame: " + Color.parseColor("#Ff0Fff"));
+            piecolours[io] = Color.parseColor("#FF0FFF");
+            Log.d("Pixo", "Colour boardgame: " + Color.parseColor("#Ff0FFF"));
 
                     io++;
         }
