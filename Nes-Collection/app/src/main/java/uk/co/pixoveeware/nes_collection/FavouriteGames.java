@@ -30,6 +30,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -148,6 +152,11 @@ public class FavouriteGames extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-0537596348696744~2585816192");
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
     }
 
@@ -395,10 +404,10 @@ public class FavouriteGames extends AppCompatActivity
             randomgame = rand.nextInt(count);
 
             if(viewas == 0) {
-                NesItems gameListItems = (NesItems) favouritelistView.getItemAtPosition(randomgame);//get the position of the item on the list
+                gameListItems = (NesItems) favouritelistView.getItemAtPosition(randomgame);//get the position of the item on the list
                 itemId = gameListItems.getItemId();//get the item id
             }else if (viewas == 1){
-                NesItems gameListItems = (NesItems) gamegalleryview.getItemAtPosition(randomgame);//get the position of the item on the list
+                gameListItems = (NesItems) gamegalleryview.getItemAtPosition(randomgame);//get the position of the item on the list
                 itemId = gameListItems.getItemId();//get the item id
             }
 

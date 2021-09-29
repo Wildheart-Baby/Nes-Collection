@@ -35,26 +35,27 @@ import org.w3c.dom.Text;
 import java.text.DecimalFormat;
 import java.util.Arrays;
 
-public class Statistics extends AppCompatActivity implements PieChartView.Callback,
+public class Statistics extends AppCompatActivity implements PieChartView.Callback, SecondPieChartView.Callback,
         NavigationView.OnNavigationItemSelectedListener  {
 
     String[] palanames;
     String[] palbnames;
     String[] usnames;
     String[] gamenames;
-    String[] names;
+    String[] names, names2;
     String popgenre;
-    float[] datapoints;
-    int[] piecolours;
+    float[] datapoints, datapoints2;
+    int[] piecolours, piecolours2;
     int completeinbox;
     SQLiteDatabase db;//sets up the connection to the database
+    RelativeLayout RlPie2;
 
     String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename, gamescost, gameorgames, regionselected, loosecarts, looseboxes, looseman, looseitems, collectionpercentagestr, avgCst;
     int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i, showprices, numberowned, palaMaxCost, palbMaxCost, usMaxCost,totalfinished, collectiongames, collectionreleased, loosecart, loosemanual, loosebox;
-    int ownedPalAbox, ownedPalBbox, ownedUSbox, ownedPalAman, ownedPalBman, ownedUSman, boxed;
+    int ownedPalAbox, ownedPalBbox, ownedUSbox, ownedPalAman, ownedPalBman, ownedUSman, boxed, totalOwnedGames;
     //int ownedaction, ownedadventure, ownedbeatemup, ownedactionadventure, ownedarcade, ownedboardgame, ownedcompilation, ownedfighting, ownedother, ownedplatformer, ownedpuzzle, ownedracing, ownedroleplayinggame, ownedshootemup, ownedshooter, ownedsimulation, ownedsports, ownedstrategy, ownedtraditional, ownedtrivia;
     double percentPalAOwned, percentPalBOwned, percentUSOwned, percentagepalacollection, percentagepalbcollection, percentageuscollection, collectionpercentage, cibpercentage, boxedpercentage;
-    float palacost, palbcost, uscost, totalpalacost, totalpalbcost, totaluscost, totalcost, avgCost;;
+    float palacost, palbcost, uscost, totalpalacost, totalpalbcost, totaluscost, totalcost, avgCost, percentageOwned;
     int lay = 1;
 
 
@@ -68,7 +69,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         //("Statistics");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        RlPie2 = (RelativeLayout) findViewById(R.id.rlPieChart2);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,7 +165,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         gameregion();
         readDatabase();
         piechart();
-
+        piechart2();
 
     }
 
@@ -209,6 +210,63 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         startActivity(intent);//start the new screen
     }
 
+    @Override
+    public void onSliceClick2(DataColorSet data) {
+        gamename = data.getName();
+        Log.d("pixo-stats", "Region: " + gamename);;
+        switch(gamename){
+            case "Pal A games":
+                sql = "select * from eu where owned = 1 and pal_a_cart = 8783";
+                break;
+            case "Pal B games":
+                sql = "select * from eu where owned = 1 and pal_b_cart = 8783";
+                break;
+            case "US games":
+                sql = "select * from eu where owned = 1 and ntsc_cart = 8783";
+                break;
+        }
+
+        Intent intent = new Intent(this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+        //intent.putExtra("columnname", fieldname);//passes the table name to the new screen
+        //intent.putExtra("search", searchterm);//passes the table name to the new screen
+        intent.putExtra("sqlstatement", sql);
+        intent.putExtra("pagetitle", "" + gamename);
+        startActivity(intent);//start the new screen
+    }
+
+    @Override
+    public void onDrawFinised2(DataColorSet[] data) {
+        // When the chart has finished drawing it will return the colors used
+        // and the value along (for our key)
+
+        LinearLayout keyContainer = (LinearLayout) findViewById(R.id.key2);
+        if (keyContainer.getChildCount() > 0)
+            keyContainer.removeAllViews(); // Empty all views if any found
+
+
+
+        for (int i = 0; i < data.length; i++) {
+            DataColorSet dataColorSet = data[i];
+
+            LinearLayout keyItem = (LinearLayout) LayoutInflater.from(this).inflate(R.layout.key_item, null);
+            LinearLayout colorView = (LinearLayout) keyItem.findViewById(R.id.color);
+            TextView name = (TextView) keyItem.findViewById(R.id.names);
+            TextView valueView = (TextView) keyItem.findViewById(R.id.value);
+
+
+
+            colorView.setBackgroundColor(Color.parseColor("#" + dataColorSet.getColor()));
+            name.setText("" + dataColorSet.getName() + "  ");
+            percentageOwned = dataColorSet.getDataValue() / totalOwnedGames * 100;
+            //String pievalue = String.format("%.0f",dataColorSet.getDataValue());
+            String pievalue = String.format("%.0f",percentageOwned);
+            valueView.setText(pievalue+"%");
+
+            // Add the key to the container
+            keyContainer.addView(keyItem, i);
+        }
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -381,7 +439,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             }
             if (ownedPalB == 0) {
                 RlPalB.setVisibility(View.GONE);
-                Div3.setVisibility(View.GONE);
+                //Div3.setVisibility(View.GONE);
             }
             palbnames = new String[i];
             if (c.moveToFirst()) {//move to the first record
@@ -1431,6 +1489,55 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
 
     }
 
+    public void piechart2(){
+        i = 0;
+
+        if (ownedPalA > 0){
+            i++;
+        }
+        if (ownedPalB > 0){
+            i++;
+        }
+        if (ownedUS > 0){
+            i++;
+        }
+
+        Log.i("Pixo-numbers", "Number: " + i + " Owned Euro: " + ownedPalA + " Owned US: " + ownedUS);
+        totalOwnedGames = ownedPalA + ownedPalB + ownedUS;
+        names2 = new String[i];
+        datapoints2 = new float[i];
+        piecolours2 = new int[i];
+        io = 0;
+        if (ownedPalA > 0) {
+            names2[io] = "Pal A games";
+            datapoints2[io] = ownedPalA;
+            piecolours2[io] = Color.parseColor("#F73427");
+            io++;
+        }
+
+        if (ownedPalB > 0) {
+            names2[io] = "Pal B games";
+            datapoints2[io] = ownedPalB;
+            piecolours2[io] = Color.parseColor("#FE8618");
+            io++;
+        }
+
+        if (ownedUS > 0) {
+            names2[io] = "US games";
+            datapoints2[io] = ownedUS;
+            piecolours2[io] = Color.parseColor("#21A8D8");
+            io++;
+        }
+
+        if (i > 0){ SecondPieChartView secondPieChartView = (SecondPieChartView) findViewById(R.id.pie_chart2);
+            secondPieChartView.setDataPoints(datapoints2, names2, piecolours2);
+            // Because this activity is of the type PieChartView.Callback
+            secondPieChartView.setCallback(Statistics.this);
+        } else if (i == 1){
+            RlPie2.setVisibility(View.GONE);
+        }
+
+    }
 
     @Override
     public void onRestart() {

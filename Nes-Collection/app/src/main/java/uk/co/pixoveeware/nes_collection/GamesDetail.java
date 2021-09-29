@@ -14,15 +14,10 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
+
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class GamesDetail extends AppCompatActivity {
     public static int idforgame, favourited, ownedgame, wishlist, finished;
@@ -43,17 +38,14 @@ public class GamesDetail extends AppCompatActivity {
     Cursor c;
     SQLiteDatabase db;//sets up the connection to the database
 
-    ImageView flagAustralia, flagFrance, flagGermany, flagUK, flagUS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int width = metrics.widthPixels;
-        int height = metrics.heightPixels;
-        int densityDpi = metrics.densityDpi;
+
         previd = String.valueOf(pos);
         //Log.d("pixo height: ", " " + height);
         //Log.d("pixo ", "width: " + width);
@@ -150,6 +142,22 @@ public class GamesDetail extends AppCompatActivity {
         pos = viewPager.getCurrentItem();
     }
 
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putString("param", MainActivity.sqlstatement);
+        outState.putInt("position", viewPager.getCurrentItem());
+        Log.d("pixo-saved-instance", "SQL: " + MainActivity.sqlstatement + " Pos: " + viewPager.getCurrentItem() );
+        super.onSaveInstanceState(outState);
+    }
+
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        MainActivity.sqlstatement = savedInstanceState.getString("param");
+        pos = savedInstanceState.getInt("position");
+        Log.d("pixo-saved-instance", "SQL: " + MainActivity.sqlstatement + " Pos: " + pos);
+        super.onRestoreInstanceState(savedInstanceState);
+        new FillGamesAdapter(this);
+        readGame();
+    }
+
     public void readGame(){//the readlist function
         if (MainActivity.nesList == null){ MainActivity.readList(); readGames(); }
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -168,17 +176,28 @@ public class GamesDetail extends AppCompatActivity {
     public void favouritegame(){
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         String str ="";
-        if(favourited == 0) {
-            str = "UPDATE eu SET favourite = 1 where _id = " + idforgame + " "; //update the database basket field with 8783
-        } else  if(favourited == 1) {
-            str = "UPDATE eu SET favourite = 0 where _id = " + idforgame + " "; //update the database basket field with 8783
+        //if(favourited == 0) {
+        if(MainActivity.nesList.get(viewPager.getCurrentItem()).getFavourite() == 0) {
+            str = "UPDATE eu SET favourite = 1 where _id = " + idforgame + " ";
+            MainActivity.nesList.get(viewPager.getCurrentItem()).setFavourite(1);
+
+
+        } else  if(MainActivity.nesList.get(viewPager.getCurrentItem()).getFavourite()  == 1) {
+            str = "UPDATE eu SET favourite = 0 where _id = " + idforgame + " ";
+            MainActivity.nesList.get(viewPager.getCurrentItem()).setFavourite(0);
+
         }
+        //Toast toast = Toast.makeText(getApplicationContext(), "Favourite no:" + MainActivity.nesList.get(viewPager.getCurrentItem()).getFavourite() + " Name: " + MainActivity.nesList.get(viewPager.getCurrentItem()).getName() , Toast.LENGTH_LONG);
+        //toast.show();
+        //invalidateOptionsMenu();
         Log.d("Pixo", str);
         db.execSQL(str);//run the sql command
         db.close();//close the database
+
         pos = viewPager.getCurrentItem();
-        readGame();
+        readGames();
         invalidateOptionsMenu();
+
     }
 
     public void wishlist(){
@@ -208,7 +227,7 @@ public class GamesDetail extends AppCompatActivity {
         }
         db.close();//close the database
         pos = viewPager.getCurrentItem();
-        readGame();
+        readGames();
     }
 
     public void finishedgame(){
@@ -231,16 +250,16 @@ public class GamesDetail extends AppCompatActivity {
         }
         db.close();//close the database
         pos = viewPager.getCurrentItem();
-        readGame();
+        readGames();
     }
 
     @Override
     public void onRestart() {
         super.onRestart();
-
-        readGame();//run the list tables function
+        if (MainActivity.nesList == null){ MainActivity.readList(); readGames(); }
+        readGames();//run the list tables function
         invalidateOptionsMenu();
-        viewPager.setCurrentItem(pos);
+        //viewPager.setCurrentItem(pos);
     }
 
     public void gameregion(){//selects the region from the database
@@ -270,11 +289,10 @@ public class GamesDetail extends AppCompatActivity {
     }
 
     public void readGames() {
-        SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
-        //sql = "SELECT * FROM eu where " + wherestatement + licensed +  "";
+        /*//sql = "SELECT * FROM eu where " + wherestatement + licensed +  "";
         //Log.d("Pixo", sqlstate);
-        Cursor c = db.rawQuery(sql, null);
+        c = db.rawQuery(sql, null);
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
                 nesListItems = new NesItems();//creates a new array
@@ -317,7 +335,11 @@ public class GamesDetail extends AppCompatActivity {
             }
             c.close();//close the cursor
         }
-        db.close();//close the database
+        db.close();//close the database*/
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        adapter = new NesPagerAdapter(this, MainActivity.nesList);
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(pos);
     }
 
 }

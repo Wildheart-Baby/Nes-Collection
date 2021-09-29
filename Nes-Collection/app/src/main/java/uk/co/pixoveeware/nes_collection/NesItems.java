@@ -10,7 +10,7 @@ public class NesItems {
     int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual,
             pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist, finished, listPos;
      int flagAustralia, flagAustria, flagBenelux, flagDenmark, flagFrance, flagFinland, flagGermany, flagGreece, flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS ;
-    double pal_a_cost, pal_b_cost, ntsc_cost;
+    double pal_a_cost, pal_b_cost, ntsc_cost, price;
 
     public int getItemId() { return _id; }
     public void setItemId(int _id) { this._id = _id; } //returns the item id
@@ -88,10 +88,10 @@ public class NesItems {
     public void setFavourite(int favourite) { this.favourite = favourite; }
 
     public int getWishlist() { return wishlist; }
-    public void SetWishlist(int wishlist) { this.wishlist = wishlist; } //returns the item id
+    public void setWishlist(int wishlist) { this.wishlist = wishlist; } //returns the item id
 
     public int getFinished() { return finished; }
-    public void SetFinished(int finished) { this.finished = finished; } //returns the item id
+    public void setFinished(int finished) { this.finished = finished; } //returns the item id
 
     public double getPalACost() { return pal_a_cost; }
     public void setPalACost(double pal_a_cost) { this.pal_a_cost = pal_a_cost; } //returns the item id
@@ -101,6 +101,9 @@ public class NesItems {
 
     public double getNtscCost() { return ntsc_cost; }
     public void setNtscCost(double ntsc_cost) { this.ntsc_cost = ntsc_cost; } //returns the item id
+
+    public double getPrice() { return price; }
+    public void setPrice(double price) { this.price = price; } //returns the item id
 
     public String getCurrency() { return currency; }
     public void setCurrency(String currency) { this.currency = currency; }//returns the item department

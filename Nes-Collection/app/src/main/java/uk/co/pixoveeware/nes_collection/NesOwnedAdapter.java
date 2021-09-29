@@ -40,7 +40,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
 
         @Override
         public int getCount() {
-            return nesList.size();
+            return MainActivity.nesList.size();
         } //returns the number of items in the array
 
         @Override

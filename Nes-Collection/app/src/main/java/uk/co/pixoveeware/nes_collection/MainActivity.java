@@ -31,23 +31,15 @@ public class MainActivity extends AppCompatActivity
     String DB_NAME;
     Context context;
 
-    String searchterm;
-    String fieldname;
-    String wherestatement;
-    String sql;
-    String regionselected;
-    String title;
-    String currentgroup;
-    String licensed;
-    String titlestr;
-    String titlept1;
-    String titlept2;
-    String thename;
-    String theimage;
+    String searchterm, fieldname, wherestatement, sql, regionselected, title, currentgroup;
+    String licensed, titlestr, titlept1, titlept2, thename, theimage;
     String prevgroup = "";
-    int pala, palb, us, viewas, totalgames, titles;
-    public static int width;
+    int pala, palb, us, totalgames, titles;
+    public static int width, totalGames, viewas;
+
     public static ArrayList<NesItems> nesList;
+    public static ArrayList<NesItemsIndex> indexList;
+    public static String sqlstatement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

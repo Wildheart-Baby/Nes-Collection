@@ -68,7 +68,7 @@ public class SplashActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         } else {
-           UpdateDatabase();
+           //UpdateDatabase();
         }
     }
 

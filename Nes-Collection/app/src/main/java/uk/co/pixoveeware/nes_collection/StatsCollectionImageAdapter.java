@@ -1,12 +1,15 @@
 package uk.co.pixoveeware.nes_collection;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 /**
@@ -73,6 +76,9 @@ public class StatsCollectionImageAdapter extends BaseAdapter {
         gameimage = nesListItems.getImage();
         int coverid = context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
         holder.cover.setImageResource(coverid);
+        Bitmap image =((BitmapDrawable)holder.cover.getDrawable()).getBitmap();
+        ByteArrayOutputStream byteArrayOutputStream=new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG,50/100,byteArrayOutputStream);
 
         i++;
         return convertView; //return the convertview and show the listview

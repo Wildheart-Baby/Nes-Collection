@@ -16,8 +16,9 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="1">
+        android:layout_height="wrap_content"
+        android:weightSum="1"
+        android:layout_below="@+id/adView">
 
         <ListView
             android:layout_width="wrap_content"
@@ -42,9 +43,22 @@
     </LinearLayout>
     <GridView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:columnCount="3"
         android:id="@+id/gvAllGames"
         android:numColumns="3"
-        android:scrollIndicators="none"></GridView>
+        android:scrollIndicators="none"
+        android:layout_below="@+id/adView"></GridView>
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id_finished_games"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true">
+    </com.google.android.gms.ads.AdView>
 </RelativeLayout>

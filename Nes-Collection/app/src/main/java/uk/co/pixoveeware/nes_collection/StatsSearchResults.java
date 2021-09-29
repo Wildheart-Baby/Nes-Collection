@@ -291,12 +291,12 @@ public class StatsSearchResults extends AppCompatActivity {
             thesearchresults.setVisibility(View.VISIBLE);
 
         }else {if(viewas == 0){
-            StatsCollectionAdapter nes = new StatsCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
+            StatsCollectionAdapter nes = new StatsCollectionAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
             gamegalleryview.setVisibility(View.GONE);
             gamelistView.setAdapter(nes);
 
         }else if (viewas == 1){
-            StatsCollectionImageAdapter nes = new StatsCollectionImageAdapter(this, nesList);//set up an new list adapter from the arraylist
+            StatsCollectionImageAdapter nes = new StatsCollectionImageAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
             gamelistView.setVisibility(View.GONE);
             gamegalleryview.setAdapter(nes);
         }

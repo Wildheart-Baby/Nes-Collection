@@ -105,6 +105,8 @@ public class Settings extends AppCompatActivity {
 
         file_checks();
 
+
+
     }
 
     @Override

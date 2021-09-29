@@ -23,211 +23,308 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             ads:adSize="BANNER"
-            ads:adUnitId="@string/banner_ad_unit_id"
+            ads:adUnitId="@string/banner_ad_unit_id_stats"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="10dp"
             android:foregroundGravity="center">
         </com.google.android.gms.ads.AdView>
 
         <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/HeaderStats"
-        android:id="@+id/lblHeader"
-        android:layout_below="@id/adView"
-        android:layout_marginBottom="20dp"
-        android:textSize="18sp" />
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rlPieChart"
-        android:layout_below="@+id/lblHeader"
-        android:layout_marginBottom="10dp">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/PieGenres"
-            android:id="@+id/lblPieChart"
-            android:layout_marginBottom="10dp"
-            android:gravity="center"
-            android:textSize="24sp" />
-
-        <uk.co.pixoveeware.nes_collection.PieChartView
-            android:id="@+id/pie_chart_region"
-            android:layout_width="175dp"
-            android:layout_height="175dp"
-            android:layout_below="@+id/lblPieChart"
-            android:layout_marginLeft="5dp" />
-
-        <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#000000"
-            android:paddingLeft="1dp"
-            android:paddingTop="1dp"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp"
-            android:layout_alignTop="@+id/pie_chart"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginRight="5dp">
+            android:text="@string/HeaderStats"
+            android:id="@+id/lblHeader"
+            android:layout_below="@id/adView"
+            android:layout_marginBottom="20dp"
+            android:textSize="18sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rlPieChart"
+            android:layout_below="@+id/lblHeader"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/PieGenres"
+                android:id="@+id/lblPieChart"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:textSize="24sp" />
+
+            <uk.co.pixoveeware.nes_collection.PieChartView
+                android:id="@+id/pie_chart_region"
+                android:layout_width="175dp"
+                android:layout_height="175dp"
+                android:layout_below="@+id/lblPieChart"
+                android:layout_marginLeft="5dp" />
 
             <LinearLayout
-                android:id="@+id/key_region"
+                android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="right"
-                android:background="#f7f5f5">
+                android:background="#000000"
+                android:paddingLeft="1dp"
+                android:paddingTop="1dp"
+                android:paddingRight="1dp"
+                android:paddingBottom="1dp"
+                android:layout_alignTop="@+id/pie_chart"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="5dp">
+
+                <LinearLayout
+                    android:id="@+id/key_region"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="right"
+                    android:background="#f7f5f5">
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
 
-        <uk.co.pixoveeware.nes_collection.PieChartView
-            android:id="@+id/pie_chart"
-            android:layout_width="350dp"
-            android:layout_height="350dp"
-            android:layout_below="@+id/lblPieChart"
-            android:layout_marginLeft="5dp" />
-
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#000000"
-            android:paddingLeft="1dp"
-            android:paddingTop="1dp"
-            android:paddingRight="1dp"
-            android:paddingBottom="1dp"
-            android:layout_alignTop="@+id/pie_chart"
-            android:layout_alignParentRight="false"
-            android:layout_alignParentEnd="true"
-            android:gravity="center"
-            android:layout_alignParentLeft="false"
-            android:layout_centerHorizontal="true"
-            android:layout_marginRight="25dp">
+            <uk.co.pixoveeware.nes_collection.PieChartView
+                android:id="@+id/pie_chart"
+                android:layout_width="175dp"
+                android:layout_height="175dp"
+                android:layout_below="@+id/lblPieChart"
+                android:layout_marginLeft="5dp" />
 
             <LinearLayout
-            android:id="@+id/key"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="right"
-            android:background="#f7f5f5">
-        </LinearLayout>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:paddingLeft="1dp"
+                android:paddingTop="1dp"
+                android:paddingRight="1dp"
+                android:paddingBottom="1dp"
+                android:layout_alignTop="@+id/pie_chart"
+                android:layout_alignParentRight="false"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:layout_alignParentLeft="false"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="25dp">
 
-    </RelativeLayout>
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rlAll"
-        android:layout_below="@+id/rlPieChart"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="5dp">
+                <LinearLayout
+                    android:id="@+id/key"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="right"
+                    android:background="#f7f5f5">
+                </LinearLayout>
+            </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/AllGames"
-            android:id="@+id/lblAll"
-            android:textStyle="bold"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="New Text"
-            android:id="@+id/lblCost"
-            android:layout_below="@id/lblAll"
-            android:layout_centerHorizontal="true"
-            android:textSize="20sp" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:id="@+id/lblDivider2"
-            android:layout_below="@+id/lblCost"
-            android:background="#000000"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp" />
-    </RelativeLayout>
-
+        </RelativeLayout>
         <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rlPalA"
-        android:layout_below="@+id/rlAll"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="5dp">
-
-        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/PalAGames"
-            android:id="@+id/lblPalATitle"
-            android:layout_marginBottom="5dp"
-            android:textStyle="bold"
-            android:textSize="20sp" />
+            android:id="@+id/rlPieChart2"
+            android:layout_below="@+id/rlAll"
+            android:layout_marginBottom="10dp">
 
-        <TextView
-            android:layout_width="fill_parent"
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/PieGenres2"
+                android:id="@+id/lblPieChartRegion2"
+                android:layout_marginBottom="5dp"
+                android:gravity="center"
+                android:textSize="18sp" />
+
+            <uk.co.pixoveeware.nes_collection.SecondPieChartView
+                android:id="@+id/pie_chart_region2"
+                android:layout_width="175dp"
+                android:layout_height="175dp"
+                android:layout_below="@+id/lblPieChart2"
+                android:layout_marginLeft="5dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:paddingLeft="1dp"
+                android:paddingTop="1dp"
+                android:paddingRight="1dp"
+                android:paddingBottom="1dp"
+                android:layout_alignTop="@+id/pie_chart2"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="5dp">
+
+                <LinearLayout
+                    android:id="@+id/key_region2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="right"
+                    android:background="#f7f5f5">
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:text="New Text"
+                android:id="@+id/textView6"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/PieGenres2"
+                android:id="@+id/lblPieChart2"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:textSize="18sp" />
+
+            <uk.co.pixoveeware.nes_collection.SecondPieChartView
+                android:id="@+id/pie_chart2"
+                android:layout_width="175dp"
+                android:layout_height="175dp"
+                android:layout_below="@+id/lblPieChart2"
+                android:layout_marginLeft="5dp" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:paddingLeft="1dp"
+                android:paddingTop="1dp"
+                android:paddingRight="1dp"
+                android:paddingBottom="1dp"
+                android:layout_alignTop="@+id/pie_chart2"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="5dp">
+
+                <LinearLayout
+                    android:id="@+id/key2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="right"
+                    android:background="#f7f5f5">
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="You own "
-            android:id="@+id/lblPalA"
-            android:layout_below="@+id/lblPalATitle"
+            android:id="@+id/rlAll"
+            android:layout_below="@+id/rlPieChart"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="5dp"
-            android:textSize="20sp" />
+            android:layout_marginBottom="5dp">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:id="@+id/lblDivider"
-            android:layout_below="@+id/lblPalA"
-            android:background="#000000"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp" />
-    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/AllGames"
+                android:id="@+id/lblAll"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:id="@+id/lblCost"
+                android:layout_below="@id/lblAll"
+                android:layout_centerHorizontal="true"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/lblDivider2"
+                android:layout_below="@+id/lblCost"
+                android:background="#000000"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp" />
+        </RelativeLayout>
 
         <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rlPalB"
-        android:layout_below="@+id/rlPalA"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/PalBGames"
-            android:id="@+id/lblPalBTitle"
-            android:layout_marginBottom="5dp"
-            android:textStyle="bold"
-            android:textSize="20sp" />
+            android:id="@+id/rlPalA"
+            android:layout_below="@+id/rlPieChart2"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="5dp">
 
-        <TextView
-            android:layout_width="fill_parent"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/PalAGames"
+                android:id="@+id/lblPalATitle"
+                android:layout_marginBottom="5dp"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="You own "
+                android:id="@+id/lblPalA"
+                android:layout_below="@+id/lblPalATitle"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="5dp"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:id="@+id/lblDivider"
+                android:layout_below="@+id/lblPalA"
+                android:background="#000000"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="You own"
-            android:id="@+id/lblPalB"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/lblPalBTitle"
-            android:layout_marginBottom="5dp"
-            android:textSize="20sp" />
+            android:id="@+id/rlPalB"
+            android:layout_below="@+id/rlPalA"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/PalBGames"
+                android:id="@+id/lblPalBTitle"
+                android:layout_marginBottom="5dp"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="You own "
+                android:id="@+id/lblPalB"
+                android:layout_below="@+id/lblPalBTitle"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="5dp"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -237,38 +334,37 @@
                 android:id="@+id/lblDivider3"
                 android:layout_below="@+id/lblPalB"
                 android:background="#000000"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp" />
         </RelativeLayout>
-
         <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/rlUS"
-        android:layout_below="@+id/rlPalB"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="5dp">
-
-        <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/USGames"
-            android:id="@+id/lblUSTitle"
-            android:layout_marginBottom="5dp"
-            android:textStyle="bold"
-            android:textSize="20sp" />
+            android:id="@+id/rlUS"
+            android:layout_below="@+id/rlPalA"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="5dp">
 
-        <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="You own"
-            android:id="@+id/lblUS"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_below="@+id/lblUSTitle"
-            android:layout_marginBottom="5dp"
-            android:textSize="20sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/USGames"
+                android:id="@+id/lblUSTitle"
+                android:layout_marginBottom="5dp"
+                android:textStyle="bold"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="You own"
+                android:id="@+id/lblUS"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@+id/lblUSTitle"
+                android:layout_marginBottom="5dp"
+                android:textSize="14sp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -294,7 +390,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:id="@+id/lblCompleteTitle"
-                android:textSize="20sp"/>
+                android:textSize="14sp"/>
 
             <TextView
                 android:text="TextView"
@@ -302,7 +398,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/lblCompleteInfo"
                 android:layout_below="@id/lblCompleteTitle"
-                android:textSize="20sp"/>
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -327,7 +423,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/lblBoxedTitle"
                 android:textStyle="normal|bold"
-                android:textSize="20sp"/>
+                android:textSize="14sp"/>
 
             <TextView
                 android:text="TextView"
@@ -335,7 +431,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/lblBoxedInfo"
                 android:layout_below="@id/lblBoxedTitle"
-                android:textSize="20sp"/>
+                android:textSize="14sp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -361,7 +457,7 @@
                 android:layout_height="wrap_content"
                 android:textStyle="bold"
                 android:id="@+id/lblLooseTitle"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
             <TextView
                 android:text="TextView"
@@ -369,7 +465,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/lblLooseInfo"
                 android:layout_below="@id/lblLooseTitle"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
         </RelativeLayout>
     </RelativeLayout>
 

@@ -10,11 +10,12 @@
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:id="@+id/listView"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/adView" />
 
     <TextView
         android:layout_width="fill_parent"
@@ -26,6 +27,18 @@
         android:visibility="invisible"
         android:text="@string/NoResults"
         android:layout_marginLeft="5dp"
-        android:gravity="center" />
-
+        android:gravity="center"
+        android:layout_below="@+id/adView" />
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="false"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id_shelf_order"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="5dp"
+        android:layout_centerHorizontal="true">
+    </com.google.android.gms.ads.AdView>
 </RelativeLayout>

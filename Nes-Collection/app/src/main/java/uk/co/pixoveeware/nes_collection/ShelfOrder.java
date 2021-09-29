@@ -23,6 +23,10 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.ArrayList;
 
 public class ShelfOrder extends AppCompatActivity
@@ -112,6 +116,11 @@ public class ShelfOrder extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        MobileAds.initialize(getApplicationContext(), "ca-app-pub-0537596348696744~2585816192");
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override
@@ -157,172 +166,13 @@ public class ShelfOrder extends AppCompatActivity
     }
 
     public void readList(){//the readlist function
-        if (MainActivity.nesList == null){ MainActivity.readList(); }
-        MainActivity.nesList.clear();//clear the shoppingList array
-        check = "y";
-        pos = 1;
-        posInList = -1;
-        shelf = 1;
-
-        SQLiteDatabase db;//sets up the connection to the database
-        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-        //sql = "SELECT * FROM eu where owned = 1 and cart = 1 and onshelf = 1" + licensed +  "" ;
-        sql = "SELECT * FROM eu where owned = 1 and cart = 1 and onshelf = 1";
-        //sql = "SELECT * FROM eu where owned = 0";
-        //Log.d("Pixo", sql);
-        Cursor c = db.rawQuery(sql, null);//select everything from the database table
-
-        if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
-                NesItems nesListItems = new NesItems();//creates a new array
-                id = c.getInt(c.getColumnIndex("_id"));
-
-                name = c.getString(c.getColumnIndex("name"));
-
-                palAcart = c.getInt(c.getColumnIndex("pal_a_cart"));
-                palBcart = c.getInt(c.getColumnIndex("pal_b_cart"));
-                uscart = c.getInt(c.getColumnIndex("ntsc_cart"));
-                //Log.d("Pixo", "Name: " + name + " Regions " + palAcart + " " + palBcart + " " + uscart);
-
-                if (check.equals("y")){
-                    rec = 0;
-
-                    if (palAcart == 8783){rec ++; posInList++; Log.d("Pixoif", "first if done");} else {}
-                    if (palBcart == 8783){rec ++; posInList++; Log.d("Pixoif", "second if done");} else {}
-                    if (uscart == 8783){rec ++; posInList++; Log.d("Pixoif", "third if done");} else {}
-
-                    check = "n";
-                }
-
-                Log.d("Pixoif", "rec: " + rec);
-
-                if(pos == 1){
-                    nesListItems.setGroup("Shelf " + shelf);
-                    nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                    nesListItems.setName(c.getString(c.getColumnIndex(thename)));
-                    gamename = (c.getString(c.getColumnIndex(thename)));
-                    nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
-                    nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    nesListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
-                    nesListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
-                    nesListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
-                    nesListItems.setBoxPalA(c.getInt(c.getColumnIndex("pal_a_box")));
-                    nesListItems.setBoxPalB(c.getInt(c.getColumnIndex("pal_b_box")));
-                    nesListItems.setBoxNtsc(c.getInt(c.getColumnIndex("ntsc_box")));
-                    nesListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
-                    nesListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
-                    nesListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
-                    nesListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
-                    nesListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
-                    nesListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
-                    nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
-                    nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
-                    nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
-                    nesListItems.setFavourite(c.getInt(c.getColumnIndex("favourite")));
-                    nesListItems.setYear(c.getString(c.getColumnIndex("year"))); //re-edit this after testing
-                    nesListItems.setGenre((c.getString(c.getColumnIndex("genre"))));
-                    nesListItems.setSubgenre((c.getString(c.getColumnIndex("subgenre"))));
-                    nesListItems.setDeveloper((c.getString(c.getColumnIndex("developer"))));
-                    nesListItems.setSynopsis((c.getString(c.getColumnIndex("synopsis"))));
-                    nesListItems.setAustralia(c.getInt(c.getColumnIndex("flag_australia")));
-                    nesListItems.setAustria(c.getInt(c.getColumnIndex("flag_austria")));
-                    nesListItems.setBenelux(c.getInt(c.getColumnIndex("flag_benelux")));
-                    nesListItems.setDenmark(c.getInt(c.getColumnIndex("flag_denmark")));
-                    nesListItems.setFinland(c.getInt(c.getColumnIndex("flag_finland")));
-                    nesListItems.setFrance(c.getInt(c.getColumnIndex("flag_france")));
-                    nesListItems.setGermany((c.getInt(c.getColumnIndex("flag_germany"))));
-                    nesListItems.setGreece(c.getInt(c.getColumnIndex("flag_greece")));
-                    nesListItems.setIreland(c.getInt(c.getColumnIndex("flag_ireland")));
-                    nesListItems.setItaly(c.getInt(c.getColumnIndex("flag_italy")));
-                    nesListItems.setNorway(c.getInt(c.getColumnIndex("flag_norway")));
-                    nesListItems.setPoland(c.getInt(c.getColumnIndex("flag_poland")));
-                    nesListItems.setPortugal(c.getInt(c.getColumnIndex("flag_portugal")));
-                    nesListItems.setSpain(c.getInt(c.getColumnIndex("flag_spain")));
-                    nesListItems.setSweden(c.getInt(c.getColumnIndex("flag_sweden")));
-                    nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
-                    nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
-                    nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
-                    if (rec > 1){posInList =  posInList - 1;}
-                    nesListItems.setListPos(posInList);
-                    Log.d("shelf", "adding list position: " + posInList);
-                    //nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    MainActivity.nesList.add(nesListItems);//add items to the arraylist
-                    shelf ++;
-                    //Log.d("pixo", "added shelf record " + name);
-
-                }
-                else {
-                    nesListItems.setGroup("no");
-                    nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    nesListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                    nesListItems.setName(c.getString(c.getColumnIndex(thename)));
-                    gamename = (c.getString(c.getColumnIndex(thename)));
-                    nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
-                    nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    nesListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
-                    nesListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
-                    nesListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
-                    nesListItems.setBoxPalA(c.getInt(c.getColumnIndex("pal_a_box")));
-                    nesListItems.setBoxPalB(c.getInt(c.getColumnIndex("pal_b_box")));
-                    nesListItems.setBoxNtsc(c.getInt(c.getColumnIndex("ntsc_box")));
-                    nesListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
-                    nesListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
-                    nesListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
-                    nesListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
-                    nesListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
-                    nesListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
-                    nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
-                    nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
-                    nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
-                    nesListItems.setFavourite(c.getInt(c.getColumnIndex("favourite")));
-                    nesListItems.setYear(c.getString(c.getColumnIndex("year"))); //re-edit this after testing
-                    nesListItems.setGenre((c.getString(c.getColumnIndex("genre"))));
-                    nesListItems.setSubgenre((c.getString(c.getColumnIndex("subgenre"))));
-                    nesListItems.setDeveloper((c.getString(c.getColumnIndex("developer"))));
-                    nesListItems.setSynopsis((c.getString(c.getColumnIndex("synopsis"))));
-                    nesListItems.setAustralia(c.getInt(c.getColumnIndex("flag_australia")));
-                    nesListItems.setAustria(c.getInt(c.getColumnIndex("flag_austria")));
-                    nesListItems.setBenelux(c.getInt(c.getColumnIndex("flag_benelux")));
-                    nesListItems.setDenmark(c.getInt(c.getColumnIndex("flag_denmark")));
-                    nesListItems.setFinland(c.getInt(c.getColumnIndex("flag_finland")));
-                    nesListItems.setFrance(c.getInt(c.getColumnIndex("flag_france")));
-                    nesListItems.setGermany((c.getInt(c.getColumnIndex("flag_germany"))));
-                    nesListItems.setGreece(c.getInt(c.getColumnIndex("flag_greece")));
-                    nesListItems.setIreland(c.getInt(c.getColumnIndex("flag_ireland")));
-                    nesListItems.setItaly(c.getInt(c.getColumnIndex("flag_italy")));
-                    nesListItems.setNorway(c.getInt(c.getColumnIndex("flag_norway")));
-                    nesListItems.setPoland(c.getInt(c.getColumnIndex("flag_poland")));
-                    nesListItems.setPortugal(c.getInt(c.getColumnIndex("flag_portugal")));
-                    nesListItems.setSpain(c.getInt(c.getColumnIndex("flag_spain")));
-                    nesListItems.setSweden(c.getInt(c.getColumnIndex("flag_sweden")));
-                    nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
-                    nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
-                    nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
-                    if (rec > 1){posInList =  posInList - 1;}
-                    nesListItems.setListPos(posInList);
-                    Log.d("shelf", "adding list position: " + posInList);
-                    //nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    MainActivity.nesList.add(nesListItems);//add items to the arraylist
-                    if (pos == shelfsize){pos = 0;}
-                    //Log.d("pixo", "added other record " + name);
-                }
-
-                if (rec == 1){c.moveToNext(); check = "y"; Log.d("pixoif", "position in the list: " + posInList + " game name: " + gamename);}
-                else if(rec > 1){ rec = rec - 1;  Log.d("pixoif", "position in the list: " + posInList + " game name: " + gamename);}
-                pos ++;
-            }
-
-            c.close();//close the cursor
-        }
-
-        db.close();//close the database
+        MainActivity.sqlstatement = "SELECT * FROM eu where owned = 1 and cart = 1 and onshelf = 1";
+        new FillShelfAdapter(this);
 
         ShelfCollectionAdapter nes = new ShelfCollectionAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
         gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
 
     }
-
 
     public void gameregion(){//selects the region from the database
 

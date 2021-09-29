@@ -14,19 +14,44 @@
 
         <ListView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/lvOwnedGames"
             android:scrollingCache="false"
             android:animationCache="false"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentTop="false"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/adView" />
         <GridView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:columnCount="3"
             android:id="@+id/gvAllGames"
             android:numColumns="3"
-            android:scrollIndicators="none" />
+            android:scrollIndicators="none"
+            android:layout_below="@+id/adView" />
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="false"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/banner_ad_unit_id__owned_games"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="5dp"
+            android:layout_centerHorizontal="true">
+        </com.google.android.gms.ads.AdView>
 
+        <ListView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/lvAlphaIndex"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:scrollbars="none"
+            android:dividerHeight="0dp"
+            android:divider="@android:color/transparent"
+            android:background="@color/indexlist"
+            android:layout_below="@+id/adView" />
 </RelativeLayout>

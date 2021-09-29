@@ -8,6 +8,18 @@
     <string name="title_activity_game_detail">Game Detail</string>
     <string name="title_activity_navigation_menu">NavigationMenu</string>
 
+    <string name="banner_ad_unit_id_main">ca-app-pub-0537596348696744/7839290054</string>
+    <string name="banner_ad_unit_id_all_games">ca-app-pub-0537596348696744/2459512467</string>
+    <string name="banner_ad_unit_id_needed_games">ca-app-pub-0537596348696744/7344875152</string>
+    <string name="banner_ad_unit_id__owned_games">ca-app-pub-0537596348696744/2830915072</string>
+    <string name="banner_ad_unit_id_favourite_games">ca-app-pub-0537596348696744/6933811613</string>
+    <string name="banner_ad_unit_id_wish_list">ca-app-pub-0537596348696744/1469608231</string>
+    <string name="banner_ad_unit_id_shelf_order">ca-app-pub-0537596348696744/2364011215</string>
+    <string name="banner_ad_unit_id_search_results">ca-app-pub-0537596348696744/7884151033</string>
+    <string name="banner_ad_unit_id_settings">ca-app-pub-0537596348696744/8594597476</string>
+    <string name="banner_ad_unit_id_finished_games">ca-app-pub-0537596348696744/1956407984</string>
+    <string name="banner_ad_unit_id_stats">ca-app-pub-0537596348696744/7580898702</string>
+
     <string name="banner_ad_unit_id">ca-app-pub-0537596348696744/4062549395</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -60,6 +72,24 @@
         <item>Pal A &amp; B</item>
         <item>Pal A &amp; Ntsc</item>
         <item>Pal B &amp; Ntsc</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Benelux</item>
+        <item>Canada</item>
+        <item>Denmark</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>Germany</item>
+        <item>Greece</item>
+        <item>Ireland</item>
+        <item>Italy</item>
+        <item>Norway</item>
+        <item>Poland</item>
+        <item>Portugal</item>
+        <item>Scandinavia</item>
+        <item>Spain</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
         <item>All Regions</item>
     </string-array>
 
@@ -666,6 +696,7 @@
     <string name="title_activity_main2">Main2Activity</string>
     <string name="title_activity_games_detail">Games Detail</string>
     <string name="PieGenres">Game Genres</string>
+    <string name="PieGenres2">Game Breakdown</string>
     <string name="PalAGames">Pal A Games</string>
     <string name="PalBGames">Pal B Games</string>
     <string name="USGames">US Games</string>
@@ -738,7 +769,7 @@
     <string name="searchSearch">Search</string>
     <string name="searchCancel">Cancel</string>
 
-    <string name="allGamesSubTitle1">This region has</string>
+    <string name="allGamesSubTitle1">Region has</string>
     <string name="allGamesSubTitle2">games</string>
 
     <string name="editGameOwned">Owned</string>
