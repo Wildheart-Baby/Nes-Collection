@@ -1,0 +1,704 @@
+<resources>
+    <string name="app_name">Nes Collection</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_credits">Credits</string>
+    <string name="action_wishlist">Wish list</string>
+    <string name="name">name</string>
+    <string name="title_activity_all_games">All Games</string>
+    <string name="title_activity_game_detail">GameDetail</string>
+    <string name="title_activity_navigation_menu">NavigationMenu</string>
+
+    <string name="banner_ad_unit_id">ca-app-pub-0537596348696744/4062549395</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_search_results">SearchResults</string>
+    <string name="title_activity_owned_games">OwnedGames</string>
+    <string name="ownedgames">A B Us</string>
+    <string name="cartimage">cartimage</string>
+    <string name="boximage">boximage</string>
+    <string name="manualimage">manualimage</string>
+    <string name="title_activity_edit_owned_game">EditOwnedGame</string>
+    <string name="Owned">Owned</string>
+    <string name="gamename">Game Name</string>
+    <string name="palA">Pal A</string>
+    <string name="palBcart">Pal B</string>
+    <string name="US">US</string>
+    <string name="Ok">Ok</string>
+    <string name="Cancel">Cancel</string>
+    <string name="title_activity_needed_games">NeededGames</string>
+    <string name="Totalgames">Total games</string>
+    <string name="title_activity_nes_collection">NesCollection</string>
+    <string name="AllGames">All Games</string>
+    <string name="Needed">Needed</string>
+    <string name="Stats">Statistics</string>
+    <string name="title_activity_main_page">MainPage</string>
+
+    <string name="title_activity_splash">SplashActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="Title">Nes Collection</string>
+    <string name="title_activity_favourite_games">FavouriteGames</string>
+    <string name="whichregion">Collecting Region</string>
+    <string name="title_activity_settings">Settings</string>
+    <string name="Settings">Settings</string>
+    <string name="Unlicensed">Include unlicensed games</string>
+    <string name="RandomHeading">Your randomly selected game is</string>
+    <string name="action_order_alphabetic">Order alphabetically</string>
+    <string name="action_order_price">Order by price</string>
+    
+    <string-array name="currencyArray">
+        <item>£</item>
+        <item>€</item>
+        <item>$</item>
+    </string-array>
+
+    <string-array name="regionsArray">
+        <item>Pal A UK</item>
+        <item>Pal A</item>
+        <item>Pal B</item>
+        <item>Ntsc</item>
+        <item>Pal A &amp; B</item>
+        <item>Pal A &amp; Ntsc</item>
+        <item>Pal B &amp; Ntsc</item>
+        <item>All Regions</item>
+    </string-array>
+
+
+    <string-array name="searchArray">
+        <item>name</item>
+        <item>publisher</item>
+        <item>developer</item>
+        <item>genre</item>
+        <item>subgenre</item>
+        <item>year</item>
+        <item>synopsis</item>
+    </string-array>
+
+    <string-array name="yearArray">
+        <item>1985</item>
+        <item>1986</item>
+        <item>1987</item>
+        <item>1988</item>
+        <item>1989</item>
+        <item>1990</item>
+        <item>1991</item>
+        <item>1992</item>
+        <item>1993</item>
+        <item>1994</item>
+        <item>1995</item>
+    </string-array>
+
+    <string-array name="publisherArray">
+        <item>ASC</item>
+        <item>ASCII Entertainment</item>
+        <item>ATLUS</item>
+        <item>AVE</item>
+        <item>Absolute Entertainment</item>
+        <item>Acclaim</item>
+        <item>Active Enterprises</item>
+        <item>Activision</item>
+        <item>Advance Communication Company</item>
+        <item>American Game Cartridges</item>
+        <item>American Sammy</item>
+        <item>American Softworks</item>
+        <item>American Video</item>
+        <item>American Video Entertainment</item>
+        <item>Arcadia Systems</item>
+        <item>Asmik Corporation of America</item>
+        <item>Atari Games</item>
+        <item>Atlus</item>
+        <item>Bandai</item>
+        <item>Bandai America Inc</item>
+        <item>Broderbund</item>
+        <item>Bullet Proof Software</item>
+        <item>Bunch Games</item>
+        <item>Bunch Games Inc</item>
+        <item>CBS</item>
+        <item>Caltron</item>
+        <item>Camerica</item>
+        <item>Capcom</item>
+        <item>Codemasters</item>
+        <item>Color Dreams</item>
+        <item>Culture Brain</item>
+        <item>Data East</item>
+        <item>Data East USA</item>
+        <item>Electro Brain</item>
+        <item>Electronic Arts</item>
+        <item>Elite</item>
+        <item>Enix America Inc</item>
+        <item>Exidy</item>
+        <item>FCI</item>
+        <item>FCI Inc</item>
+        <item>GameTek</item>
+        <item>Gremlin</item>
+        <item>HAL</item>
+        <item>HAL Labs</item>
+        <item>HES</item>
+        <item>HES Interactive</item>
+        <item>Hewson Consultants</item>
+        <item>Hi Tech Expressions</item>
+        <item>Hi-Tech</item>
+        <item>Hot B</item>
+        <item>Hudson</item>
+        <item>Hudson Soft</item>
+        <item>INTV</item>
+        <item>Imagineer</item>
+        <item>Infocom</item>
+        <item>Infogrames</item>
+        <item>Irem</item>
+        <item>JVC Musical Industries Inc</item>
+        <item>JVC, Lucasfilm Games</item>
+        <item>Jaleco</item>
+        <item>Jaleco Entertainment</item>
+        <item>Kemco</item>
+        <item>Koei</item>
+        <item>Konami</item>
+        <item>LJN</item>
+        <item>LJN Ltd</item>
+        <item>Laser Beam</item>
+        <item>Loriciel</item>
+        <item>MB</item>
+        <item>Matchbox</item>
+        <item>Mattel</item>
+        <item>Meldac</item>
+        <item>MicroProse</item>
+        <item>Milton Bradley</item>
+        <item>Mindscape</item>
+        <item>Mindscape Inc</item>
+        <item>NTVIC</item>
+        <item>Namco</item>
+        <item>Natsume</item>
+        <item>Nexoft</item>
+        <item>Nihon Bussan</item>
+        <item>Nintendo</item>
+        <item>Ocean</item>
+        <item>Odyssey Software</item>
+        <item>Palcom</item>
+        <item>Parker Brothers</item>
+        <item>Pony Canyon</item>
+        <item>Romstar</item>
+        <item>SNK</item>
+        <item>Sales Curve</item>
+        <item>Sammy</item>
+        <item>Sammy Studios</item>
+        <item>Sei</item>
+        <item>Seika Corp</item>
+        <item>Seta Corporation</item>
+        <item>Sofel</item>
+        <item>Software Toolworks</item>
+        <item>Sony Imagesoft</item>
+        <item>Square</item>
+        <item>SquareSoft</item>
+        <item>SunSoft</item>
+        <item>THQ</item>
+        <item>Taito</item>
+        <item>Taito Corporation</item>
+        <item>Takara</item>
+        <item>Technos</item>
+        <item>Technōs Japan</item>
+        <item>Tecmo</item>
+        <item>Tengen</item>
+        <item>Titus</item>
+        <item>Toho</item>
+        <item>Tradwest</item>
+        <item>Ubi Soft</item>
+        <item>Takeru</item>
+        <item>Tamtex</item>
+        <item>Taxan</item>
+        <item>Technos</item>
+        <item>Tecmo</item>
+        <item>Ultra</item>
+        <item>Ultra Games</item>
+        <item>Vic Tokai</item>
+        <item>Virgin</item>
+        <item>Virgin Games</item>
+        <item>Virgin Interactive</item>
+        <item>Wisdom Tree</item>
+    </string-array>
+
+    <string-array name="developerArray">
+        <item>AI</item>
+        <item>ASCII Entertainment</item>
+        <item>Absolute Entertainment</item>
+        <item>Acclaim</item>
+        <item>Accolade</item>
+        <item>Active Enterprises</item>
+        <item>Activision</item>
+        <item>Advance Communication Company</item>
+        <item>Aicom</item>
+        <item>American Game Cartridges</item>
+        <item>American Technos</item>
+        <item>American Video Entertainment</item>
+        <item>Another</item>
+        <item>Arc System Works</item>
+        <item>Arcadia Syatems</item>
+        <item>Asmik</item>
+        <item>Atari</item>
+        <item>Atari Games</item>
+        <item>Atelier Double</item>
+        <item>Athena</item>
+        <item>Atlus</item>
+        <item>Audiogenic</item>
+        <item>Authentic Entertainment</item>
+        <item>Axes Art Amuse</item>
+        <item>B.I.T.S.</item>
+        <item>BPS</item>
+        <item>Bandai</item>
+        <item>Beam Software</item>
+        <item>Bethesda Softworks</item>
+        <item>Bit Corp</item>
+        <item>Bit Managers</item>
+        <item>Bit Masters</item>
+        <item>Bitmasters</item>
+        <item>Bits Laboratory</item>
+        <item>Bullet Proof Software</item>
+        <item>Bunch Games</item>
+        <item>C and E</item>
+        <item>Capcom</item>
+        <item>Carry Lab</item>
+        <item>Chris Gray Enterprises</item>
+        <item>ChunSoft</item>
+        <item>Codemasters</item>
+        <item>Coleco</item>
+        <item>Color Dreams</item>
+        <item>Compile</item>
+        <item>Cosmo</item>
+        <item>Culture Brain</item>
+        <item>Cyclone System</item>
+        <item>Dark Technologies</item>
+        <item>Data East</item>
+        <item>Disney</item>
+        <item>Distinctive Software</item>
+        <item>EIM</item>
+        <item>Eastridge Technology</item>
+        <item>Electronic Arts</item>
+        <item>Elite</item>
+        <item>Enigma Variations</item>
+        <item>Equilibrium</item>
+        <item>Eurocom</item>
+        <item>Eurocom Entertainment Software</item>
+        <item>Europe</item>
+        <item>Exidy</item>
+        <item>FCI</item>
+        <item>Falcom</item>
+        <item>Farsight Technologies</item>
+        <item>First Star</item>
+        <item>G-Amusements</item>
+        <item>Game Arts</item>
+        <item>Game Freak</item>
+        <item>Game Studio</item>
+        <item>GameTek</item>
+        <item>Graftgold</item>
+        <item>Graphic research</item>
+        <item>Gremlin</item>
+        <item>Gremlin Graphics</item>
+        <item>Grey Matter</item>
+        <item>HAL</item>
+        <item>HAL Labs</item>
+        <item>HES Interactive</item>
+        <item>Hacker International</item>
+        <item>Hewson Consultants</item>
+        <item>Home Data</item>
+        <item>Hot B</item>
+        <item>Hot-B</item>
+        <item>Hudson</item>
+        <item>Hudson Soft</item>
+        <item>Human Entertainment</item>
+        <item>ICOM Simulations</item>
+        <item>ITL</item>
+        <item>Icom Simulations</item>
+        <item>Idea-Tek</item>
+        <item>Imagineering</item>
+        <item>Imagineering Inc</item>
+        <item>Incredible Technologies</item>
+        <item>Infinity</item>
+        <item>Infinity, Imagineer</item>
+        <item>Infogrames</item>
+        <item>Interplay</item>
+        <item>Irem</item>
+        <item>Iwasaki</item>
+        <item>Jaleco</item>
+        <item>Jaleco Entertainment</item>
+        <item>Jim Meuer</item>
+        <item>Joy Van</item>
+        <item>KAZe</item>
+        <item>Kemco</item>
+        <item>Kid</item>
+        <item>Klon Co. Ltd</item>
+        <item>Koei</item>
+        <item>Inis</item>
+        <item>Konami</item>
+        <item>Kotobuki</item>
+        <item>Kotobuki Systems</item>
+        <item>Kyugo</item>
+        <item>LJN Ltd</item>
+        <item>Lenar</item>
+        <item>Lenar</item>
+        <item>Loriciel</item>
+        <item>Lucasfilm Games</item>
+        <item>Marionette</item>
+        <item>Mega Soft</item>
+        <item>MegaSoft</item>
+        <item>MicroProse</item>
+        <item>Micronics</item>
+        <item>Million</item>
+        <item>Minds Eye</item>
+        <item>Mindscape</item>
+        <item>Mindscape Inc</item>
+        <item>Movietime Europe</item>
+        <item>NMK</item>
+        <item>NMS Software</item>
+        <item>Namco</item>
+        <item>Natsume</item>
+        <item>Nichibutsu</item>
+        <item>Nihon Bussan</item>
+        <item>Nintendo</item>
+        <item>Novotrade</item>
+        <item>Now Production</item>
+        <item>Ocean</item>
+        <item>Odyssey Software</item>
+        <item>Origin</item>
+        <item>Oyssey Software Inc</item>
+        <item>Ozark Softscape</item>
+        <item>Pack-In-Video</item>
+        <item>Painting by Numbers</item>
+        <item>Park Place Productions</item>
+        <item>Pixel</item>
+        <item>Prob</item>
+        <item>Probe Entertainment</item>
+        <item>Probe Software</item>
+        <item>Psygnosis</item>
+        <item>Quest</item>
+        <item>RARE</item>
+        <item>RSP</item>
+        <item>Radiance</item>
+        <item>Radical Entertainment</item>
+        <item>Raffaele Cecco</item>
+        <item>Rainbow Arts</item>
+        <item>Rare</item>
+        <item>Rare Ltd</item>
+        <item>Realtime Associates</item>
+        <item>Rocket Science</item>
+        <item>Rocket Science Production</item>
+        <item>Romstar</item>
+        <item>SAS Sakura</item>
+        <item>SNK</item>
+        <item>SSI</item>
+        <item>Sachen</item>
+        <item>Sales Curve</item>
+        <item>Sandcastle</item>
+        <item>Sanritsu</item>
+        <item>Sculptured Brain</item>
+        <item>Sculptured Software</item>
+        <item>Radioactive Software</item>
+        <item>Shouei</item>
+        <item>Sofel</item>
+        <item>Softie Inc</item>
+        <item>Software Creations</item>
+        <item>Software Toolworks</item>
+        <item>Sol</item>
+        <item>Source</item>
+        <item>Source research and Development</item>
+        <item>Special FX</item>
+        <item>Spidersoft</item>
+        <item>Square</item>
+        <item>SquareSoft</item>
+        <item>Sunsoft</item>
+        <item>System 3</item>
+        <item>T and E Soft</item>
+        <item>TOSE</item>
+        <item>Tait Software Creations</item>
+        <item>Tait Toaplan</item>
+        <item>Taito</item>
+        <item>Taito Corporation</item>
+        <item>Teeny Weeny Games</item>
+        <item>Tengen</item>
+        <item>Thin Chen Enterprises</item>
+        <item>Thinking Rabbit</item>
+        <item>Titus</item>
+        <item>Toho</item>
+        <item>Tokai</item>
+        <item>Tose</item>
+        <item>Tradewest</item>
+        <item>Twilight</item>
+        <item>Ultra</item>
+        <item>Unknown</item>
+        <item>Vap</item>
+        <item>Various</item>
+        <item>Vic Tokai</item>
+        <item>Virgin</item>
+        <item>Visco</item>
+        <item>Visual Concepts</item>
+        <item>West One</item>
+        <item>Western Technologies Inc</item>
+        <item>Westwood Associates</item>
+        <item>Westwood Studios</item>
+        <item>Winky Soft</item>
+        <item>WinkySoft</item>
+        <item>Wisdom Tree</item>
+        <item>Zippo Games</item>
+    </string-array>
+
+    <string-array name="genreArray">
+        <item>Action</item>
+        <item>Action-Adventure</item>
+        <item>Adventure</item>
+        <item>Arcade</item>
+        <item>Beat em Up</item>
+        <item>Board game</item>
+        <item>Compilation</item>
+        <item>Fighting</item>
+        <item>Other</item>
+        <item>Platformer</item>
+        <item>Puzzle</item>
+        <item>Racing</item>
+        <item>Role-Playing Game</item>
+        <item>Shoot em Up</item>
+        <item>Shooter</item>
+        <item>Simulation</item>
+        <item>Sports</item>
+        <item>Strategy</item>
+        <item>Traditional</item>
+        <item>Trivia</item>
+    </string-array>
+
+    <string-array name="subgenreArray">
+        <item>Side Scrolling Shoot em Up</item>
+        <item>Hybrid Shoot em Up</item>
+        <item>2D Action Adventure</item>
+        <item>2D Action Platformer</item>
+        <item>2D Side Scrolling</item>
+        <item>Action</item>
+        <item>Action Adventure</item>
+        <item>Action RPG</item>
+        <item>Action Strategy Hybrid</item>
+        <item>Action-Adventure</item>
+        <item>Aerial Swordplay</item>
+        <item>Aeroshooter</item>
+        <item>Arcade</item>
+        <item>Arcade Action</item>
+        <item>Arcade Platformer</item>
+        <item>Arcade Racing</item>
+        <item>Arena Shooter</item>
+        <item>Athletics</item>
+        <item>Ball and Paddle</item>
+        <item>Baseball</item>
+        <item>Basketball</item>
+        <item>Battle Racing</item>
+        <item>Beat em Up</item>
+        <item>Boardgame</item>
+        <item>Bowling</item>
+        <item>Campaign Strategy</item>
+        <item>Card Game</item>
+        <item>Carnage Racing</item>
+        <item>Cartoon Sports</item>
+        <item>Casino</item>
+        <item>Character Control Puzzle</item>
+        <item>Chase Racing</item>
+        <item>Chess</item>
+        <item>Christian</item>
+        <item>Cinematic Platformer</item>
+        <item>Colour Match</item>
+        <item>Combat Simulation</item>
+        <item>Comical Action</item>
+        <item>Compilation</item>
+        <item>Connecting Puzzle</item>
+        <item>Cricket</item>
+        <item>Cue Sport</item>
+        <item>Darts</item>
+        <item>Digging Game</item>
+        <item>Direct Control Adventure</item>
+        <item>Dodgeball</item>
+        <item>Driving</item>
+        <item>Duel RPG</item>
+        <item>Dungeon Crawler</item>
+        <item>Educational</item>
+        <item>Edutainment</item>
+        <item>Extreme Sports</item>
+        <item>Falling Blocks</item>
+        <item>Fantasy Sport</item>
+        <item>Fighting</item>
+        <item>First Person Shooter</item>
+        <item>Fishing</item>
+        <item>Fixed Screen</item>
+        <item>Fixed Screen Racing</item>
+        <item>Flight Simulator</item>
+        <item>Football</item>
+        <item>Formula 1</item>
+        <item>Formula Racing</item>
+        <item>Futuristic Hockey</item>
+        <item>Game Show</item>
+        <item>Golf</item>
+        <item>Grid Shuffling</item>
+        <item>Head-to-head Fighting</item>
+        <item>Helicopter Rescue</item>
+        <item>Hidden Object</item>
+        <item>Hockey</item>
+        <item>Horizontal Shoot em Up</item>
+        <item>Hybrid Shoot em Up</item>
+        <item>Hybrid Shooter</item>
+        <item>Ice Hockey</item>
+        <item>Isometric Action Adventure</item>
+        <item>Isometric Platformer</item>
+        <item>Isometric Racer</item>
+        <item>Jump n Run</item>
+        <item>Jump n Shoot</item>
+        <item>Jump n Slay</item>
+        <item>Jump n Run</item>
+        <item>Jump n Shoot</item>
+        <item>Jump n Slay</item>
+        <item>Light Gun Game</item>
+        <item>Light Gun Shooter</item>
+        <item>Linear</item>
+        <item>Looping Shoot em Up</item>
+        <item>Management</item>
+        <item>Martial Arts</item>
+        <item>Match Game</item>
+        <item>Math Coach</item>
+        <item>Maze Game</item>
+        <item>Menu Driven Adventure</item>
+        <item>Mini Games</item>
+        <item>Mini-Game Collection</item>
+        <item>Mission Based Driving</item>
+        <item>Movement Puzzle</item>
+        <item>Multi Sports</item>
+        <item>Multi directional Shoot em up</item>
+        <item>Music Coach</item>
+        <item>Obstacle Course</item>
+        <item>Off Road Racing</item>
+        <item>Other Racing</item>
+        <item>Personal Fitness</item>
+        <item>Pinball</item>
+        <item>Platform Adventure</item>
+        <item>Platform Fighter</item>
+        <item>Platformer</item>
+        <item>Playfield Puzzle</item>
+        <item>Point and Click Adventure</item>
+        <item>Poker</item>
+        <item>Puzzle</item>
+        <item>Puzzle Game</item>
+        <item>Puzzle Platformer</item>
+        <item>Rail Shooter</item>
+        <item>Roaming Shoot em Up</item>
+        <item>Role-Playing Sport</item>
+        <item>Run n Gun</item>
+        <item>Run n Gun Shooter</item>
+        <item>Sandbox Game</item>
+        <item>Scroling Racer</item>
+        <item>Scrolling Action-Adventure</item>
+        <item>Scrolling Fighter</item>
+        <item>Scrolling Shoot em Up</item>
+        <item>Scrolling Shooter</item>
+        <item>Shoot em up</item>
+        <item>Shooter</item>
+        <item>Shooting Gallery</item>
+        <item>Side Scrolling</item>
+        <item>Side Scrolling Platform</item>
+        <item>Side Scrolling Role-Playing Game</item>
+        <item>Side Scrolling Shoot em Up</item>
+        <item>Side Scrolling Shooter</item>
+        <item>Side scrolling</item>
+        <item>Single Screen Arcade</item>
+        <item>Skating</item>
+        <item>Sliding Puzzle</item>
+        <item>Snowboard</item>
+        <item>Softball</item>
+        <item>Space Shuttle Simulation</item>
+        <item>Starship Simulation</item>
+        <item>Stealth Game</item>
+        <item>Stock Car Racing</item>
+        <item>Strategy</item>
+        <item>Stroll and Gun</item>
+        <item>Submarine Simulation</item>
+        <item>Survival Horror</item>
+        <item>Tarot Reading</item>
+        <item>Tennis</item>
+        <item>Top Down  Shoot em Up</item>
+        <item>Top Down Racer</item>
+        <item>Top Down Shooter</item>
+        <item>Track and Field</item>
+        <item>Turn-Based Tactics</item>
+        <item>Vehicular Combat</item>
+        <item>Vertical Racing</item>
+        <item>Vertical Scrolling</item>
+        <item>Vertical Scrolling Shooter</item>
+        <item>Vertical Shoot em Up</item>
+        <item>Virtual Board Game</item>
+        <item>Virtual Racing</item>
+        <item>Volleyball</item>
+        <item>Winter Sports</item>
+        <item>Wrestling</item>
+        <item>Art Game</item>
+    </string-array>
+
+    <string-array name="screenArray">
+        <item>All Games</item>
+        <item>Missing Games</item>
+        <item>Owned Games</item>
+        <item>Favourite Games</item>
+        <item>Wish List</item>
+        <item>Shelf Order</item>
+        <item>Game Statistics</item>
+        <item>Settings</item>
+        <item></item>
+    </string-array>
+
+    <string name="title_activity_search">Search</string>
+    <string name="title_activity_statistics">Statistics</string>
+    <string name="title_activity_about">About</string>
+    <string name="title_activity_credits">Credits</string>
+    <string name="Aboutdesc">Your game collecting companion</string>
+    <string name="About">© Pixoveeware 2016 \n  All rights reserved.</string>
+    <string name="Cost">Cost</string>
+    <string name="title_activity_shelf_order">ShelfOrder</string>
+    <string name="SearchTerm">Game Title</string>
+    <string name="FieldName">Field to search</string>
+    <string name="SubGenre">Sub genre</string>
+    <string name="NoResults">Sorry there are no results</string>
+    <string name="AllRegions">Only search collecting region</string>
+    <string name="HeaderStats">This is a breakdown of the games that you have in your collection by region.</string>
+    <string name="Shelf">Store on shelf</string>
+    <string name="Currency">Currency</string>
+    <string name="ShelfSize">Number of games per shelf</string>
+    <string name="title_activity_wish_list">WishList</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_games_detail">GamesDetail</string>
+    <string name="PieGenres">Game Genres</string>
+    <string name="PalAGames">Pal A Games</string>
+    <string name="PalBGames">Pal B Games</string>
+    <string name="USGames">US Games</string>
+    <string name="ShowPrices">Show prices paid for games</string>
+    <string name="title_activity_finished_games">FinishedGames</string>
+    <string name="ListView">View as list</string>
+    <string name="GalleryView">View as gallery</string>
+    <string name="GamesList">Games lists</string>
+    <string name="title_activity_stats_search_results">StatsSearchResults</string>
+    <string name="Countries">Released in</string>
+    <string name="ExportDatabase">Games data</string>
+    <string name="SettingsExport">Export Data</string>
+    <string name="Import">Import</string>
+    <string name="title_activity_trophy_room">TrophyRoom</string>
+    <string name="RegionMissing">Show games missing from collecting region</string>
+
+    <string name="mainAllGames">Alle Spiele</string>
+    <string name="mainNeededGames">Benötigte Spiele</string>
+    <string name="mainOwnedGames">Eigene Spiele</string>
+    <string name="mainFavouriteGames">Favoriten</string>
+    <string name="mainWishList">Wunschliste</string>
+    <string name="mainShelfOrder">Regal bestellen</string>
+    <string name="mainStatistics">Statistiken</string>
+    <string name="mainFinishedGames">Beendete Spiele</string>
+    <string name="mainSettings">Einstellungen</string>
+
+
+
+
+
+
+
+
+
+</resources>

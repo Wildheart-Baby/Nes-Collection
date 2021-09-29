@@ -151,7 +151,7 @@ public class NesPagerAdapter extends PagerAdapter {
         if (flagItaly == 1){italy.setVisibility(View.VISIBLE); } else{}
         if (flagPoland == 1){poland.setVisibility(View.VISIBLE); } else{}
         if (flagPortugal == 1){portugal.setVisibility(View.VISIBLE); } else{}
-        if (flagScandinavia == 1){scandinavia.setVisibility(View.VISIBLE); } else{}
+        //if (flagScandinavia == 1){scandinavia.setVisibility(View.VISIBLE); } else{}
         if (flagSpain == 1){spain.setVisibility(View.VISIBLE); } else{}
         if (flagSwitzerland == 1){switzerland.setVisibility(View.VISIBLE); } else{}
         if (flagUS == 1){us.setVisibility(View.VISIBLE); } else{}
@@ -337,7 +337,7 @@ public class NesPagerAdapter extends PagerAdapter {
             }
         });
 
-        scandinavia.setOnClickListener(new View.OnClickListener() {
+        /*scandinavia.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 sql = "SELECT * FROM eu where flag_scandinavian = 1" + licensed + "";
                 //Log.d("Pixo", sql);
@@ -347,9 +347,8 @@ public class NesPagerAdapter extends PagerAdapter {
                 intent.putExtra("showsub", 1);
                 intent.putExtra("flag", "scandinavia");
                 v.getContext().startActivity(intent);//start the new screen
-
             }
-        });
+        });*/
 
         spain.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {

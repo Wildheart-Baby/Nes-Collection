@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="uk.co.pixoveeware.nes_collection.MainActivity"
+    android:background="#C0C0BB">
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnAllGames"
+        android:text="@string/AllGames"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="25dp"
+        android:src="@drawable/btnowned"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:layout_marginLeft="5dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnneeded"
+        android:src="@drawable/btnneededgames"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:layout_above="@+id/btnFavouriteGames"
+        android:layout_toRightOf="@+id/btnFavouriteGames"
+        android:layout_toEndOf="@+id/btnFavouriteGames"
+        android:layout_marginLeft="5dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnowned"
+        android:background="@null"
+        android:src="@drawable/btnownedgames"
+        android:layout_above="@+id/btnWishList"
+        android:layout_toRightOf="@+id/btnneeded"
+        android:layout_toEndOf="@+id/btnneeded"
+        android:layout_marginTop="25dp"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnFavouriteGames"
+        android:src="@drawable/btnfavouritegames"
+        android:layout_below="@id/btnAllGames"
+        android:layout_marginTop="25dp"
+        android:scaleType="fitCenter"
+        android:background="@null"
+        android:layout_marginLeft="5dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnWishList"
+        android:src="@drawable/btnwishlist"
+        android:background="@null"
+        android:layout_below="@id/btnneeded"
+        android:layout_toRightOf="@id/btnFavouriteGames"
+        android:layout_marginTop="25dp"
+        android:scaleType="fitCenter"
+        android:layout_alignBottom="@+id/btnFavouriteGames"
+        android:layout_marginLeft="5dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnShelfOrder"
+        android:src="@drawable/btnshelforder"
+        android:background="@null"
+        android:layout_below="@id/btnowned"
+        android:layout_toRightOf="@id/btnWishList"
+        android:layout_marginTop="25dp"
+        android:scaleType="fitCenter"
+        android:layout_marginRight="5dp"
+        android:layout_marginLeft="5dp" />
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="BANNER"
+        ads:adUnitId="@string/banner_ad_unit_id"
+        android:layout_marginBottom="5dp">
+    </com.google.android.gms.ads.AdView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainAllGames"
+        android:id="@+id/lblAllGames"
+        android:layout_below="@+id/btnAllGames"
+        android:layout_alignLeft="@+id/btnAllGames"
+        android:layout_alignStart="@+id/btnAllGames"
+        android:layout_alignRight="@+id/btnAllGames"
+        android:layout_alignEnd="@+id/btnAllGames"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainFavouriteGames"
+        android:id="@+id/lblFavouriteGames"
+        android:layout_below="@+id/btnFavouriteGames"
+        android:layout_alignLeft="@+id/btnFavouriteGames"
+        android:layout_alignStart="@+id/btnFavouriteGames"
+        android:layout_alignRight="@+id/btnFavouriteGames"
+        android:layout_alignEnd="@+id/btnFavouriteGames"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainStatistics"
+        android:id="@+id/lblStats"
+        android:layout_below="@+id/btnStats"
+        android:layout_alignLeft="@+id/btnStats"
+        android:layout_alignStart="@+id/btnStats"
+        android:layout_alignRight="@+id/btnStats"
+        android:layout_alignEnd="@+id/btnStats"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainNeededGames"
+        android:id="@+id/lblNeededGames"
+        android:layout_below="@+id/btnneeded"
+        android:layout_alignLeft="@+id/btnneeded"
+        android:layout_alignStart="@+id/btnneeded"
+        android:layout_alignRight="@+id/btnneeded"
+        android:layout_alignEnd="@+id/btnneeded"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainOwnedGames"
+        android:id="@+id/lblOwnedGames"
+        android:layout_below="@+id/btnowned"
+        android:layout_alignLeft="@+id/btnowned"
+        android:layout_alignStart="@+id/btnowned"
+        android:layout_alignRight="@+id/btnowned"
+        android:layout_alignEnd="@+id/btnowned"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainWishList"
+        android:id="@+id/lblWishList"
+        android:layout_below="@+id/btnWishList"
+        android:layout_alignLeft="@+id/btnWishList"
+        android:layout_alignStart="@+id/btnWishList"
+        android:layout_toLeftOf="@+id/btnShelfOrder"
+        android:layout_toStartOf="@+id/btnShelfOrder"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainShelfOrder"
+        android:id="@+id/lblShelfOrder"
+        android:layout_below="@+id/btnShelfOrder"
+        android:layout_alignLeft="@+id/btnShelfOrder"
+        android:layout_alignStart="@+id/btnShelfOrder"
+        android:layout_alignRight="@+id/btnShelfOrder"
+        android:layout_alignEnd="@+id/btnShelfOrder"
+        android:gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainFinishedGames"
+        android:id="@+id/lblFinishedGames"
+        android:layout_below="@+id/btnFinished"
+        android:layout_alignLeft="@+id/btnFinished"
+        android:layout_alignStart="@+id/btnFinished"
+        android:layout_alignRight="@+id/btnFinished"
+        android:layout_alignEnd="@+id/btnFinished"
+        android:gravity="center_horizontal" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnStats"
+        android:src="@drawable/btnstats"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:layout_below="@+id/lblShelfOrder"
+        android:layout_alignLeft="@+id/lblFavouriteGames"
+        android:layout_alignStart="@+id/lblFavouriteGames" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnSettings"
+        android:src="@drawable/btnsettings"
+        android:background="@null"
+        android:layout_below="@+id/lblShelfOrder"
+        android:layout_alignLeft="@+id/lblShelfOrder"
+        android:layout_alignStart="@+id/lblShelfOrder" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnFinished"
+        android:src="@drawable/btnfinishedgames"
+        android:background="@null"
+        android:scaleType="fitCenter"
+        android:layout_alignTop="@+id/btnStats"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/mainSettings"
+        android:id="@+id/lblSettings"
+        android:gravity="center_horizontal"
+        android:layout_below="@+id/btnSettings"
+        android:layout_alignRight="@+id/lblShelfOrder"
+        android:layout_alignEnd="@+id/lblShelfOrder"
+        android:layout_marginRight="23dp"
+        android:layout_marginEnd="23dp" />
+</RelativeLayout>

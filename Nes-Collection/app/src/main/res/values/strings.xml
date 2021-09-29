@@ -4,7 +4,7 @@
     <string name="action_credits">Credits</string>
     <string name="action_wishlist">Wish list</string>
     <string name="name">name</string>
-    <string name="title_activity_all_games">AllGames</string>
+    <string name="title_activity_all_games">All Games</string>
     <string name="title_activity_game_detail">GameDetail</string>
     <string name="title_activity_navigation_menu">NavigationMenu</string>
 
@@ -46,18 +46,7 @@
     <string name="RandomHeading">Your randomly selected game is</string>
     <string name="action_order_alphabetic">Order alphabetically</string>
     <string name="action_order_price">Order by price</string>
-
-    <string name="mainAllGames">All games</string>
-    <string name="mainNeededGames">Needed games</string>
-    <string name="mainOwnedGames">Owned games</string>
-    <string name="mainFavouriteGames">Favourites</string>
-    <string name="mainWishList">Wish list</string>
-    <string name="mainShelfOrder">Shelf order</string>
-    <string name="mainStatistics">Statistics</string>
-    <string name="mainFinishedGames">Finished games</string>
-    <string name="mainSettings">Settings</string>
-
-
+    
     <string-array name="currencyArray">
         <item>£</item>
         <item>€</item>
@@ -693,4 +682,15 @@
     <string name="Import">Import</string>
     <string name="title_activity_trophy_room">TrophyRoom</string>
     <string name="RegionMissing">Show games missing from collecting region</string>
+
+    <string name="mainAllGames">All games</string>
+    <string name="mainNeededGames">Needed games</string>
+    <string name="mainOwnedGames">Owned games</string>
+    <string name="mainFavouriteGames">Favourites</string>
+    <string name="mainWishList">Wish list</string>
+    <string name="mainShelfOrder">Shelf order</string>
+    <string name="mainStatistics">Statistics</string>
+    <string name="mainFinishedGames">Finished games</string>
+    <string name="mainSettings">Settings</string>
+    
 </resources>
