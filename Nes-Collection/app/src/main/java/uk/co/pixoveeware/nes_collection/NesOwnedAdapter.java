@@ -20,7 +20,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
 
         static class ViewHolder {
             TextView gamename, ownedcart, ownedbox, ownedmanual, gamecost, gamecost480;
-            ImageView cover;
+            ImageView cover, Cart, Box, Manual;
             ImageView owned;
             TextView separator;
         }
@@ -29,7 +29,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
         ArrayList<NesItems> nesList; //sets up  an array called shoppingList
         String gameimage, cart, box, manual;
         String  palAcart, palBcart, ntscart, palAbox, palBbox, ntscbox, palAmanual, palBmanual, ntscmanual, gamescost, currency, thegamename;
-        int palAcartlist, palBcartlist, uscartlist, palAboxlist, palBboxlist, usboxlist, palAmanuallist, palBmanuallist, usmanuallist, l;
+        int palAcartlist, palBcartlist, uscartlist, palAboxlist, palBboxlist, usboxlist, palAmanuallist, palBmanuallist, usmanuallist, l, ownedCart, ownedBox, ownedManual;
         double palAcost, palBcost, ntsccost, thegamecost;
 
         public NesOwnedAdapter(Context context, ArrayList<NesItems> list) {
@@ -65,6 +65,9 @@ public class NesOwnedAdapter  extends BaseAdapter {
 
 
                 ViewHolder holder = new ViewHolder();
+                holder.Cart = (ImageView) convertView.findViewById(R.id.imgCart);
+                holder.Box = (ImageView) convertView.findViewById(R.id.imgBox);
+                holder.Manual = (ImageView) convertView.findViewById(R.id.imgManual);
                 holder.separator = (TextView) convertView.findViewById(R.id.lblDivider);
                 holder.cover = (ImageView) convertView.findViewById(R.id.imgGameCover);
                 holder.gamename = (TextView) convertView.findViewById(R.id.lblGameName);
@@ -93,6 +96,16 @@ public class NesOwnedAdapter  extends BaseAdapter {
             palBcost = nesListItems.getPalBCost();
             ntsccost = nesListItems.getNtscCost();
             currency = nesListItems.getCurrency();
+            ownedCart = nesListItems.getCart();
+            ownedBox = nesListItems.getBox();
+            ownedManual = nesListItems.getManual();
+
+            if(ownedCart == 0){holder.Cart.setVisibility(View.INVISIBLE);}
+            else if (ownedCart == 1){holder.Cart.setVisibility(View.VISIBLE);}
+            if(ownedBox == 0){holder.Box.setVisibility(View.INVISIBLE);}
+            else if(ownedBox == 1){holder.Box.setVisibility(View.VISIBLE);}
+            if(ownedManual == 0){holder.Manual.setVisibility(View.INVISIBLE);}
+            else  if(ownedManual == 1){holder.Manual.setVisibility(View.VISIBLE);}
 
             if (palAcartlist == 8783) {
                 palAcart = "A ";

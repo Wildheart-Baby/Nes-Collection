@@ -55,9 +55,11 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
                 NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
-                Intent intent = new Intent(FinishedGames.this, GameDetail.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(FinishedGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("gameid", readgameid);//passes the table name to the new screen
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
+                intent.putExtra("sqlstatement", sql);
+                intent.putExtra("position", arg2);
                 startActivity(intent);//start the new screen
             }
         });
@@ -85,7 +87,7 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
                 NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
-                Intent intent = new Intent(FinishedGames.this, GameDetail.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(FinishedGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("gameid", readgameid);//passes the table name to the new screen
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
                 startActivity(intent);//start the new screen

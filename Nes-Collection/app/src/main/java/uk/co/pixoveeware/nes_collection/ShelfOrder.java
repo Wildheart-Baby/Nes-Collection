@@ -65,7 +65,7 @@ public class ShelfOrder extends AppCompatActivity
         gameregion();
         readList();
 
-        gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        /*gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
@@ -77,6 +77,7 @@ public class ShelfOrder extends AppCompatActivity
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
                 intent.putExtra("sqlstatement", "SELECT * FROM eu where owned = 1");
                 intent.putExtra("position", arg2);
+                Log.d("Shelf", "game id:" + readgameid + " Game name: " + readgamename + " List position: " + arg2);
                 startActivity(intent);//start the new screen
             }
         });
@@ -95,7 +96,7 @@ public class ShelfOrder extends AppCompatActivity
                 return true;//return is equal to true
             }
 
-        });
+        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         android.support.v7.app.ActionBarDrawerToggle toggle = new android.support.v7.app.ActionBarDrawerToggle(

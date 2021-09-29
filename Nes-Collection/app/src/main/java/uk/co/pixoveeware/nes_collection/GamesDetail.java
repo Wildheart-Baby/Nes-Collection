@@ -30,16 +30,16 @@ public class GamesDetail extends AppCompatActivity {
     public static int listcount = 0, gamedetailcount = 0;
 
     Context context; //sets up a variable as context
-    int gameid, editgameid, coverid, owned, carttrue, boxtrue, manualtrue, favourite, pos;
+    int gameid, editgameid, coverid, owned, pos;
 
-    String covername, gamename, headers, sql, wherestatement, licensed, sqlstate;
+    String gamename, sql, wherestatement, licensed;
     ViewPager viewPager;
     NesPagerAdapter adapter;
     private Menu menu;
     ArrayList<NesItems> nesList;
     NesItems nesListItems;
     View v;
-    TextView thegameid;
+
     ImageView flagAustralia, flagFrance, flagGermany, flagUK, flagUS;
 
     @Override
@@ -59,7 +59,7 @@ public class GamesDetail extends AppCompatActivity {
         sql = getIntent().getStringExtra("sqlstatement");
         //sql = "SELECT * FROM eu where " + sqlstate;
         Log.d("pixowned", "Value game id: " + gameid + " position: " + pos + " name: " + gamename);
-        //thegameid = (TextView) findViewById(R.id.lblGameid);
+
         setTitle("Game Details");//sets the screen title with the shopping list name
         gameregion();
         readGame();

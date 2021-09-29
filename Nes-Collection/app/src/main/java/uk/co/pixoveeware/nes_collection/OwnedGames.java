@@ -273,6 +273,9 @@ public class OwnedGames extends AppCompatActivity
                         nesListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
                         nesListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
                         nesListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
+                        nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
+                        nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
+                        nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
                         nesListItems.setCurrency(currency);
                         prevgroup = c.getString(c.getColumnIndex("groupheader"));
                         nesList.add(nesListItems);//add items to the arraylist
@@ -293,6 +296,9 @@ public class OwnedGames extends AppCompatActivity
                         nesListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
                         nesListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
                         nesListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
+                        nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
+                        nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
+                        nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
                         nesListItems.setCurrency(currency);
                         prevgroup = c.getString(c.getColumnIndex("groupheader"));
                         nesList.add(nesListItems);//add items to the arraylist

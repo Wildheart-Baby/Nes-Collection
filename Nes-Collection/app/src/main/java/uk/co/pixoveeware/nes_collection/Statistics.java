@@ -368,7 +368,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                     Log.d("Pixo", "Pal B: " + palbnames2);
                 }
 
-            sql = "select name from eu where ntsc_owned = 1 and ntsc_cost >0 and ntsc_cost=(select max(ntsc_cost) from eu)";
+            sql = "select name from eu where ntsc_owned = 1 and ntsc_cost >0 and ntsc_cost=(select max(ntsc_cost) from eu) limit 1";
             c = db.rawQuery(sql, null);
             i = c.getCount();
 

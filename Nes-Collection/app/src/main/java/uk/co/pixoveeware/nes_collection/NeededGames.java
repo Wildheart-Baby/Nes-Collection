@@ -199,11 +199,25 @@ public class NeededGames extends AppCompatActivity
     @Override
     public void onPause(){
         super.onPause();
+        if(viewas == 0){
+            index = gamelistView.getFirstVisiblePosition();
+            View v = gamelistView.getChildAt(0);
+            top = (v == null) ? 0 : v.getTop();
+        } else if(viewas == 1){
+
+            //gridviewVerticalPositionWhenThumbnailTapped = gamegalleryview.getFirstVisiblePosition();
+            index = gamegalleryview.getFirstVisiblePosition();
+            //View v = gamegalleryview.getChildAt(0);
+            //top = (v == null) ? 0 : v.getTop();*/
+        }
+    }
+    /*public void onPause(){
+        super.onPause();
 
         index = gamelistView.getFirstVisiblePosition();
         View v = gamelistView.getChildAt(0);
         top = (v == null) ? 0 : v.getTop();
-    }
+    }*/
 
     public void readList(){//the readlist function
         ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
@@ -303,6 +317,7 @@ public class NeededGames extends AppCompatActivity
         //Do what you want on the refresh procedure here
         readList();//run the list tables function
         gamelistView.setSelectionFromTop(index, top);
+        gamegalleryview.setSelection(index);
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

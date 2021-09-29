@@ -160,6 +160,7 @@ public class EditOwnedGame extends AppCompatActivity {
                 covername = (c.getString(c.getColumnIndex("image")));
                 coverid = getResources().getIdentifier(covername, "drawable", getPackageName());
                 gamename.setText((c.getString(c.getColumnIndex("name"))));
+                System.gc();
                 cover.setImageResource(coverid);
 
                 palAcart = (c.getInt(c.getColumnIndex("pal_a_cart")));
@@ -298,7 +299,8 @@ public class EditOwnedGame extends AppCompatActivity {
                 //Intent intent = new Intent(EditOwnedGame.this, OwnedGames.class);//opens a new screen when the shopping list is clicked
                 //intent.putExtra("gameid", gameid);
                 //startActivity(intent);//start the new screen
-                finish();
+        db.close();
+        finish();
             }
 
     public void favouritegame(){
@@ -312,6 +314,7 @@ public class EditOwnedGame extends AppCompatActivity {
         }
         Log.d("Pixo", str);
         db.execSQL(str);//run the sql command
+        db.close();
         readGame();
         invalidateOptionsMenu();
     }
@@ -327,6 +330,8 @@ public class EditOwnedGame extends AppCompatActivity {
         currency = (c.getString(c.getColumnIndex("currency")));
         showprice = (c.getInt(c.getColumnIndex("show_price")));
         c.close();
+        db.close();
+
     }
 }
 
