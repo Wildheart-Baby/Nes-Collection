@@ -299,7 +299,7 @@ public class Settings extends AppCompatActivity {
 
              //main code begins here
                 try {
-                    String sql = "select _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_a_cost, pal_b_cart, pal_b_box, pal_b_manual, pal_b_cost, ntsc_cart, ntsc_box, ntsc_manual,  ntsc_cost, price, favourite, wishlist, onshelf, pal_a_owned, pal_b_owned, ntsc_owned, finished_game from eu where owned = 1";
+                    String sql = "select _id, name, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_a_cost, pal_b_cart, pal_b_box, pal_b_manual, pal_b_cost, ntsc_cart, ntsc_box, ntsc_manual,  ntsc_cost, price, favourite, wishlist, onshelf, pal_a_owned, pal_b_owned, ntsc_owned, finished_game from eu where owned = 1 or favourite = 1 or wishlist = 1 or finished_game = 1";
                     c = db.rawQuery(sql, null);
                     int rowcount = 0;
                     int colcount = 0;
