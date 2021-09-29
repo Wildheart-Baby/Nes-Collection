@@ -9,7 +9,7 @@
     tools:context="uk.co.pixoveeware.nes_collection.SearchResults"
     tools:showIn="@layout/activity_search_results"
     android:background="#C0C0BB">
-
+<!--
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
         android:layout_width="wrap_content"
@@ -21,7 +21,7 @@
         android:layout_marginBottom="5dp"
         android:layout_alignParentTop="true"
         android:layout_marginTop="5dp">
-    </com.google.android.gms.ads.AdView>
+    </com.google.android.gms.ads.AdView>-->
 
     <ListView
         android:layout_width="wrap_content"

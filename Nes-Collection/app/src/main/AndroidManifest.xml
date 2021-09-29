@@ -120,7 +120,7 @@
             android:name=".TrophyRoom"
             android:label="@string/title_activity_trophy_room"
             android:theme="@style/AppTheme"></activity>
-        <meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIlNbQL51vLuZiNqUKLDLNMmT47DxS0_mw89RVsQ" />
+        <!--meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIlNbQL51vLuZiNqUKLDLNMmT47DxS0_mw89RVsQ" /-->
     </application>
 
 </manifest>

@@ -5,12 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -18,9 +12,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+
+//import com.google.android.gms.ads.MobileAds;
+//import com.google.android.gms.ads.AdRequest;
+//import com.google.android.gms.ads.AdView;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
@@ -49,8 +51,8 @@ public class MainActivity extends AppCompatActivity
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         width = metrics.widthPixels;
 
-        if (width <600){setContentView(R.layout.activity_main_small);} else if (width >599){setContentView(R.layout.activity_main);}
-
+        //if (width <600){setContentView(R.layout.activity_main_small);} else if (width >599){setContentView(R.layout.activity_main);}
+        setContentView(R.layout.activity_main);
         //File dbfile = new File(this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite");
 
         ImageButton AllGames = (ImageButton) findViewById(R.id.btnAllGames);
@@ -159,10 +161,10 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        MobileAds.initialize(getApplicationContext(), "ca-app-pub-0537596348696744~2585816192");
+        /*MobileAds.initialize(getApplicationContext(), "ca-app-pub-0537596348696744~2585816192");
         AdView mAdView = (AdView) findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
+        mAdView.loadAd(adRequest);*/
     }
 
     @Override

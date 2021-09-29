@@ -37,7 +37,8 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginBottom="5dp"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:gravity="center_horizontal" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -163,7 +164,8 @@
                         android:text="@string/editGameOwned"
                         android:id="@+id/hdrOwned"
                         android:textStyle="bold"
-                        android:textAlignment="center" />
+                        android:textAlignment="center"
+                        android:gravity="center_horizontal" />
 
                     <ImageView
                         android:layout_width="wrap_content"

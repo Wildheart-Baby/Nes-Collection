@@ -5,9 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -17,7 +14,14 @@ import android.view.View;
 
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager.widget.ViewPager;
+
 import java.util.ArrayList;
+
+import uk.co.pixoveeware.nes_collection.adapters.FillGamesAdapter;
+import uk.co.pixoveeware.nes_collection.adapters.NesPagerAdapter;
 
 public class GamesDetail extends AppCompatActivity {
     public static int idforgame, favourited, ownedgame, wishlist, finished;
@@ -51,8 +55,8 @@ public class GamesDetail extends AppCompatActivity {
         //Log.d("pixo ", "width: " + width);
         //Log.d("pixo ", "density: " + densityDpi);
 
-        if (width <600){setContentView(R.layout.activity_games_detail_small);} else if (width >599){setContentView(R.layout.activity_games_detail);}
-
+        //if (width <600){setContentView(R.layout.activity_games_detail_small);} else if (width >599){setContentView(R.layout.activity_games_detail);}
+        setContentView(R.layout.activity_games_detail);
         gamepos = getIntent().getIntExtra("listposition", 0);
         gameid = getIntent().getIntExtra("gameid", 0); //sets a variable fname with data passed from the main screen
         gamename = getIntent().getStringExtra("name");

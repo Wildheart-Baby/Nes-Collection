@@ -5,15 +5,15 @@ package uk.co.pixoveeware.nes_collection;
  */
 public class GameItems {
 
-
-    String name, publisher, synopsis, image, genre, region, group, subgenre, developer, year, usyear, sayear, currency;
-    int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual,
+    public String group;
+    public String name, publisher, synopsis, image, genre, region, subgenre, developer, year, usyear, sayear, currency;
+    public int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual,
             pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist, finished, listPos;
-    int flagAustralia, flagAustria, flagBrazil, flagBenelux, flagCanada, flagDenmark, flagFrance, flagFinland, flagGermany, flagGreece,
+    public int flagAustralia, flagAustria, flagBrazil, flagBenelux, flagCanada, flagDenmark, flagFrance, flagFinland, flagGermany, flagGreece,
             flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS,
             play_score, play_completion, play_ownership;
-    int euro_owned, us_owned, sa_owned, gameCondition, conditionStatement;
-    double pal_a_cost, pal_b_cost, ntsc_cost, gamePrice, play_time;
+    public int euro_owned, us_owned, sa_owned, gameCondition, conditionStatement;
+    public double pal_a_cost, pal_b_cost, ntsc_cost, gamePrice, play_time;
 
     public int getItemId() { return _id; }
     public void setItemId(int _id) { this._id = _id; } //returns the item id
