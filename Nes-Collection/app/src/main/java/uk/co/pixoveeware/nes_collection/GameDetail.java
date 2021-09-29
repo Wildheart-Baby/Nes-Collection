@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,23 +22,49 @@ import java.util.ArrayList;
 
 public class GameDetail extends AppCompatActivity {
 
-    Context context; //sets up a variable as context
-    int gameid, editgameid, coverid, owned, carttrue, boxtrue, manualtrue, favourite, wishlist, finished;
-    String covername, gamename, headers;
+    public static int idforgame, favourited, ownedgame, wishlist, finished;
+    public static String gamesname;
+    public static int listcount = 0, gamedetailcount = 0;
 
+    Context context; //sets up a variable as context
+    int gameid, editgameid, coverid, owned, pos;
+
+    String gamename, sql, wherestatement, licensed;
+    ViewPager viewPager;
+    NesPagerAdapter adapter;
     private Menu menu;
+    ArrayList<NesItems> nesList;
+    NesItems nesListItems;
+    View v;
+
+    ImageView flagAustralia, flagFrance, flagGermany, flagUK, flagUS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_detail);
-        gameid = getIntent().getIntExtra("gameid", 0); //sets a variable fname with data passed from the main screen
-        gamename = getIntent().getStringExtra("name"); //sets a variable fname with data passed from the main screen
-        //ImageView cover = (ImageView) findViewById(R.id.imgCover);
-        //TextView detail = (TextView) findViewById(R.id.lblDetail);
-        //TextView synopsis = (TextView) findViewById(R.id.lblSynopsis);
 
-        setTitle("Game Details");//sets the screen title with the shopping list name
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int width = metrics.widthPixels;
+        int height = metrics.heightPixels;
+        int densityDpi = metrics.densityDpi;
+
+        //Log.d("pixo height: ", " " + height);
+        //Log.d("pixo ", "width: " + width);
+        //Log.d("pixo ", "density: " + densityDpi);
+
+        if (width <600){setContentView(R.layout.activity_games_detail_small);} else if (width >599){setContentView(R.layout.activity_games_detail);}
+
+
+        gameid = getIntent().getIntExtra("gameid", 0); //sets a variable fname with data passed from the main screen
+        gamename = getIntent().getStringExtra("name");
+        pos = getIntent().getIntExtra("position",0);//sets a variable fname with data passed from the main screen
+        sql = getIntent().getStringExtra("sqlstatement");
+        //sql = "SELECT * FROM eu where " + sqlstate;
+        Log.d("shelf", "Value game id: " + gameid + " position: " + pos + " name: " + gamename);
+
+        //setTitle("@string/gameDetailPageTitle");//sets the screen title with the shopping list name
+        gameregion();
         readGame();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -49,6 +77,14 @@ public class GameDetail extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {invalidateOptionsMenu();}
+            @Override
+            public void onPageSelected(int position) {}
+            @Override
+            public void onPageScrollStateChanged(int state) {invalidateOptionsMenu();}
+        });
     }
 
     @Override
@@ -63,8 +99,8 @@ public class GameDetail extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem fav = menu.findItem(R.id.action_favourite);
         MenuItem own = menu.findItem(R.id.action_edit);
-        if(favourite == 1){ fav.setIcon(R.drawable.ic_heart_red_24dp); }
-        if(owned == 0){own.setIcon(R.drawable.ic_add_game24dp);}
+        if(favourited == 1){ fav.setIcon(R.drawable.ic_heart_white_24dp); }else if(favourited == 0){ fav.setIcon(R.drawable.ic_favorite_border_white_24dp);}
+        if(ownedgame == 0){own.setIcon(R.drawable.ic_add_game24dp);} else if(ownedgame == 1){own.setIcon(R.drawable.ic_edit_white_24dp);}
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -100,75 +136,76 @@ public class GameDetail extends AppCompatActivity {
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
+    }
+
+    @Override
+    public void onPause(){
+        super.onPause();
+        pos = viewPager.getCurrentItem();
     }
 
     public void readGame(){//the readlist function
         ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
         nesList.clear();//clear the shoppingList array
-        TextView gamename = (TextView) findViewById(R.id.lblGameName);
-        ImageView cover = (ImageView) findViewById(R.id.imgGameCover);
-        TextView genre = (TextView) findViewById(R.id.lblGenre);
-        TextView subgenre = (TextView) findViewById(R.id.lblSubgenre);
-        TextView publisher = (TextView) findViewById(R.id.lblPublisher);
-        TextView developer = (TextView) findViewById(R.id.lblDeveloper);
-        TextView year = (TextView) findViewById(R.id.lblYear);
-        ImageView cart = (ImageView) findViewById(R.id.imgCart);
-        ImageView box = (ImageView) findViewById(R.id.imgBox);
-        ImageView manual = (ImageView) findViewById(R.id.imgManual);
-
-        TextView synopsis = (TextView) findViewById(R.id.lblSynopsis);
-
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
-        Cursor c = db.rawQuery("SELECT * FROM eu where _id = '" + gameid + "' ", null);//select everything from the database table
-        //Cursor c = db.rawQuery("SELECT * FROM " + fname, null);
-
-        //Cursor c = db.rawQuery(sql, null);
+        //sql = "SELECT * FROM eu where " + wherestatement + licensed +  "";
+        //Log.d("Pixo", sqlstate);
+        Cursor c = db.rawQuery(sql, null);
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                editgameid = (c.getInt(c.getColumnIndex("_id")));
-                covername = (c.getString(c.getColumnIndex("image")));
-                owned = (c.getInt(c.getColumnIndex("owned")));
-                carttrue = (c.getInt(c.getColumnIndex("cart")));
-                boxtrue = (c.getInt(c.getColumnIndex("box")));
-                manualtrue = (c.getInt(c.getColumnIndex("manual")));
-                favourite = (c.getInt(c.getColumnIndex("favourite")));
-                wishlist = (c.getInt(c.getColumnIndex("wishlist")));
-                coverid = getResources().getIdentifier(covername, "drawable", getPackageName());
-                finished = (c.getInt(c.getColumnIndex("finished_game")));
-                gamename.setText((c.getString(c.getColumnIndex("name"))));
-                cover.setImageResource(coverid);
-                genre.setText((c.getString(c.getColumnIndex("genre"))));
-                subgenre.setText((c.getString(c.getColumnIndex("subgenre"))));
-                publisher.setText((c.getString(c.getColumnIndex("publisher"))));
-                developer.setText((c.getString(c.getColumnIndex("developer"))));
-                year.setText((c.getString(c.getColumnIndex("year"))));
-                synopsis.setText((c.getString(c.getColumnIndex("synopsis"))));
+                nesListItems = new NesItems();//creates a new array
+                nesListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
+                nesListItems.setImage(c.getString(c.getColumnIndex("image")));
+                nesListItems.setName(c.getString(c.getColumnIndex("name")));
+                nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
+                nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
+                nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
+                nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
+                nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
+                nesListItems.setFavourite(c.getInt(c.getColumnIndex("favourite")));
+                nesListItems.setYear(c.getString(c.getColumnIndex("year")));
+                nesListItems.setGenre((c.getString(c.getColumnIndex("genre"))));
+                nesListItems.setSubgenre((c.getString(c.getColumnIndex("subgenre"))));
+                nesListItems.setDeveloper((c.getString(c.getColumnIndex("developer"))));
+                nesListItems.setSynopsis((c.getString(c.getColumnIndex("synopsis"))));
+                nesListItems.setAustralia(c.getInt(c.getColumnIndex("flag_australia")));
+                nesListItems.setAustria(c.getInt(c.getColumnIndex("flag_austria")));
+                nesListItems.setBenelux(c.getInt(c.getColumnIndex("flag_benelux")));
+                nesListItems.setDenmark(c.getInt(c.getColumnIndex("flag_denmark")));
+                nesListItems.setFinland(c.getInt(c.getColumnIndex("flag_finland")));
+                nesListItems.setFrance(c.getInt(c.getColumnIndex("flag_france")));
+                nesListItems.setGermany((c.getInt(c.getColumnIndex("flag_germany"))));
+                nesListItems.setGreece(c.getInt(c.getColumnIndex("flag_greece")));
+                nesListItems.setIreland(c.getInt(c.getColumnIndex("flag_ireland")));
+                nesListItems.setItaly(c.getInt(c.getColumnIndex("flag_italy")));
+                nesListItems.setNorway(c.getInt(c.getColumnIndex("flag_norway")));
+                nesListItems.setPoland(c.getInt(c.getColumnIndex("flag_poland")));
+                nesListItems.setPortugal(c.getInt(c.getColumnIndex("flag_portugal")));
+                nesListItems.setScandinavia(c.getInt(c.getColumnIndex("flag_scandinavia")));
+                nesListItems.setSpain(c.getInt(c.getColumnIndex("flag_spain")));
+                nesListItems.setSweden(c.getInt(c.getColumnIndex("flag_sweden")));
+                nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
+                nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
+                nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
+                nesList.add(nesListItems);//add items to the arraylist
 
-                if(owned == 1){
-                    if(carttrue == 1){
-                        cart.setVisibility(View.VISIBLE);
-                    }else{}
-                    if(boxtrue == 1){
-                        box.setVisibility(View.VISIBLE);
-                    }else{}
-                    if(manualtrue == 1){
-                        manual.setVisibility(View.VISIBLE);
-                    } else{}
-                }
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
         db.close();//close the database
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        adapter = new NesPagerAdapter(this, nesList);
+        viewPager.setAdapter(adapter);
+        viewPager.setCurrentItem(pos);
+
     }
 
     public void editgame(){
-
         Intent intent = new Intent(GameDetail.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
-        intent.putExtra("editgameid", editgameid);
+        intent.putExtra("editgameid", idforgame);
         startActivity(intent);//start the new screen
     }
 
@@ -176,13 +213,15 @@ public class GameDetail extends AppCompatActivity {
         SQLiteDatabase db;//set up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         String str ="";
-        if(favourite == 0) {
-            str = "UPDATE eu SET favourite = 1 where _id = " + gameid + " "; //update the database basket field with 8783
-        } else  if(favourite == 1) {
-            str = "UPDATE eu SET favourite = 0 where _id = " + gameid + " "; //update the database basket field with 8783
+        if(favourited == 0) {
+            str = "UPDATE eu SET favourite = 1 where _id = " + idforgame + " "; //update the database basket field with 8783
+        } else  if(favourited == 1) {
+            str = "UPDATE eu SET favourite = 0 where _id = " + idforgame + " "; //update the database basket field with 8783
         }
         Log.d("Pixo", str);
         db.execSQL(str);//run the sql command
+        db.close();//close the database
+        pos = viewPager.getCurrentItem();
         readGame();
         invalidateOptionsMenu();
     }
@@ -191,64 +230,82 @@ public class GameDetail extends AppCompatActivity {
         SQLiteDatabase db;//set up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         String str ="";
-        if (owned == 1){Toast toast = Toast.makeText(getApplicationContext(),
+        if (ownedgame == 1){Toast toast = Toast.makeText(getApplicationContext(),
                 "You already own this game",
                 Toast.LENGTH_SHORT);
             toast.show();}
-        else if (owned == 0) {
+        else if (ownedgame == 0) {
 
             if (wishlist == 0) {
-                str = "UPDATE eu SET wishlist = 1 where _id = " + gameid + " "; //update the database basket field with 8783
+                str = "UPDATE eu SET wishlist = 1 where _id = " + idforgame + " "; //update the database basket field with 8783
                 db.execSQL(str);//run the sql command
                 Toast toast = Toast.makeText(getApplicationContext(),
-                        gamename + " added to wishlist",
+                        gamesname + " added to wishlist",
                         Toast.LENGTH_SHORT);
                 toast.show();
             } else if (wishlist == 1) {
-                str = "UPDATE eu SET wishlist = 0 where _id = " + gameid + " "; //update the database basket field with 8783
+                str = "UPDATE eu SET wishlist = 0 where _id = " + idforgame + " "; //update the database basket field with 8783
                 db.execSQL(str);//run the sql command
                 Toast toast = Toast.makeText(getApplicationContext(),
-                        gamename + " removed from wish list",
+                        gamesname + " removed from wish list",
                         Toast.LENGTH_SHORT);
                 toast.show();
             }
         }
-        //Log.d("Pixo", str);
+        db.close();//close the database
+        pos = viewPager.getCurrentItem();
         readGame();
-        //invalidateOptionsMenu();
     }
 
     public void finishedgame(){
         SQLiteDatabase db;//set up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         String str ="";
-           if (finished == 0) {
-                str = "UPDATE eu SET finished_game = 1 where _id = " + gameid + " "; //update the database basket field with 8783
-                db.execSQL(str);//run the sql command
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        "You finished " + gamename,
-                        Toast.LENGTH_SHORT);
-                toast.show();
-            } else if (finished == 1) {
-                str = "UPDATE eu SET finished_game = 0 where _id = " + gameid + " "; //update the database basket field with 8783
-                db.execSQL(str);//run the sql command
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        gamename + " removed from finished games",
-                        Toast.LENGTH_SHORT);
-                toast.show();
-            }
+        if (finished == 0) {
+            str = "UPDATE eu SET finished_game = 1 where _id = " + idforgame + " "; //update the database basket field with 8783
+            db.execSQL(str);//run the sql command
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "You finished " + gamesname,
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        } else if (finished == 1) {
+            str = "UPDATE eu SET finished_game = 0 where _id = " + idforgame + " "; //update the database basket field with 8783
+            db.execSQL(str);//run the sql command
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    gamesname + " removed from finished games",
+                    Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        db.close();//close the database
+        pos = viewPager.getCurrentItem();
         readGame();
     }
-
 
     @Override
     public void onRestart() {
         super.onRestart();
-        //When BACK BUTTON is pressed, the activity on the stack is restarted
-        //Do what you want on the refresh procedure here
-
         readGame();//run the list tables function
         invalidateOptionsMenu();
+        viewPager.setCurrentItem(pos);
     }
 
+    public void gameregion(){//selects the region from the database
+
+        SQLiteDatabase db;//sets up the connection to the database
+        db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
+        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+
+                wherestatement = (c.getString(c.getColumnIndex("region")));
+                licensed = (c.getString(c.getColumnIndex("licensed")));
+                NesPagerAdapter.licensed = (c.getString(c.getColumnIndex("licensed")));
+
+                c.moveToNext();//move to the next record
+            }
+            c.close();//close the cursor
+        }
+        db.close();//close the database
+    }
 }

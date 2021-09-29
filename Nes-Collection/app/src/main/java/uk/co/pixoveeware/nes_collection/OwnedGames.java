@@ -113,7 +113,7 @@ public class OwnedGames extends AppCompatActivity
 
             NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
             final Integer itemId = gameListItems.getItemId();//get the item id
-
+            Log.d("Owned","list position: " + arg2 + " item id: " + itemId);
             Intent intent = new Intent(OwnedGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("editgameid", itemId);
             startActivity(intent);//start the new screen

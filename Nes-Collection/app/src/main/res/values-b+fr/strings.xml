@@ -26,7 +26,7 @@
 
     <string name="Totalgames">Total games</string>
 
-    <string name="AllGames">All Games</string>
+    <string name="AllGames">Tous les jeux</string>
     <string name="Needed">Needed</string>
     <string name="Stats">Statistics</string>
     <string name="title_activity_main_page">MainPage</string>
@@ -660,10 +660,10 @@
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_activity_main2">Main2Activity</string>
 
-    <string name="PieGenres">Game Genres</string>
-    <string name="PalAGames">Pal A Games</string>
-    <string name="PalBGames">Pal B Games</string>
-    <string name="USGames">US Games</string>
+    <string name="PieGenres">Jeu Genres</string>
+    <string name="PalAGames">Pal A Jeux</string>
+    <string name="PalBGames">Pal B Jeux</string>
+    <string name="USGames">US Jeux</string>
 
 
 
@@ -766,4 +766,62 @@
     <string name="editGameOk">Ok</string>
     <string name="editGameCancel">annuler</string>
 
+    <string name="statsDecimalFormat">#.##</string>
+
+    <string name="statsNogames">You currently have no games, so sadly there are no statistics</string>
+    <string name="statsMostexpensivegames">Your most expensive games are</string>
+    <string name="statsMostexpensivegame">Votre jeu le plus cher est</string>
+    <string name="statsGameorgames1">jeux</string>
+    <string name="statsGameorgames2">jeu</string>
+    <string name="statsGamescost1">Vous avez dépensé</string>
+    <string name="statsGamescost2"> pour les jeux de votre collection\nLe prix moyen payé pour vos jeux est de</string>
+    <string name="statsGamescost3">Vous possédez un total de</string>
+    <string name="statsGamescost4">\nVous possédez </string>
+    <string name="statsGamescost5">% des jeux sortis dans</string>
+    <string name="statsGamescost6">\nL\'éditeur le plus fréquent de votre collection est</string>
+    <string name="statsGamescost7">\nLe genre le plus populaire de votre collection est</string>
+    <string name="statsGamescost8">\nVous avez fini un total de </string>
+    <string name="statsGamescost9">jeux Nes</string>
+    <string name="statsPala1">Vous possédez</string>
+    <string name="statsPala2">des</string>
+    <string name="statsPala3">jeux Pal A sortis.\nLes jeux de Pal A représentent</string>
+    <string name="statsPala4">% de votre collection</string>
+
+    <string name="statsPalb3">jeux Pal B sortis.\nLes jeux de Pal B représentent</string>
+    <string name="statsUS3">jeux US sortis.\nLes jeux de US représentent</string>
+
+    <string name="statsCib1">Vous possédez</string>
+    <string name="statsCib2">games that are complete in box\n</string>
+    <string name="statsCib2a">game that is complete in box\n</string>
+    <string name="statsCib3">They make up</string>
+    <string name="statsCib3a">It makes up</string>
+    <string name="statsCib4">% of your collection</string>
+
+    <string name="statsBoxed1">Vous possédez</string>
+    <string name="statsBoxed2">jeux encadrés\n</string>
+    <string name="statsBoxed2a">jeu en boîte\n</string>
+    <string name="statsBoxed3">Ils composent</string>
+    <string name="statsBoxed3a">Cela constitue</string>
+    <string name="statsBoxed4">% of your collection</string>
+
+    <string name="statsLC1">You have</string>
+    <string name="statsLC2">loose carts\n</string>
+    <string name="statsLC2a">loose cart\n</string>
+
+    <string name="statsLB1">You have</string>
+    <string name="statsLB2">loose boxes\n</string>
+    <string name="statsLB2a">loose box\n</string>
+
+    <string name="statsLM1">You have</string>
+    <string name="statsLM2">loose manuals\n</string>
+    <string name="statsLM2a">loose manual\n</string>
+
+    <string name="regionsA">Pal A</string>
+    <string name="regionsA2">Pal A UK</string>
+    <string name="regionsB">Pal B</string>
+    <string name="regionsUS">US</string>
+    <string name="regionsAB">Pal A &amp; Pal B</string>
+    <string name="regionsAUS">Pal A &amp; US</string>
+    <string name="regionsBUS">Pal B &amp; US</string>
+    <string name="regionsAll">les monde</string>
 </resources>

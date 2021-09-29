@@ -153,7 +153,7 @@ public class EditOwnedGame extends AppCompatActivity {
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         sql = "SELECT * FROM eu where _id = '" + gameid + "' ";
         Cursor c = db.rawQuery(sql, null);//select everything from the database table
-
+        Log.d("shelf",sql);
         if (c.moveToFirst()) {//move to the first record
             while (!c.isAfterLast()) {//while there are records to read
 
@@ -265,8 +265,10 @@ public class EditOwnedGame extends AppCompatActivity {
         if (palAmanual == 32573 && palBmanual == 32573 && usmanual == 32573) { manual = 0; }
 
         if (cart == 0 && box == 0 && manual == 0) {owned = 0;}
-
+        PACheck = PalACost.getText().toString().replaceAll("[,]", ".");
+        Log.d("Pixo-cost", PACheck);
         PACheck = PalACost.getText().toString().replaceAll("[^0-9.]", "");
+        Log.d("Pixo-cost", PACheck);
         //PACheck = PACheck.replaceAll("[^0-9.]", "");
 
         PBCheck = PalBCost.getText().toString().replaceAll("[^0-9.]", "");

@@ -48,7 +48,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     int[] piecolours;
     int completeinbox;
 
-    String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename, gamescost, gameorgames, regionselected, loosecarts, looseboxes, looseman, looseitems;
+    String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename, gamescost, gameorgames, regionselected, loosecarts, looseboxes, looseman, looseitems, collectionpercentagestr, avgCst;
     int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i, showprices, numberowned, palaMaxCost, palbMaxCost, usMaxCost,totalfinished, collectiongames, collectionreleased, loosecart, loosemanual, loosebox;
     int ownedPalAbox, ownedPalBbox, ownedUSbox, ownedPalAman, ownedPalBman, ownedUSman, boxed;
     //int ownedaction, ownedadventure, ownedbeatemup, ownedactionadventure, ownedarcade, ownedboardgame, ownedcompilation, ownedfighting, ownedother, ownedplatformer, ownedpuzzle, ownedracing, ownedroleplayinggame, ownedshootemup, ownedshooter, ownedsimulation, ownedsports, ownedstrategy, ownedtraditional, ownedtrivia;
@@ -271,7 +271,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         numberowned = c.getCount();
 
         if (numberowned == 0) {
-            header.setText("You currently have no games, so sadly there are no statistics");
+            header.setText(getString(R.string.statsNogames));
             RlPie.setVisibility(View.INVISIBLE);
             RlAll.setVisibility(View.INVISIBLE);
             RlAll.setVisibility(View.INVISIBLE);
@@ -348,9 +348,9 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i = c.getCount();
             //Log.d("pixo", "value:" + i);
             if (i > 1) {
-                palaadd = "Your most expensive games are";
+                palaadd = getString(R.string.statsMostexpensivegames);
             } else {
-                palaadd = "Your most expensive game is";
+                palaadd = getString(R.string.statsMostexpensivegame);
             }
             if (ownedPalA == 0) {
                 RlPalA.setVisibility(View.GONE);
@@ -374,9 +374,9 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i = c.getCount();
 
             if (i > 1) {
-                palbadd = "Your most expensive games are";
+                palbadd = getString(R.string.statsMostexpensivegames);
             } else {
-                palbadd = "Your most expensive game is";
+                palbadd = getString(R.string.statsMostexpensivegame);
             }
             if (ownedPalB == 0) {
                 RlPalB.setVisibility(View.GONE);
@@ -400,9 +400,9 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             i = c.getCount();
 
             if (i > 1) {
-                usadd = "Your most expensive games are";
+                usadd = getString(R.string.statsMostexpensivegames);
             } else {
-                usadd = "Your most expensive game is";
+                usadd = getString(R.string.statsMostexpensivegame);
             }
             if (ownedUS == 0) {
                 RlUS.setVisibility(View.GONE);
@@ -448,14 +448,18 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             //db.close();//close the database
             totalOwned = ownedPalA + ownedPalB + ownedUS;
             Log.d("pixo-stats", "Total owned " + totalOwned + " Total counted " + numberowned);
-            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+            DecimalFormat decimalFormat = new DecimalFormat(getString(R.string.statsDecimalFormat));
+
 
             if (showprices == 1) {
                 if (totalcost > 0) {
 
-                    avgCost = Float.valueOf(decimalFormat.format(totalcost / totalOwned));
-                    gamescost = "You have spent " + currency + String.format("%.2f", totalcost) + " on games for your collection\n" +
-                            "The average cost you paid for your games is " + currency + avgCost + "\n";
+                    avgCost = Float.valueOf(totalcost / totalOwned);
+                    //String avgCst = String.valueOf(avgCost);
+                    avgCst = String.format("%.2f", avgCost);
+                    //avgCst = avgCst.replace(",",".");
+                    Log.d("pixo-stats", "avg cost: " + avgCst);
+                    gamescost = getString(R.string.statsGamescost1) + " " + currency + String.format("%.2f", totalcost)  + " " + getString(R.string.statsGamescost2) + " " + currency + avgCst + "\n";
                 } else if (totalcost == 0) {
                     gamescost = "";
                 }
@@ -464,9 +468,9 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             }
 
             if (totalOwned > 1) {
-                gameorgames = "games";
+                gameorgames = getString(R.string.statsGameorgames1);
             } else {
-                gameorgames = "game";
+                gameorgames = getString(R.string.statsGameorgames2);
             }
             //gamecost = "You have spent " + currency + totalcost + " on games for your collection\n" +
 
@@ -482,7 +486,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 c.moveToFirst();
                 collectiongames = c.getCount();
 
-                regionselected = "Pal A";
+                regionselected = getString(R.string.regionsA);
             } else if (wherestatement.equals("(pal_uk_release = 1)")) {
                 if (licensed.equals(" and (unlicensed = 0)")) {
                     collectionreleased = 246;
@@ -493,7 +497,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 c = db.rawQuery(sql, null);
                 c.moveToFirst();
                 collectiongames = c.getCount();
-                regionselected = "Pal A UK";
+                regionselected = getString(R.string.regionsA2);
             }else if (wherestatement.equals("(pal_b_release = 1)")) {
                 if (licensed.equals(" and (unlicensed = 0)")) {
                     collectionreleased = 242;
@@ -504,7 +508,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 c = db.rawQuery(sql, null);
                 c.moveToFirst();
                 collectiongames = c.getCount();
-                regionselected = "Pal B";
+                regionselected = getString(R.string.regionsB);
             }else if (wherestatement.equals("(ntsc_release = 1)")) {
                 if (licensed.equals(" and (unlicensed = 0)")) {
                     collectionreleased = 673;
@@ -515,7 +519,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 c = db.rawQuery(sql, null);
                 c.moveToFirst();
                 collectiongames = c.getCount();
-                regionselected = "US";
+                regionselected = getString(R.string.regionsUS);
             }else if (wherestatement.equals("(pal_a_release = 1 or pal_b_release = 1)")) {
                 if (licensed.equals(" and (unlicensed = 0)")) {
                     collectionreleased = 350;
@@ -560,22 +564,26 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 c = db.rawQuery(sql, null);
                 c.moveToFirst();
                 collectiongames = c.getCount();
-                regionselected = "all regions";
+                regionselected = getString(R.string.regionsAll);
             }
 
-            avgCost = Float.valueOf(decimalFormat.format(totalcost / totalOwned));
+            //avgCost = Float.valueOf(decimalFormat.format(totalcost / totalOwned));
+
             collectionpercentage  = ((double) collectiongames / collectionreleased) * 100;
 
-            collectionpercentage = Double.valueOf(decimalFormat.format(collectionpercentage));
+            //Float.format("%.2f", totalcost);
+
+            collectionpercentagestr = String.format("%.2f", collectionpercentage);
             Log.d("pixo-stats", "Games " + collectiongames + " released " + collectionreleased);
             Log.d("pixo-stats", "Collection % " + collectionpercentage);
             gamecost = gamescost +
 
-                    "You own a total of " + totalOwned + " " + gameorgames + "\n" +
-                    "You own " + collectionpercentage + "% of the games released in "+ regionselected + "\n" +
-                    "The top publisher for your games is " + poppublisher + "\n" +
-                    "The most popular genre you have is " + popgenre + "\n" +
-                    "You have finished a total of " + totalfinished + " Nes games";
+                    getString(R.string.statsGamescost3) + " " + totalOwned + " " + gameorgames +
+                    getString(R.string.statsGamescost4) + " " + collectionpercentagestr +
+                    getString(R.string.statsGamescost5) + " "+ regionselected +
+                    getString(R.string.statsGamescost6) + " " + poppublisher +
+                    getString(R.string.statsGamescost7) + " " + popgenre +
+                    getString(R.string.statsGamescost8) + " " + totalfinished + " " + getString(R.string.statsGamescost9);
 
             cost.setText(gamecost);
 
@@ -591,8 +599,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             percentagepalacollection = ((double) ownedPalA / totalOwned) * 100;
             s = String.format("%.2f", percentPalAOwned);
             perpalacoll = String.format("%.2f", percentagepalacollection);
-            PalA = "You own " + ownedPalA + " of the " + totalPalA + " Pal A games released.\n" +
-                    "Pal A games make up " + perpalacoll + "% of your collection"
+            PalA = getString(R.string.statsPala1) + " " + ownedPalA + " " + getString(R.string.statsPala2) + " " + totalPalA + " " + getString(R.string.statsPala3) + " " + perpalacoll + getString(R.string.statsPala4)
                     + gamescost;
             pala.setText(PalA);
             //Log.d("Pixo",PalA);
@@ -609,9 +616,8 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             percentagepalbcollection = ((double) ownedPalB / totalOwned) * 100;
             s = String.format("%.2f", percentPalBOwned);
             perpalbcoll = String.format("%.2f", percentagepalbcollection);
-            PalB = "You own " + ownedPalB + " of the " + totalPalB + " Pal B games released.\n" +
-                    "Pal B games make up " + perpalbcoll + "% of your collection"
-                    + gamescost;
+            PalB = getString(R.string.statsPala1) + " " + ownedPalB + " " + getString(R.string.statsPala2) + " " + totalPalB + " " + getString(R.string.statsPalb3) + " " + perpalbcoll + getString(R.string.statsPala4)
+            + gamescost;
             palb.setText(PalB);
             //Log.d("Pixo",PalB);
 
@@ -628,21 +634,36 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             s = String.format("%.2f", percentUSOwned);
             percentageuscollection = ((double) ownedUS / totalOwned) * 100;
             peruscoll = String.format("%.2f", percentageuscollection);
-            US = "You own " + ownedUS + " of the " + totalUS + " US games released.\n" +
-                    "US games make up " + peruscoll + "% of your collection"
-                    + gamescost;
+            US = getString(R.string.statsPala1) + " " + ownedUS + " " + getString(R.string.statsPala2) + " " + totalUS + " " + getString(R.string.statsUS3) + " " + peruscoll + getString(R.string.statsPala4)
+            + gamescost;
             us.setText(US);
             cibpercentage = ((double)completeinbox / totalOwned * 100);
-            String CIB = "You own " + completeinbox + " games that are complete in box\n" +
-                    "They make up " + String.format("%.2f", cibpercentage) + "% of your collection";
-
+            String CIB = "";
+            if (completeinbox == 1) {
+                CIB = getString(R.string.statsCib1) + " " + completeinbox + " " +
+                        getString(R.string.statsCib2a) +  getString(R.string.statsCib3a) + " " + String.format("%.2f", cibpercentage) + getString(R.string.statsCib4);;
+            } else if (completeinbox > 1) {
+                CIB = getString(R.string.statsCib1) + " " + completeinbox + " " +
+                        getString(R.string.statsCib2) +  getString(R.string.statsCib3) + " " + String.format("%.2f", cibpercentage) + getString(R.string.statsCib4);
+            } else {
+                CIB = getString(R.string.statsCib1) + " " + completeinbox + " " +
+                        getString(R.string.statsCib2) +  getString(R.string.statsCib3) + " " + String.format("%.2f", cibpercentage) + getString(R.string.statsCib4);
+            }
             cib.setText(CIB);
 
+            String Boxed = "";
             boxedpercentage = ((double)boxed / totalOwned * 100);
             Log.d("pixo-stats", "boxed games: " + boxed + " boxed percentage: " + boxedpercentage);
-            String Boxed = "You own " + boxed + " games that are boxed\n" +
-                    "They make up " + String.format("%.2f", boxedpercentage) + "% of your collection";
-
+            if (boxed == 1){
+                Boxed = getString(R.string.statsBoxed1) + " "  + boxed + " " + getString(R.string.statsBoxed2a) +
+                        getString(R.string.statsBoxed3a) + " " + String.format("%.2f", boxedpercentage) + getString(R.string.statsBoxed4);
+            } else if (boxed > 1) {
+                Boxed = getString(R.string.statsBoxed1) + " "  + boxed + " " + getString(R.string.statsBoxed2) +
+                        getString(R.string.statsBoxed3) + " " + String.format("%.2f", boxedpercentage) + getString(R.string.statsBoxed4);
+            }  else {
+                Boxed = getString(R.string.statsBoxed1) + " "  + boxed + " " + getString(R.string.statsBoxed2) +
+                        getString(R.string.statsBoxed3) + " " + String.format("%.2f", boxedpercentage) + getString(R.string.statsBoxed4);
+            }
             boxedgames.setText(Boxed);
 
             //Log.d("Pixo",US);
@@ -694,9 +715,23 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             loosemanual = loosemanual - completeinbox;
 
             Log.d("pixo-stats", "Manuals: " + loosemanual);
-            if (loosecart > 0){loosecarts = "You have " + loosecart + " loose carts\n";} else {loosecarts = "";}
-            if (loosebox > 0){looseboxes = "You have " + loosebox + " loose boxes\n";} else {looseboxes = "";}
-            if (loosemanual > 0){looseman = "You have " + loosemanual + " loose manuals\n";} else {looseman = "";}
+            if (loosecart == 1)
+                {loosecarts = getString(R.string.statsLC1) + " "  + loosecart +  " " + getString(R.string.statsLC2a);}
+            else if (loosecart > 1)
+                {loosecarts = getString(R.string.statsLC1) + " "  + loosecart + " " + getString(R.string.statsLC2);}
+            else {loosecarts = "";}
+
+            if (loosebox == 1)
+                {looseboxes = getString(R.string.statsLB1) + " "  + loosebox + " " + getString(R.string.statsLB2a);}
+            else if (loosebox > 1)
+                {looseboxes = getString(R.string.statsLB1) + " "  + loosebox + " " + getString(R.string.statsLB2);}
+            else {looseboxes = "";}
+
+            if (loosemanual == 1)
+                {looseman = getString(R.string.statsLM1) + " "  + loosemanual + " " + getString(R.string.statsLM2a);}
+            else if (loosemanual > 1)
+                {looseman = getString(R.string.statsLM1) + " "  + loosemanual + " " + getString(R.string.statsLM2);}
+            else {looseman = "";}
 
             looseitems = (loosecarts
             + looseboxes

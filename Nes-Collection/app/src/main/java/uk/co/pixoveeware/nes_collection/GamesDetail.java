@@ -30,9 +30,9 @@ public class GamesDetail extends AppCompatActivity {
     public static int listcount = 0, gamedetailcount = 0;
 
     Context context; //sets up a variable as context
-    int gameid, editgameid, coverid, owned, pos;
+    int gameid, editgameid, coverid, owned, pos, position;
 
-    String gamename, sql, wherestatement, licensed;
+    String gamename, sql, wherestatement, licensed, previd;
     ViewPager viewPager;
     NesPagerAdapter adapter;
     private Menu menu;
@@ -51,7 +51,7 @@ public class GamesDetail extends AppCompatActivity {
         int width = metrics.widthPixels;
         int height = metrics.heightPixels;
         int densityDpi = metrics.densityDpi;
-
+        previd = String.valueOf(pos);
         //Log.d("pixo height: ", " " + height);
         //Log.d("pixo ", "width: " + width);
         //Log.d("pixo ", "density: " + densityDpi);
@@ -64,7 +64,7 @@ public class GamesDetail extends AppCompatActivity {
         pos = getIntent().getIntExtra("position",0);//sets a variable fname with data passed from the main screen
         sql = getIntent().getStringExtra("sqlstatement");
         //sql = "SELECT * FROM eu where " + sqlstate;
-        Log.d("pixowned", "Value game id: " + gameid + " position: " + pos + " name: " + gamename);
+        Log.d("shelf", "Value game id: " + gameid + " position: " + pos + " name: " + gamename);
 
         //setTitle("@string/gameDetailPageTitle");//sets the screen title with the shopping list name
         gameregion();
@@ -199,6 +199,7 @@ public class GamesDetail extends AppCompatActivity {
             c.close();//close the cursor
         }
         db.close();//close the database
+
         viewPager = (ViewPager) findViewById(R.id.pager);
         adapter = new NesPagerAdapter(this, nesList);
         viewPager.setAdapter(adapter);

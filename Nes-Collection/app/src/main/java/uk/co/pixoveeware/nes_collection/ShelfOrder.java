@@ -33,7 +33,7 @@ public class ShelfOrder extends AppCompatActivity
 
     String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, licensed, currentgroup, check;
     String prevgroup = "";
-    int readgameid, gameid, totalgames, neededgames, index, top, palAcart, palBcart, uscart, pos, shelf, id, rec, shelfsize;
+    int readgameid, readgameid2, gameid, totalgames, neededgames, index, top, palAcart, palBcart, uscart, pos, pos2, shelf, id, rec, shelfsize;
     ArrayAdapter<CharSequence> adapter;
     ArrayList<NesItems> nesList;
     ListView gamelistView;
@@ -72,12 +72,15 @@ public class ShelfOrder extends AppCompatActivity
                 NesItems gameListItems = (NesItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
+
+
                 Intent intent = new Intent(ShelfOrder.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("gameid", readgameid);//passes the table name to the new screen
                 intent.putExtra("name", readgamename);//passes the table name to the new screen
                 intent.putExtra("sqlstatement", "SELECT * FROM eu where owned = 1");
                 intent.putExtra("position", arg2);
                 Log.d("Shelf", "game id:" + readgameid + " Game name: " + readgamename + " List position: " + arg2);
+                Log.d("Shelf","list position: " + arg2 + " item id: " + readgameid);
                 startActivity(intent);//start the new screen
             }
         });*/
@@ -161,7 +164,7 @@ public class ShelfOrder extends AppCompatActivity
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         sql = "SELECT * FROM eu where owned = 1 and cart = 1 and onshelf = 1";
         //sql = "SELECT * FROM eu where owned = 0";
-        Log.d("Pixo", sql);
+        //Log.d("Pixo", sql);
         Cursor c = db.rawQuery(sql, null);//select everything from the database table
 
         if (c.moveToFirst()) {//move to the first record
@@ -196,7 +199,7 @@ public class ShelfOrder extends AppCompatActivity
                     //nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                     nesList.add(nesListItems);//add items to the arraylist
                     shelf ++;
-                    Log.d("pixo", "added shelf record " + name);
+                    //Log.d("pixo", "added shelf record " + name);
 
                 }
                 else {
@@ -208,7 +211,7 @@ public class ShelfOrder extends AppCompatActivity
                     //nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                     nesList.add(nesListItems);//add items to the arraylist
                     if (pos == shelfsize){pos = 0;}
-                    Log.d("pixo", "added other record " + name);
+                    //Log.d("pixo", "added other record " + name);
                 }
 
                 if (rec == 1){c.moveToNext(); check = "y"; Log.d("pixoif", "rec:" + rec);}
