@@ -27,7 +27,7 @@ import java.util.ArrayList;
 
 public class EditOwnedGame extends AppCompatActivity {
 
-    int gameid, coverid, palAcart, palAbox, palAmanual, palBcart, palBbox,
+    int gameid, coverid, palAcart, palAbox, palAmanual, palBcart, palBbox, gamepos,
         palBmanual, uscart, usbox, usmanual, cart, box, manual, owned,
         regionatrue, regionbtrue, regionustrue, favourite, ontheshelf, wishlist, showprice, palaowned, palbowned, usowned;
     String covername, sql, test, currency, PACheck, PBCheck, USCheck;
@@ -42,6 +42,7 @@ public class EditOwnedGame extends AppCompatActivity {
         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
 
         setSupportActionBar(toolbar);
+        gamepos = getIntent().getIntExtra("listposition", 0);
         gameid = getIntent().getIntExtra("editgameid", 0);
         final EditText PalACost = (EditText) findViewById(R.id.txtPalAcost);
         final EditText PalBCost = (EditText) findViewById(R.id.txtPalBcost);
@@ -246,25 +247,25 @@ public class EditOwnedGame extends AppCompatActivity {
         EditText PalBCost = (EditText) findViewById(R.id.txtPalBcost);
         EditText USCost = (EditText) findViewById(R.id.txtUScost);
 
-        if (chkpalacart.isChecked()){ palAcart = 8783; cart = 1; palaowned = 1; owned = 1;} else  { palAcart = 32573; }
-        if (chkpalabox.isChecked()){ palAbox = 8783; box = 1; owned = 1;} else { palAbox = 32573; }
-        if (chkpalamanual.isChecked()){ palAmanual = 8783; manual = 1; owned = 1;} else { palAmanual = 32573; }
+        if (chkpalacart.isChecked()){ palAcart = 8783; cart = 1; palaowned = 1; owned = 1; MainActivity.nesList.get(gamepos).setCart(1); MainActivity.nesList.get(gamepos).setOwned(1); } else  { palAcart = 32573; }
+        if (chkpalabox.isChecked()){ palAbox = 8783; box = 1; owned = 1; MainActivity.nesList.get(gamepos).setBox(1); MainActivity.nesList.get(gamepos).setOwned(1); } else { palAbox = 32573; }
+        if (chkpalamanual.isChecked()){ palAmanual = 8783; manual = 1; owned = 1; MainActivity.nesList.get(gamepos).setManual(1); MainActivity.nesList.get(gamepos).setOwned(1); } else { palAmanual = 32573; }
 
-        if (chkpalbcart.isChecked()){ palBcart = 8783; cart = 1; palbowned = 1; owned = 1;} else { palBcart = 32573; }
-        if (chkpalbbox.isChecked()){ palBbox = 8783; box = 1; owned = 1;} else { palBbox = 32573; }
-        if (chkpalbmanual.isChecked()){ palBmanual = 8783; manual = 1; owned = 1;} else { palBmanual = 32573; }
+        if (chkpalbcart.isChecked()){ palBcart = 8783; cart = 1; palbowned = 1; owned = 1; MainActivity.nesList.get(gamepos).setCart(1); MainActivity.nesList.get(gamepos).setOwned(1); } else { palBcart = 32573; }
+        if (chkpalbbox.isChecked()){ palBbox = 8783; box = 1; owned = 1; MainActivity.nesList.get(gamepos).setBox(1); MainActivity.nesList.get(gamepos).setOwned(1); } else { palBbox = 32573; }
+        if (chkpalbmanual.isChecked()){ palBmanual = 8783; manual = 1; owned = 1; MainActivity.nesList.get(gamepos).setManual(1); MainActivity.nesList.get(gamepos).setOwned(1);} else { palBmanual = 32573; }
 
-        if (chkuscart.isChecked()){ uscart = 8783; cart = 1; usowned = 1; owned = 1;} else { uscart = 32573; }
-        if (chkusbox.isChecked()){ usbox = 8783; box = 1; owned = 1;} else { usbox = 32573;  }
-        if (chkusmanual.isChecked()){ usmanual = 8783; manual = 1; owned = 1;} else { usmanual = 32573; }
+        if (chkuscart.isChecked()){ uscart = 8783; cart = 1; usowned = 1; owned = 1; MainActivity.nesList.get(gamepos).setCart(1); MainActivity.nesList.get(gamepos).setOwned(1);} else { uscart = 32573; }
+        if (chkusbox.isChecked()){ usbox = 8783; box = 1; owned = 1; MainActivity.nesList.get(gamepos).setBox(1); MainActivity.nesList.get(gamepos).setOwned(1); } else { usbox = 32573;  }
+        if (chkusmanual.isChecked()){ usmanual = 8783; manual = 1; owned = 1; MainActivity.nesList.get(gamepos).setManual(1); MainActivity.nesList.get(gamepos).setOwned(1);} else { usmanual = 32573; }
 
         if (onshelf.isChecked()){ontheshelf = 1;} else { ontheshelf = 0;}
 
-        if (palAcart == 32573 && palBcart == 32573 && uscart == 32573) { cart = 0; }
-        if (palAbox == 32573 && palBbox == 32573 && usbox == 32573) { box = 0; }
-        if (palAmanual == 32573 && palBmanual == 32573 && usmanual == 32573) { manual = 0; }
+        if (palAcart == 32573 && palBcart == 32573 && uscart == 32573) { cart = 0; MainActivity.nesList.get(gamepos).setCart(0);  }
+        if (palAbox == 32573 && palBbox == 32573 && usbox == 32573) { box = 0; MainActivity.nesList.get(gamepos).setBox(0); }
+        if (palAmanual == 32573 && palBmanual == 32573 && usmanual == 32573) { manual = 0; MainActivity.nesList.get(gamepos).setManual(0); }
 
-        if (cart == 0 && box == 0 && manual == 0) {owned = 0;}
+        if (cart == 0 && box == 0 && manual == 0) {owned = 0; MainActivity.nesList.get(gamepos).setOwned(0);}
         PACheck = PalACost.getText().toString().replaceAll("[,]", ".");
         Log.d("Pixo-cost", PACheck);
         PACheck = PalACost.getText().toString().replaceAll("[^0-9.]", "");
@@ -313,9 +314,11 @@ public class EditOwnedGame extends AppCompatActivity {
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         String str ="";
         if(favourite == 0) {
-            str = "UPDATE eu SET favourite = 1 where _id = " + gameid + " "; //update the database basket field with 8783
+            str = "UPDATE eu SET favourite = 1 where _id = " + gameid + " ";
+            MainActivity.nesList.get(gamepos).setFavourite(1);//update the database basket field with 8783
         } else  if(favourite == 1) {
-            str = "UPDATE eu SET favourite = 0 where _id = " + gameid + " "; //update the database basket field with 8783
+            str = "UPDATE eu SET favourite = 0 where _id = " + gameid + " ";
+            MainActivity.nesList.get(gamepos).setFavourite(0);//update the database basket field with 8783
         }
         Log.d("Pixo", str);
         db.execSQL(str);//run the sql command

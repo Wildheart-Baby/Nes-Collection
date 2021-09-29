@@ -23,20 +23,37 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     String DB_NAME;
     Context context;
 
-    String searchterm,fieldname, wherestatement, sql, regionselected;
-    int pala, palb, us;
+    String searchterm;
+    String fieldname;
+    String wherestatement;
+    String sql;
+    String regionselected;
+    String title;
+    String currentgroup;
+    String licensed;
+    String titlestr;
+    String titlept1;
+    String titlept2;
+    String thename;
+    String theimage;
+    String prevgroup = "";
+    int pala, palb, us, viewas, totalgames, titles;
     public static int width;
+    public static ArrayList<NesItems> nesList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        gameregion();
+        readList();
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         width = metrics.widthPixels;
@@ -60,6 +77,7 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //setTitle("Nes Collection");
+
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -199,31 +217,28 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    public static void readList(){//the readlist function
+        nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
+        nesList.clear();//clear the shoppingList array
+    }
+
+
     public void gameregion(){//selects the region from the database
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
-        Cursor c = db.rawQuery("SELECT region FROM settings", null);//select everything from the database table
+        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
                 wherestatement = (c.getString(c.getColumnIndex("region")));
-                if(wherestatement.contains("pal_a_release = 1")){setTitle("Pal A Games");}
-                else if(wherestatement.contains("pal_b_release = 1")){setTitle("Pal B Games");}
-                else if(wherestatement.contains("ntsc_release = 1")){setTitle("US Games");}
-
-                Log.d("Pixo", wherestatement);
+                setTitle(c.getString(c.getColumnIndex("region_title")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
         db.close();//close the database
-
-        Toast toast = Toast.makeText(getApplicationContext(),
-                wherestatement,
-                Toast.LENGTH_SHORT);
-        toast.show();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

@@ -35,7 +35,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
         public NesOwnedAdapter(Context context, ArrayList<NesItems> list) {
 
             this.context = context;//sets up the context for the class
-            nesList = list; //sets up a variable as a list
+            MainActivity.nesList = list; //sets up a variable as a list
         }
 
         @Override
@@ -45,7 +45,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
 
         @Override
         public Object getItem(int position) {
-            return nesList.get(position);
+            return MainActivity.nesList.get(position);
         } //gets the position within the list
 
         @Override
@@ -55,7 +55,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            NesItems nesListItems = nesList.get(position); //gets the item position from the array
+            NesItems nesListItems = MainActivity.nesList.get(position); //gets the item position from the array
 
             if (convertView == null) { //if the layout isn't inflated
                 LayoutInflater inflater = (LayoutInflater) context
@@ -193,7 +193,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
             holder.ownedcart.setText(cart);
             holder.ownedbox.setText(box);
             holder.ownedmanual.setText(manual);
-            if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);}else { holder.owned.setVisibility(View.INVISIBLE);}
+            //if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);}else { holder.owned.setVisibility(View.INVISIBLE);}
 
             //if (position % 2 == 0) {
             if (position % 2 == 0){

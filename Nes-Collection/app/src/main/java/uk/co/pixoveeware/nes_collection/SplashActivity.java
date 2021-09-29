@@ -43,6 +43,7 @@ public class SplashActivity extends AppCompatActivity {
 
 
     public void checkDataBase(){
+
         dbfile = getApplicationContext().getDatabasePath("nes.sqlite");
 
         if(!dbfile.exists())
@@ -157,10 +158,10 @@ public class SplashActivity extends AppCompatActivity {
         } catch (Exception ex) {
             if (db.isOpen()) {
                 db.close();
-                {Toast toast = Toast.makeText(getApplicationContext(),
+                /*{Toast toast = Toast.makeText(getApplicationContext(),
                         ex.getMessage().toString(),
                         Toast.LENGTH_SHORT);
-                    toast.show();}
+                    toast.show();}*/
             }
         } finally {
         }
@@ -216,10 +217,10 @@ public class SplashActivity extends AppCompatActivity {
                 Log.d("pixovee", str);
                 db.execSQL(str);//run the sql command
             }
-            {Toast toast = Toast.makeText(getApplicationContext(),
+            /*{Toast toast = Toast.makeText(getApplicationContext(),
                     "Imported Successfully from " + FOLDER_NAME + ".",
                     Toast.LENGTH_SHORT);
-                toast.show();}
+                toast.show();}*/
 
         } catch (Exception ex){
             if (db.isOpen()) {

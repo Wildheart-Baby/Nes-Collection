@@ -27,22 +27,22 @@ public class StatsCollectionImageAdapter extends BaseAdapter {
     public StatsCollectionImageAdapter(Context context, ArrayList<NesItems> list) {
 
         this.context = context;//sets up the context for the class
-        nesList = list; //sets up a variable as a list
+        MainActivity.nesList = list; //sets up a variable as a list
     }
 
     @Override
     public int getCount() {
-        listsize = nesList.size();
+        listsize = MainActivity.nesList.size();
         if (listsize % 3 == 0){}
         else if (listsize + 1 % 3 == 0){addviews = 1;}
         else if (listsize + 2 % 3 == 0){addviews = 2;}
         i = 0;
-        return nesList.size();
+        return MainActivity.nesList.size();
     } //returns the number of items in the array
 
     @Override
     public Object getItem(int position) {
-        return nesList.get(position);
+        return MainActivity.nesList.get(position);
     } //gets the position within the list
 
     @Override
@@ -52,7 +52,7 @@ public class StatsCollectionImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        NesItems nesListItems = nesList.get(position); //gets the item position from the array
+        NesItems nesListItems = MainActivity.nesList.get(position); //gets the item position from the array
         ViewHolder holder;
 
         if (convertView == null) { //if the layout isn't inflated

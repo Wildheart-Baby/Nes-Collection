@@ -32,7 +32,7 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
     String prevgroup = "";
     int readgameid, gameid, index, top, totalResults, viewas;
     ArrayAdapter<CharSequence> adapter;
-    ArrayList<NesItems> nesList;
+    //ArrayList<NesItems> nesList;
     ListView finishedgamelistView;
     GridView gamegalleryview;
 
@@ -110,7 +110,7 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
 
         });
 
-        //setTitle("Finished Games");
+        setTitle("Finished Games");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -136,8 +136,8 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
     }
 
     public void readList(){//the readlist function
-        ArrayList<NesItems> nesList = new ArrayList<NesItems>();//sets up an array list called shoppingList
-        nesList.clear();//clear the shoppingList array
+        if (MainActivity.nesList == null){ MainActivity.readList(); }
+        MainActivity.nesList.clear();//clear the shoppingList array
         TextView header = (TextView) findViewById(R.id.lblHeader);
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
@@ -157,7 +157,47 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
                     nesListItems.setName(c.getString(c.getColumnIndex("name")));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                     nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    nesList.add(nesListItems);//add items to the arraylist
+                    nesListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
+                    nesListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
+                    nesListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
+                    nesListItems.setBoxPalA(c.getInt(c.getColumnIndex("pal_a_box")));
+                    nesListItems.setBoxPalB(c.getInt(c.getColumnIndex("pal_b_box")));
+                    nesListItems.setBoxNtsc(c.getInt(c.getColumnIndex("ntsc_box")));
+                    nesListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
+                    nesListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
+                    nesListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
+                    nesListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
+                    nesListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
+                    nesListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
+                    nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
+                    nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
+                    nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
+                    nesListItems.setFavourite(c.getInt(c.getColumnIndex("favourite")));
+                    nesListItems.setYear(c.getString(c.getColumnIndex("year"))); //re-edit this after testing
+                    nesListItems.setGenre((c.getString(c.getColumnIndex("genre"))));
+                    nesListItems.setSubgenre((c.getString(c.getColumnIndex("subgenre"))));
+                    nesListItems.setDeveloper((c.getString(c.getColumnIndex("developer"))));
+                    nesListItems.setSynopsis((c.getString(c.getColumnIndex("synopsis"))));
+                    nesListItems.setAustralia(c.getInt(c.getColumnIndex("flag_australia")));
+                    nesListItems.setAustria(c.getInt(c.getColumnIndex("flag_austria")));
+                    nesListItems.setBenelux(c.getInt(c.getColumnIndex("flag_benelux")));
+                    nesListItems.setDenmark(c.getInt(c.getColumnIndex("flag_denmark")));
+                    nesListItems.setFinland(c.getInt(c.getColumnIndex("flag_finland")));
+                    nesListItems.setFrance(c.getInt(c.getColumnIndex("flag_france")));
+                    nesListItems.setGermany((c.getInt(c.getColumnIndex("flag_germany"))));
+                    nesListItems.setGreece(c.getInt(c.getColumnIndex("flag_greece")));
+                    nesListItems.setIreland(c.getInt(c.getColumnIndex("flag_ireland")));
+                    nesListItems.setItaly(c.getInt(c.getColumnIndex("flag_italy")));
+                    nesListItems.setNorway(c.getInt(c.getColumnIndex("flag_norway")));
+                    nesListItems.setPoland(c.getInt(c.getColumnIndex("flag_poland")));
+                    nesListItems.setPortugal(c.getInt(c.getColumnIndex("flag_portugal")));
+                    nesListItems.setSpain(c.getInt(c.getColumnIndex("flag_spain")));
+                    nesListItems.setSweden(c.getInt(c.getColumnIndex("flag_sweden")));
+                    nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
+                    nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
+                    nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
+
+                    MainActivity.nesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                 }
                 else if(currentgroup.equals(prevgroup)){
@@ -167,7 +207,47 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
                     nesListItems.setName(c.getString(c.getColumnIndex("name")));
                     nesListItems.setPublisher(c.getString(c.getColumnIndex("publisher")));
                     nesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    nesList.add(nesListItems);//add items to the arraylist
+                    nesListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
+                    nesListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
+                    nesListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
+                    nesListItems.setBoxPalA(c.getInt(c.getColumnIndex("pal_a_box")));
+                    nesListItems.setBoxPalB(c.getInt(c.getColumnIndex("pal_b_box")));
+                    nesListItems.setBoxNtsc(c.getInt(c.getColumnIndex("ntsc_box")));
+                    nesListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
+                    nesListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
+                    nesListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
+                    nesListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
+                    nesListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
+                    nesListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
+                    nesListItems.setCart(c.getInt(c.getColumnIndex("cart")));
+                    nesListItems.setBox(c.getInt(c.getColumnIndex("box")));
+                    nesListItems.setManual(c.getInt(c.getColumnIndex("manual")));
+                    nesListItems.setFavourite(c.getInt(c.getColumnIndex("favourite")));
+                    nesListItems.setYear(c.getString(c.getColumnIndex("year"))); //re-edit this after testing
+                    nesListItems.setGenre((c.getString(c.getColumnIndex("genre"))));
+                    nesListItems.setSubgenre((c.getString(c.getColumnIndex("subgenre"))));
+                    nesListItems.setDeveloper((c.getString(c.getColumnIndex("developer"))));
+                    nesListItems.setSynopsis((c.getString(c.getColumnIndex("synopsis"))));
+                    nesListItems.setAustralia(c.getInt(c.getColumnIndex("flag_australia")));
+                    nesListItems.setAustria(c.getInt(c.getColumnIndex("flag_austria")));
+                    nesListItems.setBenelux(c.getInt(c.getColumnIndex("flag_benelux")));
+                    nesListItems.setDenmark(c.getInt(c.getColumnIndex("flag_denmark")));
+                    nesListItems.setFinland(c.getInt(c.getColumnIndex("flag_finland")));
+                    nesListItems.setFrance(c.getInt(c.getColumnIndex("flag_france")));
+                    nesListItems.setGermany((c.getInt(c.getColumnIndex("flag_germany"))));
+                    nesListItems.setGreece(c.getInt(c.getColumnIndex("flag_greece")));
+                    nesListItems.setIreland(c.getInt(c.getColumnIndex("flag_ireland")));
+                    nesListItems.setItaly(c.getInt(c.getColumnIndex("flag_italy")));
+                    nesListItems.setNorway(c.getInt(c.getColumnIndex("flag_norway")));
+                    nesListItems.setPoland(c.getInt(c.getColumnIndex("flag_poland")));
+                    nesListItems.setPortugal(c.getInt(c.getColumnIndex("flag_portugal")));
+                    nesListItems.setSpain(c.getInt(c.getColumnIndex("flag_spain")));
+                    nesListItems.setSweden(c.getInt(c.getColumnIndex("flag_sweden")));
+                    nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
+                    nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
+                    nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
+
+                    MainActivity.nesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                 }
                 c.moveToNext();//move to the next record
@@ -183,12 +263,12 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
             header.setText("You have haven't finished any games, you should get to playing");
         }else {
             if(viewas == 0){
-                NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist
+                NesCollectionAdapter nes = new NesCollectionAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
                 gamegalleryview.setVisibility(View.GONE);
                 finishedgamelistView.setAdapter(nes);
 
             }else if (viewas == 1){
-                NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, nesList);//set up an new list adapter from the arraylist
+                NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
                 finishedgamelistView.setVisibility(View.GONE);
                 gamegalleryview.setAdapter(nes);
             }

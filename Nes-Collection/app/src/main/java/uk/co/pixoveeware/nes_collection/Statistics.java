@@ -47,6 +47,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     float[] datapoints;
     int[] piecolours;
     int completeinbox;
+    SQLiteDatabase db;//sets up the connection to the database
 
     String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename, gamescost, gameorgames, regionselected, loosecarts, looseboxes, looseman, looseitems, collectionpercentagestr, avgCst;
     int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i, showprices, numberowned, palaMaxCost, palbMaxCost, usMaxCost,totalfinished, collectiongames, collectionreleased, loosecart, loosemanual, loosebox;
@@ -474,8 +475,110 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             }
             //gamecost = "You have spent " + currency + totalcost + " on games for your collection\n" +
 
+            switch (wherestatement) {
+                case "(pal_a_release = 1)":
+                    if (licensed.equals(" and (unlicensed = 0)")) {
+                        collectionreleased = 327;
+                    } else {
+                        collectionreleased = 361;
+                    }
+                    sql = "select * from eu where (owned = 1 and pal_a_release = 1)";
+                    c = db.rawQuery(sql, null);
+                    c.moveToFirst();
+                    collectiongames = c.getCount();
+                    regionselected = getString(R.string.regionsA);
 
-            if (wherestatement.equals("(pal_a_release = 1)")) {
+                    break;
+                 case "(pal_uk_release = 1)":
+                    if (licensed.equals(" and (unlicensed = 0)")) {
+                        collectionreleased = 246;
+                    } else {
+                        collectionreleased = 255;
+                    }
+                    sql = "select * from eu where (owned = 1 and pal_uk_release = 1)";
+                    c = db.rawQuery(sql, null);
+                    c.moveToFirst();
+                    collectiongames = c.getCount();
+                    regionselected = getString(R.string.regionsA2);
+                     break;
+                case "(pal_b_release = 1)":
+                    if (licensed.equals(" and (unlicensed = 0)")) {
+                        collectionreleased = 242;
+                    } else {
+                        collectionreleased = 268;
+                    }
+                    sql = "select * from eu where (owned = 1 and pal_b_release = 1)";
+                    c = db.rawQuery(sql, null);
+                    c.moveToFirst();
+                    collectiongames = c.getCount();
+                    regionselected = getString(R.string.regionsB);
+                    break;
+                case "(ntsc_release = 1)":
+                    if (licensed.equals(" and (unlicensed = 0)")) {
+                        collectionreleased = 673;
+                    } else {
+                        collectionreleased = 760;
+                    }
+                    sql = "select * from eu where (owned = 1 and ntsc_release = 1)";
+                    c = db.rawQuery(sql, null);
+                    c.moveToFirst();
+                    collectiongames = c.getCount();
+                    regionselected = getString(R.string.regionsUS);
+                break;
+                case "(pal_a_release = 1 or pal_b_release = 1)":
+                    if (licensed.equals(" and (unlicensed = 0)")) {
+                        collectionreleased = 350;
+                    } else {
+                        collectionreleased = 384;
+                    }
+                    sql = "select * from eu where (owned = 1 and (pal_a_release = 1 or pal_b_release = 1))";
+                    c = db.rawQuery(sql, null);
+                    c.moveToFirst();
+                    collectiongames = c.getCount();
+                    regionselected = "Pal A & Pal B";
+                    break;
+                case "(pal_a_release = 1 or ntsc_release = 1)":
+                    if (licensed.equals(" and (unlicensed = 0)")) {
+                        collectionreleased = 717;
+                    } else {
+                        collectionreleased = 818;
+                    }
+                    sql = "select * from eu where (owned = 1 and (pal_a_release = 1 or ntsc_release = 1))";
+                    c = db.rawQuery(sql, null);
+                    c.moveToFirst();
+                    collectiongames = c.getCount();
+                    regionselected = "Pal A & Ntsc";
+                    break;
+                case "(pal_b_release = 1 or ntsc_release = 1)":
+                    if (licensed.equals(" and (unlicensed = 0)")) {
+                        collectionreleased = 723;
+                    } else {
+                        collectionreleased = 822;
+                    }
+                    sql = "select * from eu where (owned = 1 and (pal_b_release = 1 or ntsc_release = 1))";
+                    c = db.rawQuery(sql, null);
+                    c.moveToFirst();
+                    collectiongames = c.getCount();
+                    regionselected = "Pal B & Ntsc";
+                    break;
+                case "(pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1)":
+                    if (licensed.equals(" and (unlicensed = 0)")) {
+                        collectionreleased = 725;
+                    } else {
+                        collectionreleased = 826;
+                    }
+                    Log.d("pixo-stats", "all regions count hit");
+                    sql = "select * from eu where (owned = 1 and (pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1))";
+                    c = db.rawQuery(sql, null);
+                    c.moveToFirst();
+                    collectiongames = c.getCount();
+                    Log.d("pixo-stats", "Count % " + collectiongames);
+                    regionselected = getString(R.string.regionsAll);
+                    break;
+                }
+
+
+            /*if (wherestatement.equals("(pal_a_release = 1)")) {
                 if (licensed.equals(" and (unlicensed = 0)")) {
                     collectionreleased = 327;
                 } else {
@@ -560,15 +663,17 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 } else {
                     collectionreleased = 826;
                 }
+                Log.d("pixo-stats", "all regions count hit");
                 sql = "select * from eu where (owned = 1 and (pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1))";
                 c = db.rawQuery(sql, null);
                 c.moveToFirst();
                 collectiongames = c.getCount();
+                Log.d("pixo-stats", "Count % " + collectiongames);
                 regionselected = getString(R.string.regionsAll);
-            }
+            }*/
 
             //avgCost = Float.valueOf(decimalFormat.format(totalcost / totalOwned));
-
+            Log.d("pixo-stats", "collection games: " + collectiongames + " collection released: " + collectionreleased);
             collectionpercentage  = ((double) collectiongames / collectionreleased) * 100;
 
             //Float.format("%.2f", totalcost);
@@ -576,6 +681,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             collectionpercentagestr = String.format("%.2f", collectionpercentage);
             Log.d("pixo-stats", "Games " + collectiongames + " released " + collectionreleased);
             Log.d("pixo-stats", "Collection % " + collectionpercentage);
+            Log.d("pixo-stats", "Region: " + wherestatement);
             gamecost = gamescost +
 
                     getString(R.string.statsGamescost3) + " " + totalOwned + " " + gameorgames +
@@ -745,7 +851,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
 
     public void gameregion(){//selects the region from the database
         Log.d("Pixo","Running game region");
-        SQLiteDatabase db;//sets up the connection to the database
+
         db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
         Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
 

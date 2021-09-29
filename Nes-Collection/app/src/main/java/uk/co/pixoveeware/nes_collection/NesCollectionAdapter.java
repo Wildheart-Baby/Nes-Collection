@@ -29,7 +29,7 @@ public class NesCollectionAdapter extends BaseAdapter {
     }
 
     Context context; //sets up a variable as context
-    ArrayList<NesItems> nesList; //sets up  an array called shoppingList
+    //ArrayList<NesItems> nesList; //sets up  an array called shoppingList
     String gameimage;
     private static final int TYPE_GAME = 0;
     private static final int TYPE_DIVIDER = 1;
@@ -40,18 +40,18 @@ public class NesCollectionAdapter extends BaseAdapter {
     public NesCollectionAdapter(Context context, ArrayList<NesItems> list) {
 
         this.context = context;//sets up the context for the class
-        nesList = list; //sets up a variable as a list
+        MainActivity.nesList = list; //sets up a variable as a list
 
     }
 
     @Override
     public int getCount() {
-        return nesList.size();
+        return MainActivity.nesList.size();
     } //returns the number of items in the array
 
     @Override
     public Object getItem(int position) {
-        return nesList.get(position);
+        return MainActivity.nesList.get(position);
     } //gets the position within the list
 
     @Override
@@ -61,7 +61,7 @@ public class NesCollectionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        NesItems nesListItems = nesList.get(position); //gets the item position from the array
+        NesItems nesListItems = MainActivity.nesList.get(position); //gets the item position from the array
 
         if (convertView == null) { //if the layout isn't inflated
             LayoutInflater inflater = (LayoutInflater) context
