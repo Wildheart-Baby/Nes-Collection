@@ -66,7 +66,7 @@ public class GamesDetail extends AppCompatActivity {
         //sql = "SELECT * FROM eu where " + sqlstate;
         Log.d("pixowned", "Value game id: " + gameid + " position: " + pos + " name: " + gamename);
 
-        setTitle("Game Details");//sets the screen title with the shopping list name
+        //setTitle("@string/gameDetailPageTitle");//sets the screen title with the shopping list name
         gameregion();
         readGame();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

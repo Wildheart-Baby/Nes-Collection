@@ -160,7 +160,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Owned"
+                    android:text="@string/editGameOwned"
                     android:id="@+id/hdrOwned"
                     android:textStyle="bold"
                     android:textAlignment="center" />

@@ -50,7 +50,7 @@ public class FavouriteGames extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite_games);
 
-        setTitle("Favourite Games");
+        //setTitle("Favourite Games");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

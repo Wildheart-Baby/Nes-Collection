@@ -39,7 +39,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/whichregion"
+        android:text="@string/settingsWhichregion"
         android:id="@+id/lblTitle"
         android:gravity="center"
         android:background="#CCCAC7"
@@ -63,7 +63,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Unlicensed"
+        android:text="@string/settingsUnlicensed"
         android:id="@+id/chkUnlicensed"
         android:layout_below="@+id/dropRegion"
         android:layout_alignParentLeft="true"
@@ -104,7 +104,7 @@
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Currency"
+        android:text="@string/settingsCurrency"
         android:id="@+id/lblCurrency"
         android:layout_below="@+id/lblDivider2"
         android:layout_alignParentLeft="true"
@@ -132,7 +132,7 @@
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ShelfSize"
+        android:text="@string/settingsShelfSize"
         android:id="@+id/lblShelfSize"
         android:layout_below="@+id/lblDivider3"
         android:layout_alignParentLeft="true"
@@ -166,7 +166,7 @@
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ShowPrices"
+        android:text="@string/settingsShowPrices"
         android:id="@+id/chkShowPrices"
         android:layout_below="@+id/lblDivider4"
         android:layout_alignParentLeft="true"
@@ -186,7 +186,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/GamesList"
+        android:text="@string/settingsGamesList"
         android:layout_below="@+id/lblDivider5"
         android:id="@+id/lblListHeader"
         android:layout_marginBottom="10dp"
@@ -209,13 +209,13 @@
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/ListView"
+            android:text="@string/settingsListView"
             android:id="@+id/rbListView" />
 
         <RadioButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/GalleryView"
+            android:text="@string/settingsGalleryView"
             android:id="@+id/rbGallery"
             android:layout_marginLeft="10dp" />
     </RadioGroup>
@@ -233,7 +233,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/ExportDatabase"
+        android:text="@string/settingsExportDatabase"
         android:id="@+id/textView3"
         android:layout_below="@+id/lblDivider6"
         android:layout_alignParentLeft="true"
@@ -243,7 +243,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/SettingsExport"
+        android:text="@string/settingsSettingsExport"
         android:id="@+id/btnExport"
         android:layout_below="@+id/textView3"
         android:layout_alignParentLeft="true"
@@ -254,7 +254,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Import"
+        android:text="@string/settingsImport"
         android:id="@+id/btnImport"
         android:layout_alignTop="@+id/btnExport"
         android:layout_toRightOf="@+id/btnExport"

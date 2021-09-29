@@ -110,7 +110,7 @@ public class FinishedGames extends AppCompatActivity implements NavigationView.O
 
         });
 
-        setTitle("Finished Games");
+        //setTitle("Finished Games");
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

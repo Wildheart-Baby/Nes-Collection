@@ -114,7 +114,7 @@ public class NesPagerAdapter extends PagerAdapter {
         coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
         cover.setImageResource(coverid);
 
-        if (owned == 0){Owned.setVisibility(View.INVISIBLE);}
+        if (owned == 0){Owned.setVisibility(View.GONE);}
 
         flagAustralia = nesListItems.getAustralia();
         flagAustria = nesListItems.getAustria();

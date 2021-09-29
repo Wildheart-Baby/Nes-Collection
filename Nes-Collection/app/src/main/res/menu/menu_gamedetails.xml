@@ -16,15 +16,15 @@
         app:showAsAction="ifRoom" />
     <item
     android:id="@+id/action_wishlist"
-    android:title="@string/action_wishlist"
+    android:title="@string/title_activity_wish_list"
     app:showAsAction="never" />
     <item
     android:id="@+id/action_finishedgame"
-    android:title="Finished Game"
+    android:title="@string/title_activity_finished_games"
     app:showAsAction="never" />
     <item
         android:id="@+id/action_about"
         android:orderInCategory="101"
-        android:title="About"
+        android:title="@string/title_activity_about"
         app:showAsAction="never" />
 </menu>

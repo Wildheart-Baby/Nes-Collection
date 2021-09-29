@@ -7,7 +7,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:text="@string/whichregion"
+        android:text="@string/settingsWhichregion"
         android:id="@+id/lblTitle"
         android:textStyle="bold"
         android:textSize="18sp"
@@ -26,7 +26,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Ok"
+        android:text="@string/editGameOk"
         android:id="@+id/rgnOk"
         android:layout_below="@+id/dropRegion"
         android:layout_alignParentLeft="true"
@@ -35,7 +35,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Cancel"
+        android:text="@string/editGameCancel"
         android:id="@+id/rgnCancel"
         android:layout_alignTop="@+id/rgnOk"
         android:layout_toRightOf="@+id/rgnOk"

@@ -65,7 +65,7 @@ public class WishList extends AppCompatActivity
         thesearchresults = (TextView) findViewById(R.id.lblSearchResults);
         gamelistView = (ListView) findViewById(R.id.listView);
         gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
-        setTitle("Wish List");
+        //setTitle("Wish List");
 
         readList();
 

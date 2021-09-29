@@ -5,7 +5,7 @@
     <string name="action_wishlist">Wish list</string>
     <string name="name">name</string>
     <string name="title_activity_all_games">All Games</string>
-    <string name="title_activity_game_detail">GameDetail</string>
+    <string name="title_activity_game_detail">Game Detail</string>
     <string name="title_activity_navigation_menu">NavigationMenu</string>
 
     <string name="banner_ad_unit_id">ca-app-pub-0537596348696744/4062549395</string>
@@ -13,22 +13,21 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_search_results">SearchResults</string>
-    <string name="title_activity_owned_games">OwnedGames</string>
+    <string name="title_activity_owned_games">Owned Games</string>
     <string name="ownedgames">A B Us</string>
     <string name="cartimage">cartimage</string>
     <string name="boximage">boximage</string>
     <string name="manualimage">manualimage</string>
-    <string name="title_activity_edit_owned_game">EditOwnedGame</string>
-    <string name="Owned">Owned</string>
+    <string name="title_activity_edit_owned_game">Which items do you own</string>
+
     <string name="gamename">Game Name</string>
     <string name="palA">Pal A</string>
     <string name="palBcart">Pal B</string>
     <string name="US">US</string>
-    <string name="Ok">Ok</string>
-    <string name="Cancel">Cancel</string>
-    <string name="title_activity_needed_games">NeededGames</string>
+
+    <string name="title_activity_needed_games">Needed Games</string>
     <string name="Totalgames">Total games</string>
-    <string name="title_activity_nes_collection">NesCollection</string>
+    <string name="title_activity_nes_collection">Nes Collection</string>
     <string name="AllGames">All Games</string>
     <string name="Needed">Needed</string>
     <string name="Stats">Statistics</string>
@@ -38,11 +37,11 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="Title">Nes Collection</string>
-    <string name="title_activity_favourite_games">FavouriteGames</string>
-    <string name="whichregion">Collecting Region</string>
+    <string name="title_activity_favourite_games">Favourite Games</string>
+
     <string name="title_activity_settings">Settings</string>
     <string name="Settings">Settings</string>
-    <string name="Unlicensed">Include unlicensed games</string>
+
     <string name="RandomHeading">Your randomly selected game is</string>
     <string name="action_order_alphabetic">Order alphabetically</string>
     <string name="action_order_price">Order by price</string>
@@ -650,38 +649,39 @@
     <string name="title_activity_credits">Credits</string>
     <string name="Aboutdesc">Your game collecting companion</string>
     <string name="About">© Pixoveeware 2016 \n  All rights reserved.</string>
-    <string name="Cost">Cost</string>
-    <string name="title_activity_shelf_order">ShelfOrder</string>
-    <string name="SearchTerm">Game Title</string>
-    <string name="FieldName">Field to search</string>
+
+    <string name="title_activity_shelf_order">Shelf Order</string>
+
+
     <string name="SubGenre">Sub genre</string>
     <string name="NoResults">Sorry there are no results</string>
-    <string name="AllRegions">Only search collecting region</string>
+
     <string name="HeaderStats">This is a breakdown of the games that you have in your collection by region.</string>
-    <string name="Shelf">Store on shelf</string>
-    <string name="Currency">Currency</string>
-    <string name="ShelfSize">Number of games per shelf</string>
-    <string name="title_activity_wish_list">WishList</string>
+
+
+
+    <string name="title_activity_wish_list">Wish List</string>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="title_activity_main2">Main2Activity</string>
-    <string name="title_activity_games_detail">GamesDetail</string>
+    <string name="title_activity_games_detail">Games Detail</string>
     <string name="PieGenres">Game Genres</string>
     <string name="PalAGames">Pal A Games</string>
     <string name="PalBGames">Pal B Games</string>
     <string name="USGames">US Games</string>
-    <string name="ShowPrices">Show prices paid for games</string>
+
     <string name="title_activity_finished_games">FinishedGames</string>
-    <string name="ListView">View as list</string>
-    <string name="GalleryView">View as gallery</string>
-    <string name="GamesList">Games lists</string>
+
+
     <string name="title_activity_stats_search_results">StatsSearchResults</string>
     <string name="Countries">Released in</string>
-    <string name="ExportDatabase">Games data</string>
-    <string name="SettingsExport">Export Data</string>
-    <string name="Import">Import</string>
+
+
     <string name="title_activity_trophy_room">TrophyRoom</string>
     <string name="RegionMissing">Show games missing from collecting region</string>
+
+
+
 
     <string name="mainAllGames">All games</string>
     <string name="mainNeededGames">Needed games</string>
@@ -692,5 +692,56 @@
     <string name="mainStatistics">Statistics</string>
     <string name="mainFinishedGames">Finished games</string>
     <string name="mainSettings">Settings</string>
-    
+
+    <string name="settingsWhichregion">Collecting Region</string>
+
+    <string name="settingsUnlicensed">Include unlicensed games</string>
+    <string name="settingsCurrency">Currency</string>
+    <string name="settingsShelfSize">Number of games per shelf</string>
+    <string name="settingsShowPrices">Show prices paid for games</string>
+    <string name="settingsGamesList">Games lists</string>
+    <string name="settingsListView">View as list</string>
+    <string name="settingsGalleryView">View as gallery</string>
+    <string name="settingsExportDatabase">Games data</string>
+    <string name="settingsSettingsExport">Export Data</string>
+    <string name="settingsImport">Import</string>
+
+    <string name="navMainPage">Main page</string>
+    <string name="navAllGames">All games</string>
+    <string name="navMissingGames">Missing games</string>
+    <string name="navOwnedGames">Owned games</string>
+    <string name="navFavouriteGames">Favourite games</string>
+    <string name="navWishList">Wish list</string>
+    <string name="navShelfOrder">Shelf order</string>
+    <string name="navStatistics">Statistics</string>
+    <string name="navFinishedGames">Finished games</string>
+    <string name="navSettings">Settings</string>
+
+    <string name="gameDetailPageTitle">Game details</string>
+    <string name="gameDetailGenre">Genre</string>
+    <string name="gameDetailSubGenre">Subgenre</string>
+    <string name="gameDetailPublisher">Publisher</string>
+    <string name="gameDetailDeveloper">Developer</string>
+    <string name="gameDetailYear">Year</string>
+    <string name="gameDetailReleasedIn">Released in</string>
+    <string name="gameDetailBoxSynopsis">Box synopsis</string>
+    <string name="gameDetailOwned">Owned</string>
+
+    <string name="searchPageTitle">Game search</string>
+    <string name="searchSearchTerm">Game Title</string>
+    <string name="searchHint">Type your search here...</string>
+    <string name="searchFieldName">Field to search</string>
+    <string name="searchAllRegions">Only search collecting region</string>
+    <string name="searchSearch">Search</string>
+    <string name="searchCancel">Cancel</string>
+
+    <string name="allGamesSubTitle1">This region has</string>
+    <string name="allGamesSubTitle2">games</string>
+
+    <string name="editGameOwned">Owned</string>
+    <string name="editGameCost">Cost</string>
+    <string name="editGameShelf">Store on shelf</string>
+    <string name="editGameOk">Ok</string>
+    <string name="editGameCancel">Cancel</string>
+
 </resources>

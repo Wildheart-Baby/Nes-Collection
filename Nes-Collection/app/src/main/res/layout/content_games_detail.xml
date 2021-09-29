@@ -22,7 +22,7 @@
 
 
         <RelativeLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rlTop">
 
@@ -35,9 +35,9 @@
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_alignParentTop="true"
-                android:layout_alignRight="@+id/linearLayout"
-                android:layout_alignEnd="@+id/linearLayout"
-                android:layout_marginBottom="5dp" />
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -46,7 +46,7 @@
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"
                 android:paddingRight="3dp"
-                android:src="@drawable/placeholder"
+                android:src="@drawable/placeholdersml"
                 android:contentDescription="game cover"
                 android:layout_below="@+id/lblGameName"
                 android:layout_alignParentLeft="true"
@@ -54,18 +54,17 @@
 
             <LinearLayout
                 android:orientation="vertical"
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/lblGameName"
                 android:layout_toRightOf="@+id/imgGameCover"
-                android:layout_toEndOf="@+id/imgGameCover"
                 android:id="@+id/linearLayout"
-                android:layout_marginBottom="2dp">
+                android:layout_marginBottom="2dp"
+                android:layout_width="120dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Genre"
+                    android:text="@string/gameDetailGenre"
                     android:id="@+id/hdrGenre"
                     android:layout_below="@+id/textView"
                     android:layout_toRightOf="@+id/lblGenre"
@@ -84,7 +83,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Subgenre"
+                    android:text="@string/gameDetailSubGenre"
                     android:id="@+id/hdrSubgenre"
                     android:textStyle="bold" />
 
@@ -97,7 +96,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Publisher"
+                    android:text="@string/gameDetailPublisher"
                     android:id="@+id/hdrPublisher"
                     android:textStyle="bold" />
 
@@ -110,7 +109,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Developer"
+                    android:text="@string/gameDetailDeveloper"
                     android:id="@+id/hdrDeveloper"
                     android:textStyle="bold" />
 
@@ -123,7 +122,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Year"
+                    android:text="@string/gameDetailYear"
                     android:id="@+id/hdrYear"
                     android:textStyle="bold" />
 
@@ -137,11 +136,12 @@
             <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/linearLayout"
-                android:layout_toRightOf="@+id/imgGameCover"
+                android:layout_below="@+id/lblGameName"
+                android:layout_toRightOf="@+id/linearLayout"
                 android:padding="1dp"
                 android:background="#000000"
-                android:id="@+id/frmOwned">
+                android:id="@+id/frmOwned"
+                android:layout_marginRight="5dp">
 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -156,7 +156,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/Owned"
+                        android:text="@string/gameDetailOwned"
                         android:id="@+id/hdrOwned"
                         android:textStyle="bold"
                         android:textAlignment="center"
@@ -210,7 +210,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/Countries"
+                android:text="@string/gameDetailReleasedIn"
                 android:id="@+id/lblCountries"
                 android:layout_marginBottom="3dp"
                 android:textStyle="bold" />
@@ -453,7 +453,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Box synopsis"
+                android:text="@string/gameDetailBoxSynopsis"
                 android:id="@+id/lblSynTitle"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"

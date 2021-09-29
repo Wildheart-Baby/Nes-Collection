@@ -44,7 +44,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Cancel"
+        android:text="@string/editGameCancel"
         android:id="@+id/btnCancel"
         android:layout_gravity="right" />
 </LinearLayout>

@@ -39,7 +39,7 @@ public class AllGames extends AppCompatActivity
 
     private  int gridviewVerticalPositionWhenThumbnailTapped;
 
-    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, title, currentgroup, licensed, titlestr;
+    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, title, currentgroup, licensed, titlestr, titlept1, titlept2;
     String prevgroup = "";
     int readgameid, gameid, index, top, viewas, ListSize, i, AddItems, totalgames;
     ArrayAdapter<CharSequence> adapter;
@@ -266,7 +266,10 @@ public class AllGames extends AppCompatActivity
         }
         //Cursor c = db.rawQuery("SELECT ID, ITEM, QUANTITY, DEPARTMENT, BASKET FROM " + fname, null);
         db.close();//close the database
-        titlestr = "This region has " + totalgames + " games";
+
+        titlept1 = getString(R.string.allGamesSubTitle1);
+        titlept2 = getString(R.string.allGamesSubTitle2);
+        titlestr = titlept1 + " " + totalgames + " " + titlept2;
 
         if(viewas == 0){
             NesCollectionAdapter nes = new NesCollectionAdapter(this, nesList);//set up an new list adapter from the arraylist

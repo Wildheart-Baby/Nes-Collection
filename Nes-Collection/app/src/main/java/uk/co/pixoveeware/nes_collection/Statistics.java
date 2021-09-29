@@ -32,6 +32,7 @@ import com.google.android.gms.ads.MobileAds;
 
 import org.w3c.dom.Text;
 
+import java.text.DecimalFormat;
 import java.util.Arrays;
 
 public class Statistics extends AppCompatActivity implements PieChartView.Callback,
@@ -47,11 +48,12 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     int[] piecolours;
     int completeinbox;
 
-    String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename, gamescost, gameorgames;
-    int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i, showprices, numberowned, palaMaxCost, palbMaxCost, usMaxCost,totalfinished;
+    String name, dbfile, sql, licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, currency,poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename, gamescost, gameorgames, regionselected, loosecarts, looseboxes, looseman, looseitems;
+    int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i, showprices, numberowned, palaMaxCost, palbMaxCost, usMaxCost,totalfinished, collectiongames, collectionreleased, loosecart, loosemanual, loosebox;
+    int ownedPalAbox, ownedPalBbox, ownedUSbox, ownedPalAman, ownedPalBman, ownedUSman, boxed;
     //int ownedaction, ownedadventure, ownedbeatemup, ownedactionadventure, ownedarcade, ownedboardgame, ownedcompilation, ownedfighting, ownedother, ownedplatformer, ownedpuzzle, ownedracing, ownedroleplayinggame, ownedshootemup, ownedshooter, ownedsimulation, ownedsports, ownedstrategy, ownedtraditional, ownedtrivia;
-    double percentPalAOwned, percentPalBOwned, percentUSOwned, percentagepalacollection, percentagepalbcollection, percentageuscollection;
-    float palacost, palbcost, uscost, totalpalacost, totalpalbcost, totaluscost, totalcost;
+    double percentPalAOwned, percentPalBOwned, percentUSOwned, percentagepalacollection, percentagepalbcollection, percentageuscollection, collectionpercentage, cibpercentage, boxedpercentage;
+    float palacost, palbcost, uscost, totalpalacost, totalpalbcost, totaluscost, totalcost, avgCost;;
     int lay = 1;
 
 
@@ -62,7 +64,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
 
         dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
 
-        setTitle("Statistics");
+        //("Statistics");
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -246,7 +248,9 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         TextView us = (TextView) findViewById(R.id.lblUS);
         TextView cost = (TextView) findViewById(R.id.lblCost);
         TextView cib = (TextView) findViewById(R.id.lblCompleteInfo);
+        TextView boxedgames = (TextView) findViewById(R.id.lblBoxedInfo);
         TextView header = (TextView) findViewById(R.id.lblHeader);
+        TextView loose = (TextView) findViewById(R.id.lblLooseInfo);
         RelativeLayout RlPie = (RelativeLayout) findViewById(R.id.rlPieChart);
         RelativeLayout RlAll = (RelativeLayout) findViewById(R.id.rlAll);
         RelativeLayout RlPalA = (RelativeLayout) findViewById(R.id.rlPalA);
@@ -257,6 +261,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         TextView Div2 = (TextView) findViewById(R.id.lblDivider2);
         TextView Div3 = (TextView) findViewById(R.id.lblDivider3);
         TextView Div4 = (TextView) findViewById(R.id.lblDivider4);
+
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
@@ -377,18 +382,18 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 RlPalB.setVisibility(View.GONE);
                 Div3.setVisibility(View.GONE);
             }
-                palbnames = new String[i];
-                if (c.moveToFirst()) {//move to the first record
-                    io = 0;
-                    while (!c.isAfterLast()) {//while there are records to read
-                        palbnames[io] = c.getString(c.getColumnIndex("name")) + " ";
-                        c.moveToNext();
-                        io++;
-                    }
-                    palbnames2 = Arrays.toString(palbnames);
-                    palbnames2 = palbnames2.substring(1, palbnames2.length() - 1);
-                    Log.d("Pixo", "Pal B: " + palbnames2);
+            palbnames = new String[i];
+            if (c.moveToFirst()) {//move to the first record
+                io = 0;
+                while (!c.isAfterLast()) {//while there are records to read
+                    palbnames[io] = c.getString(c.getColumnIndex("name")) + " ";
+                    c.moveToNext();
+                    io++;
                 }
+                palbnames2 = Arrays.toString(palbnames);
+                palbnames2 = palbnames2.substring(1, palbnames2.length() - 1);
+                Log.d("Pixo", "Pal B: " + palbnames2);
+            }
 
             sql = "select name from eu where ntsc_owned = 1 and ntsc_cost >0 and ntsc_cost=(select max(ntsc_cost) from eu) limit 1";
             c = db.rawQuery(sql, null);
@@ -403,17 +408,17 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 RlUS.setVisibility(View.GONE);
                 //Div3.setVisibility(View.GONE);
             }
-                usnames = new String[i];
-                if (c.moveToFirst()) {//move to the first record
-                    io = 0;
-                    while (!c.isAfterLast()) {//while there are records to read
-                        usnames[io] = c.getString(c.getColumnIndex("name")) + " ";
-                        c.moveToNext();
-                        io++;
-                    }
-                    usnames2 = Arrays.toString(usnames);
-                    usnames2 = usnames2.substring(1, usnames2.length() - 1);
-                    Log.d("Pixo", "US: " + usnames2);
+            usnames = new String[i];
+            if (c.moveToFirst()) {//move to the first record
+                io = 0;
+                while (!c.isAfterLast()) {//while there are records to read
+                    usnames[io] = c.getString(c.getColumnIndex("name")) + " ";
+                    c.moveToNext();
+                    io++;
+                }
+                usnames2 = Arrays.toString(usnames);
+                usnames2 = usnames2.substring(1, usnames2.length() - 1);
+                Log.d("Pixo", "US: " + usnames2);
 
             }
 
@@ -429,28 +434,149 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
 
             i = 0;
 
-            sql = "select * from eu where owned = 1 and cart = 1 and box = 1 and manual = 1";
+            sql = "select * from eu where (owned = 1 and cart = 1 and box = 1 and manual = 1)";
             c = db.rawQuery(sql, null);
             c.moveToFirst();
             completeinbox = c.getCount();
 
-            c.close();
-            db.close();//close the database
+            sql = "select * from eu where (owned = 1 and cart = 1 and box = 1)";
+            c = db.rawQuery(sql, null);
+            c.moveToFirst();
+            boxed = c.getCount();
+            boxed = boxed - completeinbox;
+            //c.close();
+            //db.close();//close the database
             totalOwned = ownedPalA + ownedPalB + ownedUS;
-            Log.d("pixo-stats", "Total owned " +totalOwned + " Total counted " + numberowned);
+            Log.d("pixo-stats", "Total owned " + totalOwned + " Total counted " + numberowned);
+            DecimalFormat decimalFormat = new DecimalFormat("#.##");
+
             if (showprices == 1) {
-                if(totalcost > 0){gamescost = "You have spent " + currency + String.format("%.2f",totalcost) + " on games for your collection\n";}
-                else if (totalcost == 0 ){gamescost = "";}
+                if (totalcost > 0) {
+
+                    avgCost = Float.valueOf(decimalFormat.format(totalcost / totalOwned));
+                    gamescost = "You have spent " + currency + String.format("%.2f", totalcost) + " on games for your collection\n" +
+                            "The average cost you paid for your games is " + currency + avgCost + "\n";
+                } else if (totalcost == 0) {
+                    gamescost = "";
+                }
             } else if (showprices == 0) {
                 gamescost = "";
             }
-            if (totalOwned > 1){gameorgames = "games";} else {gameorgames = "game";}
+
+            if (totalOwned > 1) {
+                gameorgames = "games";
+            } else {
+                gameorgames = "game";
+            }
             //gamecost = "You have spent " + currency + totalcost + " on games for your collection\n" +
+
+
+            if (wherestatement.equals("(pal_a_release = 1)")) {
+                if (licensed.equals(" and (unlicensed = 0)")) {
+                    collectionreleased = 327;
+                } else {
+                    collectionreleased = 361;
+                }
+                sql = "select * from eu where (owned = 1 and pal_a_release = 1)";
+                c = db.rawQuery(sql, null);
+                c.moveToFirst();
+                collectiongames = c.getCount();
+
+                regionselected = "Pal A";
+            } else if (wherestatement.equals("(pal_uk_release = 1)")) {
+                if (licensed.equals(" and (unlicensed = 0)")) {
+                    collectionreleased = 246;
+                } else {
+                    collectionreleased = 255;
+                }
+                sql = "select * from eu where (owned = 1 and pal_uk_release = 1)";
+                c = db.rawQuery(sql, null);
+                c.moveToFirst();
+                collectiongames = c.getCount();
+                regionselected = "Pal A UK";
+            }else if (wherestatement.equals("(pal_b_release = 1)")) {
+                if (licensed.equals(" and (unlicensed = 0)")) {
+                    collectionreleased = 242;
+                } else {
+                    collectionreleased = 268;
+                }
+                sql = "select * from eu where (owned = 1 and pal_b_release = 1)";
+                c = db.rawQuery(sql, null);
+                c.moveToFirst();
+                collectiongames = c.getCount();
+                regionselected = "Pal B";
+            }else if (wherestatement.equals("(ntsc_release = 1)")) {
+                if (licensed.equals(" and (unlicensed = 0)")) {
+                    collectionreleased = 673;
+                } else {
+                    collectionreleased = 760;
+                }
+                sql = "select * from eu where (owned = 1 and ntsc_release = 1)";
+                c = db.rawQuery(sql, null);
+                c.moveToFirst();
+                collectiongames = c.getCount();
+                regionselected = "US";
+            }else if (wherestatement.equals("(pal_a_release = 1 or pal_b_release = 1)")) {
+                if (licensed.equals(" and (unlicensed = 0)")) {
+                    collectionreleased = 350;
+                } else {
+                    collectionreleased = 384;
+                }
+                sql = "select * from eu where (owned = 1 and (pal_a_release = 1 or pal_b_release = 1))";
+                c = db.rawQuery(sql, null);
+                c.moveToFirst();
+                collectiongames = c.getCount();
+                regionselected = "Pal A & Pal B";
+            }
+            else if (wherestatement.equals("(pal_a_release = 1 or ntsc_release = 1)")) {
+                if (licensed.equals(" and (unlicensed = 0)")) {
+                    collectionreleased = 717;
+                } else {
+                    collectionreleased = 818;
+                }
+                sql = "select * from eu where (owned = 1 and (pal_a_release = 1 or ntsc_release = 1))";
+                c = db.rawQuery(sql, null);
+                c.moveToFirst();
+                collectiongames = c.getCount();
+                regionselected = "Pal A & Ntsc";
+            }else if (wherestatement.equals("(pal_b_release = 1 or ntsc_release = 1)")) {
+                if (licensed.equals(" and (unlicensed = 0)")) {
+                    collectionreleased = 723;
+                } else {
+                    collectionreleased = 822;
+                }
+                sql = "select * from eu where (owned = 1 and (pal_b_release = 1 or ntsc_release = 1))";
+                c = db.rawQuery(sql, null);
+                c.moveToFirst();
+                collectiongames = c.getCount();
+                regionselected = "Pal B & Ntsc";
+            }else if (wherestatement.equals("(pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1)")) {
+                if (licensed.equals(" and (unlicensed = 0)")) {
+                    collectionreleased = 725;
+                } else {
+                    collectionreleased = 826;
+                }
+                sql = "select * from eu where (owned = 1 and (pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1))";
+                c = db.rawQuery(sql, null);
+                c.moveToFirst();
+                collectiongames = c.getCount();
+                regionselected = "all regions";
+            }
+
+            avgCost = Float.valueOf(decimalFormat.format(totalcost / totalOwned));
+            collectionpercentage  = ((double) collectiongames / collectionreleased) * 100;
+
+            collectionpercentage = Double.valueOf(decimalFormat.format(collectionpercentage));
+            Log.d("pixo-stats", "Games " + collectiongames + " released " + collectionreleased);
+            Log.d("pixo-stats", "Collection % " + collectionpercentage);
             gamecost = gamescost +
+
                     "You own a total of " + totalOwned + " " + gameorgames + "\n" +
+                    "You own " + collectionpercentage + "% of the games released in "+ regionselected + "\n" +
                     "The top publisher for your games is " + poppublisher + "\n" +
                     "The most popular genre you have is " + popgenre + "\n" +
                     "You have finished a total of " + totalfinished + " Nes games";
+
             cost.setText(gamecost);
 
             if (showprices == 1) {
@@ -458,7 +584,9 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             } else {
                 gamescost = "";
             }
-            if (palacost == 0 ){ gamescost = ""; }
+            if (palacost == 0) {
+                gamescost = "";
+            }
             percentPalAOwned = ((double) ownedPalA / totalPalA) * 100;
             percentagepalacollection = ((double) ownedPalA / totalOwned) * 100;
             s = String.format("%.2f", percentPalAOwned);
@@ -474,7 +602,9 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             } else {
                 gamescost = "";
             }
-            if (palbcost == 0 ){ gamescost = ""; }
+            if (palbcost == 0) {
+                gamescost = "";
+            }
             percentPalBOwned = ((double) ownedPalB / totalPalB) * 100;
             percentagepalbcollection = ((double) ownedPalB / totalOwned) * 100;
             s = String.format("%.2f", percentPalBOwned);
@@ -490,7 +620,9 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             } else {
                 gamescost = "";
             }
-            if (uscost == 0 ){ gamescost = ""; }
+            if (uscost == 0) {
+                gamescost = "";
+            }
             percentUSOwned = ((double) ownedUS / totalUS) * 100;
             //Log.d("Pixo", "PalB% owned:" + percentUSOwned);
             s = String.format("%.2f", percentUSOwned);
@@ -500,16 +632,81 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                     "US games make up " + peruscoll + "% of your collection"
                     + gamescost;
             us.setText(US);
-            String CIB = "You own " + completeinbox + " games that are complete in box";
+            cibpercentage = ((double)completeinbox / totalOwned * 100);
+            String CIB = "You own " + completeinbox + " games that are complete in box\n" +
+                    "They make up " + String.format("%.2f", cibpercentage) + "% of your collection";
+
             cib.setText(CIB);
+
+            boxedpercentage = ((double)boxed / totalOwned * 100);
+            Log.d("pixo-stats", "boxed games: " + boxed + " boxed percentage: " + boxedpercentage);
+            String Boxed = "You own " + boxed + " games that are boxed\n" +
+                    "They make up " + String.format("%.2f", boxedpercentage) + "% of your collection";
+
+            boxedgames.setText(Boxed);
 
             //Log.d("Pixo",US);
 
             //.d("Pixo", "Owned PalA: " + ownedPalA);
             //Log.d("Pixo", "Owned PalB: " + ownedPalB);
             //Log.d("Pixo", "Owned US: " + ownedUS);
+
+            sql = "SELECT * FROM eu where owned = 1 and (pal_a_box = 8783 " + licensed + ")";
+            //Log.d("Pixo", sql);
+            c = db.rawQuery(sql, null);
+            ownedPalAbox = c.getCount();
+
+            sql = "SELECT * FROM eu where owned = 1 and (pal_b_box = 8783 " + licensed + ")";
+            //Log.d("Pixo", sql);
+            c = db.rawQuery(sql, null);
+            ownedPalBbox = c.getCount();
+
+            sql = "SELECT * FROM eu where owned = 1 and (ntsc_box = 8783 " + licensed + ")";
+            //Log.d("Pixo", sql);
+            c = db.rawQuery(sql, null);
+            ownedUSbox = c.getCount();
+
+            sql = "SELECT * FROM eu where owned = 1 and (pal_a_manual = 8783 " + licensed + ")";
+            //Log.d("Pixo", sql);
+            c = db.rawQuery(sql, null);
+            ownedPalAman = c.getCount();
+
+            sql = "SELECT * FROM eu where owned = 1 and (pal_b_manual = 8783 " + licensed + ")";
+            //Log.d("Pixo", sql);
+            c = db.rawQuery(sql, null);
+            ownedPalBman = c.getCount();
+
+            sql = "SELECT * FROM eu where owned = 1 and (ntsc_manual = 8783 " + licensed + ")";
+            //Log.d("Pixo", sql);
+            c = db.rawQuery(sql, null);
+            ownedUSman = c.getCount();
+
+            loosecart = ownedPalA + ownedPalB + ownedUS;
+            loosecart = (loosecart - completeinbox) - boxed;
+            Log.d("pixo-stats", "Carts: " + loosecart);
+
+            loosebox = ownedPalAbox + ownedPalBbox + ownedUSbox;
+            loosebox = (loosebox - completeinbox) - boxed;
+            Log.d("pixo-stats", "Boxes: " + loosebox);
+
+
+            loosemanual = ownedPalAman + ownedPalBman + ownedUSman;
+            loosemanual = loosemanual - completeinbox;
+
+            Log.d("pixo-stats", "Manuals: " + loosemanual);
+            if (loosecart > 0){loosecarts = "You have " + loosecart + " loose carts\n";} else {loosecarts = "";}
+            if (loosebox > 0){looseboxes = "You have " + loosebox + " loose boxes\n";} else {looseboxes = "";}
+            if (loosemanual > 0){looseman = "You have " + loosemanual + " loose manuals\n";} else {looseman = "";}
+
+            looseitems = (loosecarts
+            + looseboxes
+            + looseman);
+            loose.setText(looseitems);
+            c.close();
+            db.close();//close the database
+            }
         }
-    }
+
 
     public void gameregion(){//selects the region from the database
         Log.d("Pixo","Running game region");
@@ -966,141 +1163,120 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             names[io] = "Action-Adventure";
             datapoints[io] = ownedactionadventure;
             piecolours[io] = Color.parseColor("#FF2B32");
-            Log.d("Pixo", "Colour action-adventure: " + Color.parseColor("#FF2B32"));
             io++;
         }
         if (ownedaction > 0) {
             names[io] = "Action";
             datapoints[io] = ownedaction;
             piecolours[io] = Color.parseColor("#FF6A00");
-            Log.d("Pixo", "Colour action: " + Color.parseColor("#FF6A00"));
             io++;
         }
         if (ownedadventure > 0) {
             names[io] = "Adventure";
             datapoints[io] = ownedadventure;
             piecolours[io] = Color.parseColor("#FFD800");
-            Log.d("Pixo", "Colour adventure: " + Color.parseColor("#FFD800"));
             io++;
         }
         if (ownedarcade > 0) {
             names[io] = "Arcade";
             datapoints[io] = ownedarcade;
             piecolours[io] = Color.parseColor("#B6FF00");
-            Log.d("Pixo", "Colour arcade: " + Color.parseColor("#B6FF00"));
             io++;
         }
         if (ownedbeatemup > 0) {
             names[io] = "Beat em Up";
             datapoints[io] = ownedbeatemup;
             piecolours[io] = Color.parseColor("#FF004C");
-            Log.d("Pixo", "Colour beat: " + Color.parseColor("#FF004C"));
             io++;
         }
         if (ownedboardgame > 0) {
             names[io] = "Board game";
             datapoints[io] = ownedboardgame;
             piecolours[io] = Color.parseColor("#FF0FFF");
-            Log.d("Pixo", "Colour boardgame: " + Color.parseColor("#Ff0FFF"));
-
                     io++;
         }
         if (ownedcompilation > 0) {
             names[io] = "Compilation";
             datapoints[io] = ownedcompilation;
             piecolours[io] = Color.parseColor("#0095FF");
-            Log.d("Pixo", "Colour compilation: " + Color.parseColor("#0095FF"));
             io++;
         }
         if (ownedfighting > 0) {
             names[io] = "Fighting";
             datapoints[io] = ownedfighting;
             piecolours[io] = Color.parseColor("#B200FF");
-            Log.d("Pixo", "Colour fighting: " + Color.parseColor("#B200FF"));
             io++;
         }
         if (ownedother > 0) {
             names[io] = "Other";
             datapoints[io] = ownedother;
             piecolours[io] = Color.parseColor("#FF006E");
-            Log.d("Pixo", "Colour other: " + Color.parseColor("#FF006E"));
             io++;
         }
         if (ownedplatformer > 0) {
             names[io] = "Platformer";
             datapoints[io] = ownedplatformer;
             piecolours[io] = Color.parseColor("#FF00DC");
-            Log.d("Pixo", "Colour platformer: " + Color.parseColor("#FF00DC"));
             io++;
         }
         if (ownedpuzzle > 0) {
             names[io] = "Puzzle";
             datapoints[io] = ownedpuzzle;
             piecolours[io] = Color.parseColor("#B002FF");
-            Log.d("Pixo", "Colour puzzle: " + Color.parseColor("#B002FF"));
             io++;
         }
         if (ownedracing > 0) {
             names[io] = "Racing";
             datapoints[io] = ownedracing;
             piecolours[io] = Color.parseColor("#FF7F7F");
-            Log.d("Pixo", "Colour racing: " + Color.parseColor("#FF7F7F"));
             io++;
         }
         if (ownedroleplayinggame > 0) {
             names[io] = "Role-Playing Game";
             datapoints[io] = ownedroleplayinggame;
             piecolours[io] = Color.parseColor("#C0C0C0");
-            Log.d("Pixo", "Colour rpg: " + Color.parseColor("#C0C0C0"));
             io++;
         }
         if (ownedshootemup > 0) {
             names[io] = "Shoot em Up";
             datapoints[io] = ownedshootemup;
             piecolours[io] = Color.parseColor("#613F7C");
-            Log.d("Pixo", "Colour shmup: " + Color.parseColor("#613F7C"));
             io++;
         }
         if (ownedshooter > 0) {
             names[io] = "Shooter";
             datapoints[io] = ownedshooter;
             piecolours[io] = Color.parseColor("#60C5FF");
-            Log.d("Pixo", "Colour shooter: " + Color.parseColor("#60C5FF"));
             io++;
         }
         if (ownedsimulation > 0) {
             names[io] = "Simulation";
             datapoints[io] = ownedsimulation;
             piecolours[io] = Color.parseColor("#FFAFB5");
-            Log.d("Pixo", "Colour sim: " + Color.parseColor("#FFAFB5"));
             io++;
         }
         if (ownedsports > 0) {
             names[io] = "Sports";
             datapoints[io] = ownedsports;
             piecolours[io] = Color.parseColor("#D5FFBF");
-            Log.d("Pixo", "Colour sports: " + Color.parseColor("#D5FFBF"));
             io++;
         }
         if (ownedstrategy > 0) {
             names[io] = "Strategy";
             datapoints[io] = ownedstrategy;
             piecolours[io] = Color.parseColor("#4FFFBE");
-            Log.d("Pixo", "Colour strat: " + Color.parseColor("#4FFFBE"));
             io++;
         }
         if (ownedtraditional > 0) {
             names[io] = "Traditional";
             datapoints[io] = ownedtraditional;
             piecolours[io] = Color.parseColor("#A856FF");
-            Log.d("Pixo", "Colour trad: " + Color.parseColor("#A856FF"));
             io++;
         }
         if (ownedtrivia > 0) {
             names[io] = "Trivia";
             datapoints[io] = ownedtrivia;
             piecolours[io] = Color.parseColor("#CBFF72");
-            Log.d("Pixo", "Colour trivi9a: " + Color.parseColor("#CBFF72"));
             io++;
         }
 

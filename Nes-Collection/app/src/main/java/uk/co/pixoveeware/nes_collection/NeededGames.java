@@ -229,7 +229,7 @@ public class NeededGames extends AppCompatActivity
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         //sql = "SELECT * FROM eu where " + regionmissingcheck + " and "  + wherestatement + regionmissing + licensed +  "";
-        sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
+        sql = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ")";
         //sql = "SELECT * FROM eu where owned = 0";
         Log.d("Pixo-missing", sql);
         Cursor c = db.rawQuery(sql, null);//select everything from the database table
@@ -266,7 +266,7 @@ public class NeededGames extends AppCompatActivity
             //neededgames = c.getCount();
             c.close();//close the cursor
         }
-        sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
+        sql = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ")";
         //sql = "SELECT * FROM eu where " + regionmissingcheck + " and "  + wherestatement + regionmissing + licensed +  "";
         c = db.rawQuery(sql, null);
         neededgames = c.getCount();

@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity
 
     String searchterm,fieldname, wherestatement, sql, regionselected;
     int pala, palb, us;
+    public static int width;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        int width = metrics.widthPixels;
+        width = metrics.widthPixels;
 
         if (width <600){setContentView(R.layout.activity_main_small);} else if (width >599){setContentView(R.layout.activity_main);}
 
@@ -58,7 +59,7 @@ public class MainActivity extends AppCompatActivity
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Nes Collection");
+        //setTitle("Nes Collection");
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
