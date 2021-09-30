@@ -283,21 +283,21 @@ public class OwnedGames extends AppCompatActivity
         db.close();//close the database
         if (viewas == 0) {
             if (ordering == 0) {
-                NesOwnedAdapter nes = new NesOwnedAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
+                NesOwnedAdapter nes = new NesOwnedAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
                 gamegalleryview.setVisibility(View.GONE);
                 alphaIndex.setVisibility(View.VISIBLE);
                 ownedlistView.setAdapter(nes);
                 NesIndexAdapter nii = new NesIndexAdapter(this, MainActivity.indexList);
                 alphaIndex.setAdapter(nii);
             } else if (ordering == 1){
-                NesOwnedPriceAdapter nes = new NesOwnedPriceAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
+                NesOwnedPriceAdapter nes = new NesOwnedPriceAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
                 gamegalleryview.setVisibility(View.GONE);
                 ownedlistView.setAdapter(nes);
                 alphaIndex.setVisibility(View.GONE);
             }
 
         } else if (viewas == 1) {
-            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
+            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
             ownedlistView.setVisibility(View.GONE);
             gamegalleryview.setAdapter(nes);
         }

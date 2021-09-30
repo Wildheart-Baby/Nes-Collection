@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.activities.MainActivity;
 import uk.co.pixoveeware.nes_collection.R;
+import uk.co.pixoveeware.nes_collection.models.NesItemsIndex;
 
 /**
  * Created by Wildheart on 11/10/2018.
@@ -24,21 +25,21 @@ public class NesIndexAdapter extends BaseAdapter {
     }
 
     Context context;
-    //ArrayList<SnesItemsIndex> indexList;
+    ArrayList<GameItemsIndex> indexList;
 
     public NesIndexAdapter(Context context, ArrayList<GameItemsIndex> list) {
         this.context = context;//sets up the context for the class
-        MainActivity.indexList = list; //sets up a variable as a list
+        indexList = list; //sets up a variable as a list
     }
 
     @Override
     public int getCount() {
-        return MainActivity.indexList.size();
+        return indexList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return MainActivity.indexList.get(position);
+        return indexList.get(position);
     }
 
     @Override
@@ -48,7 +49,7 @@ public class NesIndexAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        GameItemsIndex indexListItems = MainActivity.indexList.get(position); //gets the item position from the array
+        GameItemsIndex indexListItems = indexList.get(position); //gets the item position from the array
 
         if (convertView == null) { //if the layout isn't inflated
             LayoutInflater inflater = (LayoutInflater) context

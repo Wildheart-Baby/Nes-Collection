@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 
 
 //import com.google.android.gms.ads.MobileAds;
@@ -27,6 +28,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
+import uk.co.pixoveeware.nes_collection.ViewModels.MainActivityViewModel;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 
@@ -36,29 +38,23 @@ public class MainActivity extends AppCompatActivity
     String DB_NAME;
     Context context;
 
-    String searchterm, fieldname, wherestatement, sql, regionselected, title, currentgroup;
-    String licensed, titlestr, titlept1, titlept2, thename, theimage;
-    String prevgroup = "";
-    int pala, palb, us, totalgames, titles;
+    String wherestatement;
     public static int width, totalGames, viewas;
 
-    public static ArrayList<GameItems> nesList;
+    public static ArrayList<GameItems> gamesList;
     public static ArrayList<GameItemsIndex> indexList;
     public static String sqlstatement;
+
+    //MainActivityViewModel viewM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        gameregion();
-        readList();
-        DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        width = metrics.widthPixels;
+        //viewM = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        //gamesList = viewM.GetGamesDetails("all");
+        //indexList = viewM.GetIndex("all");
 
-        //if (width <600){setContentView(R.layout.activity_main_small);} else if (width >599){setContentView(R.layout.activity_main);}
         setContentView(R.layout.activity_main);
-        //File dbfile = new File(this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite");
-
         ImageButton AllGames = (ImageButton) findViewById(R.id.btnAllGames);
         ImageButton NeededGames = (ImageButton) findViewById(R.id.btnneeded);
         ImageButton OwnedGames = (ImageButton) findViewById(R.id.btnowned);
@@ -74,18 +70,6 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //setTitle("Nes Collection");
-
-
-        DisplayMetrics dm = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-        Log.d("Pixo-screen", "The logical density of the display: " + dm.density );
-        Log.d("Pixo-screen", "The screen density expressed as dots-per-inch: " + dm.densityDpi );
-        Log.d("Pixo-screen", "The absolute height of the display in pixels: " + dm.heightPixels );
-        Log.d("Pixo-screen", "The absolute width of the display in pixels: " + dm.widthPixels );
-        Log.d("Pixo-screen", "A scaling factor for fonts displayed on the display: " + dm.scaledDensity );
-        Log.d("Pixo-screen", "The exact physical pixels per inch of the screen in the X dimension: " + dm.xdpi );
-        Log.d("Pixo-screen", "The exact physical pixels per inch of the screen in the Y dimension: " + dm.ydpi );
 
         AllGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -165,10 +149,6 @@ public class MainActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*MobileAds.initialize(getApplicationContext(), "ca-app-pub-0537596348696744~2585816192");
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);*/
     }
 
     @Override
@@ -212,30 +192,6 @@ public class MainActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
 
         }
-    }
-
-    public static void readList(){//the readlist function
-        nesList = new ArrayList<GameItems>();//sets up an array list called shoppingList
-        nesList.clear();//clear the shoppingList array
-    }
-
-
-    public void gameregion(){//selects the region from the database
-
-        SQLiteDatabase db;//sets up the connection to the database
-        db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
-        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
-
-        if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
-
-                wherestatement = (c.getString(c.getColumnIndex("region")));
-                setTitle(c.getString(c.getColumnIndex("region_title")));
-                c.moveToNext();//move to the next record
-            }
-            c.close();//close the cursor
-        }
-        db.close();//close the database
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

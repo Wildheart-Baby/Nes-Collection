@@ -9,15 +9,10 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
-import uk.co.pixoveeware.nes_collection.models.GameItems;
-import uk.co.pixoveeware.nes_collection.activities.MainActivity;
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
-/**
- * Created by Wildheart on 28/07/2016.
- */
-public class NesCollectionImageAdapter extends BaseAdapter {
+public class LightImageCollectionAdapter extends BaseAdapter {
 
     static class ViewHolder {
         ImageView cover;
@@ -25,40 +20,39 @@ public class NesCollectionImageAdapter extends BaseAdapter {
     }
 
     Context context; //sets up a variable as context
-    ArrayList<GameItems> nesList; //sets up  an array called shoppingList
+    ArrayList<GameListItems> nesList; //sets up  an array called shoppingList
     String gameimage;
     int i, listsize, addviews = 0;
 
-    public NesCollectionImageAdapter(Context context, ArrayList<GameItems> list) {
-
+    public LightImageCollectionAdapter(Context context, ArrayList<GameListItems> list){
         this.context = context;//sets up the context for the class
         nesList = list; //sets up a variable as a list
     }
 
     @Override
     public int getCount() {
-        listsize = MainActivity.gamesList.size();
+        listsize = nesList.size();
         if (listsize % 3 == 0){}
         else if (listsize + 1 % 3 == 0){addviews = 1;}
         else if (listsize + 2 % 3 == 0){addviews = 2;}
         i = 0;
-        return MainActivity.gamesList.size();
-    } //returns the number of items in the array
+        return nesList.size();
+    }
 
     @Override
     public Object getItem(int position) {
         return nesList.get(position);
-    } //gets the position within the list
+    }
 
     @Override
     public long getItemId(int position) {
         return position;
-    } //gets the id of the of the item within the list
+    }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        GameItems nesListItems = nesList.get(position); //gets the item position from the array
-        ViewHolder holder;
+        GameListItems nesListItems = nesList.get(position); //gets the item position from the array
+        NesCollectionImageAdapter.ViewHolder holder;
 
         if (convertView == null) { //if the layout isn't inflated
             LayoutInflater inflater = (LayoutInflater) context
@@ -66,41 +60,41 @@ public class NesCollectionImageAdapter extends BaseAdapter {
 
             convertView = inflater.inflate(R.layout.single_image_item, null); //use the layout to diaplay the array data
 
-            holder = new ViewHolder();
+            holder = new NesCollectionImageAdapter.ViewHolder();
             holder.owned = (ImageView) convertView.findViewById(R.id.imgOwned);
             holder.cover = (ImageView) convertView.findViewById(R.id.imgGameCover);
 
             convertView.setTag(holder);
         } else {
-            holder = (ViewHolder) convertView.getTag();
+            holder = (NesCollectionImageAdapter.ViewHolder) convertView.getTag();
         }
 
-            gameimage = nesListItems.getImage();
-            int coverid = context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
-            holder.cover.setImageResource(coverid);
-            int ownedid;
+        gameimage = nesListItems.getImage();
+        int coverid = context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
+        holder.cover.setImageResource(coverid);
+        int ownedid;
 
-            if (nesListItems.owned == 1) {
-                holder.owned.setVisibility(View.VISIBLE);
-            } else {
-                holder.owned.setVisibility(View.GONE);
-            }
-            int totalItems = nesListItems.cart = nesListItems.box + nesListItems.manual;
+        if (nesListItems.owned == 1) {
+            holder.owned.setVisibility(View.VISIBLE);
+        } else {
+            holder.owned.setVisibility(View.GONE);
+        }
+        int totalItems = nesListItems.cart = nesListItems.box + nesListItems.manual;
 
-            switch (totalItems) {
-                case 1:
-                    ownedid=context.getResources().getIdentifier("icon_owned_gold2", "drawable", context.getPackageName());
-                    holder.owned.setImageResource(ownedid);
-                    break;
-                case 2:
-                    ownedid=context.getResources().getIdentifier("icon_owned_silver2", "drawable", context.getPackageName());
-                    holder.owned.setImageResource(ownedid);
-                    break;
-                case 3:
-                    ownedid=context.getResources().getIdentifier("icon_owned_bronze2", "drawable", context.getPackageName());
-                    holder.owned.setImageResource(ownedid);
-                    break;
-            }
+        switch (totalItems) {
+            case 1:
+                ownedid=context.getResources().getIdentifier("icon_owned_gold2", "drawable", context.getPackageName());
+                holder.owned.setImageResource(ownedid);
+                break;
+            case 2:
+                ownedid=context.getResources().getIdentifier("icon_owned_silver2", "drawable", context.getPackageName());
+                holder.owned.setImageResource(ownedid);
+                break;
+            case 3:
+                ownedid=context.getResources().getIdentifier("icon_owned_bronze2", "drawable", context.getPackageName());
+                holder.owned.setImageResource(ownedid);
+                break;
+        }
 
 
             /*if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
@@ -129,5 +123,4 @@ public class NesCollectionImageAdapter extends BaseAdapter {
         return convertView; //return the convertview and show the listview
         //if(i >= listsize &&  addviews < 3){return convertView;}
     }
-
 }

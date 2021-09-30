@@ -189,9 +189,9 @@ public class StatsSearchResults extends AppCompatActivity {
 
     public void readList(){//the readlist function
         Log.d("Pixo", sql);
-        if (MainActivity.nesList == null){ MainActivity.readList(); }
+        //if (MainActivity.nesList == null){ MainActivity.readList(); }
         //ArrayList<GameItems> nesList = new ArrayList<GameItems>();//sets up an array list called shoppingList
-        MainActivity.nesList.clear();//clear the shoppingList array
+        MainActivity.gamesList.clear();//clear the shoppingList array
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
@@ -237,7 +237,7 @@ public class StatsSearchResults extends AppCompatActivity {
                     nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
                     nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                     nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
-                    MainActivity.nesList.add(nesListItems);//add items to the arraylist
+                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                 }
                 else if(currentgroup.equals(prevgroup)){
@@ -275,7 +275,7 @@ public class StatsSearchResults extends AppCompatActivity {
                     nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
                     nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                     nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
-                    MainActivity.nesList.add(nesListItems);//add items to the arraylist
+                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                 }
                 c.moveToNext();//move to the next record
@@ -296,12 +296,12 @@ public class StatsSearchResults extends AppCompatActivity {
             thesearchresults.setVisibility(View.VISIBLE);
 
         }else {if(viewas == 0){
-            StatsCollectionAdapter nes = new StatsCollectionAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
+            StatsCollectionAdapter nes = new StatsCollectionAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
             gamegalleryview.setVisibility(View.GONE);
             gamelistView.setAdapter(nes);
 
         }else if (viewas == 1){
-            StatsCollectionImageAdapter nes = new StatsCollectionImageAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
+            StatsCollectionImageAdapter nes = new StatsCollectionImageAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
             gamelistView.setVisibility(View.GONE);
             gamegalleryview.setAdapter(nes);
         }

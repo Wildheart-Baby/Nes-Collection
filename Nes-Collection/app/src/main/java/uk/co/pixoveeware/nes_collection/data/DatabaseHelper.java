@@ -10,8 +10,6 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Timer;
-
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
@@ -118,7 +116,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         switch (games){
             case "all":
                 searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + orderby +"";
-                String t = "select * from eu where " + wherestatement + licensed + "";
+                //String t = "select * from eu where " + wherestatement + licensed + "";
                 break;
             case "owned":
                 if (ordering == 0) {
@@ -143,11 +141,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
             case "search":
                 //searchQuery = SearchResults.searchString + " order by " + orderby;
-                Log.i("dbhSearch", "query: " + searchQuery);
+                //Log.i("dbhSearch", "query: " + searchQuery);
                 break;
             case "statsearch":
                 //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
-                Log.i("dbhSearch", "query: " + searchQuery);
+                //Log.i("dbhSearch", "query: " + searchQuery);
                 break;
         }
         times = getCurrentTimeStamp();
@@ -232,7 +230,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         switch (games){
             case "all":
                 searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + orderby +"";
-                String t = "select * from eu where " + wherestatement + licensed + "";
+                //String t = "select * from eu where " + wherestatement + licensed + "";
                 break;
             case "owned":
                 if (ordering == 0) {
@@ -257,11 +255,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
             case "search":
                 //searchQuery = SearchResults.searchString + " order by " + orderby;
-                Log.i("dbhSearch", "query: " + searchQuery);
+                //Log.i("dbhSearch", "query: " + searchQuery);
                 break;
             case "statsearch":
                 //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
-                Log.i("dbhSearch", "query: " + searchQuery);
+                //Log.i("dbhSearch", "query: " + searchQuery);
                 break;
         }
 
@@ -415,61 +413,85 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             c.close();//close the cursor
         }
         db.close();//close the database
-
-        if (title.equals("UK") ){
-            flagid = "uk";
-        } else if (title.equals("US") ){
-            flagid = "us";
-        }  else if (title.equals("Pal A") ){
-        flagid = "pal_a";
-        } else if (title.equals("Pal A UK") ){
-            flagid = "uk";
-        } else if (title.equals("Pal B") ){
-            flagid = "euro";
-        } else if (title.equals("Europe") ){
-            flagid = "pal_a_b";
-        } else if (title.equals("Australia") ) {
-            flagid = "australia";
-        } else if (title.equals("Austria") ){
-            flagid = "austria";
-        } else if (title.equals("Benelux") ){
-            flagid = "benelux";
-        } else if (title.equals("Brazil") ){
-            flagid = "brazil";
-        }else if (title.equals("Canada") ){
-            flagid = "canada";
-        } else if (title.equals("Denmark") ){
-            flagid = "denmark";
-        } else if (title.equals("Finland") ){
-            flagid = "finland";
-        } else if (title.equals("France") ){
-            flagid = "france";
-        } else if (title.equals("Germany") ){
-            flagid = "germany";
-        } else if (title.equals("Greece") ){
-            flagid = "greece";
-        } else if (title.equals("Ireland") ){
-            flagid = "ireland";
-        } else if (title.equals("Italy") ){
-            flagid = "italy";
-        } else if (title.equals("Norway") ){
-            flagid = "norway";
-        } else if (title.equals("Poland") ){
-            flagid = "poland";
-        } else if (title.equals("Portugal") ){
-            flagid = "portugal";
-        } else if (title.equals("Scandinavia") ){
-            flagid = "scandinavia";
-        } else if (title.equals("Spain") ){
-            flagid = "spain";
-        } else if (title.equals("Sweden") ){
-            flagid = "sweden";
-        } else if (title.equals("Switzerland") ){
-            flagid = "switzerland";
-        } else if (title.equals("Europe") ){
-            flagid = "europe";
-        } else if (title.equals("All Regions") ){
-            flagid = "allregions";
+        switch(title){
+            case "UK":
+                flagid = "uk";
+                break;
+            case "US":
+                flagid = "us";
+                break;
+            case "Pal A":
+                flagid = "pal_a";
+                break;
+            case "Pal A UK":
+                flagid = "uk";
+                break;
+            case "Pal B":
+                flagid = "euro";
+                break;
+            case "Australia":
+                flagid = "australia";
+                break;
+            case "Austria":
+                flagid = "austria";
+                break;
+            case "Benelux":
+                flagid = "benelux";
+                break;
+            case "Brazil":
+                flagid = "brazil";
+                break;
+            case "Canada":
+                flagid = "canada";
+                break;
+            case "Denmark":
+                flagid = "denmark";
+                break;
+            case "Finland":
+                flagid = "finland";
+                break;
+            case "France":
+                flagid = "france";
+                break;
+            case "Germany":
+                flagid = "germany";
+                break;
+            case "Greece":
+                flagid = "greece";
+                break;
+            case "Ireland":
+                flagid = "ireland";
+                break;
+            case "Italy":
+                flagid = "italy";
+                break;
+            case "Norway":
+                flagid = "norway";
+                break;
+            case "Poland":
+                flagid = "poland";
+                break;
+            case "Portugal":
+                flagid = "portugal";
+                break;
+            case "Scandinavia":
+                flagid = "scandinavia";
+                break;
+            case "Spain":
+                flagid = "spain";
+                break;
+            case "Sweden":
+                flagid = "sweden";
+                break;
+            case "Switzerland":
+                flagid = "switzerland";
+                break;
+            case "Europe":
+                flagid = "europe";
+                break;
+            case "All Regions":
+                flagid = "allregions";
+                break;
         }
         return flagid;
     }
@@ -617,9 +639,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String needGamesCount(){
-        String count = "";
+        String count;
         int gCount = 0;
-        int nCount = 0;
+        //int nCount = 0;
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -676,12 +698,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void finishedGames(String action, int gameId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "";
+        String sql;
 
-        if (action == "adding"){
+        if (action.equals("adding")){
             sql = "UPDATE eu SET finished_game = 1 where _id = " + gameId + " ";
             db.execSQL(sql);
-        } else if (action == "removing"){
+        } else if (action.equals("removing")){
             sql = "UPDATE eu SET finished_game = 0 where _id = " + gameId + " ";
             db.execSQL(sql);
         }
@@ -691,10 +713,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql = "";
 
-        if (action == "adding"){
+        if (action.equals("adding")){
             sql = "UPDATE eu SET favourite = 1 where _id = " + gameId + " ";
             db.execSQL(sql);
-        } else if (action == "removing"){
+        } else if (action.equals("removing")){
             sql = "UPDATE eu SET favourite = 0 where _id = " + gameId + " ";
             db.execSQL(sql);
         }
@@ -704,10 +726,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         String sql = "";
 
-        if (action == "adding"){
+        if (action.equals("adding")){
             sql = "UPDATE eu SET wishlist = 1 where _id = " + gameId + " ";
             db.execSQL(sql);
-        } else if (action == "removing"){
+        } else if (action.equals("removing")){
             sql = "UPDATE eu SET wishlist = 0 where _id = " + gameId + " ";
             db.execSQL(sql);
         }
@@ -789,7 +811,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     check = "n";
                 }
 
-                if(newShelf == true){
+                if(newShelf){
                     gameListItems.setGroup("Shelf " + shelf);
                     gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
                     gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
@@ -1055,7 +1077,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int searchGamesCount(String search){
         int count = 0;
         int gCount = 0;
-        int nCount = 0;
+        //int nCount = 0;
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -1070,5 +1092,63 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return count;
     }
+
+    /*public void favouritegame(int gameId){
+        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+        String str ="";
+        //if(favourited == 0) {
+        if(MainActivity.nesList.get(viewPager.getCurrentItem()).getFavourite() == 0) {
+            str = "UPDATE eu SET favourite = 1 where _id = " + idforgame + " ";
+            MainActivity.nesList.get(viewPager.getCurrentItem()).setFavourite(1);
+
+
+        } else  if(MainActivity.nesList.get(viewPager.getCurrentItem()).getFavourite()  == 1) {
+            str = "UPDATE eu SET favourite = 0 where _id = " + idforgame + " ";
+            MainActivity.nesList.get(viewPager.getCurrentItem()).setFavourite(0);
+
+        }
+        //Toast toast = Toast.makeText(getApplicationContext(), "Favourite no:" + MainActivity.nesList.get(viewPager.getCurrentItem()).getFavourite() + " Name: " + MainActivity.nesList.get(viewPager.getCurrentItem()).getName() , Toast.LENGTH_LONG);
+        //toast.show();
+        //invalidateOptionsMenu();
+        Log.d("Pixo", str);
+        db.execSQL(str);//run the sql command
+        db.close();//close the database
+
+        pos = viewPager.getCurrentItem();
+        readGames();
+        invalidateOptionsMenu();
+
+    }
+
+    public void wishlist(int gameId){
+        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+        String str ="";
+        if (ownedgame == 1){
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    "You already own this game",
+                    Toast.LENGTH_SHORT);
+            toast.show();}
+        else if (ownedgame == 0) {
+
+            if (wishlist == 0) {
+                str = "UPDATE eu SET wishlist = 1 where _id = " + idforgame + " "; //update the database basket field with 8783
+                db.execSQL(str);//run the sql command
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        gamesname + " added to wishlist",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            } else if (wishlist == 1) {
+                str = "UPDATE eu SET wishlist = 0 where _id = " + idforgame + " "; //update the database basket field with 8783
+                db.execSQL(str);//run the sql command
+                Toast toast = Toast.makeText(getApplicationContext(),
+                        gamesname + " removed from wish list",
+                        Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
+        db.close();//close the database
+        pos = viewPager.getCurrentItem();
+        readGames();
+    }*/
 
 }

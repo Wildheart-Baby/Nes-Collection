@@ -34,8 +34,8 @@ public class FillShelfAdapter {
         db = context.openOrCreateDatabase("nes.sqlite", context.MODE_PRIVATE, null);//open or create the database
         gameregion();
 
-        if (MainActivity.nesList == null){ MainActivity.readList(); }
-        MainActivity.nesList.clear();
+        //if (MainActivity.nesList == null){ MainActivity.readList(); }
+        MainActivity.gamesList.clear();
         check = "y";
         pos = 1;
         posInList = -1;
@@ -119,7 +119,7 @@ public class FillShelfAdapter {
                     nesListItems.setListPos(posInList);
                     Log.d("shelf", "adding list position: " + posInList);
                     //snesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    MainActivity.nesList.add(nesListItems);//add items to the arraylist
+                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
                     shelf ++;
                     //Log.d("pixo", "added shelf record " + name);
 
@@ -177,7 +177,7 @@ public class FillShelfAdapter {
                     nesListItems.setListPos(posInList);
                     Log.d("shelf", "adding list position: " + posInList);
                     //snesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    MainActivity.nesList.add(nesListItems);//add items to the arraylist
+                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
                     if (pos == shelfsize){pos = 0;}
                     //Log.d("pixo", "added other record " + name);
                 }

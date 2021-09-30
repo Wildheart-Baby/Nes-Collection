@@ -172,7 +172,7 @@ public class ShelfOrder extends AppCompatActivity
         MainActivity.sqlstatement = "SELECT * FROM eu where owned = 1 and cart = 1 and onshelf = 1";
         new FillShelfAdapter(this);
 
-        ShelfCollectionAdapter nes = new ShelfCollectionAdapter(this, MainActivity.nesList);//set up an new list adapter from the arraylist
+        ShelfCollectionAdapter nes = new ShelfCollectionAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
         gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
 
     }

@@ -4,15 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.ListView;
 
@@ -21,23 +18,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-
-//import com.google.android.gms.ads.AdRequest;
-//import com.google.android.gms.ads.AdView;
-//import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
 
 import uk.co.pixoveeware.nes_collection.ViewModels.MainActivityViewModel;
+import uk.co.pixoveeware.nes_collection.adapters.LightImageCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionImageAdapter;
-import uk.co.pixoveeware.nes_collection.data.DatabaseHelper;
+import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.adapters.LightCollectionAdapter;
-import uk.co.pixoveeware.nes_collection.adapters.NesOwnedAdapter;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
@@ -46,42 +38,32 @@ public class AllGames extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     final Context context = this;
-    SQLiteDatabase sqlDatabase;
-    Cursor c;
-    SQLiteDatabase db;
 
-    private  int gridviewVerticalPositionWhenThumbnailTapped;
+    String readgamename, sql, wherestatement, title, licensed, thename, theimage;
+    int readgameid, index, top, viewas, readindexid, titles;
 
-    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, title, currentgroup, licensed, titlestr, titlept1, titlept2, thename, theimage;
-    String prevgroup = "";
-    int readgameid, gameid, index, top, viewas, ListSize, i, readindexid, AddItems, totalgames, titles;
-    //ArrayAdapter<CharSequence> adapter;
-    //ArrayList<GameItems> nesList;
     ListView gamelistView, alphaIndex;
     GridView gamegalleryview;
-    //DatabaseHelper dbh;
+
     ArrayList<GameListItems> gamesList;
-    //ArrayList<GameItemsIndex> indexList;
+    ArrayList<GameItems> gameList;
+    ArrayList<GameItemsIndex> indexList;
     MainActivityViewModel viewM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         viewM = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        //gamesList = viewM.GetGames("all");
+        //indexList = viewM.GetIndex("all");
+        gamesList = viewM.ConvertToLightList();
+        viewas = viewM.viewType;
         setContentView(R.layout.activity_all_games);
-        //dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
+
         gamelistView = (ListView) findViewById(R.id.lvAllGames); //sets up a listview with the name shoplistview
         gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
         alphaIndex = (ListView) findViewById(R.id.lvAlphaIndex);
 
-
-
-        /*DisplayMetrics metrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        NesOwnedAdapter.screenwidth = metrics.widthPixels;*/
-        //dbh = new DatabaseHelper(this);
-
-        //gameregion();
         readList();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -98,96 +80,8 @@ public class AllGames extends AppCompatActivity
         getSupportActionBar().setHomeButtonEnabled(true);
 
         setTitle(" " + viewM.regionFlag);
-        toolbar.setSubtitle(viewM.gamesCount);
+        toolbar.setSubtitle(viewM.GamesCount("all"));
         toolbar.setLogo(context.getResources().getIdentifier(viewM.regionFlag, "drawable", context.getPackageName()));
-
-        /*alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                GameItemsIndex indexListItems = (GameItemsIndex) arg0.getItemAtPosition(arg2);
-                readindexid = indexListItems.getItemid();
-                //readindexid = readindexid - 1;
-                gamelistView.setSelection(readindexid);
-                //gamegalleryview.setSelection(readindexid);
-            }
-        });
-
-        gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
-
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
-                readgameid = gameListItems.getItemId();//get the name of the shopping list table
-                readgamename = gameListItems.getName();//get the name of the shopping list table
-                //sql = wherestatement + licensed;
-                sql = "SELECT * FROM eu where " + wherestatement + licensed +  "";
-                Intent intent = new Intent(AllGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
-                intent.putExtra("name", readgamename);//passes the table name to the new screen
-                intent.putExtra("position", arg2);
-                intent.putExtra("listposition", arg2);
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("gamename", thename);
-                intent.putExtra("gameimage", theimage);
-
-                startActivity(intent);//start the new screen
-            }
-        });
-
-        gamelistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
-
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
-                final Integer itemId = gameListItems.getItemId();//get the item id
-
-                Intent intent = new Intent(AllGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("editgameid", itemId);
-                intent.putExtra("listposition", arg2);
-                startActivity(intent);//start the new screen
-
-                return true;//return is equal to true
-            }
-
-        });
-
-        gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
-
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
-                readgameid = gameListItems.getItemId();//get the name of the shopping list table
-                readgamename = gameListItems.getName();//get the name of the shopping list table
-                //sql = wherestatement + licensed;
-                sql = "SELECT * FROM eu where " + wherestatement + licensed +  "";
-                Intent intent = new Intent(AllGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
-                intent.putExtra("name", readgamename);//passes the table name to the new screen
-                intent.putExtra("position", arg2);
-                intent.putExtra("listposition", arg2);
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("currentgamename", thename);
-                intent.putExtra("currentgameimage", theimage);
-                startActivity(intent);//start the new screen
-            }
-        });
-
-        gamegalleryview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
-
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
-                final Integer itemId = gameListItems.getItemId();//get the item id
-
-                Intent intent = new Intent(AllGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("editgameid", itemId);
-                intent.putExtra("listposition", arg2);
-                startActivity(intent);//start the new screen
-
-                return true;//return is equal to true
-            }
-
-        });*/
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -198,10 +92,6 @@ public class AllGames extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        /*MobileAds.initialize(getApplicationContext(), "ca-app-pub-0537596348696744~2585816192");
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);*/
     }
 
     @Override
@@ -256,24 +146,19 @@ public class AllGames extends AppCompatActivity
         top = (v == null) ? 0 : v.getTop();
         } else if(viewas == 1){
 
-        //gridviewVerticalPositionWhenThumbnailTapped = gamegalleryview.getFirstVisiblePosition();
         index = gamegalleryview.getFirstVisiblePosition();
-        //View v = gamegalleryview.getChildAt(0);
-        //top = (v == null) ? 0 : v.getTop();*/
         }
     }
 
 
     public void readList(){//the readlist function
-        gamesList = viewM.GetGames("all");
-        //indexList = dbh.gamesIndex("all");
-        viewas = dbh.viewType();
+
 
         if(viewas == 0){
             LightCollectionAdapter nes = new LightCollectionAdapter(this, gamesList);//set up an new list adapter from the arraylist
             gamegalleryview.setVisibility(View.GONE);
             gamelistView.setAdapter(nes);
-            /*NesIndexAdapter nii = new NesIndexAdapter(this, indexList);
+            NesIndexAdapter nii = new NesIndexAdapter(this, indexList);
             alphaIndex.setAdapter(nii);
 
             alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -285,17 +170,17 @@ public class AllGames extends AppCompatActivity
                     gamelistView.setSelection(readindexid);
                     //gamegalleryview.setSelection(readindexid);
                 }
-            });*/
+            });
 
             gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
-                    GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                    GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                     readgameid = gameListItems.getItemId();//get the name of the shopping list table
                     readgamename = gameListItems.getName();//get the name of the shopping list table
                     //sql = wherestatement + licensed;
-                    sql = "SELECT * FROM eu where " + wherestatement + licensed +  "";
+                    sql = "all";
                     Intent intent = new Intent(AllGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
                     intent.putExtra("gameid", readgameid);//passes the table name to the new screen
                     intent.putExtra("name", readgamename);//passes the table name to the new screen
@@ -313,7 +198,7 @@ public class AllGames extends AppCompatActivity
                 @Override
                 public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                    GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                    GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                     final Integer itemId = gameListItems.getItemId();//get the item id
 
                     Intent intent = new Intent(AllGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
@@ -326,8 +211,8 @@ public class AllGames extends AppCompatActivity
 
             });
 
-        }/*else if (viewas == 1){
-            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, gamesList);//set up an new list adapter from the arraylist
+        }else if (viewas == 1){
+            LightImageCollectionAdapter nes = new LightImageCollectionAdapter(this, gamesList);//set up an new list adapter from the arraylist
             gamelistView.setVisibility(View.GONE);
             gamegalleryview.setAdapter(nes);
 
@@ -335,7 +220,7 @@ public class AllGames extends AppCompatActivity
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
-                    GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                    GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                     readgameid = gameListItems.getItemId();//get the name of the shopping list table
                     readgamename = gameListItems.getName();//get the name of the shopping list table
                     //sql = wherestatement + licensed;
@@ -356,7 +241,7 @@ public class AllGames extends AppCompatActivity
                 @Override
                 public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                    GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                    GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                     final Integer itemId = gameListItems.getItemId();//get the item id
 
                     Intent intent = new Intent(AllGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
@@ -368,7 +253,7 @@ public class AllGames extends AppCompatActivity
                 }
 
             });
-            }*/
+            }
     }
 
     public void gameregion(){//selects the region from the database

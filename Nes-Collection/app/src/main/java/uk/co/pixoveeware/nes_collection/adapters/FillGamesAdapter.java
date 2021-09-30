@@ -30,8 +30,8 @@ public class FillGamesAdapter {
         db = context.openOrCreateDatabase("nes.sqlite", context.MODE_PRIVATE, null);//open or create the database
 
 
-        if (MainActivity.nesList == null){ MainActivity.readList(); }
-        MainActivity.nesList.clear();//clear the shoppingList array
+        //if (MainActivity.nesList == null){ MainActivity.readList(); }
+        MainActivity.gamesList.clear();//clear the shoppingList array
         MainActivity.indexList = new ArrayList<GameItemsIndex>();
         MainActivity.indexList.clear();
         indexpos = 0;
@@ -95,7 +95,7 @@ public class FillGamesAdapter {
                     nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                     nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
                     nesListItems.setCurrency(currency);
-                    MainActivity.nesList.add(nesListItems);//add items to the arraylist
+                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
                     indexListItems.setItemid(indexpos);
                     indexListItems.setLetter(c.getString(c.getColumnIndex("groupheader")));
                     MainActivity.indexList.add(indexListItems);
@@ -151,7 +151,7 @@ public class FillGamesAdapter {
                     nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                     nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
                     nesListItems.setCurrency(currency);
-                    MainActivity.nesList.add(nesListItems);//add items to the arraylist
+                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                     indexpos = indexpos +1;
                 }
