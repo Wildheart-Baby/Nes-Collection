@@ -18,10 +18,10 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.models.GameItems;
-import uk.co.pixoveeware.nes_collection.GamesDetail;
-import uk.co.pixoveeware.nes_collection.MainActivity;
+import uk.co.pixoveeware.nes_collection.activities.GamesDetail;
+import uk.co.pixoveeware.nes_collection.activities.MainActivity;
 import uk.co.pixoveeware.nes_collection.R;
-import uk.co.pixoveeware.nes_collection.StatsSearchResults;
+import uk.co.pixoveeware.nes_collection.activities.StatsSearchResults;
 
 /**
  * Created by Wildheart on 31/07/2016.

@@ -9,7 +9,7 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="uk.co.pixoveeware.nes_collection.NeededGames"
+    tools:context="uk.co.pixoveeware.nes_collection.activities.NeededGames"
     tools:showIn="@layout/activity_needed_games"
     android:background="#C0C0BB">
 

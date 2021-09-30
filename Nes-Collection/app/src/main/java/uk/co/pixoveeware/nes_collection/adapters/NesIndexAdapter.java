@@ -10,7 +10,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
-import uk.co.pixoveeware.nes_collection.MainActivity;
+import uk.co.pixoveeware.nes_collection.activities.MainActivity;
 import uk.co.pixoveeware.nes_collection.R;
 
 /**

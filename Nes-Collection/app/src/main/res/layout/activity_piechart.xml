@@ -13,7 +13,7 @@ android:orientation="vertical" >
     android:orientation="horizontal"
     android:weightSum="5" >
 
-    <uk.co.pixoveeware.nes_collection.PieChartView
+    <uk.co.pixoveeware.nes_collection.data.PieChartView
         android:id="@+id/pie_chart"
         android:layout_width="0dp"
         android:layout_height="200dp"

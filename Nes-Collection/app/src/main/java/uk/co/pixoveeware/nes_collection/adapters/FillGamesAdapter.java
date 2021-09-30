@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
-import uk.co.pixoveeware.nes_collection.MainActivity;
+import uk.co.pixoveeware.nes_collection.activities.MainActivity;
 
 /**
  * Created by Wildheart on 10/10/2018.

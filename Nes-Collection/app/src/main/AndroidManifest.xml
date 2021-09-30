@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".SplashActivity"
+            android:name=".activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,101 +23,101 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="Nes Collection"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".AllGames"
+            android:name=".activities.AllGames"
             android:label="@string/title_activity_all_games"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".GameDetail"
+            android:name=".activities.GameDetail"
             android:label="@string/title_activity_game_detail"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".SearchResults"
+            android:name=".activities.SearchResults"
             android:label="@string/title_activity_search_results"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".OwnedGames"
+            android:name=".activities.OwnedGames"
             android:label="@string/title_activity_owned_games"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".EditOwnedGame"
+            android:name=".activities.EditOwnedGame"
             android:label="@string/title_activity_edit_owned_game"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".NeededGames"
+            android:name=".activities.NeededGames"
             android:label="@string/title_activity_needed_games"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".FavouriteGames"
+            android:name=".activities.FavouriteGames"
             android:label="@string/title_activity_favourite_games"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Settings"
+            android:name=".activities.Settings"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".MainActivity"
+            android:parentActivityName=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Search"
+            android:name=".activities.Search"
             android:label="@string/title_activity_search"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Statistics"
+            android:name=".activities.Statistics"
             android:label="@string/title_activity_statistics"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".About"
+            android:name=".activities.About"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".Credits"
+            android:name=".activities.Credits"
             android:label="@string/title_activity_credits"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".ShelfOrder"
+            android:name=".activities.ShelfOrder"
             android:label="@string/title_activity_shelf_order"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".WishList"
+            android:name=".activities.WishList"
             android:label="@string/title_activity_wish_list"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".GamesDetail"
+            android:name=".activities.GamesDetail"
             android:label="@string/title_activity_games_detail"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".FinishedGames"
+            android:name=".activities.FinishedGames"
             android:label="@string/title_activity_finished_games"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".StatsSearchResults"
+            android:name=".activities.StatsSearchResults"
             android:label="@string/title_activity_stats_search_results"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".TrophyRoom"
+            android:name=".activities.TrophyRoom"
             android:label="@string/title_activity_trophy_room"
             android:theme="@style/AppTheme"></activity>
         <!--meta-data android:name="com.google.android.backup.api_key" android:value="AEdPqrEAAAAIlNbQL51vLuZiNqUKLDLNMmT47DxS0_mw89RVsQ" /-->
