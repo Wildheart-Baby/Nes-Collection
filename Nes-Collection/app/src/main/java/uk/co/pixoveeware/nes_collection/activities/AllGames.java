@@ -21,6 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModel;
+import androidx.lifecycle.ViewModelProvider;
 
 //import com.google.android.gms.ads.AdRequest;
 //import com.google.android.gms.ads.AdView;
@@ -30,6 +32,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 
+import uk.co.pixoveeware.nes_collection.ViewModels.MainActivityViewModel;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionImageAdapter;
 import uk.co.pixoveeware.nes_collection.data.DatabaseHelper;
 import uk.co.pixoveeware.nes_collection.R;
@@ -52,27 +55,31 @@ public class AllGames extends AppCompatActivity
     String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, title, currentgroup, licensed, titlestr, titlept1, titlept2, thename, theimage;
     String prevgroup = "";
     int readgameid, gameid, index, top, viewas, ListSize, i, readindexid, AddItems, totalgames, titles;
-    ArrayAdapter<CharSequence> adapter;
+    //ArrayAdapter<CharSequence> adapter;
     //ArrayList<GameItems> nesList;
     ListView gamelistView, alphaIndex;
     GridView gamegalleryview;
-    DatabaseHelper dbh;
+    //DatabaseHelper dbh;
     ArrayList<GameListItems> gamesList;
-    ArrayList<GameItemsIndex> indexList;
+    //ArrayList<GameItemsIndex> indexList;
+    MainActivityViewModel viewM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        viewM = new ViewModelProvider(this).get(MainActivityViewModel.class);
         setContentView(R.layout.activity_all_games);
-        dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
+        //dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
         gamelistView = (ListView) findViewById(R.id.lvAllGames); //sets up a listview with the name shoplistview
         gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
         alphaIndex = (ListView) findViewById(R.id.lvAlphaIndex);
 
-        DisplayMetrics metrics = new DisplayMetrics();
+
+
+        /*DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        NesOwnedAdapter.screenwidth = metrics.widthPixels;
-        dbh = new DatabaseHelper(this);
+        NesOwnedAdapter.screenwidth = metrics.widthPixels;*/
+        //dbh = new DatabaseHelper(this);
 
         //gameregion();
         readList();
@@ -90,9 +97,9 @@ public class AllGames extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        setTitle(" " + dbh.regionTitle());
-        toolbar.setSubtitle(dbh.gamesCount("all"));
-        toolbar.setLogo(context.getResources().getIdentifier(dbh.regionFlag(), "drawable", context.getPackageName()));
+        setTitle(" " + viewM.regionFlag);
+        toolbar.setSubtitle(viewM.gamesCount);
+        toolbar.setLogo(context.getResources().getIdentifier(viewM.regionFlag, "drawable", context.getPackageName()));
 
         /*alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -256,31 +263,11 @@ public class AllGames extends AppCompatActivity
         }
     }
 
-    private class GetGamesList extends AsyncTask<ArrayList<GameListItems>, ArrayList<GameListItems>, ArrayList<GameListItems>> {
-
-        @Override
-        protected ArrayList<GameListItems> doInBackground(ArrayList<GameListItems>... arrayLists) {
-            return dbh.getGameslist("all");
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<GameListItems> result) {
-            super.onPostExecute(result);
-            gamesList = result;
-        }
-
-        //gamesList = dbh.getGameslist("all");
-        //indexList = dbh.gamesIndex("all");
-        //viewas = dbh.viewType();
-    }
-
 
     public void readList(){//the readlist function
-        new GetGamesList().execute();
-        //gamesList = dbh.getGameslist("all");
+        gamesList = viewM.GetGames("all");
         //indexList = dbh.gamesIndex("all");
-        //viewas = dbh.viewType();
-        viewas = 0;
+        viewas = dbh.viewType();
 
         if(viewas == 0){
             LightCollectionAdapter nes = new LightCollectionAdapter(this, gamesList);//set up an new list adapter from the arraylist
