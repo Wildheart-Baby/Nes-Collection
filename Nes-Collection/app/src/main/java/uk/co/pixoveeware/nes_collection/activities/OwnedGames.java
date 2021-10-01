@@ -29,15 +29,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-//import com.google.android.gms.ads.AdRequest;
-//import com.google.android.gms.ads.AdView;
-//import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.Random;
 
 import uk.co.pixoveeware.nes_collection.R;
-import uk.co.pixoveeware.nes_collection.adapters.FillGamesAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionImageAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesOwnedAdapter;
@@ -49,11 +45,10 @@ public class OwnedGames extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     final Context context = this;
-    Cursor c;
-    SQLiteDatabase db;//sets up the connection to the database
+
     GameItems gameListItems;
 
-    String name, dbfile, readgamename, str, sql, listName,searchterm,fieldname, wherestatement, sql1, sql2, sql3, licensed, currentgroup, order, currency, thename, theimage;
+    String readgamename, str, sql, listName,searchterm,fieldname, wherestatement, sql1, sql2, sql3, licensed, currentgroup, order, currency, thename, theimage;
     String prevgroup = "";
 
     int readgameid, gameid, ownedgames, totalgames,  readindexid, index, top, region1games, region2games,region3games, count, randomgame, itemId, viewas, showprice, ordering, titles;
@@ -67,10 +62,10 @@ public class OwnedGames extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_owned_games);
-        dbfile = (this.getApplicationContext().getFilesDir().getPath()+ "nes.sqlite"); //sets up the variable dbfile with the location of the database
+
         wherestatement = getIntent().getStringExtra("wherestatement");
         setTitle("Owned Games");
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -82,9 +77,9 @@ public class OwnedGames extends AppCompatActivity
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
-        alphaIndex = (ListView) findViewById(R.id.lvAlphaIndex);
-        ownedlistView = (ListView) findViewById(R.id.lvOwnedGames); //sets up a listview with the name shoplistview
+        gamegalleryview = findViewById(R.id.gvAllGames);
+        alphaIndex = findViewById(R.id.lvAlphaIndex);
+        ownedlistView = findViewById(R.id.lvOwnedGames); //sets up a listview with the name shoplistview
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
@@ -178,7 +173,7 @@ public class OwnedGames extends AppCompatActivity
 
         });
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
@@ -194,7 +189,7 @@ public class OwnedGames extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -264,23 +259,9 @@ public class OwnedGames extends AppCompatActivity
 
     public void readList() {//the readlist function
 
-        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-
-        if (ordering == 0) {
-            HomeScreenActivity.sqlstatement = "select * from eu where owned = 1 " + licensed +  ""; }
-        else if(ordering == 1){
-            HomeScreenActivity.sqlstatement ="select * from eu where owned = 1 " + licensed +  " order by price desc";}
-        new FillGamesAdapter(this);
-        //}
-
-
         sql = "SELECT * FROM eu where " + wherestatement + licensed + "";
 
-        c = db.rawQuery(sql, null);
-        region1games = c.getCount();
-        c.close();
 
-        db.close();//close the database
         if (viewas == 0) {
             if (ordering == 0) {
                 NesOwnedAdapter nes = new NesOwnedAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
@@ -385,9 +366,9 @@ public class OwnedGames extends AppCompatActivity
             arandomgame.setContentView(R.layout.random_game);//sets up the layout of the dialog box
 
 
-            Button cancel = (Button) arandomgame.findViewById(R.id.btnCancel);
-            TextView title = (TextView) arandomgame.findViewById(R.id.lblTitle);
-            ImageView cover = (ImageView) arandomgame.findViewById(R.id.imgGameCover);
+            Button cancel = arandomgame.findViewById(R.id.btnCancel);
+            TextView title = arandomgame.findViewById(R.id.lblTitle);
+            ImageView cover = arandomgame.findViewById(R.id.imgGameCover);
 
             //randomgame.setTitle("Random game");
 
@@ -451,7 +432,6 @@ public class OwnedGames extends AppCompatActivity
         gamescount();
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -488,7 +468,7 @@ public class OwnedGames extends AppCompatActivity
             startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }

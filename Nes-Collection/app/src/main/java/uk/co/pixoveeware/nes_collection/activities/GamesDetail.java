@@ -18,6 +18,7 @@ import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
+import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModelFactory;
 import uk.co.pixoveeware.nes_collection.adapters.FillGamesAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesPagerAdapter;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
@@ -31,7 +32,7 @@ public class GamesDetail extends AppCompatActivity {
     Context context; //sets up a variable as context
     int gameid, editgameid, coverid, owned, pos, position, titles;
 
-    String gamename, sql, wherestatement, licensed, previd, thename, theimage;
+    String gamename, sql, listType, licensed, previd, thename, theimage;
     ViewPager viewPager;
     NesPagerAdapter adapter;
     private Menu menu;
@@ -45,16 +46,19 @@ public class GamesDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewM = new ViewModelProvider(this).get(AllGamesViewModel.class);
+        //viewM = new ViewModelProvider(this).get(AllGamesViewModel.class);
+        listType = getIntent().getStringExtra("listType");
+        viewM = new ViewModelProvider(this, new AllGamesViewModelFactory(this.getApplication(), listType)).get(AllGamesViewModel.class);
         setContentView(R.layout.activity_games_detail);
         gamepos = getIntent().getIntExtra("listposition", 0);
         gameid = getIntent().getIntExtra("gameid", 0); //sets a variable fname with data passed from the main screen
         gamename = getIntent().getStringExtra("name");
         pos = getIntent().getIntExtra("position",0);//sets a variable fname with data passed from the main screen
         sql = getIntent().getStringExtra("sqlstatement");
+        gamesList = viewM.gamesList;
 
         readGame();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -150,8 +154,8 @@ public class GamesDetail extends AppCompatActivity {
     }
 
     public void readGame(){//the readlist function
-        if (gamesList == null){  gamesList = viewM.GetGamesDetails(sql);}
-        viewPager = (ViewPager) findViewById(R.id.pager);
+        if (gamesList == null){  gamesList = viewM.gamesList;}
+        viewPager = findViewById(R.id.pager);
         adapter = new NesPagerAdapter(this, gamesList);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(pos);

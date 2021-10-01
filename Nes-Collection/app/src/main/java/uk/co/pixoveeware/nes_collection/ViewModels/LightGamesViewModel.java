@@ -2,7 +2,6 @@ package uk.co.pixoveeware.nes_collection.ViewModels;
 
 import android.app.Application;
 
-import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
-public class NeededGamesViewModel extends AndroidViewModel {
+public class LightGamesViewModel extends AndroidViewModel {
 
     DatabaseHelper dbh;
     public ArrayList<GameListItems> gamesList;
@@ -24,14 +23,14 @@ public class NeededGamesViewModel extends AndroidViewModel {
     public int viewType;
     String times;
 
-    public NeededGamesViewModel(@NonNull Application application) {
+    public LightGamesViewModel(Application application, String param) {
         super(application);
         dbh = new DatabaseHelper(application);
-        gamesList = dbh.getGameslist("needed");
-        indexList = dbh.gamesIndex("needed");
+        gamesList = dbh.getGameslist(param);
+        indexList = dbh.gamesIndex(param);
         regionFlag = dbh.regionFlag();
         regionTitle = dbh.regionTitle();
-        gamesCount = dbh.gamesCount("needed");
+        gamesCount = dbh.gamesCount(param);
         viewType = dbh.viewType();
     }
 }

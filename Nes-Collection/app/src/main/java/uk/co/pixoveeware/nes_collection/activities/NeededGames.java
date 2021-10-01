@@ -29,7 +29,8 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
-import uk.co.pixoveeware.nes_collection.ViewModels.NeededGamesViewModel;
+import uk.co.pixoveeware.nes_collection.ViewModels.LightGamesViewModel;
+import uk.co.pixoveeware.nes_collection.ViewModels.LightGamesViewModelFactory;
 import uk.co.pixoveeware.nes_collection.adapters.LightCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.LightImageCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.R;
@@ -56,12 +57,13 @@ public class NeededGames extends AppCompatActivity
     Toolbar toolbar;
     ArrayList<GameListItems> gamesList;
     ArrayList<GameItemsIndex> indexList;
-    NeededGamesViewModel viewM;
+    LightGamesViewModel viewM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewM = new ViewModelProvider(this).get(NeededGamesViewModel.class);
+        //viewM = new ViewModelProvider(this).get(LightGamesViewModel.class);
+        viewM = new ViewModelProvider(this, new LightGamesViewModelFactory(this.getApplication(), "needed")).get(LightGamesViewModel.class);
         gamesList = viewM.gamesList;
         indexList = viewM.indexList;
         viewas = viewM.viewType;

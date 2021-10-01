@@ -18,26 +18,23 @@ import uk.co.pixoveeware.nes_collection.models.GameListItems;
 public class AllGamesViewModel extends AndroidViewModel {
 
     DatabaseHelper dbh;
-    public ArrayList<GameListItems> gamesList;
+    public ArrayList<GameItems> gamesList;
     public ArrayList<GameItemsIndex> indexList;
-    ArrayList<GameItems> specificGames;
-    ArrayList<GameItems> allGames;
 
     public String regionTitle, regionFlag, gamesCount;
-    public int viewType, GamesCount;
-    String times;
+    public int viewType;
 
-    public AllGamesViewModel(Application application){
+    public AllGamesViewModel(Application application, String param){
         super(application);
         dbh = new DatabaseHelper(application);
-        gamesList = dbh.getGameslist("all");
-        indexList = dbh.gamesIndex("all");
+        gamesList = dbh.getGames(param);
+        indexList = dbh.gamesIndex(param);
         regionFlag = dbh.regionFlag();
         regionTitle = dbh.regionTitle();
         viewType = dbh.viewType();
     }
 
-    public ArrayList<GameListItems> ConvertToLightList(){
+    /*public ArrayList<GameListItems> ConvertToLightList(){
 
         allGames = dbh.getGames("all");
         Iterator<GameItems> itr = allGames.iterator();
@@ -52,16 +49,8 @@ public class AllGamesViewModel extends AndroidViewModel {
             gamesList.add(gameListItems);//add items to the arraylist
         }
         return gamesList;
-    }
+    }*/
 
-    public ArrayList<GameListItems> LightList(){
-        return gamesList;
-    }
-
-    public ArrayList<GameListItems> GetGames(String games){
-        gamesList = dbh.getGameslist(games);
-        return gamesList;
-    }
 
     public ArrayList<GameItemsIndex> GetIndex(String games){
         indexList = dbh.gamesIndex(games);
@@ -73,9 +62,9 @@ public class AllGamesViewModel extends AndroidViewModel {
         return gamesCount;
     }
 
-    public ArrayList<GameItems> GetGamesDetails(String games){
+    /*public ArrayList<GameItems> GetGamesDetails(String games){
         gamesList = dbh.getGameslist(games);
         return specificGames;
-    }
+    }*/
 
 }

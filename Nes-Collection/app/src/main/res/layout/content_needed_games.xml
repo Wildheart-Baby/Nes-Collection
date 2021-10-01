@@ -4,44 +4,44 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="0dp"
+    android:background="#C0C0BB"
     android:paddingLeft="0dp"
+    android:paddingTop="60dp"
     android:paddingRight="0dp"
-    android:paddingTop="0dp"
+    android:paddingBottom="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="uk.co.pixoveeware.nes_collection.activities.NeededGames"
-    tools:showIn="@layout/activity_needed_games"
-    android:background="#C0C0BB">
+    tools:showIn="@layout/activity_needed_games">
 
 
-        <ListView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/lvNeededGames"
-            android:scrollingCache="false"
-            android:animationCache="false"
-            android:layout_alignParentTop="false"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:drawSelectorOnTop="true"
-            android:fastScrollEnabled="true"
-            android:fastScrollAlwaysVisible="false"
-            android:scrollbars="none"
-            android:fastScrollStyle="@drawable/custom_scroll_style"
-            android:textFilterEnabled="true"
-            android:layout_below="@+id/adView" />
+    <ListView
+        android:id="@+id/lvNeededGames"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/adView"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:animationCache="false"
+        android:drawSelectorOnTop="true"
+        android:fastScrollAlwaysVisible="false"
+        android:fastScrollEnabled="true"
+        android:fastScrollStyle="@drawable/custom_scroll_style"
+        android:scrollbars="none"
+        android:scrollingCache="false"
+        android:textFilterEnabled="true" />
 
 
     <GridView
+        android:id="@+id/gvAllGames"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/adView"
         android:columnCount="3"
-        android:id="@+id/gvAllGames"
         android:numColumns="3"
-        android:scrollIndicators="none"
-        android:layout_below="@+id/adView"></GridView>
+        android:scrollIndicators="none"></GridView>
 
-<!--    <com.google.android.gms.ads.AdView
+    <!--    <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
         android:id="@+id/adView"
         android:layout_width="wrap_content"
@@ -55,14 +55,14 @@
     </com.google.android.gms.ads.AdView>-->
 
     <ListView
+        android:id="@+id/lvAlphaIndex"
         android:layout_width="20dp"
         android:layout_height="wrap_content"
-        android:id="@+id/lvAlphaIndex"
+        android:layout_below="@+id/adView"
         android:layout_alignParentRight="true"
         android:layout_marginRight="5dp"
-        android:scrollbars="none"
-        android:dividerHeight="0dp"
-        android:divider="@android:color/transparent"
         android:background="@color/indexlist"
-        android:layout_below="@+id/adView" />
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:scrollbars="none" />
 </RelativeLayout>

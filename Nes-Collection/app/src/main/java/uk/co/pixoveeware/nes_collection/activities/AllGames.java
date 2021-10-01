@@ -23,8 +23,8 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-
-import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
+import uk.co.pixoveeware.nes_collection.ViewModels.LightGamesViewModel;
+import uk.co.pixoveeware.nes_collection.ViewModels.LightGamesViewModelFactory;
 import uk.co.pixoveeware.nes_collection.adapters.LightImageCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.pixoveeware.nes_collection.R;
@@ -32,6 +32,8 @@ import uk.co.pixoveeware.nes_collection.adapters.LightCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
+
+import static uk.co.pixoveeware.nes_collection.R.*;
 
 public class AllGames extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -47,24 +49,26 @@ public class AllGames extends AppCompatActivity
     ArrayList<GameListItems> gamesList;
     ArrayList<GameItems> gameList;
     ArrayList<GameItemsIndex> indexList;
-    AllGamesViewModel viewM;
+    LightGamesViewModel viewM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewM = new ViewModelProvider(this).get(AllGamesViewModel.class);
+        //viewM = new ViewModelProvider(this).get(AllGamesViewModel.class);
+        //viewM = new LightGamesViewModelFactory(this, "all").getClass(AllGamesViewModel.class);
+        viewM = new ViewModelProvider(this, new LightGamesViewModelFactory(this.getApplication(), "all")).get(LightGamesViewModel.class);
         gamesList = viewM.gamesList;
         indexList = viewM.indexList;
         viewas = viewM.viewType;
-        setContentView(R.layout.activity_all_games);
+        setContentView(layout.activity_all_games);
 
-        gamelistView = (ListView) findViewById(R.id.lvAllGames); //sets up a listview with the name shoplistview
-        gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
-        alphaIndex = (ListView) findViewById(R.id.lvAlphaIndex);
+        gamelistView = findViewById(id.lvAllGames); //sets up a listview with the name shoplistview
+        gamegalleryview = findViewById(id.gvAllGames);
+        alphaIndex = findViewById(id.lvAlphaIndex);
 
         loadList();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(id.toolbar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -78,23 +82,23 @@ public class AllGames extends AppCompatActivity
         getSupportActionBar().setHomeButtonEnabled(true);
 
         setTitle(" " + viewM.regionFlag);
-        toolbar.setSubtitle(viewM.GamesCount("all"));
+        toolbar.setSubtitle(viewM.gamesCount);
         toolbar.setLogo(context.getResources().getIdentifier(viewM.regionFlag, "drawable", context.getPackageName()));
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, string.navigation_drawer_open, string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        NavigationView navigationView = (NavigationView) findViewById(id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
     }
 
     @Override
     public void onBackPressed() {
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = (DrawerLayout) findViewById(id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
@@ -112,17 +116,17 @@ public class AllGames extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case id.action_settings:
                 Intent intent = new Intent(AllGames.this, Settings.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);//start the new screen
                 return true;
 
-            case R.id.action_search:
+            case id.action_search:
                 Intent intent2 = new Intent(AllGames.this, Search.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent2);//start the new screen
                 return true;
 
-            case R.id.action_about:
+            case id.action_about:
                 Intent intent3 = new Intent(AllGames.this, About.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent3);//start the new screen
                 return true;
@@ -187,6 +191,7 @@ public class AllGames extends AppCompatActivity
                     intent.putExtra("sqlstatement", sql);
                     intent.putExtra("gamename", thename);
                     intent.putExtra("gameimage", theimage);
+                    intent.putExtra("listType", "all");
 
                     startActivity(intent);//start the new screen
                 }
@@ -295,7 +300,6 @@ public class AllGames extends AppCompatActivity
         gamegalleryview.setSelection(index);
     }
 
-    @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -333,7 +337,7 @@ public class AllGames extends AppCompatActivity
             startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
