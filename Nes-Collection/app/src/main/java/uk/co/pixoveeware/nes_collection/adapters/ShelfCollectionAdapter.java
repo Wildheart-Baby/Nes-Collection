@@ -15,8 +15,8 @@ package uk.co.pixoveeware.nes_collection.adapters;
 
         import java.util.ArrayList;
 
+        import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
         import uk.co.pixoveeware.nes_collection.models.GameItems;
-        import uk.co.pixoveeware.nes_collection.activities.MainActivity;
         import uk.co.pixoveeware.nes_collection.R;
 
 /**
@@ -44,18 +44,18 @@ public class ShelfCollectionAdapter extends BaseAdapter {
     public ShelfCollectionAdapter(Context context, ArrayList<GameItems> list) {
 
         this.context = context;//sets up the context for the class
-        MainActivity.gamesList = list; //sets up a variable as a list
+        HomeScreenActivity.gamesList = list; //sets up a variable as a list
 
     }
 
     @Override
     public int getCount() {
-        return MainActivity.gamesList.size();
+        return HomeScreenActivity.gamesList.size();
     } //returns the number of items in the array
 
     @Override
     public Object getItem(int position) {
-        return MainActivity.gamesList.get(position);
+        return HomeScreenActivity.gamesList.get(position);
     } //gets the position within the list
 
     @Override
@@ -65,7 +65,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        GameItems nesListItems = MainActivity.gamesList.get(position); //gets the item position from the array
+        GameItems nesListItems = HomeScreenActivity.gamesList.get(position); //gets the item position from the array
 
         if (convertView == null) { //if the layout isn't inflated
             LayoutInflater inflater = (LayoutInflater) context
@@ -92,7 +92,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
 
         thegamename = nesListItems.getName();
         l = thegamename.length();
-        if (MainActivity.width < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
+        if (HomeScreenActivity.width < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
         holder.gamename.setText(thegamename); //sets the textview name with data from name
         //holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
         holder.publisher.setText(nesListItems.getPublisher());

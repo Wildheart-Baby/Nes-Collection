@@ -248,25 +248,25 @@ public class EditOwnedGame extends AppCompatActivity {
         EditText PalBCost = (EditText) findViewById(R.id.txtPalBcost);
         EditText USCost = (EditText) findViewById(R.id.txtUScost);
 
-        if (chkpalacart.isChecked()){ palAcart = 8783; cart = 1; palaowned = 1; owned = 1; MainActivity.gamesList.get(gamepos).setCart(1); MainActivity.gamesList.get(gamepos).setOwned(1); } else  { palAcart = 32573; }
-        if (chkpalabox.isChecked()){ palAbox = 8783; box = 1; owned = 1; MainActivity.gamesList.get(gamepos).setBox(1); MainActivity.gamesList.get(gamepos).setOwned(1); } else { palAbox = 32573; }
-        if (chkpalamanual.isChecked()){ palAmanual = 8783; manual = 1; owned = 1; MainActivity.gamesList.get(gamepos).setManual(1); MainActivity.gamesList.get(gamepos).setOwned(1); } else { palAmanual = 32573; }
+        if (chkpalacart.isChecked()){ palAcart = 8783; cart = 1; palaowned = 1; owned = 1; HomeScreenActivity.gamesList.get(gamepos).setCart(1); HomeScreenActivity.gamesList.get(gamepos).setOwned(1); } else  { palAcart = 32573; }
+        if (chkpalabox.isChecked()){ palAbox = 8783; box = 1; owned = 1; HomeScreenActivity.gamesList.get(gamepos).setBox(1); HomeScreenActivity.gamesList.get(gamepos).setOwned(1); } else { palAbox = 32573; }
+        if (chkpalamanual.isChecked()){ palAmanual = 8783; manual = 1; owned = 1; HomeScreenActivity.gamesList.get(gamepos).setManual(1); HomeScreenActivity.gamesList.get(gamepos).setOwned(1); } else { palAmanual = 32573; }
 
-        if (chkpalbcart.isChecked()){ palBcart = 8783; cart = 1; palbowned = 1; owned = 1; MainActivity.gamesList.get(gamepos).setCart(1); MainActivity.gamesList.get(gamepos).setOwned(1); } else { palBcart = 32573; }
-        if (chkpalbbox.isChecked()){ palBbox = 8783; box = 1; owned = 1; MainActivity.gamesList.get(gamepos).setBox(1); MainActivity.gamesList.get(gamepos).setOwned(1); } else { palBbox = 32573; }
-        if (chkpalbmanual.isChecked()){ palBmanual = 8783; manual = 1; owned = 1; MainActivity.gamesList.get(gamepos).setManual(1); MainActivity.gamesList.get(gamepos).setOwned(1);} else { palBmanual = 32573; }
+        if (chkpalbcart.isChecked()){ palBcart = 8783; cart = 1; palbowned = 1; owned = 1; HomeScreenActivity.gamesList.get(gamepos).setCart(1); HomeScreenActivity.gamesList.get(gamepos).setOwned(1); } else { palBcart = 32573; }
+        if (chkpalbbox.isChecked()){ palBbox = 8783; box = 1; owned = 1; HomeScreenActivity.gamesList.get(gamepos).setBox(1); HomeScreenActivity.gamesList.get(gamepos).setOwned(1); } else { palBbox = 32573; }
+        if (chkpalbmanual.isChecked()){ palBmanual = 8783; manual = 1; owned = 1; HomeScreenActivity.gamesList.get(gamepos).setManual(1); HomeScreenActivity.gamesList.get(gamepos).setOwned(1);} else { palBmanual = 32573; }
 
-        if (chkuscart.isChecked()){ uscart = 8783; cart = 1; usowned = 1; owned = 1; MainActivity.gamesList.get(gamepos).setCart(1); MainActivity.gamesList.get(gamepos).setOwned(1);} else { uscart = 32573; }
-        if (chkusbox.isChecked()){ usbox = 8783; box = 1; owned = 1; MainActivity.gamesList.get(gamepos).setBox(1); MainActivity.gamesList.get(gamepos).setOwned(1); } else { usbox = 32573;  }
-        if (chkusmanual.isChecked()){ usmanual = 8783; manual = 1; owned = 1; MainActivity.gamesList.get(gamepos).setManual(1); MainActivity.gamesList.get(gamepos).setOwned(1);} else { usmanual = 32573; }
+        if (chkuscart.isChecked()){ uscart = 8783; cart = 1; usowned = 1; owned = 1; HomeScreenActivity.gamesList.get(gamepos).setCart(1); HomeScreenActivity.gamesList.get(gamepos).setOwned(1);} else { uscart = 32573; }
+        if (chkusbox.isChecked()){ usbox = 8783; box = 1; owned = 1; HomeScreenActivity.gamesList.get(gamepos).setBox(1); HomeScreenActivity.gamesList.get(gamepos).setOwned(1); } else { usbox = 32573;  }
+        if (chkusmanual.isChecked()){ usmanual = 8783; manual = 1; owned = 1; HomeScreenActivity.gamesList.get(gamepos).setManual(1); HomeScreenActivity.gamesList.get(gamepos).setOwned(1);} else { usmanual = 32573; }
 
         if (onshelf.isChecked()){ontheshelf = 1;} else { ontheshelf = 0;}
 
-        if (palAcart == 32573 && palBcart == 32573 && uscart == 32573) { cart = 0; MainActivity.gamesList.get(gamepos).setCart(0);  }
-        if (palAbox == 32573 && palBbox == 32573 && usbox == 32573) { box = 0; MainActivity.gamesList.get(gamepos).setBox(0); }
-        if (palAmanual == 32573 && palBmanual == 32573 && usmanual == 32573) { manual = 0; MainActivity.gamesList.get(gamepos).setManual(0); }
+        if (palAcart == 32573 && palBcart == 32573 && uscart == 32573) { cart = 0; HomeScreenActivity.gamesList.get(gamepos).setCart(0);  }
+        if (palAbox == 32573 && palBbox == 32573 && usbox == 32573) { box = 0; HomeScreenActivity.gamesList.get(gamepos).setBox(0); }
+        if (palAmanual == 32573 && palBmanual == 32573 && usmanual == 32573) { manual = 0; HomeScreenActivity.gamesList.get(gamepos).setManual(0); }
 
-        if (cart == 0 && box == 0 && manual == 0) {owned = 0; MainActivity.gamesList.get(gamepos).setOwned(0);}
+        if (cart == 0 && box == 0 && manual == 0) {owned = 0; HomeScreenActivity.gamesList.get(gamepos).setOwned(0);}
         PACheck = PalACost.getText().toString().replaceAll("[,]", ".");
         Log.d("Pixo-cost", PACheck);
         PACheck = PalACost.getText().toString().replaceAll("[^0-9.]", "");
@@ -316,10 +316,10 @@ public class EditOwnedGame extends AppCompatActivity {
         String str ="";
         if(favourite == 0) {
             str = "UPDATE eu SET favourite = 1 where _id = " + gameid + " ";
-            MainActivity.gamesList.get(gamepos).setFavourite(1);//update the database basket field with 8783
+            HomeScreenActivity.gamesList.get(gamepos).setFavourite(1);//update the database basket field with 8783
         } else  if(favourite == 1) {
             str = "UPDATE eu SET favourite = 0 where _id = " + gameid + " ";
-            MainActivity.gamesList.get(gamepos).setFavourite(0);//update the database basket field with 8783
+            HomeScreenActivity.gamesList.get(gamepos).setFavourite(0);//update the database basket field with 8783
         }
         Log.d("Pixo", str);
         db.execSQL(str);//run the sql command

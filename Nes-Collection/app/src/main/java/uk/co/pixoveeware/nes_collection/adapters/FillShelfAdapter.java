@@ -9,7 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
-import uk.co.pixoveeware.nes_collection.activities.MainActivity;
+import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 
 /**
@@ -34,13 +34,13 @@ public class FillShelfAdapter {
         db = context.openOrCreateDatabase("nes.sqlite", context.MODE_PRIVATE, null);//open or create the database
         gameregion();
 
-        //if (MainActivity.nesList == null){ MainActivity.readList(); }
-        MainActivity.gamesList.clear();
+        //if (HomeScreenActivity.nesList == null){ HomeScreenActivity.readList(); }
+        HomeScreenActivity.gamesList.clear();
         check = "y";
         pos = 1;
         posInList = -1;
         shelf = 1;
-        Cursor c = db.rawQuery(MainActivity.sqlstatement, null);//select everything from the database table
+        Cursor c = db.rawQuery(HomeScreenActivity.sqlstatement, null);//select everything from the database table
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
@@ -119,7 +119,7 @@ public class FillShelfAdapter {
                     nesListItems.setListPos(posInList);
                     Log.d("shelf", "adding list position: " + posInList);
                     //snesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
+                    HomeScreenActivity.gamesList.add(nesListItems);//add items to the arraylist
                     shelf ++;
                     //Log.d("pixo", "added shelf record " + name);
 
@@ -177,7 +177,7 @@ public class FillShelfAdapter {
                     nesListItems.setListPos(posInList);
                     Log.d("shelf", "adding list position: " + posInList);
                     //snesListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
-                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
+                    HomeScreenActivity.gamesList.add(nesListItems);//add items to the arraylist
                     if (pos == shelfsize){pos = 0;}
                     //Log.d("pixo", "added other record " + name);
                 }
@@ -204,7 +204,7 @@ public class FillShelfAdapter {
 
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 title = (c.getString(c.getColumnIndex("region_title")));
-                MainActivity.viewas = (c.getInt(c.getColumnIndex("game_view")));
+                HomeScreenActivity.viewas = (c.getInt(c.getColumnIndex("game_view")));
                 titles = (c.getInt(c.getColumnIndex("us_titles")));
                 currency = (c.getString(c.getColumnIndex("currency")));
 

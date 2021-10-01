@@ -267,9 +267,9 @@ public class OwnedGames extends AppCompatActivity
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
 
         if (ordering == 0) {
-            MainActivity.sqlstatement = "select * from eu where owned = 1 " + licensed +  ""; }
+            HomeScreenActivity.sqlstatement = "select * from eu where owned = 1 " + licensed +  ""; }
         else if(ordering == 1){
-            MainActivity.sqlstatement ="select * from eu where owned = 1 " + licensed +  " order by price desc";}
+            HomeScreenActivity.sqlstatement ="select * from eu where owned = 1 " + licensed +  " order by price desc";}
         new FillGamesAdapter(this);
         //}
 
@@ -283,21 +283,21 @@ public class OwnedGames extends AppCompatActivity
         db.close();//close the database
         if (viewas == 0) {
             if (ordering == 0) {
-                NesOwnedAdapter nes = new NesOwnedAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
+                NesOwnedAdapter nes = new NesOwnedAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
                 gamegalleryview.setVisibility(View.GONE);
                 alphaIndex.setVisibility(View.VISIBLE);
                 ownedlistView.setAdapter(nes);
-                NesIndexAdapter nii = new NesIndexAdapter(this, MainActivity.indexList);
+                NesIndexAdapter nii = new NesIndexAdapter(this, HomeScreenActivity.indexList);
                 alphaIndex.setAdapter(nii);
             } else if (ordering == 1){
-                NesOwnedPriceAdapter nes = new NesOwnedPriceAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
+                NesOwnedPriceAdapter nes = new NesOwnedPriceAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
                 gamegalleryview.setVisibility(View.GONE);
                 ownedlistView.setAdapter(nes);
                 alphaIndex.setVisibility(View.GONE);
             }
 
         } else if (viewas == 1) {
-            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
+            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
             ownedlistView.setVisibility(View.GONE);
             gamegalleryview.setAdapter(nes);
         }
@@ -457,7 +457,7 @@ public class OwnedGames extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_mainpage){
-            Intent intent = new Intent(this, MainActivity.class);//opens a new screen when the shopping list is clicked
+            Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         }else if (id == R.id.nav_allgames) {
             Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked

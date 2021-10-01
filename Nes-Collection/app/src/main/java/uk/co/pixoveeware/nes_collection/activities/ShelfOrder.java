@@ -169,10 +169,10 @@ public class ShelfOrder extends AppCompatActivity
     }
 
     public void readList(){//the readlist function
-        MainActivity.sqlstatement = "SELECT * FROM eu where owned = 1 and cart = 1 and onshelf = 1";
+        HomeScreenActivity.sqlstatement = "SELECT * FROM eu where owned = 1 and cart = 1 and onshelf = 1";
         new FillShelfAdapter(this);
 
-        ShelfCollectionAdapter nes = new ShelfCollectionAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
+        ShelfCollectionAdapter nes = new ShelfCollectionAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
         gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
 
     }
@@ -220,7 +220,7 @@ public class ShelfOrder extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_mainpage){
-            Intent intent = new Intent(this, MainActivity.class);//opens a new screen when the shopping list is clicked
+            Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         }else if (id == R.id.nav_allgames) {
             Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked

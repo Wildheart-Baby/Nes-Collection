@@ -186,8 +186,8 @@ public class SearchResults extends AppCompatActivity {
     }
 
     public void readList(){//the readlist function
-        //if (MainActivity.nesList == null){ MainActivity.readList(); }
-        MainActivity.gamesList.clear();//clear the shoppingList array
+        //if (HomeScreenActivity.nesList == null){ HomeScreenActivity.readList(); }
+        HomeScreenActivity.gamesList.clear();//clear the shoppingList array
 
         db = openOrCreateDatabase("nes.sqlite",MODE_PRIVATE,null);//open or create the database
         c = db.rawQuery(sql, null);//select everything from the database table
@@ -243,7 +243,7 @@ public class SearchResults extends AppCompatActivity {
                         nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
                         nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                         nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
-                        MainActivity.gamesList.add(nesListItems);//add items to the arraylist
+                        HomeScreenActivity.gamesList.add(nesListItems);//add items to the arraylist
                         prevgroup = c.getString(c.getColumnIndex("groupheader"));
                     }
                     else if(currentgroup.equals(prevgroup)){
@@ -292,7 +292,7 @@ public class SearchResults extends AppCompatActivity {
                         nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
                         nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                         nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
-                        MainActivity.gamesList.add(nesListItems);//add items to the arraylist
+                        HomeScreenActivity.gamesList.add(nesListItems);//add items to the arraylist
                         prevgroup = c.getString(c.getColumnIndex("groupheader"));
                     }
                     c.moveToNext();//move to the next record
@@ -308,12 +308,12 @@ public class SearchResults extends AppCompatActivity {
            gamelistView.setVisibility(View.GONE);
            thesearchresults.setVisibility(View.VISIBLE);
         }else {if(viewas == 0){
-            NesCollectionAdapter nes = new NesCollectionAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
+            NesCollectionAdapter nes = new NesCollectionAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
             gamegalleryview.setVisibility(View.GONE);
             gamelistView.setAdapter(nes);
 
         }else if (viewas == 1){
-            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
+            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
             gamelistView.setVisibility(View.GONE);
             gamegalleryview.setAdapter(nes);
             }

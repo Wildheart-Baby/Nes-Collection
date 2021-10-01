@@ -2,17 +2,12 @@ package uk.co.pixoveeware.nes_collection.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -22,7 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
-import uk.co.pixoveeware.nes_collection.ViewModels.MainActivityViewModel;
+import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.pixoveeware.nes_collection.adapters.FillGamesAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesPagerAdapter;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
@@ -45,12 +40,12 @@ public class GamesDetail extends AppCompatActivity {
     //View v;
     //Cursor c;
     //SQLiteDatabase db;//sets up the connection to the database
-    MainActivityViewModel viewM;
+    AllGamesViewModel viewM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewM = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        viewM = new ViewModelProvider(this).get(AllGamesViewModel.class);
         setContentView(R.layout.activity_games_detail);
         gamepos = getIntent().getIntExtra("listposition", 0);
         gameid = getIntent().getIntExtra("gameid", 0); //sets a variable fname with data passed from the main screen
@@ -139,16 +134,16 @@ public class GamesDetail extends AppCompatActivity {
     }
 
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putString("param", MainActivity.sqlstatement);
+        outState.putString("param", HomeScreenActivity.sqlstatement);
         outState.putInt("position", viewPager.getCurrentItem());
-        Log.d("pixo-saved-instance", "SQL: " + MainActivity.sqlstatement + " Pos: " + viewPager.getCurrentItem() );
+        Log.d("pixo-saved-instance", "SQL: " + HomeScreenActivity.sqlstatement + " Pos: " + viewPager.getCurrentItem() );
         super.onSaveInstanceState(outState);
     }
 
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        MainActivity.sqlstatement = savedInstanceState.getString("param");
+        HomeScreenActivity.sqlstatement = savedInstanceState.getString("param");
         pos = savedInstanceState.getInt("position");
-        Log.d("pixo-saved-instance", "SQL: " + MainActivity.sqlstatement + " Pos: " + pos);
+        Log.d("pixo-saved-instance", "SQL: " + HomeScreenActivity.sqlstatement + " Pos: " + pos);
         super.onRestoreInstanceState(savedInstanceState);
         new FillGamesAdapter(this);
         readGame();

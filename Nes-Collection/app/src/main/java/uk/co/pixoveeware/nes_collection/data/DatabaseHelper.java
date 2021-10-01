@@ -179,7 +179,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
                 c.moveToNext();//move to the next record
             }
-            //c = db.rawQuery(MainActivity.sqlstatement, null);
+            //c = db.rawQuery(HomeScreenActivity.sqlstatement, null);
             c.close();//close the cursor
         }
         times = getCurrentTimeStamp();
@@ -394,7 +394,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
                 c.moveToNext();//move to the next record
             }
-            //c = db.rawQuery(MainActivity.sqlstatement, null);
+            //c = db.rawQuery(HomeScreenActivity.sqlstatement, null);
             c.close();//close the cursor
         }
         return gamesList;
@@ -631,7 +631,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 count = " " + gCount + " " + "total games";
                 break;
         }
-        //title =gmaes " " + title + " - " + MainActivity.totalGames + " " + titlept2;
+        //title =gmaes " " + title + " - " + HomeScreenActivity.totalGames + " " + titlept2;
 
         //count = " has " + gCount;
 
@@ -757,7 +757,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 title = (c.getString(c.getColumnIndex("region_title")));
-                //MainActivity.viewas = (c.getInt(c.getColumnIndex("game_view")));
+                //HomeScreenActivity.viewas = (c.getInt(c.getColumnIndex("game_view")));
                 titles = (c.getInt(c.getColumnIndex("us_titles")));
                 orderby = (c.getString(c.getColumnIndex("orderedby")));
                 groupHeader = (c.getString(c.getColumnIndex("group_header")));
@@ -1097,17 +1097,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         String str ="";
         //if(favourited == 0) {
-        if(MainActivity.nesList.get(viewPager.getCurrentItem()).getFavourite() == 0) {
+        if(HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).getFavourite() == 0) {
             str = "UPDATE eu SET favourite = 1 where _id = " + idforgame + " ";
-            MainActivity.nesList.get(viewPager.getCurrentItem()).setFavourite(1);
+            HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).setFavourite(1);
 
 
-        } else  if(MainActivity.nesList.get(viewPager.getCurrentItem()).getFavourite()  == 1) {
+        } else  if(HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).getFavourite()  == 1) {
             str = "UPDATE eu SET favourite = 0 where _id = " + idforgame + " ";
-            MainActivity.nesList.get(viewPager.getCurrentItem()).setFavourite(0);
+            HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).setFavourite(0);
 
         }
-        //Toast toast = Toast.makeText(getApplicationContext(), "Favourite no:" + MainActivity.nesList.get(viewPager.getCurrentItem()).getFavourite() + " Name: " + MainActivity.nesList.get(viewPager.getCurrentItem()).getName() , Toast.LENGTH_LONG);
+        //Toast toast = Toast.makeText(getApplicationContext(), "Favourite no:" + HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).getFavourite() + " Name: " + HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).getName() , Toast.LENGTH_LONG);
         //toast.show();
         //invalidateOptionsMenu();
         Log.d("Pixo", str);

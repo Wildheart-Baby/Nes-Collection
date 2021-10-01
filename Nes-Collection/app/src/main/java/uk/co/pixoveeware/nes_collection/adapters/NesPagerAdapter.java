@@ -17,9 +17,9 @@ import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.activities.GamesDetail;
-import uk.co.pixoveeware.nes_collection.activities.MainActivity;
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.activities.StatsSearchResults;
 
@@ -42,12 +42,12 @@ public class NesPagerAdapter extends PagerAdapter {
 
     public NesPagerAdapter(Context context, ArrayList<GameItems> list) {
         this.context = context;//sets up the context for the class
-        MainActivity.gamesList = list; //sets up a variable as a list
+        HomeScreenActivity.gamesList = list; //sets up a variable as a list
     }
 
     @Override
     public int getCount() {
-        return MainActivity.gamesList.size();
+        return HomeScreenActivity.gamesList.size();
     } //returns the number of items in the array
 
     @Override
@@ -58,7 +58,7 @@ public class NesPagerAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
 
-        nesListItems = MainActivity.gamesList.get(position);
+        nesListItems = HomeScreenActivity.gamesList.get(position);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE); //sets up the layout inflater
         View convertView = inflater.inflate(R.layout.content_games_detail, null); //use the layout to diaplay the array data
@@ -450,7 +450,7 @@ public class NesPagerAdapter extends PagerAdapter {
     public void setPrimaryItem(ViewGroup container,
                                int position,
                                Object object){
-        nesListItems = MainActivity.gamesList.get(position);
+        nesListItems = HomeScreenActivity.gamesList.get(position);
         GamesDetail.idforgame = (nesListItems.getItemId());
         GamesDetail.favourited = (nesListItems.getFavourite());
         GamesDetail.ownedgame = (nesListItems.getOwned());

@@ -24,9 +24,8 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 
-import uk.co.pixoveeware.nes_collection.ViewModels.MainActivityViewModel;
+import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.pixoveeware.nes_collection.adapters.LightImageCollectionAdapter;
-import uk.co.pixoveeware.nes_collection.adapters.NesCollectionImageAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.adapters.LightCollectionAdapter;
@@ -48,15 +47,14 @@ public class AllGames extends AppCompatActivity
     ArrayList<GameListItems> gamesList;
     ArrayList<GameItems> gameList;
     ArrayList<GameItemsIndex> indexList;
-    MainActivityViewModel viewM;
+    AllGamesViewModel viewM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewM = new ViewModelProvider(this).get(MainActivityViewModel.class);
-        //gamesList = viewM.GetGames("all");
-        //indexList = viewM.GetIndex("all");
-        gamesList = viewM.ConvertToLightList();
+        viewM = new ViewModelProvider(this).get(AllGamesViewModel.class);
+        gamesList = viewM.gamesList;
+        indexList = viewM.indexList;
         viewas = viewM.viewType;
         setContentView(R.layout.activity_all_games);
 
@@ -64,7 +62,7 @@ public class AllGames extends AppCompatActivity
         gamegalleryview = (GridView) findViewById(R.id.gvAllGames);
         alphaIndex = (ListView) findViewById(R.id.lvAlphaIndex);
 
-        readList();
+        loadList();
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -151,9 +149,9 @@ public class AllGames extends AppCompatActivity
     }
 
 
-    public void readList(){//the readlist function
-
-
+    public void loadList(){//the readlist function
+        if(gameList == null){gamesList = viewM.gamesList;}
+        if(indexList == null){indexList = viewM.indexList;}
         if(viewas == 0){
             LightCollectionAdapter nes = new LightCollectionAdapter(this, gamesList);//set up an new list adapter from the arraylist
             gamegalleryview.setVisibility(View.GONE);
@@ -291,7 +289,7 @@ public class AllGames extends AppCompatActivity
         super.onRestart();
         //When BACK BUTTON is pressed, the activity on the stack is restarted
         //Do what you want on the refresh procedure here
-        readList();//run the list tables function
+        loadList();//run the list tables function
         gamelistView.setSelectionFromTop(index, top);
         //gamegalleryview.setSelection(gridviewVerticalPositionWhenThumbnailTapped);
         gamegalleryview.setSelection(index);
@@ -304,7 +302,7 @@ public class AllGames extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_mainpage) {
-            Intent intent = new Intent(this, MainActivity.class);//opens a new screen when the shopping list is clicked
+            Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         }else if (id == R.id.nav_neededgames) {
             Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked

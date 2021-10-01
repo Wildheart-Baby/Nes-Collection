@@ -21,8 +21,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import uk.co.pixoveeware.nes_collection.activities.MainActivity;
-
 /**
  * Created by Wildheart on 24/06/2016.
  */
@@ -38,7 +36,7 @@ public class SplashActivity extends AppCompatActivity {
 
             checkDataBase();
 
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent(this, HomeScreenActivity.class);
             startActivity(intent);
             finish();
         }

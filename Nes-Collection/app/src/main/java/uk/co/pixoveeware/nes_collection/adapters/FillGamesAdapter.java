@@ -7,9 +7,9 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
+import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
-import uk.co.pixoveeware.nes_collection.activities.MainActivity;
 
 /**
  * Created by Wildheart on 10/10/2018.
@@ -30,16 +30,16 @@ public class FillGamesAdapter {
         db = context.openOrCreateDatabase("nes.sqlite", context.MODE_PRIVATE, null);//open or create the database
 
 
-        //if (MainActivity.nesList == null){ MainActivity.readList(); }
-        MainActivity.gamesList.clear();//clear the shoppingList array
-        MainActivity.indexList = new ArrayList<GameItemsIndex>();
-        MainActivity.indexList.clear();
+        //if (HomeScreenActivity.nesList == null){ HomeScreenActivity.readList(); }
+        HomeScreenActivity.gamesList.clear();//clear the shoppingList array
+        HomeScreenActivity.indexList = new ArrayList<GameItemsIndex>();
+        HomeScreenActivity.indexList.clear();
         indexpos = 0;
         //SQLiteDatabase db;//sets up the connection to the database
         //db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         //sql = "SELECT * FROM eu where " + wherestatement + licensed +  "";
         //Log.d("Pixo", sql);
-        c = db.rawQuery(MainActivity.sqlstatement, null);//select everything from the database table
+        c = db.rawQuery(HomeScreenActivity.sqlstatement, null);//select everything from the database table
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
@@ -95,10 +95,10 @@ public class FillGamesAdapter {
                     nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                     nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
                     nesListItems.setCurrency(currency);
-                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
+                    HomeScreenActivity.gamesList.add(nesListItems);//add items to the arraylist
                     indexListItems.setItemid(indexpos);
                     indexListItems.setLetter(c.getString(c.getColumnIndex("groupheader")));
-                    MainActivity.indexList.add(indexListItems);
+                    HomeScreenActivity.indexList.add(indexListItems);
                     Log.i("index pos", " " + indexpos);
                     indexpos = indexpos +1;
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
@@ -151,14 +151,14 @@ public class FillGamesAdapter {
                     nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                     nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
                     nesListItems.setCurrency(currency);
-                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
+                    HomeScreenActivity.gamesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                     indexpos = indexpos +1;
                 }
                 c.moveToNext();//move to the next record
             }
             //c = db.rawQuery(sql, null);
-            MainActivity.totalGames = c.getCount();
+            HomeScreenActivity.totalGames = c.getCount();
             c.close();//close the cursor
         }
         //Cursor c = db.rawQuery("SELECT ID, ITEM, QUANTITY, DEPARTMENT, BASKET FROM " + fname, null);
@@ -176,7 +176,7 @@ public class FillGamesAdapter {
                 wherestatement = (c.getString(c.getColumnIndex("region")));
                 title = (c.getString(c.getColumnIndex("region_title")));
                 licensed = (c.getString(c.getColumnIndex("licensed")));
-                MainActivity.viewas = (c.getInt(c.getColumnIndex("game_view")));
+                HomeScreenActivity.viewas = (c.getInt(c.getColumnIndex("game_view")));
                 titles = (c.getInt(c.getColumnIndex("us_titles")));
                 currency = (c.getString(c.getColumnIndex("currency")));
                 c.moveToNext();//move to the next record

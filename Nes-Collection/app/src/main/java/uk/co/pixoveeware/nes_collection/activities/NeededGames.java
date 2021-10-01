@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,13 +28,11 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-import uk.co.pixoveeware.nes_collection.ViewModels.MainActivityViewModel;
+import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
+import uk.co.pixoveeware.nes_collection.ViewModels.NeededGamesViewModel;
 import uk.co.pixoveeware.nes_collection.adapters.LightCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.LightImageCollectionAdapter;
-import uk.co.pixoveeware.nes_collection.data.DatabaseHelper;
 import uk.co.pixoveeware.nes_collection.R;
-import uk.co.pixoveeware.nes_collection.adapters.NesCollectionAdapter;
-import uk.co.pixoveeware.nes_collection.adapters.NesCollectionImageAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
@@ -49,7 +46,7 @@ public class NeededGames extends AppCompatActivity
     final Context context = this;
     SQLiteDatabase db;
 
-    String name, dbfile, readgamename, str, sql,listName,searchterm,fieldname, wherestatement, licensed, currentgroup, title, theimage, thename, regionmissing, regionmissingcheck;
+    String readgamename, sql, wherestatement, licensed, title, theimage, thename;
     String prevgroup = "";
     int readgameid, gameid, totalgames, neededgames, index, top, viewas, titles, readindexid;
     ArrayAdapter<CharSequence> adapter;
@@ -59,12 +56,16 @@ public class NeededGames extends AppCompatActivity
     Toolbar toolbar;
     ArrayList<GameListItems> gamesList;
     ArrayList<GameItemsIndex> indexList;
-    MainActivityViewModel viewM;
+    NeededGamesViewModel viewM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewM = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        viewM = new ViewModelProvider(this).get(NeededGamesViewModel.class);
+        gamesList = viewM.gamesList;
+        indexList = viewM.indexList;
+        viewas = viewM.viewType;
+
         setContentView(R.layout.activity_needed_games);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -85,8 +86,8 @@ public class NeededGames extends AppCompatActivity
         alphaIndex = (ListView) findViewById(R.id.lvAlphaIndex);
 
         readList();
-        setTitle(" " + viewM.GamesCount("needed"));
-        toolbar.setSubtitle(viewM.GamesCount("all"));
+        setTitle(" " + viewM.regionFlag);
+        toolbar.setSubtitle(viewM.gamesCount);
         toolbar.setLogo(context.getResources().getIdentifier(viewM.regionFlag, "drawable", context.getPackageName()));
 
         gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -200,9 +201,9 @@ public class NeededGames extends AppCompatActivity
     }*/
 
     public void readList(){//the readlist function
-        gamesList = viewM.GetGames("all");
-        indexList = viewM.GetIndex("all");
-        viewas = viewM.viewType;
+        //gamesList = viewM.GetGames("all");
+        //indexList = viewM.GetIndex("all");
+        //viewas = viewM.viewType;
 
         if(viewas == 0){
             LightCollectionAdapter nes = new LightCollectionAdapter(this, gamesList);//set up an new list adapter from the arraylist
@@ -313,7 +314,7 @@ public class NeededGames extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_mainpage){
-            Intent intent = new Intent(this, MainActivity.class);//opens a new screen when the shopping list is clicked
+            Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         }else if (id == R.id.nav_allgames) {
             Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked

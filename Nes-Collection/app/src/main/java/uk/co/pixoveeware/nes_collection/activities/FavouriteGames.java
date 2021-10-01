@@ -209,8 +209,8 @@ public class FavouriteGames extends AppCompatActivity
     }
 
     public void readList() {//the readlist function
-        //if (MainActivity.nesList == null){ MainActivity.readList(); }
-        //MainActivity.nesList.clear();//clear the shoppingList array
+        //if (HomeScreenActivity.nesList == null){ HomeScreenActivity.readList(); }
+        //HomeScreenActivity.nesList.clear();//clear the shoppingList array
 
 
         SQLiteDatabase db;//sets up the connection to the database
@@ -273,7 +273,7 @@ public class FavouriteGames extends AppCompatActivity
                 nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                 nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
                 //nesListItems.setOwned(c.getInt(c.getColumnIndex("favourite")));
-                MainActivity.gamesList.add(nesListItems);//add items to the arraylist
+                HomeScreenActivity.gamesList.add(nesListItems);//add items to the arraylist
                 prevgroup = c.getString(c.getColumnIndex("groupheader"));
             }
             else if(currentgroup.equals(prevgroup)){
@@ -322,7 +322,7 @@ public class FavouriteGames extends AppCompatActivity
                 nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
                 nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                 nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
-                MainActivity.gamesList.add(nesListItems);//add items to the arraylist
+                HomeScreenActivity.gamesList.add(nesListItems);//add items to the arraylist
                 prevgroup = c.getString(c.getColumnIndex("groupheader"));
             }
                 c.moveToNext();//move to the next record
@@ -341,12 +341,12 @@ public class FavouriteGames extends AppCompatActivity
             thesearchresults.setText(getString(R.string.favouriteNoResults));
         }else {
             if(viewas == 0){
-                NesCollectionAdapter nes = new NesCollectionAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
+                NesCollectionAdapter nes = new NesCollectionAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
                 gamegalleryview.setVisibility(View.GONE);
                 favouritelistView.setAdapter(nes);
 
             }else if (viewas == 1){
-                NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
+                NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
                 favouritelistView.setVisibility(View.GONE);
                 gamegalleryview.setAdapter(nes);
             }
@@ -358,7 +358,7 @@ public class FavouriteGames extends AppCompatActivity
         super.onRestart();
         //When BACK BUTTON is pressed, the activity on the stack is restarted
         //Do what you want on the refresh procedure here
-        //if (MainActivity.nesList == null){ MainActivity.readList(); }
+        //if (HomeScreenActivity.nesList == null){ HomeScreenActivity.readList(); }
         readList();//run the list tables function
         favouritelistView.setSelectionFromTop(index, top);
     }
@@ -450,7 +450,7 @@ public class FavouriteGames extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_mainpage){
-            Intent intent = new Intent(this, MainActivity.class);//opens a new screen when the shopping list is clicked
+            Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         } else if (id == R.id.nav_allgames) {
             Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked

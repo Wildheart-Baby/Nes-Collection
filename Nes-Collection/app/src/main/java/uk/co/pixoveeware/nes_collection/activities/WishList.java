@@ -256,8 +256,8 @@ public class WishList extends AppCompatActivity
     }
 
     public void readList(){//the readlist function
-        //if (MainActivity.nesList == null){ MainActivity.readList(); }
-        MainActivity.gamesList.clear();//clear the shoppingList array
+        //if (HomeScreenActivity.nesList == null){ HomeScreenActivity.readList(); }
+        HomeScreenActivity.gamesList.clear();//clear the shoppingList array
 
         SQLiteDatabase db;//sets up the connection to the database
         db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
@@ -317,7 +317,7 @@ public class WishList extends AppCompatActivity
                     nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
                     nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                     nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
-                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
+                    HomeScreenActivity.gamesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                 }
                 else if(currentgroup.equals(prevgroup)){
@@ -366,7 +366,7 @@ public class WishList extends AppCompatActivity
                     nesListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
                     nesListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
                     nesListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
-                    MainActivity.gamesList.add(nesListItems);//add items to the arraylist
+                    HomeScreenActivity.gamesList.add(nesListItems);//add items to the arraylist
                     prevgroup = c.getString(c.getColumnIndex("groupheader"));
                 }
                 c.moveToNext();//move to the next record
@@ -387,12 +387,12 @@ public class WishList extends AppCompatActivity
             thesearchresults.setText(getString(R.string.wishlisNoResults));
         }else {
             if(viewas == 0){
-            NesCollectionAdapter nes = new NesCollectionAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
+            NesCollectionAdapter nes = new NesCollectionAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
             gamegalleryview.setVisibility(View.GONE);
             gamelistView.setAdapter(nes);
 
         }else if (viewas == 1){
-            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, MainActivity.gamesList);//set up an new list adapter from the arraylist
+            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
             gamelistView.setVisibility(View.GONE);
             gamegalleryview.setAdapter(nes);
             }
@@ -443,7 +443,7 @@ public class WishList extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_mainpage){
-            Intent intent = new Intent(this, MainActivity.class);//opens a new screen when the shopping list is clicked
+            Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         }else if (id == R.id.nav_allgames) {
             Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked

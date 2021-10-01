@@ -2,11 +2,7 @@ package uk.co.pixoveeware.nes_collection.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.ViewModelProvider;
 
 
 //import com.google.android.gms.ads.MobileAds;
@@ -28,11 +23,10 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
-import uk.co.pixoveeware.nes_collection.ViewModels.MainActivityViewModel;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 
-public class MainActivity extends AppCompatActivity
+public class HomeScreenActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     String DB_NAME;
@@ -45,12 +39,12 @@ public class MainActivity extends AppCompatActivity
     public static ArrayList<GameItemsIndex> indexList;
     public static String sqlstatement;
 
-    //MainActivityViewModel viewM;
+    //AllGamesViewModel viewM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //viewM = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        //viewM = new ViewModelProvider(this).get(AllGamesViewModel.class);
         //gamesList = viewM.GetGamesDetails("all");
         //indexList = viewM.GetIndex("all");
 
@@ -73,7 +67,7 @@ public class MainActivity extends AppCompatActivity
 
         AllGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, uk.co.pixoveeware.nes_collection.activities.AllGames.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(HomeScreenActivity.this, uk.co.pixoveeware.nes_collection.activities.AllGames.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("wherestatement", wherestatement);
                 startActivity(intent);
 
@@ -82,7 +76,7 @@ public class MainActivity extends AppCompatActivity
 
         NeededGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, NeededGames.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(HomeScreenActivity.this, NeededGames.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("wherestatement", wherestatement);
                 startActivity(intent);
 
@@ -91,7 +85,7 @@ public class MainActivity extends AppCompatActivity
 
         OwnedGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, OwnedGames.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(HomeScreenActivity.this, OwnedGames.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("wherestatement", wherestatement);
                 startActivity(intent);
             }
@@ -99,42 +93,42 @@ public class MainActivity extends AppCompatActivity
 
         FavouriteGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(HomeScreenActivity.this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);
             }
         });
 
         WishList.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, WishList.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(HomeScreenActivity.this, WishList.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);
             }
         });
 
         ShelfOrder.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(HomeScreenActivity.this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);
             }
         });
 
         Stats.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Statistics.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(HomeScreenActivity.this, Statistics.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);
             }
         });
 
         Finished.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                    Intent intent = new Intent(MainActivity.this, FinishedGames.class);//opens a new screen when the shopping list is clicked
+                    Intent intent = new Intent(HomeScreenActivity.this, FinishedGames.class);//opens a new screen when the shopping list is clicked
                     startActivity(intent);
             }
         });
 
         Settings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, Settings.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(HomeScreenActivity.this, Settings.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);//start the new screen
             }
         });
@@ -172,17 +166,17 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intent = new Intent(MainActivity.this, Settings.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(HomeScreenActivity.this, Settings.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent);//start the new screen
                 return true;
 
             case R.id.action_search:
-                Intent intent2 = new Intent(MainActivity.this, Search.class);//opens a new screen when the shopping list is clicked
+                Intent intent2 = new Intent(HomeScreenActivity.this, Search.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent2);//start the new screen
                 return true;
 
             case R.id.action_about:
-                Intent intent3 = new Intent(MainActivity.this, About.class);//opens a new screen when the shopping list is clicked
+                Intent intent3 = new Intent(HomeScreenActivity.this, About.class);//opens a new screen when the shopping list is clicked
                 startActivity(intent3);//start the new screen
                 return true;
 

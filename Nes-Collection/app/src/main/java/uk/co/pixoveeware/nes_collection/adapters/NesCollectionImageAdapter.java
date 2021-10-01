@@ -9,10 +9,9 @@ import android.widget.ImageView;
 
 import java.util.ArrayList;
 
+import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
-import uk.co.pixoveeware.nes_collection.activities.MainActivity;
 import uk.co.pixoveeware.nes_collection.R;
-import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
 /**
  * Created by Wildheart on 28/07/2016.
@@ -37,12 +36,12 @@ public class NesCollectionImageAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        listsize = MainActivity.gamesList.size();
+        listsize = HomeScreenActivity.gamesList.size();
         if (listsize % 3 == 0){}
         else if (listsize + 1 % 3 == 0){addviews = 1;}
         else if (listsize + 2 % 3 == 0){addviews = 2;}
         i = 0;
-        return MainActivity.gamesList.size();
+        return HomeScreenActivity.gamesList.size();
     } //returns the number of items in the array
 
     @Override

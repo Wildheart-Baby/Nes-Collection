@@ -1,61 +1,47 @@
 package uk.co.pixoveeware.nes_collection.ViewModels;
 
 import android.app.Application;
-import android.content.Context;
 import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.ViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
-import uk.co.pixoveeware.nes_collection.activities.MainActivity;
 import uk.co.pixoveeware.nes_collection.data.DatabaseHelper;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
-public class MainActivityViewModel extends AndroidViewModel {
+public class AllGamesViewModel extends AndroidViewModel {
 
     DatabaseHelper dbh;
-    ArrayList<GameListItems> gamesList;
-    ArrayList<GameItemsIndex> indexList;
+    public ArrayList<GameListItems> gamesList;
+    public ArrayList<GameItemsIndex> indexList;
     ArrayList<GameItems> specificGames;
     ArrayList<GameItems> allGames;
 
     public String regionTitle, regionFlag, gamesCount;
-    public int viewType;
+    public int viewType, GamesCount;
     String times;
 
-    public MainActivityViewModel(Application application){
+    public AllGamesViewModel(Application application){
         super(application);
-        times = getCurrentTimeStamp();
-        Log.d("pixo-time2","Start activity: "+ times);
         dbh = new DatabaseHelper(application);
-        //ConvertToLightList();
+        gamesList = dbh.getGameslist("all");
+        indexList = dbh.gamesIndex("all");
         regionFlag = dbh.regionFlag();
         regionTitle = dbh.regionTitle();
         viewType = dbh.viewType();
-        times = getCurrentTimeStamp();
-        Log.d("pixo-time2","finish vm load: "+ times);
-    }
-
-    public String getCurrentTimeStamp() {
-        return new SimpleDateFormat("mm:ss.SSS").format(new Date());
     }
 
     public ArrayList<GameListItems> ConvertToLightList(){
-        times = getCurrentTimeStamp();
-        Log.d("pixo-time2","start conversion: "+ times);
+
         allGames = dbh.getGames("all");
-        times = getCurrentTimeStamp();
-        Log.d("pixo-time2","start iteration: "+ times);
         Iterator<GameItems> itr = allGames.iterator();
         while (itr.hasNext()) {
-            times = getCurrentTimeStamp();
             Log.d("pixo-time2","items for list: "+ times);
             GameListItems gameListItems = new GameListItems();
             gameListItems.setGroup(itr.next().group);

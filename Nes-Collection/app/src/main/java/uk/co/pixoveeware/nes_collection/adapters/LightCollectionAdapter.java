@@ -84,7 +84,7 @@ public class LightCollectionAdapter extends BaseAdapter {
 
         thegamename = gameListItems.getName();
         l = thegamename.length();
-        //if (MainActivity.width < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
+        //if (HomeScreenActivity.width < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
         holder.gamename.setText(thegamename); //sets the textview name with data from name
         //holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
         holder.publisher.setText(gameListItems.getPublisher());

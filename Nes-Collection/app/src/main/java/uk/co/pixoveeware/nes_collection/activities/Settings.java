@@ -379,7 +379,7 @@ public class Settings extends AppCompatActivity {
         Log.d("settings", str);
         db.execSQL(str);//run the sql command
             db.close();//close the database
-            Intent intent = new Intent(Settings.this, MainActivity.class);//opens a new screen when the shopping list is clicked
+            Intent intent = new Intent(Settings.this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
             finish();
 
