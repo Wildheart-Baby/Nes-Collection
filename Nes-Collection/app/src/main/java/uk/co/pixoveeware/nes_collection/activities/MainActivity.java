@@ -13,21 +13,26 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import uk.co.pixoveeware.nes_collection.Fragments.HomeScreenFragment;
 import uk.co.pixoveeware.nes_collection.R;
+import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
+import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModelFactory;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    public AllGamesViewModel viewM;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        viewM = new ViewModelProvider(this, new AllGamesViewModelFactory(this.getApplication(), "all")).get(AllGamesViewModel.class);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

@@ -9,6 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
@@ -29,7 +31,7 @@ public class NesCollectionAdapter extends BaseAdapter {
     }
 
     Context context; //sets up a variable as context
-    //ArrayList<GameItems> nesList; //sets up  an array called shoppingList
+    ArrayList<GameItems> gamesList; //sets up  an array called shoppingList
     String gameimage;
     private static final int TYPE_GAME = 0;
     private static final int TYPE_DIVIDER = 1;
@@ -40,18 +42,18 @@ public class NesCollectionAdapter extends BaseAdapter {
     public NesCollectionAdapter(Context context, ArrayList<GameItems> list) {
 
         this.context = context;//sets up the context for the class
-        HomeScreenActivity.gamesList = list; //sets up a variable as a list
+        gamesList = list; //sets up a variable as a list
 
     }
 
     @Override
     public int getCount() {
-        return HomeScreenActivity.gamesList.size();
+        return gamesList.size();
     } //returns the number of items in the array
 
     @Override
     public Object getItem(int position) {
-        return HomeScreenActivity.gamesList.get(position);
+        return gamesList.get(position);
     } //gets the position within the list
 
     @Override
@@ -61,7 +63,7 @@ public class NesCollectionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        GameItems nesListItems = HomeScreenActivity.gamesList.get(position); //gets the item position from the array
+        GameItems nesListItems = gamesList.get(position); //gets the item position from the array
 
         if (convertView == null) { //if the layout isn't inflated
             LayoutInflater inflater = (LayoutInflater) context
