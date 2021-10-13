@@ -651,7 +651,7 @@
     <string name="SubGenre">Sub genre</string>
     <string name="NoResults">Sorry there are no results</string>
 
-    <string name="HeaderStats">This is a breakdown of the games that you have in your collection by region.</string>
+    <string name="HeaderStats">Dies ist eine Aufschlüsselung der Spiele, die Sie in Ihrer Sammlung haben, nach Regionen.</string>
 
 
 
@@ -661,6 +661,7 @@
     <string name="title_activity_main2">Main2Activity</string>
 
     <string name="PieGenres">Game Genres</string>
+    <string name="PieGenres2">Game Breakdown</string>
     <string name="PalAGames">Pal A Games</string>
     <string name="PalBGames">Pal B Games</string>
     <string name="USGames">US Games</string>
@@ -676,7 +677,8 @@
     <string name="RegionMissing">Show games missing from collecting region</string>
 
 
-
+    <string name="favouriteNoResults">Du hast keine Lieblingsspiele, oh das ist schade, du solltest welche hinzufügen</string>
+    <string name="wishlisNoResults">Deine Wunschliste ist leer, bitte füge ein paar Spiele hinzu</string>
 
     <string name="mainAllGames">Tous les jeux</string>
     <string name="mainNeededGames">Jeux voulus</string>
@@ -700,6 +702,9 @@
     <string name="settingsExportDatabase">Données de jeux</string>
     <string name="settingsSettingsExport">Exporter les données</string>
     <string name="settingsImport">Importer</string>
+    <string name="settingsTitlesType">Spielenamen</string>
+    <string name="settingsEuroTitles">Europäische Namen</string>
+    <string name="settingsUsTitles">US-Namen</string>
 
     <string name="navMainPage">Page d’accueil</string>
     <string name="navAllGames">Tous les jeux</string>
@@ -730,7 +735,7 @@
     <string name="searchSearch">Chercher</string>
     <string name="searchCancel">Annuler</string>
 
-
+    <string name="statsDecimalFormat">#.##</string>
     <string name="title_activity_nes_collection">Nes Collection</string>
 
     <string name="title_activity_all_games">Tous les jeux</string>
@@ -765,5 +770,75 @@
     <string name="editGameShelf">stocker sur étagère</string>
     <string name="editGameOk">Ok</string>
     <string name="editGameCancel">annuler</string>
+
+    <string name="statsNogames">You currently have no games, so sadly there are no statistics</string>
+    <string name="statsMostexpensivegames">Your most expensive games are</string>
+    <string name="statsMostexpensivegame">Your most expensive game is</string>
+    <string name="statsGameorgames1">games</string>
+    <string name="statsGameorgames2">game</string>
+    <string name="statsGamescost1">You have spent </string>
+    <string name="statsGamescost2"> on games for your collection\nThe average cost you paid for your games is</string>
+    <string name="statsGamescost3">You own a total of </string>
+    <string name="statsGamescost4">\nYou own </string>
+    <string name="statsGamescost5">% of the games released in</string>
+    <string name="statsGamescost6">\nThe top publisher for your games is</string>
+    <string name="statsGamescost7">\nThe most popular genre you have is</string>
+    <string name="statsGamescost8">\nYou have finished a total of </string>
+    <string name="statsGamescost9">Nes games</string>
+    <string name="statsPala1">You own</string>
+    <string name="statsPala2">of the</string>
+    <string name="statsPala3">Pal A games released.\nPal A games make up</string>
+    <string name="statsPala4">% of your collection</string>
+
+    <string name="statsPalb3">Pal B games released.\nPal B games make up</string>
+    <string name="statsUS3">US games released.\nUS games make up</string>
+
+    <string name="statsCib1">You own</string>
+    <string name="statsCib2">games that are complete in box\n</string>
+    <string name="statsCib2a">game that is complete in box\n</string>
+    <string name="statsCib3">They make up</string>
+    <string name="statsCib3a">It makes up</string>
+    <string name="statsCib4">% of your collection</string>
+
+    <string name="statsBoxed1">You own</string>
+    <string name="statsBoxed2">games that are boxed\n</string>
+    <string name="statsBoxed2a">game that is boxed\n</string>
+    <string name="statsBoxed3">They make up</string>
+    <string name="statsBoxed3a">It makes up</string>
+    <string name="statsBoxed4">% of your collection</string>
+
+    <string name="statsLC1">You have</string>
+    <string name="statsLC2">loose carts\n</string>
+    <string name="statsLC2a">loose cart\n</string>
+
+    <string name="statsLB1">You have</string>
+    <string name="statsLB2">loose boxes\n</string>
+    <string name="statsLB2a">loose box\n</string>
+
+    <string name="statsLM1">You have</string>
+    <string name="statsLM2">loose manuals\n</string>
+    <string name="statsLM2a">loose manual\n</string>
+
+    <string name="regionsA">Pal A</string>
+    <string name="regionsA2">Pal A UK</string>
+    <string name="regionsB">Pal B</string>
+    <string name="regionsUS">US</string>
+    <string name="regionsAB">Pal A &amp; Pal B</string>
+    <string name="regionsAUS">Pal A &amp; US</string>
+    <string name="regionsBUS">Pal B &amp; US</string>
+    <string name="regionsAll">all regions</string>
+
+    <string name="regionname01">All Regions</string>
+    <string name="Owned">Owned</string>
+
+    <string name="AllGamesButton"></string>
+    <string name="NeededGamesButton"></string>
+    <string name="OwnedGamesButton"></string>
+    <string name="FavouriteGamesButton"></string>
+    <string name="WishlistGamesButton"></string>
+    <string name="ShelfOrderGamesButton"></string>
+    <string name="StatisticsButton"></string>
+    <string name="FinishedGamesButton"></string>
+    <string name="SettingsButton"></string>
 
 </resources>
