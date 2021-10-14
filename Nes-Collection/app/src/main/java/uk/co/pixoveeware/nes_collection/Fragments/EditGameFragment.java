@@ -32,6 +32,7 @@ public class EditGameFragment extends Fragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
+
     int gameid, coverid, palAcart, palAbox, palAmanual, palBcart, palBbox, gamepos,
             palBmanual, uscart, usbox, usmanual, cart, box, manual, owned,
             regionatrue, regionbtrue, regionustrue, favourite, ontheshelf, wishlist, showprice, palaowned, palbowned, usowned;
@@ -69,7 +70,7 @@ public class EditGameFragment extends Fragment {
         EditGameFragment fragment = new EditGameFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putInt(ARG_PARAM2, param2);
+        args.putInt("GameId", param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -77,13 +78,12 @@ public class EditGameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
-        gameDetails = viewM.GetGamesDetails(mParam2);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getInt(ARG_PARAM2);
+            mParam2 = getArguments().getInt("GameId");
         }
-
+        viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
+        gameDetails = viewM.GetGameDetails(mParam2);
     }
 
     @Override

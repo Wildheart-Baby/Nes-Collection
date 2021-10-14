@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -43,6 +44,7 @@ public class GamesDetailFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private int GameId;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -65,7 +67,7 @@ public class GamesDetailFragment extends Fragment {
         GamesDetailFragment fragment = new GamesDetailFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
-        args.putInt(ARG_PARAM2, param2);
+        args.putInt("GameId", param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -76,7 +78,7 @@ public class GamesDetailFragment extends Fragment {
         setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getInt(ARG_PARAM2);
+            mParam2 = getArguments().getInt("GameId");
         }
 
         viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
@@ -165,6 +167,7 @@ public class GamesDetailFragment extends Fragment {
     }
 
     public void editgame(){
+        Log.d("pixo", "Loading edit fragment");
         getParentFragmentManager().beginTransaction()
                 .add(R.id.container, EditGameFragment.newInstance("", gameList.get(mParam2)._id))
                 .addToBackStack("editGame")

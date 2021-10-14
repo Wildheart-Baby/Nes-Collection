@@ -69,7 +69,7 @@ public class AllGamesViewModel extends AndroidViewModel {
         return regionTitle;
     }
 
-    public GameItem GetGamesDetails(int games){
+    public GameItem GetGameDetails(int games){
         return dbh.getGame(games);
     }
 
