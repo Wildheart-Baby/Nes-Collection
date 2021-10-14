@@ -3,10 +3,13 @@ package uk.co.pixoveeware.nes_collection.Fragments;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -70,6 +73,8 @@ public class AllGamesFragment extends Fragment {
         viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
         gameList = viewM.gamesList;
         indexList = viewM.indexList;
+
+        SetTitles();
     }
 
     @Override
@@ -94,6 +99,42 @@ public class AllGamesFragment extends Fragment {
                 gamelistView.setSelection(readindexid);
                 //gamegalleryview.setSelection(readindexid);
             }
+        });
+
+        gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
+
+                //GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                getParentFragmentManager().beginTransaction()
+                        .add(R.id.container, GamesDetailFragment.newInstance("", arg2))
+                        .addToBackStack("gamesDetail")
+                        .commit();
+                /*Intent intent = new Intent(AllGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("gameid", gameListItems.getItemId());//passes the table name to the new screen
+                intent.putExtra("name", gameListItems.getName());//passes the table name to the new screen
+                intent.putExtra("position", arg2);
+                intent.putExtra("listposition", arg2);
+                intent.putExtra("listType", "all");
+                startActivity(intent);//start the new screen*/
+            }
+        });
+
+        gamelistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
+
+                GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                final Integer itemId = gameListItems.getItemId();//get the item id
+
+                /*Intent intent = new Intent(AllGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
+                intent.putExtra("editgameid", itemId);
+                intent.putExtra("listposition", arg2);
+                startActivity(intent);//start the new screen*/
+
+                return true;//return is equal to true
+            }
+
         });
 
         return v;
@@ -161,6 +202,23 @@ public class AllGamesFragment extends Fragment {
             });*/
 
         //}
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        SetTitles();
+    }
+
+    private void SetTitles(){
+        getActivity().setTitle(" " + viewM.RegionTitle("all"));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.GamesCount("all"));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(viewM.regionFlag, "drawable", getContext().getPackageName()));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_allgames, menu);
     }
 
 }

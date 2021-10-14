@@ -10,6 +10,8 @@ import android.util.Log;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import uk.co.pixoveeware.nes_collection.models.GameItem;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
@@ -954,18 +956,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return gamesList;
     }
 
-    public ArrayList<GameItems> getGame(int gameid){
-        ArrayList<GameItems> gameList = new ArrayList<>();
-
-        int coverid, palAcart, palAbox, palAmanual, palBcart, palBbox, gamepos,
-                palBmanual, uscart, usbox, usmanual, sacart, sabox, samanual, cart, box, manual, owned,
-                regionatrue, regionbtrue, regionustrue, favourite, ontheshelf, wishlist, showprice, palaowned, saowned, usowned;
-        String covername, test, currency, PACheck, PBCheck, USCheck, SACheck;
-        Double  PalAcost,SAcost, UScost, SACost, price;
-
+    public GameItem getGame(int gameid){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
 
+        GameItem gameListItem = new GameItem();
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read;
                 titles = (c.getInt(c.getColumnIndex("us_titles")));
@@ -993,7 +988,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {//move to the first record
             while (!c.isAfterLast()) {//while there are records to read
-                GameItems gameListItems = new GameItems();//creates a new array
+                GameItem gameListItems = new GameItem();//creates a new array
                 gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
                 gameListItems.setName(c.getString(c.getColumnIndex(thename)));
                 gameListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
@@ -1008,26 +1003,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
                 gameListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
                 gameListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
-                gameListItems.setEuroOwned(c.getInt(c.getColumnIndex("euro_release")));
-                gameListItems.setUsOwned(c.getInt(c.getColumnIndex("sa_release")));
-                gameListItems.setSaOwned(c.getInt(c.getColumnIndex("ntsc_release")));
+                //gameListItems.setEuroOwned(c.getInt(c.getColumnIndex("euro_release")));
+                //gameListItems.setUsOwned(c.getInt(c.getColumnIndex("sa_release")));
+                //gameListItems.setSaOwned(c.getInt(c.getColumnIndex("ntsc_release")));
                 gameListItems.setFavourite(c.getInt(c.getColumnIndex("favourite")));
-                gameListItems.setPalACost(c.getDouble(c.getColumnIndex("euro_cost")));
-                gameListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
+                //gameListItems.setPalACost(c.getDouble(c.getColumnIndex("euro_cost")));
+                //gameListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
                 gameListItems.setWishlist(c.getInt(c.getColumnIndex("wishlist")));
-                gameListItems.setGameCondition(c.getInt(c.getColumnIndex("condition")));
-                gameListItems.setGameOwnership(c.getInt(c.getColumnIndex("play_owned")));
-                gameListItems.setGameCompletion(c.getInt(c.getColumnIndex("play_completed")));
-                gameListItems.setGameScore(c.getInt(c.getColumnIndex("play_score")));
-                gameListItems.setGameTime(c.getDouble(c.getColumnIndex("play_hours")));
+                //gameListItems.setGameCondition(c.getInt(c.getColumnIndex("condition")));
+                //gameListItems.setGameOwnership(c.getInt(c.getColumnIndex("play_owned")));
+                //gameListItems.setGameCompletion(c.getInt(c.getColumnIndex("play_completed")));
+                //gameListItems.setGameScore(c.getInt(c.getColumnIndex("play_score")));
+                //gameListItems.setGameTime(c.getDouble(c.getColumnIndex("play_hours")));
                 gameListItems.setFinished(c.getInt(c.getColumnIndex("finished_game")));
+                gameListItems.setPalARelease(c.getInt(c.getColumnIndex("pal_a_release")));
+                gameListItems.setPalBRelease(c.getInt(c.getColumnIndex("pal_b_release")));
+                gameListItems.setNtscRelease(c.getInt(c.getColumnIndex("ntsc_release")));
                 gameListItems.setConditionStatement(conditionstatement);
-                gameList.add(gameListItems);
+                gameListItem = gameListItems;
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
-        return gameList;
+        return gameListItem;
     }
 
     public void playStats(int gameOwned, int gameCompletion, int gameScore, Double gameTime, int finished, int gameid){

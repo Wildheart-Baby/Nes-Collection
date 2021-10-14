@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import uk.co.pixoveeware.nes_collection.data.DatabaseHelper;
+import uk.co.pixoveeware.nes_collection.models.GameItem;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
@@ -52,6 +53,7 @@ public class AllGamesViewModel extends AndroidViewModel {
     }*/
 
 
+
     public ArrayList<GameItemsIndex> GetIndex(String games){
         indexList = dbh.gamesIndex(games);
         return indexList;
@@ -62,9 +64,13 @@ public class AllGamesViewModel extends AndroidViewModel {
         return gamesCount;
     }
 
-    /*public ArrayList<GameItems> GetGamesDetails(String games){
-        gamesList = dbh.getGameslist(games);
-        return specificGames;
-    }*/
+    public String RegionTitle(String type){
+        regionTitle = dbh.regionTitle();
+        return regionTitle;
+    }
+
+    public GameItem GetGamesDetails(int games){
+        return dbh.getGame(games);
+    }
 
 }

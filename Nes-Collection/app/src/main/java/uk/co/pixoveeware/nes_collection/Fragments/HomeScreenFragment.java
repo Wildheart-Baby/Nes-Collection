@@ -9,6 +9,8 @@ import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
@@ -59,6 +61,7 @@ public class HomeScreenFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         /*if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -71,7 +74,7 @@ public class HomeScreenFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_screen, container, false);
 
-        ImageButton AllGames = v.findViewById(R.id.btnAllGames);
+        final ImageButton AllGames = v.findViewById(R.id.btnAllGames);
         /*ImageButton NeededGames = getView().findViewById(R.id.btnneeded);
         ImageButton OwnedGames = getView().findViewById(R.id.btnowned);
 
@@ -87,8 +90,9 @@ public class HomeScreenFragment extends Fragment {
             public void onClick(View v) {
                 //ChangeFragment(AllGamesFragment.newInstance());
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.container, AllGamesFragment.newInstance())
-                        .commitNow();
+                        .add(R.id.container, AllGamesFragment.newInstance())
+                        .addToBackStack("allGames")
+                        .commit();
             }
         });
 
@@ -101,6 +105,11 @@ public class HomeScreenFragment extends Fragment {
                     .replace(R.id.container, frag)
                     .commitNow();
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_allgames, menu);
     }
 
 }
