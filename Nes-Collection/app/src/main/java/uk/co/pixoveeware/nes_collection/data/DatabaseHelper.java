@@ -23,7 +23,7 @@ import uk.co.pixoveeware.nes_collection.models.GameListItems;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     String currentgroup, prevgroup, wherestatement, orderby, groupHeader, theimage, thename, title, currency, searchQuery, thePublisher, licensed;
-    int titles, ordering, conditionstatement;
+    int titles, ordering, conditionstatement, showprice;
 
     private static final String KEY_ID = "_id";
     private static final String OWNED = "owned";
@@ -965,6 +965,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while ( !c.isAfterLast() ) {//while there are records to read;
                 titles = (c.getInt(c.getColumnIndex("us_titles")));
                 conditionstatement = (c.getInt(c.getColumnIndex("show_condition")));
+                showprice = (c.getInt(c.getColumnIndex("show_price"))) ;
+                currency = (c.getString(c.getColumnIndex("currency")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
@@ -984,7 +986,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String sql = "SELECT * FROM eu where _id = '" + gameid + "' ";
         c = db.rawQuery(sql, null);//select everything from the database table
-
 
         if (c.moveToFirst()) {//move to the first record
             while (!c.isAfterLast()) {//while there are records to read
@@ -1020,6 +1021,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setPalBRelease(c.getInt(c.getColumnIndex("pal_b_release")));
                 gameListItems.setNtscRelease(c.getInt(c.getColumnIndex("ntsc_release")));
                 gameListItems.setConditionStatement(conditionstatement);
+                gameListItem.setCurrency(currency);
+                gameListItem.setShowPrice(showprice);
                 gameListItem = gameListItems;
                 c.moveToNext();//move to the next record
             }

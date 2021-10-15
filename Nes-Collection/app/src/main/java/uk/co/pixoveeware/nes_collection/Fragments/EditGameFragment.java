@@ -154,9 +154,11 @@ public class EditGameFragment extends Fragment {
 
 
         if (gameDetails.getOnShelf() == 1){onshelf.setChecked(true);} else { onshelf.setChecked(false);}
-        if (gameDetails.showPrice == 0){CostHdr.setVisibility(View.GONE); BlankChk.setVisibility(View.GONE);
+        if (gameDetails.getShowPrice() == 0){CostHdr.setVisibility(View.GONE);
             PalACurrency.setVisibility(View.GONE); PalBCurrency.setVisibility(View.GONE); USCurrency.setVisibility(View.GONE);
             PalACost.setVisibility(View.GONE); PalBCost.setVisibility(View.GONE); USCost.setVisibility(View.GONE);}
     }
+
+
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,342 +12,371 @@
     android:background="#C0C0BB">
 
     <!-- TODO: Update blank fragment layout -->
-    <RelativeLayout
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/EditGameConstraint"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/lblGame"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/relativeLayout2">
+            android:gravity="center_horizontal"
+            android:text="@string/gamename"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/gamename"
-                android:id="@+id/lblGame"
-                android:textAlignment="center"
-                android:textSize="24dp"
-                android:textStyle="bold"
-                android:layout_alignParentTop="true"
-                android:layout_alignRight="@+id/linearLayout"
-                android:layout_alignEnd="@+id/linearLayout"
-                android:layout_marginBottom="5dp"
-                android:gravity="center_horizontal" />
+        <ImageView
+            android:id="@+id/imgCover"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:adjustViewBounds="true"
+            android:foregroundGravity="center_horizontal"
+            android:maxWidth="150dp"
+            android:maxHeight="200dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/placeholder"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblGame" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/lblGame"
-                android:id="@+id/imgCover"
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
-                android:maxHeight="200dp"
-                android:maxWidth="150dp"
-                android:src="@drawable/placeholder"
-                android:layout_alignParentLeft="false"
-                android:layout_alignParentStart="false"
-                android:layout_centerHorizontal="true"
-                android:foregroundGravity="center_horizontal" />
+        <TextView
+            android:id="@+id/lblOwned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/editGameOwned"
+            android:textAlignment="center"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgCover" />
 
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/relativeLayout2"
+        <ImageView
+            android:id="@+id/imgCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
-            android:weightSum="1"
-            android:layout_alignParentStart="true">
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:src="@drawable/cart"
+            app:layout_constraintEnd_toStartOf="@+id/imgBox"
+            app:layout_constraintTop_toBottomOf="@+id/lblOwned" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/editGameOwned"
-                android:id="@+id/lblOwned"
-                android:textStyle="bold"
-                android:textAlignment="center"
-                android:textSize="24dp" />
+        <ImageView
+            android:id="@+id/imgBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_toEndOf="@+id/imgCart"
+            android:layout_toRightOf="@+id/imgCart"
+            android:src="@drawable/box"
+            app:layout_constraintEnd_toStartOf="@+id/imgManual"
+            app:layout_constraintTop_toBottomOf="@+id/lblOwned" />
 
-            <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/linImgs"
-                android:layout_below="@+id/lblOwned"
-                android:layout_centerHorizontal="true"
-                android:gravity="center_horizontal">
+        <ImageView
+            android:id="@+id/imgManual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_toEndOf="@+id/imgBox"
+            android:layout_toRightOf="@+id/imgBox"
+            android:src="@drawable/manual"
+            app:layout_constraintEnd_toStartOf="@+id/lblCost"
+            app:layout_constraintTop_toBottomOf="@+id/lblOwned" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imgCart"
-                    android:src="@drawable/cart"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginRight="40dp" />
+        <TextView
+            android:id="@+id/lblCost"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="84dp"
+            android:layout_marginRight="84dp"
+            android:layout_toEndOf="@+id/imgManual"
+            android:layout_toRightOf="@+id/imgManual"
+            android:gravity="right"
+            android:text="@string/editGameCost"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblOwned" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imgBox"
-                    android:src="@drawable/box"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/imgCart"
-                    android:layout_toEndOf="@+id/imgCart"
-                    android:layout_marginRight="40dp" />
+        <CheckBox
+            android:id="@+id/chkPalACart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/imgCart"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/imgCart"
+            android:layout_toRightOf="@+id/imgCart"
+            android:text="@string/palA"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imgCart" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/imgManual"
-                    android:src="@drawable/manual"
-                    android:layout_alignParentTop="true"
-                    android:layout_toRightOf="@+id/imgBox"
-                    android:layout_toEndOf="@+id/imgBox"
-                    android:layout_marginRight="40dp" />
+        <CheckBox
+            android:id="@+id/chkPalABox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblHeader"
+            android:layout_alignBottom="@+id/imgCart"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/imgCart"
+            android:layout_toRightOf="@+id/imgCart"
+            android:text="@string/palA"
+            app:layout_constraintStart_toEndOf="@+id/chkPalACart"
+            app:layout_constraintTop_toBottomOf="@+id/imgBox" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:text="@string/editGameCost"
-                    android:id="@+id/lblCost"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/imgManual"
-                    android:layout_toEndOf="@+id/imgManual"
-                    android:textStyle="bold"
-                    android:textSize="16sp"
-                    android:visibility="visible"
-                    android:gravity="right"
-                    android:layout_marginRight="45dp" />
-            </RelativeLayout>
+        <CheckBox
+            android:id="@+id/chkPalAmanual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/lblHeader"
+            android:layout_alignBottom="@+id/imgCart"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/imgCart"
+            android:layout_toRightOf="@+id/imgCart"
+            android:checked="false"
+            android:text="@string/palA"
+            app:layout_constraintStart_toEndOf="@+id/chkPalABox"
+            app:layout_constraintTop_toBottomOf="@+id/imgManual" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/linCart"
-                android:layout_below="@id/linImgs"
-                android:gravity="center_horizontal">
+        <TextView
+            android:id="@+id/lblCurrencyPalA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="24dp"
+            android:text="£"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:layout_constraintStart_toEndOf="@+id/chkPalAmanual"
+            app:layout_constraintTop_toBottomOf="@+id/lblCost" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/chkPalACart"
-                    android:layout_toRightOf="@+id/imgCart"
-                    android:layout_toEndOf="@+id/imgCart"
-                    android:text="@string/palA"
-                    android:layout_alignBottom="@+id/imgCart" />
+        <EditText
+            android:id="@+id/txtPalAcost"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/lblCurrencyPalA"
+            app:layout_constraintTop_toBottomOf="@+id/lblCost" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/chkPalABox"
-                    android:layout_below="@+id/lblHeader"
-                    android:layout_toRightOf="@+id/imgCart"
-                    android:layout_toEndOf="@+id/imgCart"
-                    android:text="@string/palA"
-                    android:layout_alignBottom="@+id/imgCart" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/chkPalAmanual"
-                    android:layout_below="@+id/lblHeader"
-                    android:layout_toRightOf="@+id/imgCart"
-                    android:layout_toEndOf="@+id/imgCart"
-                    android:text="@string/palA"
-                    android:layout_alignBottom="@+id/imgCart"
-                    android:checked="false" />
+        <CheckBox
+            android:id="@+id/chkPalBCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/chkUSCart"
+            android:layout_alignBottom="@+id/chkPalACart"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/chkPalACart"
+            android:layout_toRightOf="@+id/chkPalACart"
+            android:text="@string/palBcart"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chkPalACart" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/lblCurrencyPalA"
-                    android:layout_marginLeft="10dp" />
+        <CheckBox
+            android:id="@+id/chkPalBBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/chkUSCart"
+            android:layout_alignBottom="@+id/chkPalACart"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/chkPalACart"
+            android:layout_toRightOf="@+id/chkPalACart"
+            android:text="@string/palBcart"
+            app:layout_constraintStart_toEndOf="@+id/chkPalBCart"
+            app:layout_constraintTop_toBottomOf="@+id/chkPalABox" />
 
-                <EditText
-                    android:layout_width="85dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:ems="10"
-                    android:id="@+id/txtPalAcost"
-                    android:layout_marginLeft="2dp"
-                    android:visibility="visible" />
-            </LinearLayout>
+        <CheckBox
+            android:id="@+id/chkPalBmanual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/chkUSCart"
+            android:layout_alignBottom="@+id/chkPalACart"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/chkPalACart"
+            android:layout_toRightOf="@+id/chkPalACart"
+            android:text="@string/palBcart"
+            app:layout_constraintStart_toEndOf="@+id/chkPalBBox"
+            app:layout_constraintTop_toBottomOf="@+id/chkPalAmanual" />
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linCart"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/linBox"
-                android:gravity="center_horizontal">
+        <TextView
+            android:id="@+id/lblCurrencyPalB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="30dp"
+            android:text="£"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:layout_constraintStart_toEndOf="@+id/chkPalBmanual"
+            app:layout_constraintTop_toBottomOf="@+id/lblCurrencyPalA" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/palBcart"
-                    android:id="@+id/chkPalBCart"
-                    android:layout_alignTop="@+id/chkUSCart"
-                    android:layout_toRightOf="@+id/chkPalACart"
-                    android:layout_toEndOf="@+id/chkPalACart"
-                    android:layout_alignBottom="@+id/chkPalACart" />
+        <EditText
+            android:id="@+id/txtPalBcost"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/lblCurrencyPalB"
+            app:layout_constraintTop_toBottomOf="@+id/txtPalAcost" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/palBcart"
-                    android:id="@+id/chkPalBBox"
-                    android:layout_alignTop="@+id/chkUSCart"
-                    android:layout_toRightOf="@+id/chkPalACart"
-                    android:layout_toEndOf="@+id/chkPalACart"
-                    android:layout_alignBottom="@+id/chkPalACart" />
+        <CheckBox
+            android:id="@+id/chkUSCart"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/chkPalACart"
+            android:layout_alignBottom="@+id/chkPalACart"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/chkPalBCart"
+            android:layout_toRightOf="@+id/chkPalBCart"
+            android:text="@string/US"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chkPalBCart" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/palBcart"
-                    android:id="@+id/chkPalBmanual"
-                    android:layout_alignTop="@+id/chkUSCart"
-                    android:layout_toRightOf="@+id/chkPalACart"
-                    android:layout_toEndOf="@+id/chkPalACart"
-                    android:layout_alignBottom="@+id/chkPalACart" />
+        <CheckBox
+            android:id="@+id/chkUSBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/chkPalACart"
+            android:layout_alignBottom="@+id/chkPalACart"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/chkPalBCart"
+            android:layout_toRightOf="@+id/chkPalBCart"
+            android:text="@string/US"
+            app:layout_constraintStart_toEndOf="@+id/chkUSCart"
+            app:layout_constraintTop_toBottomOf="@+id/chkPalBBox" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/lblCurrencyPalB"
-                    android:layout_marginLeft="10dp" />
+        <CheckBox
+            android:id="@+id/chkUSmanual"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/chkPalACart"
+            android:layout_alignBottom="@+id/chkPalACart"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@+id/chkPalBCart"
+            android:layout_toRightOf="@+id/chkPalBCart"
+            android:text="@string/US"
+            app:layout_constraintStart_toEndOf="@+id/chkUSBox"
+            app:layout_constraintTop_toBottomOf="@+id/chkPalBmanual" />
 
-                <EditText
-                    android:layout_width="85dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:ems="10"
-                    android:id="@+id/txtPalBcost"
-                    android:layout_marginLeft="3dp"
-                    android:visibility="visible" />
-            </LinearLayout>
 
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/linBox"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/linManual"
-                android:gravity="center_horizontal">
+        <TextView
+            android:id="@+id/lblCurrencyUS"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="32dp"
+            android:text="£"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            app:layout_constraintStart_toEndOf="@+id/chkUSmanual"
+            app:layout_constraintTop_toBottomOf="@+id/lblCurrencyPalB" />
 
-                <CheckBox
-                    android:layout_width="65dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/US"
-                    android:id="@+id/chkUSCart"
-                    android:layout_alignTop="@+id/chkPalACart"
-                    android:layout_toRightOf="@+id/chkPalBCart"
-                    android:layout_toEndOf="@+id/chkPalBCart"
-                    android:layout_alignBottom="@+id/chkPalACart" />
+        <EditText
+            android:id="@+id/txtUScost"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:visibility="visible"
+            app:layout_constraintStart_toEndOf="@+id/lblCurrencyUS"
+            app:layout_constraintTop_toBottomOf="@+id/txtPalBcost" />
 
-                <CheckBox
-                    android:layout_width="65dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/US"
-                    android:id="@+id/chkUSBox"
-                    android:layout_alignTop="@+id/chkPalACart"
-                    android:layout_toRightOf="@+id/chkPalBCart"
-                    android:layout_toEndOf="@+id/chkPalBCart"
-                    android:layout_alignBottom="@+id/chkPalACart" />
+        <CheckBox
+            android:id="@+id/chkShelf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="16dp"
+            android:checked="false"
+            android:text="@string/editGameShelf"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chkUSCart" />
 
-                <CheckBox
-                    android:layout_width="65dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/US"
-                    android:id="@+id/chkUSmanual"
-                    android:layout_alignTop="@+id/chkPalACart"
-                    android:layout_toRightOf="@+id/chkPalBCart"
-                    android:layout_toEndOf="@+id/chkPalBCart"
-                    android:layout_alignBottom="@+id/chkPalACart" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:id="@+id/lblCurrencyUS"
-                    android:layout_marginLeft="10dp" />
+        <Button
+            android:id="@+id/rgnCancel"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linearLayout3"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_toStartOf="@+id/rgnOk"
+            android:layout_toLeftOf="@+id/rgnOk"
+            android:text="@string/editGameCancel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chkShelf" />
 
-                <EditText
-                    android:layout_width="85dp"
-                    android:layout_height="wrap_content"
-                    android:inputType="numberDecimal"
-                    android:ems="10"
-                    android:id="@+id/txtUScost"
-                    android:layout_marginLeft="2dp"
-                    android:visibility="visible" />
-            </LinearLayout>
+        <Button
+            android:id="@+id/rgnOk"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="75dp"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/rgnCancel"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:text="@string/editGameOk"
+            app:layout_constraintEnd_toStartOf="@+id/rgnCancel"
+            app:layout_constraintTop_toBottomOf="@+id/chkShelf" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <RelativeLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_below="@+id/linManual"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:id="@+id/linearLayout3"
-                android:layout_weight="0.7"
-                android:gravity="center">
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/editGameShelf"
-                    android:id="@+id/chkShelf"
-                    android:checked="false"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_marginRight="45dp" />
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="New CheckBox"
-                    android:layout_toRightOf="@+id/chkShelf"
-                    android:id="@+id/checkBox"
-                    android:visibility="invisible" />
-            </RelativeLayout>
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/editGameCancel"
-                android:id="@+id/rgnCancel"
-                android:layout_below="@+id/linearLayout3"
-                android:layout_toLeftOf="@+id/rgnOk"
-                android:layout_toStartOf="@+id/rgnOk" />
-
-            <Button
-                style="?android:attr/buttonStyleSmall"
-                android:layout_width="75dp"
-                android:layout_height="wrap_content"
-                android:text="@string/editGameOk"
-                android:id="@+id/rgnOk"
-                android:layout_alignTop="@+id/rgnCancel"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true"
-                android:layout_marginRight="45dp"
-                android:layout_marginEnd="45dp" />
-
-        </RelativeLayout>
-    </RelativeLayout>
 
 </ScrollView>
