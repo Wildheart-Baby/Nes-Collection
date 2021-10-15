@@ -75,8 +75,8 @@ public class HomeScreenFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_home_screen, container, false);
 
         final ImageButton AllGames = v.findViewById(R.id.btnAllGames);
-        /*ImageButton NeededGames = getView().findViewById(R.id.btnneeded);
-        ImageButton OwnedGames = getView().findViewById(R.id.btnowned);
+        ImageButton NeededGames = v.findViewById(R.id.btnneeded);
+        /*ImageButton OwnedGames = getView().findViewById(R.id.btnowned);
 
         ImageButton FavouriteGames = getView().findViewById(R.id.btnFavouriteGames);
         ImageButton WishList = getView().findViewById(R.id.btnWishList);
@@ -93,17 +93,30 @@ public class HomeScreenFragment extends Fragment {
                         .add(R.id.container, AllGamesFragment.newInstance())
                         .addToBackStack("allGames")
                         .commit();
+                //ChangeFragment(NeededGamesFragment.newInstance(), "allGames");
+            }
+        });
+
+        NeededGames.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //ChangeFragment(AllGamesFragment.newInstance());
+                getParentFragmentManager().beginTransaction()
+                        .add(R.id.container, NeededGamesFragment.newInstance())
+                        .addToBackStack("neededGames")
+                        .commit();
+                //ChangeFragment(NeededGamesFragment.newInstance(), "neededGames");
             }
         });
 
         return v;
     }
 
-    public void ChangeFragment(Fragment frag){
+    public void ChangeFragment(Fragment frag, String name){
         if (getView().findViewById(R.id.container) != null){
             getParentFragmentManager().beginTransaction()
                     .replace(R.id.container, frag)
-                    .commitNow();
+                    .addToBackStack(name)
+                    .commit();
         }
     }
 

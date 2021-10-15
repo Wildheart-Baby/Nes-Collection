@@ -3,8 +3,11 @@ package uk.co.pixoveeware.nes_collection.models;
 public class GameItem {
     public String group;
     public String name, publisher, synopsis, image, genre, region, subgenre, developer, year, usyear, sayear, currency;
-    public int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual,
-            pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist, finished, listPos;
+    public int _id, owned, cart, manual, box,
+            pal_a_cart, pal_a_box, pal_a_manual, pal_a_owned,
+            pal_b_cart, pal_b_manual, pal_b_box, pal_b_owned,
+            ntsc_cart, ntsc_box, ntsc_manual, ntsc_owned,
+            favourite, wishlist, finished, listPos;
     public int flagAustralia, flagAustria, flagBrazil, flagBenelux, flagCanada, flagDenmark, flagFrance, flagFinland, flagGermany, flagGreece,
             flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS,
             play_score, play_completion, play_ownership;
@@ -220,5 +223,7 @@ public class GameItem {
 
     public int getShowPrice() { return showPrice; }
     public void setShowPrice(int showPrice) { this.showPrice = showPrice;}
+
+
 
 }

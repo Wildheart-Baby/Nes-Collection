@@ -8,6 +8,7 @@
     android:paddingLeft="5dp"
     android:paddingRight="5dp"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:layout_marginTop="60dp"
     tools:context=".Fragments.EditGameFragment"
     android:background="#C0C0BB">
 
@@ -125,13 +126,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/imgCart"
-            android:layout_marginStart="60dp"
-            android:layout_marginLeft="60dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_toEndOf="@+id/imgCart"
             android:layout_toRightOf="@+id/imgCart"
             android:text="@string/palA"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/chkPalABox"
             app:layout_constraintTop_toBottomOf="@+id/imgCart" />
 
         <CheckBox
@@ -140,13 +141,13 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblHeader"
             android:layout_alignBottom="@+id/imgCart"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_toEndOf="@+id/imgCart"
             android:layout_toRightOf="@+id/imgCart"
             android:text="@string/palA"
-            app:layout_constraintStart_toEndOf="@+id/chkPalACart"
+            app:layout_constraintEnd_toStartOf="@+id/chkPalAmanual"
             app:layout_constraintTop_toBottomOf="@+id/imgBox" />
 
         <CheckBox
@@ -155,41 +156,39 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblHeader"
             android:layout_alignBottom="@+id/imgCart"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_toEndOf="@+id/imgCart"
             android:layout_toRightOf="@+id/imgCart"
             android:checked="false"
             android:text="@string/palA"
-            app:layout_constraintStart_toEndOf="@+id/chkPalABox"
+            app:layout_constraintEnd_toStartOf="@+id/lblCurrencyPalA"
             app:layout_constraintTop_toBottomOf="@+id/imgManual" />
 
         <TextView
             android:id="@+id/lblCurrencyPalA"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginTop="24dp"
             android:text="£"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            app:layout_constraintStart_toEndOf="@+id/chkPalAmanual"
+            app:layout_constraintEnd_toStartOf="@+id/txtPalAcost"
             app:layout_constraintTop_toBottomOf="@+id/lblCost" />
+
 
         <EditText
             android:id="@+id/txtPalAcost"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
             android:ems="10"
             android:inputType="numberDecimal"
             android:visibility="visible"
-            app:layout_constraintStart_toEndOf="@+id/lblCurrencyPalA"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/lblCost" />
-
 
         <CheckBox
             android:id="@+id/chkPalBCart"
@@ -197,13 +196,13 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/chkUSCart"
             android:layout_alignBottom="@+id/chkPalACart"
-            android:layout_marginStart="60dp"
-            android:layout_marginLeft="60dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_toEndOf="@+id/chkPalACart"
             android:layout_toRightOf="@+id/chkPalACart"
             android:text="@string/palBcart"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/chkPalBBox"
             app:layout_constraintTop_toBottomOf="@+id/chkPalACart" />
 
         <CheckBox
@@ -212,13 +211,13 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/chkUSCart"
             android:layout_alignBottom="@+id/chkPalACart"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_toEndOf="@+id/chkPalACart"
             android:layout_toRightOf="@+id/chkPalACart"
             android:text="@string/palBcart"
-            app:layout_constraintStart_toEndOf="@+id/chkPalBCart"
+            app:layout_constraintEnd_toStartOf="@+id/chkPalBmanual"
             app:layout_constraintTop_toBottomOf="@+id/chkPalABox" />
 
         <CheckBox
@@ -227,38 +226,36 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/chkUSCart"
             android:layout_alignBottom="@+id/chkPalACart"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
             android:layout_toEndOf="@+id/chkPalACart"
             android:layout_toRightOf="@+id/chkPalACart"
             android:text="@string/palBcart"
-            app:layout_constraintStart_toEndOf="@+id/chkPalBBox"
+            app:layout_constraintEnd_toStartOf="@+id/lblCurrencyPalB"
             app:layout_constraintTop_toBottomOf="@+id/chkPalAmanual" />
 
         <TextView
             android:id="@+id/lblCurrencyPalB"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="32dp"
             android:text="£"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            app:layout_constraintStart_toEndOf="@+id/chkPalBmanual"
+            app:layout_constraintEnd_toStartOf="@+id/txtPalBcost"
             app:layout_constraintTop_toBottomOf="@+id/lblCurrencyPalA" />
 
         <EditText
             android:id="@+id/txtPalBcost"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
             android:ems="10"
             android:inputType="numberDecimal"
             android:visibility="visible"
-            app:layout_constraintStart_toEndOf="@+id/lblCurrencyPalB"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtPalAcost" />
 
         <CheckBox
@@ -267,13 +264,13 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/chkPalACart"
             android:layout_alignBottom="@+id/chkPalACart"
-            android:layout_marginStart="60dp"
-            android:layout_marginLeft="60dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:layout_toEndOf="@+id/chkPalBCart"
             android:layout_toRightOf="@+id/chkPalBCart"
             android:text="@string/US"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/chkUSBox"
             app:layout_constraintTop_toBottomOf="@+id/chkPalBCart" />
 
         <CheckBox
@@ -282,13 +279,13 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/chkPalACart"
             android:layout_alignBottom="@+id/chkPalACart"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
             android:layout_toEndOf="@+id/chkPalBCart"
             android:layout_toRightOf="@+id/chkPalBCart"
             android:text="@string/US"
-            app:layout_constraintStart_toEndOf="@+id/chkUSCart"
+            app:layout_constraintEnd_toStartOf="@+id/chkUSmanual"
             app:layout_constraintTop_toBottomOf="@+id/chkPalBBox" />
 
         <CheckBox
@@ -297,13 +294,13 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/chkPalACart"
             android:layout_alignBottom="@+id/chkPalACart"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginRight="20dp"
             android:layout_toEndOf="@+id/chkPalBCart"
             android:layout_toRightOf="@+id/chkPalBCart"
             android:text="@string/US"
-            app:layout_constraintStart_toEndOf="@+id/chkUSBox"
+            app:layout_constraintEnd_toStartOf="@+id/lblCurrencyUS"
             app:layout_constraintTop_toBottomOf="@+id/chkPalBmanual" />
 
 
@@ -311,25 +308,23 @@
             android:id="@+id/lblCurrencyUS"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginLeft="20dp"
             android:layout_marginTop="32dp"
             android:text="£"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            app:layout_constraintStart_toEndOf="@+id/chkUSmanual"
+            app:layout_constraintEnd_toStartOf="@+id/txtUScost"
             app:layout_constraintTop_toBottomOf="@+id/lblCurrencyPalB" />
 
         <EditText
             android:id="@+id/txtUScost"
             android:layout_width="85dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
             android:ems="10"
             android:inputType="numberDecimal"
             android:visibility="visible"
-            app:layout_constraintStart_toEndOf="@+id/lblCurrencyUS"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtPalBcost" />
 
         <CheckBox

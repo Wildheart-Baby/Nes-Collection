@@ -7,8 +7,10 @@ public class GameItems {
 
     public String group;
     public String name, publisher, synopsis, image, genre, region, subgenre, developer, year, usyear, sayear, currency;
-    public int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_b_cart, pal_b_manual,
-            pal_b_box, ntsc_cart, ntsc_box, ntsc_manual, favourite, wishlist, finished, listPos;
+    public int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_a_owned, pal_a_release,
+            pal_b_cart, pal_b_manual, pal_b_box, pal_b_owned, pal_b_release,
+            ntsc_cart, ntsc_box, ntsc_manual, ntsc_owned, ntsc_release,
+            favourite, wishlist, finished, listPos, onShelf, showPrice;
     public int flagAustralia, flagAustria, flagBrazil, flagBenelux, flagCanada, flagDenmark, flagFrance, flagFinland, flagGermany, flagGreece,
             flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS,
             play_score, play_completion, play_ownership;
@@ -84,6 +86,9 @@ public class GameItems {
     public int getBoxPalA() { return pal_a_box; }
     public void setBoxPalA(int pal_a_box) { this.pal_a_box = pal_a_box; } //returns the item id
 
+    public int getPalAOwned(){ return pal_a_owned ;}
+    public void setPalAOwned(int pal_a_owned) { this.pal_a_owned = pal_a_owned; }
+
     public int getCartPalB() { return pal_b_cart; }
     public void setCartPalB(int pal_b_cart) { this.pal_b_cart = pal_b_cart; } //returns the item id
 
@@ -93,6 +98,9 @@ public class GameItems {
     public int getBoxPalB() { return pal_b_box; }
     public void setBoxPalB(int pal_b_box) { this.pal_b_box = pal_b_box; } //returns the item id
 
+    public int getPalBOwned(){ return pal_b_owned ;}
+    public void setPalBOwned(int pal_b_owned) { this.pal_b_owned = pal_b_owned; }
+
     public int getCartNtsc() { return ntsc_cart; }
     public void setCartNtsc(int ntsc_cart) { this.ntsc_cart = ntsc_cart; } //returns the item id
 
@@ -101,6 +109,9 @@ public class GameItems {
 
     public int getBoxNtsc() { return ntsc_box; }
     public void setBoxNtsc(int ntsc_box) { this.ntsc_box = ntsc_box; } //returns the item id
+
+    public int getNtscOwned(){ return ntsc_owned ;}
+    public void setNtscOwned(int ntsc_owned) { this.ntsc_owned = ntsc_owned; }
 
     public int getFavourite() { return favourite; }
     public void setFavourite(int favourite) { this.favourite = favourite; }
@@ -210,4 +221,18 @@ public class GameItems {
     public int getGameOwnership() { return play_ownership; }
     public void setGameOwnership(int play_ownership) { this.play_ownership = play_ownership; } //returns the item id
 
+    public int getPalARelease() { return pal_a_release; }
+    public void setPalARelease(int pal_a_release) { this.pal_a_release = pal_a_release;}
+
+    public int getPalBRelease() { return pal_b_release; }
+    public void setPalBRelease(int pal_b_release) { this.pal_b_release = pal_b_release;}
+
+    public int getNtscRelease() { return ntsc_release; }
+    public void setNtscRelease(int ntsc_release) { this.ntsc_release = ntsc_release;}
+
+    public int getOnShelf() { return onShelf; }
+    public void setOnShelf(int onShelf) { this.onShelf = onShelf;}
+
+    public int getShowPrice() { return showPrice; }
+    public void setShowPrice(int showPrice) { this.showPrice = showPrice;}
 }

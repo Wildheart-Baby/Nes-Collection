@@ -16,6 +16,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -38,16 +39,15 @@ public class GamesDetailFragment extends Fragment {
     ArrayList<GameItems> gameList;
     ViewPager viewPager;
     NesPagerAdapter adapter;
-    public static int idforgame, favourited, ownedgame, wishlist, finished;
+    public static int idforgame, favourited, ownedgame, wishlist, finished, listPos;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+
     private int GameId;
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
+    private int mParam1;
     private int mParam2;
 
     public GamesDetailFragment() {
@@ -66,7 +66,7 @@ public class GamesDetailFragment extends Fragment {
     public static GamesDetailFragment newInstance(String param1, int param2) {
         GamesDetailFragment fragment = new GamesDetailFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
+        args.putString("ListPos", param1);
         args.putInt("GameId", param2);
         fragment.setArguments(args);
         return fragment;
@@ -77,7 +77,7 @@ public class GamesDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam1 = getArguments().getInt("ListPos");
             mParam2 = getArguments().getInt("GameId");
         }
 
@@ -95,12 +95,13 @@ public class GamesDetailFragment extends Fragment {
         adapter = new NesPagerAdapter(getContext(), gameList);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(mParam2);
+        listPos = viewPager.getCurrentItem();
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {getActivity().invalidateOptionsMenu();}
             @Override
-            public void onPageSelected(int position) {}
+            public void onPageSelected(int position) {listPos = viewPager.getCurrentItem();}
             @Override
             public void onPageScrollStateChanged(int state) {getActivity().invalidateOptionsMenu();}
         });
@@ -112,7 +113,7 @@ public class GamesDetailFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.menu_gamedetails, menu);
-        getActivity().invalidateOptionsMenu();
+        //getActivity().invalidateOptionsMenu();
     }
 
     private void SetTitles() {
@@ -134,10 +135,6 @@ public class GamesDetailFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
-                // User chose the "Settings" item, show the app settings UI...
-                return true;
-
             case R.id.action_edit:
                 editgame();
                 return true;
@@ -169,7 +166,7 @@ public class GamesDetailFragment extends Fragment {
     public void editgame(){
         Log.d("pixo", "Loading edit fragment");
         getParentFragmentManager().beginTransaction()
-                .add(R.id.container, EditGameFragment.newInstance("", gameList.get(mParam2)._id))
+                .add(R.id.container, EditGameFragment.newInstance(listPos, gameList.get(listPos)._id))
                 .addToBackStack("editGame")
                 .commit();
     }

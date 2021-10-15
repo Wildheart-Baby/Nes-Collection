@@ -30,6 +30,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String CART = "cart";
     private static final String BOX = "box";
     private static final String MANUAL = "manual";
+    private static final String PLANACART = "pal_a_cart";
+    private static final String PALABOX = "pal_a_box";
+    private static final String PALAMANUAL = "pal_a_manual";
+    private static final String PALAOWNED = "pal_a_owned";
+    private static final String PALBCART = "pal_b_cart";
+    private static final String PALBMANUAL = " pal_b_manual";
+    private static final String PALBBOX = "pal_b_box";
+    private static final String PALBOWNED = "pal_b_owned";
+    private static final String NTSCCART = "ntsc_cart";
+    private static final String NTSCBOX = "ntsc_box";
+    private static final String NTSCMANUAL = "ntsc_manual";
+    private static final String NTSCOWNED = "ntsc_owned";
+
+
     private static final String EUROCART = "euro_cart";
     private static final String USCART = "ntsc_cart";
     private static final String SACART = "sa_cart";
@@ -1021,8 +1035,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setPalBRelease(c.getInt(c.getColumnIndex("pal_b_release")));
                 gameListItems.setNtscRelease(c.getInt(c.getColumnIndex("ntsc_release")));
                 gameListItems.setConditionStatement(conditionstatement);
-                gameListItem.setCurrency(currency);
-                gameListItem.setShowPrice(showprice);
+                gameListItems.setCurrency(currency);
+                gameListItems.setShowPrice(showprice);
                 gameListItem = gameListItems;
                 c.moveToNext();//move to the next record
             }
@@ -1043,7 +1057,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateGameRecord(int owned, int cart, int box, int manual, int euro_cart, int euro_box, int euro_manual, int us_cart, int us_box, int us_manual, int sa_cart, int sa_box, int sa_manual, double euro_cost, double us_cost, double sa_cost, double price, int euro_owned, int us_owned, int sa_owned, int gameCondition, int gameOwned, int gameid){
+    public void updateGameRecord(int owned, int cart, int box, int manual, int pal_a_cart, int pal_a_box, int pal_a_manual, int pal_a_owned, int pal_b_cart, int pal_b_manual, int pal_b_box, int pal_b_owned, int ntsc_cart, int ntsc_box, int ntsc_manual, int ntsc_owned, double price, int gameCondition, int gameOwned, int gameid){
         SQLiteDatabase db = this.getReadableDatabase();
 
         ContentValues values = new ContentValues();
@@ -1051,22 +1065,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(CART, cart);
         values.put(BOX, box);
         values.put(MANUAL, manual);
-        values.put(EUROCART, euro_cart);
-        values.put(EUROBOX, euro_box);
-        values.put(EUROMAN, euro_manual);
-        values.put(USCART, us_cart);
-        values.put(USBOX, us_box);
-        values.put(USMAN, us_manual);
-        values.put(SACART, sa_cart);
-        values.put(SABOX, sa_box);
-        values.put(SAMAN, sa_manual);
-        values.put(EUROCOST, euro_cost);
-        values.put(USCOST, us_cost);
-        values.put(SACOST, sa_cost);
+        values.put(PLANACART, pal_a_cart);
+        values.put(PALABOX, pal_a_box);
+        values.put(PALAMANUAL, pal_a_manual);
+        values.put(PALAOWNED, pal_a_owned);
+        values.put(PALBCART, pal_b_cart);
+        values.put(PALBMANUAL, pal_b_manual);
+        values.put(PALBBOX, pal_b_box);
+        values.put(PALBOWNED, pal_b_owned);
+        values.put(NTSCCART, ntsc_cart);
+        values.put(NTSCBOX, ntsc_box);
+        values.put(NTSCMANUAL, ntsc_manual);
+        values.put(NTSCOWNED, ntsc_owned);
         values.put(PRICE, price);
-        values.put(EUROOWNED, euro_owned);
-        values.put(USOWNED, us_owned);
-        values.put(SAOWNED, sa_owned);
         values.put(WISHLIST, 0);
         values.put(CONDITION, gameCondition);
         values.put(PLAYOWNED, gameOwned);
