@@ -2,13 +2,10 @@ package uk.co.pixoveeware.nes_collection.Fragments;
 
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -26,10 +23,10 @@ import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link NeededGamesFragment#newInstance} factory method to
+ * Use the {@link OwnedGamesFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class NeededGamesFragment extends Fragment {
+public class OwnedGamesFragment extends Fragment {
 
     AllGamesViewModel viewM;
     ListView gamelistView, alphaIndex;
@@ -45,15 +42,16 @@ public class NeededGamesFragment extends Fragment {
     ArrayList<GameItems> gameList;
     ArrayList<GameItemsIndex> indexList;
 
-    public NeededGamesFragment() {
+    public OwnedGamesFragment() {
         // Required empty public constructor
     }
 
-
     // TODO: Rename and change types and number of parameters
-    public static NeededGamesFragment newInstance() {
-        NeededGamesFragment fragment = new NeededGamesFragment();
+    public static OwnedGamesFragment newInstance() {
+        OwnedGamesFragment fragment = new OwnedGamesFragment();
         Bundle args = new Bundle();
+        //args.putString(ARG_PARAM1, param1);
+        //args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,19 +63,19 @@ public class NeededGamesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
         viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
-        gameList = viewM.GetGames("needed");
-        indexList = viewM.GetIndex("needed");
+        gameList = viewM.GetGames("owned");
+        indexList = viewM.GetIndex("owned");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_needed_games, container, false);
-        // Inflate the layout for this fragment
-
+        View v = inflater.inflate(R.layout.fragment_owned_games, container, false);
         gamelistView = v.findViewById(R.id.lvAllGames);
         alphaIndex = v.findViewById(R.id.lvAlphaIndex);
+
         gamelistView.setAdapter(new NesCollectionAdapter(getContext(), gameList));
         alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
 
@@ -116,25 +114,8 @@ public class NeededGamesFragment extends Fragment {
 
         });
 
+
+        // Inflate the layout for this fragment
         return v;
-    }
-
-
-    @Override
-    public void onResume(){
-        super.onResume();
-        SetTitles();
-    }
-
-    private void SetTitles(){
-        getActivity().setTitle(" " + viewM.RegionTitle("needed"));
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.GamesCount("needed"));
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.FragmentSubTitleText("needed"));
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(viewM.regionFlag, "drawable", getContext().getPackageName()));
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_allgames, menu);
     }
 }

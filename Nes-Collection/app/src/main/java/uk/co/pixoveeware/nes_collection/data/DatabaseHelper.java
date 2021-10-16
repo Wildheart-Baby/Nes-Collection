@@ -90,7 +90,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<GameListItems> getGameslist(String games){
         String times = getCurrentTimeStamp();
-        Log.d("pixo-time","Start time: "+ times);
         ArrayList<GameListItems> gamesList = new ArrayList<>();
         gamesList.clear();
 
@@ -113,22 +112,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             c.close();//close the cursor
         }
-        times = getCurrentTimeStamp();
-        Log.d("pixo-time","Read settings: "+ times);
-        //db.close();//close the database
         if (titles == 0){
             thename = "eu_name";
             theimage = "image";
             thePublisher = "eu_publisher";
-            Log.d("pixo-the image", theimage);
         } else if (titles == 1){
             thename = "us_name";
             theimage = "us_image";
             thePublisher = "us_publisher";
-            Log.d("pixo-the image", theimage);
         }
-        times = getCurrentTimeStamp();
-        Log.d("pixo-time","read region "+ times);
+
         switch (games){
             case "all":
                 searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + orderby +"";
@@ -157,15 +150,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
             case "search":
                 //searchQuery = SearchResults.searchString + " order by " + orderby;
-                //Log.i("dbhSearch", "query: " + searchQuery);
                 break;
             case "statsearch":
                 //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
-                //Log.i("dbhSearch", "query: " + searchQuery);
+
                 break;
         }
         times = getCurrentTimeStamp();
-        Log.d("pixo-time","Got query time: "+ times);
+        //d("pixo-time","Got query time: "+ times);
         c = db.rawQuery(searchQuery, null);
 
         if (c.moveToFirst()) {//move to the first record
@@ -199,7 +191,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             c.close();//close the cursor
         }
         times = getCurrentTimeStamp();
-        Log.d("pixo-time","Finish time: "+ times);
         return gamesList;
     }
 
@@ -235,12 +226,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             thename = "eu_name";
             theimage = "image";
             thePublisher = "eu_publisher";
-            Log.d("pixo-the image", theimage);
         } else if (titles == 1){
             thename = "us_name";
             theimage = "us_image";
             thePublisher = "us_publisher";
-            Log.d("pixo-the image", theimage);
         }
 
         switch (games){
@@ -271,11 +260,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
             case "search":
                 //searchQuery = SearchResults.searchString + " order by " + orderby;
-                //Log.i("dbhSearch", "query: " + searchQuery);
+
                 break;
             case "statsearch":
                 //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
-                //Log.i("dbhSearch", "query: " + searchQuery);
+
                 break;
         }
 
@@ -514,7 +503,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<GameItemsIndex> gamesIndex(String games){
         String times = getCurrentTimeStamp();
-        Log.d("pixo-time","Index start time: "+ times);
         ArrayList<GameItemsIndex> indexList = new ArrayList<>();
         indexList.clear();
         int indexpos = 0;
@@ -561,7 +549,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     indexListItems.setItemid(indexpos);
                     indexListItems.setLetter(c.getString(c.getColumnIndex(groupHeader)));
                     indexList.add(indexListItems);
-                    Log.i("index pos", " " + indexpos);
                     indexpos = indexpos +1;
                     prevgroup = c.getString(c.getColumnIndex(groupHeader));
                 }
@@ -574,7 +561,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             c.close();//close the cursor
         }
         times = getCurrentTimeStamp();
-        Log.d("pixo-time","Index finish time: "+ times);
         return indexList;
     }
 
@@ -740,7 +726,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public void wishList(String action, int gameId) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "";
+        String sql;
 
         if (action.equals("adding")){
             sql = "UPDATE eu SET wishlist = 1 where _id = " + gameId + " ";
@@ -791,12 +777,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             thename = "eu_name";
             theimage = "image";
             thePublisher = "eu_publisher";
-            Log.d("pixo-the image", theimage);
         } else if (titles == 1){
             thename = "us_name";
             theimage = "us_image";
             thePublisher = "us_publisher";
-            Log.d("pixo-the image", theimage);
         }
         check = "y";
         pos = 1;
@@ -815,14 +799,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 palAcart = c.getInt(c.getColumnIndex("euro_cart"));
                 uscart = c.getInt(c.getColumnIndex("ntsc_cart"));
                 palBcart = c.getInt(c.getColumnIndex("sa_cart"));
-                //Log.d("Pixo", "Name: " + name + " Regions " + palAcart + " " + palBcart + " " + uscart);
+
 
                 if (check.equals("y")){
                     rec = 0;
 
-                    if (palAcart == 8783){rec ++; posInList++; Log.i("Pixoif", "first if done");} else {}
-                    if (uscart == 8783){rec ++; posInList++; Log.i("Pixoif", "second if done");} else {}
-                    if (palBcart == 8783){rec ++; posInList++; Log.i("Pixoif", "third if done");} else {}
+                    if (palAcart == 8783){rec ++; posInList++; } else {}
+                    if (uscart == 8783){rec ++; posInList++; } else {}
+                    if (palBcart == 8783){rec ++; posInList++; } else {}
 
                     check = "n";
                 }
@@ -890,7 +874,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     gamesList.add(gameListItems);//add items to the arraylist
                     shelf ++;
                     newShelf = false;
-                    //Log.d("pixo", "added shelf record " + name);
 
                 }
                 else {
@@ -990,12 +973,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             thename = "eu_name";
             theimage = "image";
             thePublisher = "eu_publisher";
-            Log.d("pixo-the image", theimage);
         } else if (titles == 1){
             thename = "us_name";
             theimage = "us_image";
             thePublisher = "us_publisher";
-            Log.d("pixo-the image", theimage);
         }
 
         String sql = "SELECT * FROM eu where _id = '" + gameid + "' ";
@@ -1081,7 +1062,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(WISHLIST, 0);
         values.put(CONDITION, gameCondition);
         values.put(PLAYOWNED, gameOwned);
-        Log.i("editGame", "price:" + price);
         db.update("eu", values, KEY_ID + "=" + gameid, null);
         db.close();
     }
@@ -1122,7 +1102,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Toast toast = Toast.makeText(getApplicationContext(), "Favourite no:" + HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).getFavourite() + " Name: " + HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).getName() , Toast.LENGTH_LONG);
         //toast.show();
         //invalidateOptionsMenu();
-        Log.d("Pixo", str);
         db.execSQL(str);//run the sql command
         db.close();//close the database
 

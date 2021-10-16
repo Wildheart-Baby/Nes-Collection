@@ -1,8 +1,9 @@
 package uk.co.pixoveeware.nes_collection.activities;
 
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-
+import android.app.FragmentTransaction;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
@@ -19,6 +20,8 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import uk.co.pixoveeware.nes_collection.Fragments.EditGameFragment;
+import uk.co.pixoveeware.nes_collection.Fragments.GamesDetailFragment;
 import uk.co.pixoveeware.nes_collection.Fragments.HomeScreenFragment;
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
@@ -29,6 +32,7 @@ public class MainActivity extends AppCompatActivity
 
     public AllGamesViewModel viewM;
     public Toolbar toolbar;
+    GamesDetailFragment fragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,10 +144,9 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
         }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
 
 }

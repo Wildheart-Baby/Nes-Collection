@@ -6,6 +6,8 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
@@ -36,9 +38,9 @@ import uk.co.pixoveeware.nes_collection.models.GameItems;
 public class GamesDetailFragment extends Fragment {
 
     AllGamesViewModel viewM;
-    ArrayList<GameItems> gameList;
+    //ArrayList<GameItems> gameList;
     ViewPager viewPager;
-    NesPagerAdapter adapter;
+    public static NesPagerAdapter gamesAdapter;
     public static int idforgame, favourited, ownedgame, wishlist, finished, listPos;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -49,6 +51,8 @@ public class GamesDetailFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private int mParam1;
     private int mParam2;
+
+    GamesDetailFragment fragment;
 
     public GamesDetailFragment() {
         // Required empty public constructor
@@ -63,14 +67,15 @@ public class GamesDetailFragment extends Fragment {
      * @return A new instance of fragment GamesDetailFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static GamesDetailFragment newInstance(String param1, int param2) {
+    public static GamesDetailFragment newInstance(int param1, int param2) {
         GamesDetailFragment fragment = new GamesDetailFragment();
         Bundle args = new Bundle();
-        args.putString("ListPos", param1);
+        args.putInt("ListPos", param1);
         args.putInt("GameId", param2);
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +87,7 @@ public class GamesDetailFragment extends Fragment {
         }
 
         viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
-        gameList = viewM.gamesList;
+        //gameList = viewM.gamesList;
         SetTitles();
     }
 
@@ -92,8 +97,8 @@ public class GamesDetailFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_games_detail, container, false);
 
         viewPager = v.findViewById(R.id.pager);
-        adapter = new NesPagerAdapter(getContext(), gameList);
-        viewPager.setAdapter(adapter);
+        gamesAdapter = new NesPagerAdapter(getContext(), viewM.gamesList);
+        viewPager.setAdapter(gamesAdapter);
         viewPager.setCurrentItem(mParam2);
         listPos = viewPager.getCurrentItem();
 
@@ -101,7 +106,7 @@ public class GamesDetailFragment extends Fragment {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {getActivity().invalidateOptionsMenu();}
             @Override
-            public void onPageSelected(int position) {listPos = viewPager.getCurrentItem();}
+            public void onPageSelected(int position) {listPos = viewPager.getCurrentItem();  }
             @Override
             public void onPageScrollStateChanged(int state) {getActivity().invalidateOptionsMenu();}
         });
@@ -164,10 +169,15 @@ public class GamesDetailFragment extends Fragment {
     }
 
     public void editgame(){
-        Log.d("pixo", "Loading edit fragment");
+        //Fragment fragment = getParentFragmentManager().findFragmentByTag("gamesDetail");
+        //FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        //transaction.remove(fragment).commit();
         getParentFragmentManager().beginTransaction()
-                .add(R.id.container, EditGameFragment.newInstance(listPos, gameList.get(listPos)._id))
-                .addToBackStack("editGame")
+                .replace(R.id.container, EditGameFragment.newInstance(listPos, viewM.gamesList.get(listPos)._id), "editGame")
+                .addToBackStack(null)
                 .commit();
     }
+
+
 }
+

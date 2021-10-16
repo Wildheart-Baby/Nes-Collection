@@ -76,9 +76,9 @@ public class HomeScreenFragment extends Fragment {
 
         final ImageButton AllGames = v.findViewById(R.id.btnAllGames);
         ImageButton NeededGames = v.findViewById(R.id.btnneeded);
-        /*ImageButton OwnedGames = getView().findViewById(R.id.btnowned);
+        ImageButton OwnedGames = v.findViewById(R.id.btnowned);
 
-        ImageButton FavouriteGames = getView().findViewById(R.id.btnFavouriteGames);
+        /*ImageButton FavouriteGames = getView().findViewById(R.id.btnFavouriteGames);
         ImageButton WishList = getView().findViewById(R.id.btnWishList);
         ImageButton ShelfOrder = getView().findViewById(R.id.btnShelfOrder);
 
@@ -103,6 +103,17 @@ public class HomeScreenFragment extends Fragment {
                 getParentFragmentManager().beginTransaction()
                         .add(R.id.container, NeededGamesFragment.newInstance())
                         .addToBackStack("neededGames")
+                        .commit();
+                //ChangeFragment(NeededGamesFragment.newInstance(), "neededGames");
+            }
+        });
+
+        OwnedGames.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                //ChangeFragment(AllGamesFragment.newInstance());
+                getParentFragmentManager().beginTransaction()
+                        .add(R.id.container, OwnedGamesFragment.newInstance())
+                        .addToBackStack("ownedGames")
                         .commit();
                 //ChangeFragment(NeededGamesFragment.newInstance(), "neededGames");
             }

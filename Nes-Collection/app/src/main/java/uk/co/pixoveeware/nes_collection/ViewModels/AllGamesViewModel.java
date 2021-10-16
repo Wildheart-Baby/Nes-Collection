@@ -28,8 +28,8 @@ public class AllGamesViewModel extends AndroidViewModel {
     public AllGamesViewModel(Application application, String param){
         super(application);
         dbh = new DatabaseHelper(application);
-        gamesList = dbh.getGames(param);
-        indexList = dbh.gamesIndex(param);
+        //gamesList = dbh.getGames(param);
+        //indexList = dbh.gamesIndex(param);
         regionFlag = dbh.regionFlag();
         regionTitle = dbh.regionTitle();
         viewType = dbh.viewType();
@@ -97,6 +97,7 @@ public class AllGamesViewModel extends AndroidViewModel {
         GameItem game = theGame;
         dbh.updateGameRecord(game.owned, game.cart, game.box, game.manual, game.pal_a_cart, game.pal_a_box, game.pal_a_manual, game.pal_a_owned, game.pal_b_cart, game.pal_b_manual, game.pal_b_box, game.pal_b_owned, game.ntsc_cart, game.ntsc_box, game.ntsc_manual, game.ntsc_owned, game.gamePrice, game.gameCondition, game.pal_a_owned, game._id);
         gamesList.get(listPos).setOwned(game.owned);
+        gamesList.get(listPos).setCart(game.cart);
         gamesList.get(listPos).setBox(game.box);
         gamesList.get(listPos).setManual(game.manual);
         gamesList.get(listPos).setCartPalA(game.pal_a_cart);

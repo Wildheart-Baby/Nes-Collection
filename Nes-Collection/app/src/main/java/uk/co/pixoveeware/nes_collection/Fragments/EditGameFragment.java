@@ -1,9 +1,11 @@
 package uk.co.pixoveeware.nes_collection.Fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
+import uk.co.pixoveeware.nes_collection.activities.GameDetail;
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.models.GameItem;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
@@ -139,6 +142,8 @@ public class EditGameFragment extends Fragment {
         return v;
     }
 
+
+
     private void ShowOwnedDetails(){
 
         gamename.setText(gameDetails.getName());
@@ -194,13 +199,15 @@ public class EditGameFragment extends Fragment {
         if (chkusmanual.isChecked()){ gameDetails.ntsc_manual = 8783; gameDetails.manual = 1; gameDetails.owned = 1; } else { gameDetails.ntsc_manual = 32573; }
 
         if (onshelf.isChecked()){gameDetails.onShelf = 1;} else { gameDetails.onShelf = 0;}
+        gameDetails._id = mParam2;
 
-        if (palAcart == 32573 && palBcart == 32573 && uscart == 32573) { cart = 0; HomeScreenActivity.gamesList.get(gamepos).setCart(0);  }
-        if (palAbox == 32573 && palBbox == 32573 && usbox == 32573) { box = 0; HomeScreenActivity.gamesList.get(gamepos).setBox(0); }
-        if (palAmanual == 32573 && palBmanual == 32573 && usmanual == 32573) { manual = 0; HomeScreenActivity.gamesList.get(gamepos).setManual(0); }
+
+
+        //if (palAcart == 32573 && palBcart == 32573 && uscart == 32573) { cart = 0; HomeScreenActivity.gamesList.get(gamepos).setCart(0);  }
+        //if (palAbox == 32573 && palBbox == 32573 && usbox == 32573) { box = 0; HomeScreenActivity.gamesList.get(gamepos).setBox(0); }
+        //if (palAmanual == 32573 && palBmanual == 32573 && usmanual == 32573) { manual = 0; HomeScreenActivity.gamesList.get(gamepos).setManual(0); }
 
         viewM.WriteGame(mParam1, gameDetails);
-
        /* if (cart == 0 && box == 0 && manual == 0) {owned = 0; HomeScreenActivity.gamesList.get(gamepos).setOwned(0);}
         PACheck = PalACost.getText().toString().replaceAll("[,]", ".");
         Log.d("Pixo-cost", PACheck);
@@ -232,16 +239,28 @@ public class EditGameFragment extends Fragment {
         else if (UScost > PalAcost && UScost > PalBcost){price = UScost;}
 
         if (PACheck.equals("0.00") && PBCheck.equals("0.00") && USCheck.equals("0.00")){price = 0.00;}*/
-
+        closeEditFragment();
     }
 
-    public void closeEditFragment(){
-        FragmentManager manager = getParentFragmentManager();
+    //public void closeEditFragment(){
+        //FragmentManager manager = getParentFragmentManager();
         /*if (manager.getBackStackEntryCount() > 1 ) {
             manager.popBackStack();
 
         }*/
+       // manager.popBackStack();
+    //}
+
+    public void closeEditFragment(){
+
+        /*getParentFragmentManager().beginTransaction()
+                .add(R.id.container, EditGameFragment.newInstance(mParam2, gameDetails._id), "gameDetail")
+                .addToBackStack(null)
+                .commit();*/
+        FragmentManager manager = getParentFragmentManager();
         manager.popBackStack();
     }
+
+
 
 }

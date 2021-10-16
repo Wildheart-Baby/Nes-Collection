@@ -2,7 +2,7 @@ package uk.co.pixoveeware.nes_collection.models;
 
 public class GameItem {
     public String group;
-    public String name, publisher, synopsis, image, genre, region, subgenre, developer, year, usyear, sayear, currency;
+    public String name, publisher, synopsis, image, genre, region, subgenre, developer, year, usyear, currency;
     public int _id, owned, cart, manual, box,
             pal_a_cart, pal_a_box, pal_a_manual, pal_a_owned,
             pal_b_cart, pal_b_manual, pal_b_box, pal_b_owned,
@@ -11,7 +11,7 @@ public class GameItem {
     public int flagAustralia, flagAustria, flagBrazil, flagBenelux, flagCanada, flagDenmark, flagFrance, flagFinland, flagGermany, flagGreece,
             flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS,
             play_score, play_completion, play_ownership;
-    public int euro_owned, us_owned, sa_owned, gameCondition, conditionStatement, pal_a_release, pal_b_release, ntsc_release, onShelf, showPrice;
+    public int gameCondition, conditionStatement, pal_a_release, pal_b_release, ntsc_release, onShelf, showPrice;
     public double pal_a_cost, pal_b_cost, ntsc_cost, gamePrice, play_time;
 
     public int getItemId() { return _id; }
@@ -47,17 +47,7 @@ public class GameItem {
     public String getUSYear() {return usyear;}
     public void setUSYear(String usyear) {this.usyear = usyear;}
 
-    public String getSAYear() {return sayear;}
-    public void setSAYear(String sayear) {this.sayear = sayear;}
 
-    public int getEuroOwned() { return euro_owned;}
-    public void setEuroOwned(int euro_owned) { this.euro_owned = euro_owned; }
-
-    public int getUsOwned() { return us_owned;}
-    public void setUsOwned(int us_owned) { this.us_owned = us_owned; }
-
-    public int getSaOwned() { return sa_owned;}
-    public void setSaOwned(int sa_owned) { this.sa_owned = sa_owned; }
 
     public int getOwned() { return owned; }
     public void setOwned(int owned) { this.owned = owned; } //returns the item id
