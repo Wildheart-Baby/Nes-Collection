@@ -132,8 +132,8 @@ public class GamesDetailFragment extends Fragment {
     public void onPrepareOptionsMenu(Menu menu) {
         MenuItem fav = menu.findItem(R.id.action_favourite);
         MenuItem own = menu.findItem(R.id.action_edit);
-        if(favourited == 1){ fav.setIcon(R.drawable.ic_heart_white_24dp); }else if(favourited == 0){ fav.setIcon(R.drawable.ic_favorite_border_white_24dp);}
-        if(ownedgame == 0){own.setIcon(R.drawable.ic_add_game24dp);} else if(ownedgame == 1){own.setIcon(R.drawable.ic_edit_white_24dp);}
+        if(viewM.gamesList.get(listPos).favourite == 1){ fav.setIcon(R.drawable.ic_heart_white_24dp); }else if(favourited == 0){ fav.setIcon(R.drawable.ic_favorite_border_white_24dp);}
+        if(viewM.gamesList.get(listPos).owned == 0){own.setIcon(R.drawable.ic_add_game24dp);} else if(ownedgame == 1){own.setIcon(R.drawable.ic_edit_white_24dp);}
 
     }
 
@@ -145,7 +145,7 @@ public class GamesDetailFragment extends Fragment {
                 return true;
 
             case R.id.action_favourite:
-                //favouritegame();
+                favouritegame();
                 return true;
 
             case R.id.action_finishedgame:
@@ -178,6 +178,10 @@ public class GamesDetailFragment extends Fragment {
                 .commit();
     }
 
+    public void favouritegame(){
+        viewM.favouriteGame(listPos, viewM.gamesList.get(listPos)._id);
+        getActivity().invalidateOptionsMenu();
+    }
 
 }
 

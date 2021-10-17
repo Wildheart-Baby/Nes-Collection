@@ -1,8 +1,10 @@
 package uk.co.pixoveeware.nes_collection.Fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -10,6 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +27,8 @@ import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
+import uk.co.pixoveeware.nes_collection.activities.About;
+import uk.co.pixoveeware.nes_collection.activities.EditOwnedGame;
 import uk.co.pixoveeware.nes_collection.activities.GameDetail;
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.models.GameItem;
@@ -91,6 +98,10 @@ public class EditGameFragment extends Fragment {
         }
         viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
         gameDetails = viewM.GetGameDetails(mParam2);
+
+        getActivity().setTitle("Edit Game");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle("");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(null);
     }
 
     @Override
@@ -142,7 +153,39 @@ public class EditGameFragment extends Fragment {
         return v;
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.clear();
+        inflater.inflate(R.menu.menu_editgame, menu);
 
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem fav = menu.findItem(R.id.action_favourite);
+        if(viewM.gamesList.get(mParam1).favourite == 1){ fav.setIcon(R.drawable.ic_heart_red_24dp); }
+
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_about:
+                //Intent intent3 = new Intent(EditOwnedGame.this, About.class);//opens a new screen when the shopping list is clicked
+                //startActivity(intent3);//start the new screen
+                return true;
+
+            case R.id.action_favourite:
+                favouritegame();
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
 
     private void ShowOwnedDetails(){
 
@@ -150,7 +193,7 @@ public class EditGameFragment extends Fragment {
         coverid = getResources().getIdentifier(gameDetails.getImage(), "drawable", getContext().getPackageName());
         cover.setImageResource(coverid);
 
-        if(gameDetails.getPalARelease() == 0){
+        if(gameDetails.pal_a_release == 0){
             chkpalacart.setEnabled(false); chkpalabox.setEnabled(false); chkpalamanual.setEnabled(false);  PalACost.setEnabled(false); PalACost.setText("");
         } else {
             if (gameDetails.pal_a_cart == 8783) { chkpalacart.setChecked(true); } else { chkpalacart.setChecked(false); }
@@ -158,14 +201,14 @@ public class EditGameFragment extends Fragment {
             if (gameDetails.pal_a_manual == 8783) { chkpalamanual.setChecked(true); } else { chkpalamanual.setChecked(false); }
             }
 
-        if (gameDetails.getPalBRelease() == 0) { chkpalbcart.setEnabled(false); chkpalbbox.setEnabled(false); chkpalbmanual.setEnabled(false);  PalBCost.setEnabled(false); PalBCost.setText("");}
+        if (gameDetails.pal_b_release == 0) { chkpalbcart.setEnabled(false); chkpalbbox.setEnabled(false); chkpalbmanual.setEnabled(false);  PalBCost.setEnabled(false); PalBCost.setText("");}
         else {
             if (gameDetails.pal_b_cart == 8783) { chkpalbcart.setChecked(true);  } else { chkpalbcart.setChecked(false); }
             if (gameDetails.pal_b_box == 8783) { chkpalbbox.setChecked(true); } else { chkpalbbox.setChecked(false);  }
             if (gameDetails.pal_b_manual == 8783) { chkpalbmanual.setChecked(true); } else { chkpalbmanual.setChecked(false);}
             //if (gameDetails. == 0 ){ chkpalbbox.setEnabled(false); }
         }
-        if (gameDetails.getNtscRelease() == 0) { chkuscart.setEnabled(false); chkusbox.setEnabled(false); chkusmanual.setEnabled(false);  USCost.setEnabled(false); USCost.setText("");}
+        if (gameDetails.ntsc_release == 0) { chkuscart.setEnabled(false); chkusbox.setEnabled(false); chkusmanual.setEnabled(false);  USCost.setEnabled(false); USCost.setText("");}
         else {
             if (gameDetails.ntsc_cart == 8783) { chkuscart.setChecked(true); } else { chkuscart.setChecked(false); }
             if (gameDetails.ntsc_box == 8783) { chkusbox.setChecked(true); } else { chkusbox.setChecked(false); }
@@ -173,14 +216,14 @@ public class EditGameFragment extends Fragment {
             //if (usbox == 0){ chkusbox.setEnabled(false); }
         }
 
-        favourite = gameDetails.getFavourite();
-        PalAcost = gameDetails.getPalACost();
-        PalBcost = gameDetails.getPalBCost();
-        UScost = gameDetails.getNtscCost();
+        favourite = gameDetails.favourite;
+        PalAcost = gameDetails.pal_a_cost;
+        PalBcost = gameDetails.pal_b_cost;
+        UScost = gameDetails.ntsc_cost;
 
 
-        if (gameDetails.getOnShelf() == 1){onshelf.setChecked(true);} else { onshelf.setChecked(false);}
-        if (gameDetails.getShowPrice() == 0){CostHdr.setVisibility(View.INVISIBLE);
+        if (gameDetails.onShelf == 1){onshelf.setChecked(true);} else { onshelf.setChecked(false);}
+        if (gameDetails.showPrice == 0){CostHdr.setVisibility(View.INVISIBLE);
             PalACurrency.setVisibility(View.INVISIBLE); PalBCurrency.setVisibility(View.INVISIBLE); USCurrency.setVisibility(View.INVISIBLE);
             PalACost.setVisibility(View.INVISIBLE); PalBCost.setVisibility(View.INVISIBLE); USCost.setVisibility(View.INVISIBLE);}
     }
@@ -199,13 +242,11 @@ public class EditGameFragment extends Fragment {
         if (chkusmanual.isChecked()){ gameDetails.ntsc_manual = 8783; gameDetails.manual = 1; gameDetails.owned = 1; } else { gameDetails.ntsc_manual = 32573; }
 
         if (onshelf.isChecked()){gameDetails.onShelf = 1;} else { gameDetails.onShelf = 0;}
-        gameDetails._id = mParam2;
 
 
-
-        //if (palAcart == 32573 && palBcart == 32573 && uscart == 32573) { cart = 0; HomeScreenActivity.gamesList.get(gamepos).setCart(0);  }
-        //if (palAbox == 32573 && palBbox == 32573 && usbox == 32573) { box = 0; HomeScreenActivity.gamesList.get(gamepos).setBox(0); }
-        //if (palAmanual == 32573 && palBmanual == 32573 && usmanual == 32573) { manual = 0; HomeScreenActivity.gamesList.get(gamepos).setManual(0); }
+        if (gameDetails.pal_a_cart == 32573 && gameDetails.pal_b_cart == 32573 && gameDetails.ntsc_cart == 32573) { gameDetails.cart = 0;  }
+        if (gameDetails.pal_a_box == 32573 && gameDetails.pal_b_box == 32573 && usbox == 32573) { gameDetails.box = 0; }
+        if (gameDetails.pal_a_manual == 32573 && gameDetails.pal_b_manual == 32573 && gameDetails.ntsc_manual == 32573) { manual = 0; }
 
         viewM.WriteGame(mParam1, gameDetails);
        /* if (cart == 0 && box == 0 && manual == 0) {owned = 0; HomeScreenActivity.gamesList.get(gamepos).setOwned(0);}
@@ -239,28 +280,18 @@ public class EditGameFragment extends Fragment {
         else if (UScost > PalAcost && UScost > PalBcost){price = UScost;}
 
         if (PACheck.equals("0.00") && PBCheck.equals("0.00") && USCheck.equals("0.00")){price = 0.00;}*/
+        gameDetails._id = mParam2;
         closeEditFragment();
     }
 
-    //public void closeEditFragment(){
-        //FragmentManager manager = getParentFragmentManager();
-        /*if (manager.getBackStackEntryCount() > 1 ) {
-            manager.popBackStack();
-
-        }*/
-       // manager.popBackStack();
-    //}
-
     public void closeEditFragment(){
-
-        /*getParentFragmentManager().beginTransaction()
-                .add(R.id.container, EditGameFragment.newInstance(mParam2, gameDetails._id), "gameDetail")
-                .addToBackStack(null)
-                .commit();*/
         FragmentManager manager = getParentFragmentManager();
         manager.popBackStack();
     }
 
-
+    public void favouritegame(){
+        viewM.favouriteGame(mParam1, mParam2);
+        getActivity().invalidateOptionsMenu();
+    }
 
 }

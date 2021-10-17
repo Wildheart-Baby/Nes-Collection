@@ -42,6 +42,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String NTSCBOX = "ntsc_box";
     private static final String NTSCMANUAL = "ntsc_manual";
     private static final String NTSCOWNED = "ntsc_owned";
+    private static final String FAVOURITE = "favourite";
 
 
     private static final String EUROCART = "euro_cart";
@@ -1085,61 +1086,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return count;
     }
 
-    /*public void favouritegame(int gameId){
-        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-        String str ="";
-        //if(favourited == 0) {
-        if(HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).getFavourite() == 0) {
-            str = "UPDATE eu SET favourite = 1 where _id = " + idforgame + " ";
-            HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).setFavourite(1);
+    public void favouriteGame(String value, int gameId){
+        SQLiteDatabase db = this.getReadableDatabase();
 
-
-        } else  if(HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).getFavourite()  == 1) {
-            str = "UPDATE eu SET favourite = 0 where _id = " + idforgame + " ";
-            HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).setFavourite(0);
-
-        }
-        //Toast toast = Toast.makeText(getApplicationContext(), "Favourite no:" + HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).getFavourite() + " Name: " + HomeScreenActivity.nesList.get(viewPager.getCurrentItem()).getName() , Toast.LENGTH_LONG);
-        //toast.show();
-        //invalidateOptionsMenu();
-        db.execSQL(str);//run the sql command
-        db.close();//close the database
-
-        pos = viewPager.getCurrentItem();
-        readGames();
-        invalidateOptionsMenu();
-
+        ContentValues values = new ContentValues();
+        values.put(FAVOURITE, value);
+        db.update("eu", values, KEY_ID + "=" + gameId, null);
+        db.close();
     }
 
-    public void wishlist(int gameId){
-        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-        String str ="";
-        if (ownedgame == 1){
-            Toast toast = Toast.makeText(getApplicationContext(),
-                    "You already own this game",
-                    Toast.LENGTH_SHORT);
-            toast.show();}
-        else if (ownedgame == 0) {
+    public void wishlist(String value, int gameId){
+        SQLiteDatabase db = this.getReadableDatabase();
 
-            if (wishlist == 0) {
-                str = "UPDATE eu SET wishlist = 1 where _id = " + idforgame + " "; //update the database basket field with 8783
-                db.execSQL(str);//run the sql command
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        gamesname + " added to wishlist",
-                        Toast.LENGTH_SHORT);
-                toast.show();
-            } else if (wishlist == 1) {
-                str = "UPDATE eu SET wishlist = 0 where _id = " + idforgame + " "; //update the database basket field with 8783
-                db.execSQL(str);//run the sql command
-                Toast toast = Toast.makeText(getApplicationContext(),
-                        gamesname + " removed from wish list",
-                        Toast.LENGTH_SHORT);
-                toast.show();
-            }
-        }
-        db.close();//close the database
-        pos = viewPager.getCurrentItem();
-        readGames();
-    }*/
+        ContentValues values = new ContentValues();
+        values.put(WISHLIST, value);
+        db.update("eu", values, KEY_ID + "=" + gameId, null);
+        db.close();
+    }
 
 }

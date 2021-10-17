@@ -116,4 +116,15 @@ public class AllGamesViewModel extends AndroidViewModel {
         gamesList.get(listPos).setGameCondition(game.gameCondition);
     }
 
+    public void favouriteGame(int listPos, int gameId){
+        if(gamesList.get(listPos).favourite == 0 ){
+            gamesList.get(listPos).setFavourite(1);
+            dbh.favouriteGame("1", gameId);
+        } else {
+            gamesList.get(listPos).setFavourite(0);
+            dbh.favouriteGame("0", gameId);
+        }
+
+    }
+
 }
