@@ -5,28 +5,18 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.ViewPager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
-import uk.co.pixoveeware.nes_collection.activities.About;
-import uk.co.pixoveeware.nes_collection.activities.EditOwnedGame;
-import uk.co.pixoveeware.nes_collection.activities.GamesDetail;
 import uk.co.pixoveeware.nes_collection.adapters.NesPagerAdapter;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 
@@ -114,12 +104,20 @@ public class GamesDetailFragment extends Fragment {
         return v;
     }
 
-    @Override
+    /*@Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         menu.clear();
         inflater.inflate(R.menu.menu_gamedetails, menu);
         //getActivity().invalidateOptionsMenu();
-    }
+    }*/
+
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getActivity().getMenuInflater();
+        menu.clear();
+        inflater.inflate(R.menu.menu_gamedetails, menu);
+        return true;
+    }*/
 
     private void SetTitles() {
         getActivity().setTitle("Games Detail");
@@ -130,6 +128,9 @@ public class GamesDetailFragment extends Fragment {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.menu_gamedetails, menu);
         MenuItem fav = menu.findItem(R.id.action_favourite);
         MenuItem own = menu.findItem(R.id.action_edit);
         if(viewM.gamesList.get(listPos).favourite == 1){ fav.setIcon(R.drawable.ic_heart_white_24dp); }else if(favourited == 0){ fav.setIcon(R.drawable.ic_favorite_border_white_24dp);}
@@ -169,9 +170,6 @@ public class GamesDetailFragment extends Fragment {
     }
 
     public void editgame(){
-        //Fragment fragment = getParentFragmentManager().findFragmentByTag("gamesDetail");
-        //FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-        //transaction.remove(fragment).commit();
         getParentFragmentManager().beginTransaction()
                 .replace(R.id.container, EditGameFragment.newInstance(listPos, viewM.gamesList.get(listPos)._id), "editGame")
                 .addToBackStack(null)

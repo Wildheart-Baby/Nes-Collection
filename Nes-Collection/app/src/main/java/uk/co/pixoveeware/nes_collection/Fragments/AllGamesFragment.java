@@ -205,7 +205,9 @@ public class AllGamesFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.menu_allgames, menu);
     }
 

@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import uk.co.pixoveeware.nes_collection.Fragments.EditGameFragment;
@@ -84,6 +85,8 @@ public class MainActivity extends AppCompatActivity
         getMenuInflater().inflate(R.menu.menu_allgames, menu);
         return true;
     }*/
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

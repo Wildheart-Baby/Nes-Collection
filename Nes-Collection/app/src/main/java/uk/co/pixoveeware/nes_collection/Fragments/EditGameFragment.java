@@ -92,6 +92,7 @@ public class EditGameFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getInt("ListPos");
             mParam2 = getArguments().getInt("GameId");
@@ -153,17 +154,20 @@ public class EditGameFragment extends Fragment {
         return v;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    /*@Override
+    public void onCreateOptionsMenu(Menu menu) {
         menu.clear();
+        MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.menu_editgame, menu);
-
-    }
+    }*/
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.menu_editgame, menu);
         MenuItem fav = menu.findItem(R.id.action_favourite);
-        if(viewM.gamesList.get(mParam1).favourite == 1){ fav.setIcon(R.drawable.ic_heart_red_24dp); }
+        if(viewM.gamesList.get(mParam1).favourite == 1){ fav.setIcon(R.drawable.ic_heart_red_24dp); }else { fav.setIcon(R.drawable.ic_favorite_border_white_24dp);}
 
     }
 
