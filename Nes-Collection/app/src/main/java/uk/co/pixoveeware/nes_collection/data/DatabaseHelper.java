@@ -780,19 +780,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public void wishList(String action, int gameId) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        String sql;
-
-        if (action.equals("adding")){
-            sql = "UPDATE eu SET wishlist = 1 where _id = " + gameId + " ";
-            db.execSQL(sql);
-        } else if (action.equals("removing")){
-            sql = "UPDATE eu SET wishlist = 0 where _id = " + gameId + " ";
-            db.execSQL(sql);
-        }
-    }
-
     public ArrayList<GameItems> ShelfOrder(){
         int gameid, totalgames, index,palAcart, palBcart, uscart, pos, shelf, id, rec, shelfsize, posInList, shelfPos;
         String currentgroup, prevgroup, wherestatement, orderby, groupHeader, theimage, thename, title, currency, name, check, gamename;
@@ -860,9 +847,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 if (check.equals("y")){
                     rec = 0;
 
-                    if (palAcart == 8783){rec ++; posInList++; } else {}
-                    if (uscart == 8783){rec ++; posInList++; } else {}
-                    if (palBcart == 8783){rec ++; posInList++; } else {}
+                    if (palAcart == 8783){rec ++; posInList++; }
+                    if (uscart == 8783){rec ++; posInList++; }
+                    if (palBcart == 8783){rec ++; posInList++; }
 
                     check = "n";
                 }
@@ -1151,7 +1138,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void wishlist(String value, int gameId){
+    public void wishList(String value, int gameId){
         SQLiteDatabase db = this.getReadableDatabase();
 
         ContentValues values = new ContentValues();

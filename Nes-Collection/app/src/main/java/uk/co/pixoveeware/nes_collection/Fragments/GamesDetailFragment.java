@@ -139,6 +139,8 @@ public class GamesDetailFragment extends Fragment {
         MenuItem own = menu.findItem(R.id.action_edit);
         if(viewM.gamesList.get(listPos).favourite == 1){ fav.setIcon(R.drawable.ic_heart_white_24dp); }else if(favourited == 0){ fav.setIcon(R.drawable.ic_favorite_border_white_24dp);}
         if(viewM.gamesList.get(listPos).owned == 0){own.setIcon(R.drawable.ic_add_game24dp);} else if(ownedgame == 1){own.setIcon(R.drawable.ic_edit_white_24dp);}
+        if(viewM.gamesList.get(listPos).owned == 1){ menu.removeItem(R.id.action_wishlist); }
+        if(viewM.gamesList.get(listPos).finished == 1){ menu.removeItem(R.id.action_finishedgame); }
         SetTitles();
     }
 
@@ -185,7 +187,10 @@ public class GamesDetailFragment extends Fragment {
         getActivity().invalidateOptionsMenu();
     }
 
-
+    public void wishlist(){
+        viewM.wishList(listPos, viewM.gamesList.get(listPos)._id);
+        getActivity().invalidateOptionsMenu();
+    }
 
 }
 

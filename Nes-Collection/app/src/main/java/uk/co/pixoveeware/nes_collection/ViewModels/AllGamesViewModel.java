@@ -103,6 +103,7 @@ public class AllGamesViewModel extends AndroidViewModel {
         gamesList.get(listPos).setNtscOwned(game.ntsc_owned);
         gamesList.get(listPos).setGamePrice(game.gamePrice);
         gamesList.get(listPos).setGameCondition(game.gameCondition);
+        gamesList.get(listPos).setWishlist(game.wishlist);
     }
 
     public void favouriteGame(int listPos, int gameId){
@@ -112,6 +113,16 @@ public class AllGamesViewModel extends AndroidViewModel {
         } else {
             gamesList.get(listPos).setFavourite(0);
             dbh.favouriteGame("0", gameId);
+        }
+    }
+
+    public void wishList(int listPos, int gameId){
+        if(gamesList.get(listPos).wishlist == 0 ){
+            gamesList.get(listPos).setWishlist(1);
+            dbh.wishList("1", gameId);
+        } else {
+            gamesList.get(listPos).setWishlist(0);
+            dbh.wishList("0", gameId);
         }
     }
 

@@ -247,6 +247,7 @@ public class EditGameFragment extends Fragment {
 
         if (onshelf.isChecked()){gameDetails.onShelf = 1;} else { gameDetails.onShelf = 0;}
 
+        if(gameDetails.wishlist == 1){gameDetails.wishlist = 0;}
 
         if (gameDetails.pal_a_cart == 32573 && gameDetails.pal_b_cart == 32573 && gameDetails.ntsc_cart == 32573) { gameDetails.cart = 0;  }
         if (gameDetails.pal_a_box == 32573 && gameDetails.pal_b_box == 32573 && usbox == 32573) { gameDetails.box = 0; }
