@@ -261,12 +261,67 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
             case "search":
                 //searchQuery = SearchResults.searchString + " order by " + orderby;
-
                 break;
             case "statsearch":
                 //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
-
                 break;
+            case "australia":
+                searchQuery = "SELECT * FROM eu where flag_australia = 1" + licensed + "";
+                break;
+            case "austria":
+                searchQuery = "SELECT * FROM eu where flag_austria = 1" + licensed + "";
+                break;
+            case "benelux":
+                searchQuery = "SELECT * FROM eu where flag_benelux = 1" + licensed + "";
+                break;
+            case "denmark":
+                searchQuery = "SELECT * FROM eu where flag_denmark = 1" + licensed + "";
+                break;
+            case "finland":
+                searchQuery = "SELECT * FROM eu where flag_finland = 1" + licensed + "";
+                break;
+            case "france":
+                searchQuery = "SELECT * FROM eu where flag_france = 1" + licensed + "";
+                break;
+            case "germany":
+                searchQuery = "SELECT * FROM eu where flag_germany = 1" + licensed + "";
+                break;
+            case "greece":
+                searchQuery = "SELECT * FROM eu where flag_greece = 1" + licensed + "";
+                break;
+            case "ireland":
+                searchQuery = "SELECT * FROM eu where flag_ireland = 1" + licensed + "";
+                break;
+            case "italy":
+                searchQuery = "SELECT * FROM eu where flag_italy = 1" + licensed + "";
+                break;
+            case "norway":
+                searchQuery = "SELECT * FROM eu where flag_norway = 1" + licensed + "";
+                break;
+            case "poland":
+                searchQuery = "SELECT * FROM eu where flag_poland = 1" + licensed + "";
+                break;
+            case "portugal":
+                searchQuery = "SELECT * FROM eu where flag_portugal = 1" + licensed + "";
+                break;
+            /*scandinavia":
+                    searchQuery = "SELECT * FROM eu where flag_scandinavian = 1" + licensed + "";
+                    break;*/
+            case "spain":
+                    searchQuery = "SELECT * FROM eu where flag_spain = 1" + licensed + "";
+                    break;
+            case "sweden":
+                    searchQuery = "SELECT * FROM eu where flag_sweden = 1" + licensed + "";
+                    break;
+            case "switzerland":
+                    searchQuery = "SELECT * FROM eu where flag_switzerland = 1" + licensed + "";
+                    break;
+            case "us":
+                    searchQuery = "SELECT * FROM eu where flag_us = 1" + licensed + "";
+                   break;
+            case "uk":
+                    searchQuery = "SELECT * FROM eu where flag_uk = 1" + licensed + "";
+                    break;
         }
 
         c = db.rawQuery(searchQuery, null);
@@ -1102,6 +1157,75 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(WISHLIST, value);
         db.update("eu", values, KEY_ID + "=" + gameId, null);
         db.close();
+    }
+
+    public int fragmentSubtitleCount(String option){
+        int gCount = 0;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+
+                wherestatement = (c.getString(c.getColumnIndex("region")));
+                orderby = (c.getString(c.getColumnIndex("orderedby")));
+                c.moveToNext();//move to the next record
+            }
+            c.close();//close the cursor
+        }
+
+        switch (option){
+            case "all":
+                searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + orderby +"";
+                break;
+            case "needed":
+                searchQuery = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ") order by " + orderby +"";
+                break;
+            case "owned":
+                if (ordering == 0) {
+                    //"SELECT * FROM eu where " + wherestatement + licensed +  "";
+                    //sql = "select * from eu where owned = 1 " + " order by " + orderby +"";
+                    searchQuery = "select * from eu where owned = 1 " + " order by " + orderby +"";}
+                else if(ordering == 1){
+                    //sql = "select * from eu where owned = 1 order by price desc";
+                    searchQuery = "select * from eu where owned = 1 order by price desc";}
+                break;
+
+        }
+        c = db.rawQuery(searchQuery, null);//select everything from the database table
+        if (c.moveToFirst()) {//move to the first record
+            gCount= c.getCount();
+            c.close();//close the cursor
+        }
+
+        //String t = "select * from eu where " + wherestatement + licensed + "";
+
+
+        return gCount;
+    }
+
+    public String fragmentSubtitle(String option){
+        String subtitle;
+
+        switch(option){
+            case "all":
+                subtitle = fragmentSubtitleCount(option) + " games for this region";
+                break;
+            case "needed":
+                subtitle = fragmentSubtitleCount(option) + " missing games";
+                break;
+            case "owned":
+                subtitle = fragmentSubtitleCount(option) + " owned games";
+                break;
+            default:
+                subtitle = "";
+                break;
+        }
+
+
+        return  subtitle;
     }
 
 }

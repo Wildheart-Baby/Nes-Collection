@@ -66,6 +66,7 @@ public class AllGamesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -200,8 +201,13 @@ public class AllGamesFragment extends Fragment {
 
     private void SetTitles(){
         getActivity().setTitle(" " + viewM.RegionTitle("all"));
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.GamesCount("all"));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.FragmentSubTitleText("all"));
         ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(viewM.regionFlag, "drawable", getContext().getPackageName()));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_allgames, menu);
     }
 
     @Override
@@ -209,6 +215,7 @@ public class AllGamesFragment extends Fragment {
         menu.clear();
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.menu_allgames, menu);
+        SetTitles();
     }
 
 }

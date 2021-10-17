@@ -2,10 +2,13 @@ package uk.co.pixoveeware.nes_collection.Fragments;
 
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -59,6 +62,7 @@ public class OwnedGamesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -67,6 +71,8 @@ public class OwnedGamesFragment extends Fragment {
         viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
         gameList = viewM.GetGames("owned");
         indexList = viewM.GetIndex("owned");
+
+        SetTitles();
     }
 
     @Override
@@ -117,5 +123,24 @@ public class OwnedGamesFragment extends Fragment {
 
         // Inflate the layout for this fragment
         return v;
+    }
+
+    private void SetTitles(){
+        getActivity().setTitle(" " + viewM.RegionTitle("owned"));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.FragmentSubTitleText("owned"));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(viewM.regionFlag, "drawable", getContext().getPackageName()));
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_ownedgames, menu);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.menu_ownedgames, menu);
+        SetTitles();
     }
 }

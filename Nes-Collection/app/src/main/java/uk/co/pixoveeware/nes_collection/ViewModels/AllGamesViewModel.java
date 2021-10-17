@@ -78,18 +78,7 @@ public class AllGamesViewModel extends AndroidViewModel {
 
     public String FragmentSubTitleText(String page){
         String title;
-
-        switch(page){
-            case "all":
-                title = " has " + dbh.gamesCount("all") + "games";
-                break;
-            case "needed":
-                title = "You need " + dbh.gamesCount("needed") + " games";
-                break;
-            default:
-                title = "";
-        }
-
+        title = dbh.fragmentSubtitle(page);
         return title;
     }
 

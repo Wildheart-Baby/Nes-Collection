@@ -4,6 +4,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -66,6 +67,7 @@ public class HomeScreenFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }*/
+        SetTitles();
     }
 
     @Override
@@ -134,6 +136,21 @@ public class HomeScreenFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_allgames, menu);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.menu_allgames, menu);
+        SetTitles();
+    }
+
+
+    private void SetTitles(){
+        getActivity().setTitle("Nes Collection");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle("");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(null);
     }
 
 }
