@@ -93,7 +93,7 @@ public class HomeScreenFragment extends Fragment {
                 //ChangeFragment(AllGamesFragment.newInstance());
                 getParentFragmentManager().beginTransaction()
                         .add(R.id.container, AllGamesFragment.newInstance(), "gamesList")
-                        .addToBackStack(null)
+                        .addToBackStack("gamesList")
                         .commit();
                 //ChangeFragment(NeededGamesFragment.newInstance(), "allGames");
             }

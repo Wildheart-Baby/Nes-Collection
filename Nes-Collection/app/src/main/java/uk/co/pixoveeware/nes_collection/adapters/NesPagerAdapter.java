@@ -192,8 +192,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                             .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "australia"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "australia"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -206,8 +206,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "austria"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "austria"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -219,8 +219,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "benelux"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "benelux"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
 
             }
@@ -234,8 +234,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "denmark"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "denmark"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -248,8 +248,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "finland"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "finland"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
 
             }
@@ -263,8 +263,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "france"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "france"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
 
             }
@@ -278,8 +278,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "germany"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "germany"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
 
             }
@@ -293,8 +293,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "greece"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "greece"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
 
             }
@@ -308,8 +308,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "ireland"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "ireland"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -322,8 +322,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "italy"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "italy"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -336,8 +336,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "norway"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "norway"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -350,8 +350,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "poland"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "poland"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -364,8 +364,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "portugal"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "portugal"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -392,8 +392,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "spain"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "spain"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -406,8 +406,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "sweden"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "sweden"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -420,8 +420,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "switzerland"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "switzerland"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -434,8 +434,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "us"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "us"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });
@@ -448,8 +448,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                         .commit();
                 frg.popBackStack();
                 frg.beginTransaction()
-                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "uk"), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SpecificCountryFragment.newInstance("", "uk"), "gamesList")
+                        .addToBackStack("gamesList")
                         .commit();
             }
         });

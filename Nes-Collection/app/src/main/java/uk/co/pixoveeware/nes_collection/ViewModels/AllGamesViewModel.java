@@ -117,7 +117,11 @@ public class AllGamesViewModel extends AndroidViewModel {
 
     public String SpecificTitle(String title){
         try { // We can face index out of bound exception if the string is null
-            title = title.substring(0, 1).toUpperCase() + title.substring(1);
+            if(title.equals("uk") || title.equals("us")){
+                title = title.toUpperCase();
+            } else {
+                title = title.substring(0, 1).toUpperCase() + title.substring(1);
+            }
         }catch (Exception e){}
 
         return title;
