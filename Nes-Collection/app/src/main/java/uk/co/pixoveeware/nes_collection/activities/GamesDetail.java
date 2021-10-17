@@ -154,11 +154,11 @@ public class GamesDetail extends AppCompatActivity {
     }
 
     public void readGame(){//the readlist function
-        if (gamesList == null){  gamesList = viewM.gamesList;}
+        /*if (gamesList == null){  gamesList = viewM.gamesList;}
         viewPager = findViewById(R.id.pager);
         adapter = new NesPagerAdapter(this, gamesList);
         viewPager.setAdapter(adapter);
-        viewPager.setCurrentItem(pos);
+        viewPager.setCurrentItem(pos);*/
     }
 
     public void editgame(){

@@ -87,7 +87,7 @@ public class GamesDetailFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_games_detail, container, false);
 
         viewPager = v.findViewById(R.id.pager);
-        gamesAdapter = new NesPagerAdapter(getContext(), viewM.gamesList);
+        gamesAdapter = new NesPagerAdapter(this.getParentFragmentManager(), getContext(), viewM.gamesList);
         viewPager.setAdapter(gamesAdapter);
         viewPager.setCurrentItem(mParam2);
         listPos = viewPager.getCurrentItem();

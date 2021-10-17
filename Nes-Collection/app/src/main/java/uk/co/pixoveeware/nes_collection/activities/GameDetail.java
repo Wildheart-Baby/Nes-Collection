@@ -201,7 +201,7 @@ public class GameDetail extends AppCompatActivity {
         }
         db.close();//close the database
         viewPager = (ViewPager) findViewById(R.id.pager);
-        adapter = new NesPagerAdapter(this, nesList);
+        adapter = new NesPagerAdapter(this.getSupportFragmentManager() ,this ,nesList);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(pos);
 

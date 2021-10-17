@@ -12,11 +12,17 @@ import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import uk.co.pixoveeware.nes_collection.Fragments.GamesDetailFragment;
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.activities.GamesDetail;
@@ -26,7 +32,7 @@ import uk.co.pixoveeware.nes_collection.activities.StatsSearchResults;
 /**
  * Created by Wildheart on 31/07/2016.
  */
-public class NesPagerAdapter extends PagerAdapter {
+public class NesPagerAdapter extends FragmentStatePagerAdapter {
 
     public static String licensed;
 
@@ -40,7 +46,14 @@ public class NesPagerAdapter extends PagerAdapter {
 
     GameItems nesListItems;
 
-    public NesPagerAdapter(Context context, ArrayList<GameItems> list) {
+    /*public NesPagerAdapter(Context context, ArrayList<GameItems> list) {
+        //super();
+        this.context = context;//sets up the context for the class
+        gamesList = list; //sets up a variable as a list
+    }*/
+
+    public NesPagerAdapter(FragmentManager fm, Context context, ArrayList<GameItems> list) {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.context = context;//sets up the context for the class
         gamesList = list; //sets up a variable as a list
     }
@@ -55,8 +68,14 @@ public class NesPagerAdapter extends PagerAdapter {
         return view == ((ScrollView) object);
     }
 
+    @NonNull
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Fragment getItem(int position) {
+        return null;
+    }
+
+    @Override
+    public Object instantiateItem(final ViewGroup container, int position) {
 
         nesListItems = gamesList.get(position);
         LayoutInflater inflater = (LayoutInflater) context
@@ -160,15 +179,7 @@ public class NesPagerAdapter extends PagerAdapter {
 
         australia.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_australia = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Australian games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "australia");
-                v.getContext().startActivity(intent);//start the new screen
-
+                
             }
         });
 
@@ -423,6 +434,8 @@ public class NesPagerAdapter extends PagerAdapter {
             }
         });
 
+
+
         if(owned == 1){
             if(carttrue == 1){
                 cart.setVisibility(View.VISIBLE);
@@ -439,6 +452,14 @@ public class NesPagerAdapter extends PagerAdapter {
 
         return convertView;
     }
+
+    /*private void changeFragment(){
+        //Fragment frg = context.g
+        getParentFragmentManager().beginTransaction()
+                .add(R.id.container, GamesDetailFragment.newInstance(0, arg2), "gamesDetail")
+                .addToBackStack(null)
+                .commit();
+    }*/
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
