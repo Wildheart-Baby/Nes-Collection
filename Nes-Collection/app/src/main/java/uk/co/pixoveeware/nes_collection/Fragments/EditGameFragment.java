@@ -284,7 +284,7 @@ public class EditGameFragment extends Fragment {
         else if (UScost > PalAcost && UScost > PalBcost){price = UScost;}
 
         if (PACheck.equals("0.00") && PBCheck.equals("0.00") && USCheck.equals("0.00")){price = 0.00;}*/
-        gameDetails._id = mParam2;
+        //gameDetails._id = mParam2;
         closeEditFragment();
     }
 

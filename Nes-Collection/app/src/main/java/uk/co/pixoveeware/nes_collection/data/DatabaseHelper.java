@@ -1041,6 +1041,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while (!c.isAfterLast()) {//while there are records to read
                 GameItem gameListItems = new GameItem();//creates a new array
+                gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));
                 gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
                 gameListItems.setName(c.getString(c.getColumnIndex(thename)));
                 gameListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
@@ -1206,18 +1207,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return gCount;
     }
 
-    public String fragmentSubtitle(String option){
+    public String fragmentSubtitle(String option, String region){
         String subtitle;
 
         switch(option){
             case "all":
-                subtitle = fragmentSubtitleCount(option) + " games for this region";
+                subtitle = fragmentSubtitleCount(region) + " games for this region";
                 break;
             case "needed":
-                subtitle = fragmentSubtitleCount(option) + " missing games";
+                subtitle = fragmentSubtitleCount(region) + " missing games";
                 break;
             case "owned":
-                subtitle = fragmentSubtitleCount(option) + " owned games";
+                subtitle = fragmentSubtitleCount(region) + " owned games";
                 break;
             default:
                 subtitle = "";

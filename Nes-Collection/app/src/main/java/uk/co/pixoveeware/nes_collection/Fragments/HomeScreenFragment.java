@@ -92,8 +92,8 @@ public class HomeScreenFragment extends Fragment {
             public void onClick(View v) {
                 //ChangeFragment(AllGamesFragment.newInstance());
                 getParentFragmentManager().beginTransaction()
-                        .add(R.id.container, AllGamesFragment.newInstance())
-                        .addToBackStack("allGames")
+                        .add(R.id.container, AllGamesFragment.newInstance(), "gamesList")
+                        .addToBackStack(null)
                         .commit();
                 //ChangeFragment(NeededGamesFragment.newInstance(), "allGames");
             }
@@ -103,8 +103,8 @@ public class HomeScreenFragment extends Fragment {
             public void onClick(View v) {
                 //ChangeFragment(AllGamesFragment.newInstance());
                 getParentFragmentManager().beginTransaction()
-                        .add(R.id.container, NeededGamesFragment.newInstance())
-                        .addToBackStack("neededGames")
+                        .add(R.id.container, NeededGamesFragment.newInstance(), "gamesList")
+                        .addToBackStack(null)
                         .commit();
                 //ChangeFragment(NeededGamesFragment.newInstance(), "neededGames");
             }
@@ -114,8 +114,8 @@ public class HomeScreenFragment extends Fragment {
             public void onClick(View v) {
                 //ChangeFragment(AllGamesFragment.newInstance());
                 getParentFragmentManager().beginTransaction()
-                        .add(R.id.container, OwnedGamesFragment.newInstance())
-                        .addToBackStack("ownedGames")
+                        .add(R.id.container, OwnedGamesFragment.newInstance(), "gamesList")
+                        .addToBackStack(null)
                         .commit();
                 //ChangeFragment(NeededGamesFragment.newInstance(), "neededGames");
             }

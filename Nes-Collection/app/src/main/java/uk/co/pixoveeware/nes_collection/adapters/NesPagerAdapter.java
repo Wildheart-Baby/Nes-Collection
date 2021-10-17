@@ -17,12 +17,16 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
+import uk.co.pixoveeware.nes_collection.Fragments.EditGameFragment;
 import uk.co.pixoveeware.nes_collection.Fragments.GamesDetailFragment;
+import uk.co.pixoveeware.nes_collection.Fragments.SpecificCountryFragment;
+import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.activities.GamesDetail;
@@ -42,7 +46,9 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
     int owned, carttrue, boxtrue, manualtrue, gameid, editgameid, pos, idforgame, favourite, coverid;
     int flagAustralia, flagAustria, flagBenelux, flagDenmark, flagFinland, flagFrance, flagGermany, flagGreece, flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS ;
 
+    AllGamesViewModel viewM;
     Menu menu;
+    FragmentManager frg;
 
     GameItems nesListItems;
 
@@ -56,6 +62,7 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.context = context;//sets up the context for the class
         gamesList = list; //sets up a variable as a list
+        frg = fm;
     }
 
     @Override
@@ -179,258 +186,271 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
 
         australia.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                            .remove(f)
+                            .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "australia"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         austria.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_austria = 1" + licensed + "";
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Austrian games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "austria");
-                v.getContext().startActivity(intent);//start the new screen
-
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "austria"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
         benelux.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_benelux = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Benelux games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "benelux");
-                v.getContext().startActivity(intent);//start the new screen
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "benelux"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });
 
         denmark.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_denmark = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Danish games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "denmark");
-                v.getContext().startActivity(intent);//start the new screen
-
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "denmark"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         finland.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_finland = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Finnish games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "finland");
-                v.getContext().startActivity(intent);//start the new screen
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "finland"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });
 
         france.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_france = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "French games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "france");
-                v.getContext().startActivity(intent);//start the new screen
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "france"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });
 
         germany.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_germany = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "German games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "germany");
-                v.getContext().startActivity(intent);//start the new screen
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "germany"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });
 
         greece.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_greece = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Greek games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "greece");
-                v.getContext().startActivity(intent);//start the new screen
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "greece"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
 
             }
         });
 
         ireland.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_ireland = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Irish games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "ireland");
-                v.getContext().startActivity(intent);//start the new screen
-
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "ireland"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         italy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_italy = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Italian games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "italy");
-                v.getContext().startActivity(intent);//start the new screen
-
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "italy"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         norway.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_norway = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Norwegian games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "norway");
-                v.getContext().startActivity(intent);//start the new screen
-
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "norway"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         poland.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_poland = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Polish games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "poland");
-                v.getContext().startActivity(intent);//start the new screen
-
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "poland"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         portugal.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_portugal = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Portuguese games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "portugal");
-                v.getContext().startActivity(intent);//start the new screen
-
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "portugal"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         /*scandinavia.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_scandinavian = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Scandinavian games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "scandinavia");
-                v.getContext().startActivity(intent);//start the new screen
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "scandinavia"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });*/
 
         spain.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_spain = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Spanish games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "spain");
-                v.getContext().startActivity(intent);//start the new screen
-
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "spain"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         sweden.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_sweden = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Swedish games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "sweden");
-                v.getContext().startActivity(intent);//start the new screen
-
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "sweden"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         switzerland.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_switzerland = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Swiss games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "switzerland");
-                v.getContext().startActivity(intent);//start the new screen
-
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "switzerland"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         us.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_us = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "US games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "us");
-                GamesDetail.listcount ++;
-                GamesDetail.gamedetailcount ++;
-                v.getContext().startActivity(intent);//start the new screen
-                if (GamesDetail.gamedetailcount > 0){((Activity) context).finish();}
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "us"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 
         uk.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                sql = "SELECT * FROM eu where flag_uk = 1" + licensed + "";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(v.getContext(), StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "UK games");
-                intent.putExtra("showsub", 1);
-                intent.putExtra("flag", "uk");
-                v.getContext().startActivity(intent);//start the new screen
-
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .replace(R.id.container, SpecificCountryFragment.newInstance("", "uk"), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
             }
         });
 

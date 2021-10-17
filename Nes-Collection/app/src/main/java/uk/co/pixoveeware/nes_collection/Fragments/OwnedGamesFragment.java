@@ -127,7 +127,7 @@ public class OwnedGamesFragment extends Fragment {
 
     private void SetTitles(){
         getActivity().setTitle(" " + viewM.RegionTitle("owned"));
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.FragmentSubTitleText("owned"));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.FragmentSubTitleText("owned", "owned"));
         ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(viewM.regionFlag, "drawable", getContext().getPackageName()));
     }
 

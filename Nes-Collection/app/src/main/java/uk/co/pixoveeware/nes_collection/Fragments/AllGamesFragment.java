@@ -201,7 +201,7 @@ public class AllGamesFragment extends Fragment {
 
     private void SetTitles(){
         getActivity().setTitle(" " + viewM.RegionTitle("all"));
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.FragmentSubTitleText("all"));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.FragmentSubTitleText("all", "all"));
         ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(viewM.regionFlag, "drawable", getContext().getPackageName()));
     }
 

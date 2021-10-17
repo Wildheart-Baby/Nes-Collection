@@ -76,9 +76,9 @@ public class AllGamesViewModel extends AndroidViewModel {
         return dbh.getGame(games);
     }
 
-    public String FragmentSubTitleText(String page){
+    public String FragmentSubTitleText(String page, String region){
         String title;
-        title = dbh.fragmentSubtitle(page);
+        title = dbh.fragmentSubtitle(page, region);
         return title;
     }
 
@@ -113,7 +113,15 @@ public class AllGamesViewModel extends AndroidViewModel {
             gamesList.get(listPos).setFavourite(0);
             dbh.favouriteGame("0", gameId);
         }
-
     }
+
+    public String SpecificTitle(String title){
+        try { // We can face index out of bound exception if the string is null
+            title = title.substring(0, 1).toUpperCase() + title.substring(1);
+        }catch (Exception e){}
+
+        return title;
+    }
+    //public void Get
 
 }

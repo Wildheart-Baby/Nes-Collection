@@ -130,7 +130,7 @@ public class NeededGamesFragment extends Fragment {
     private void SetTitles(){
         getActivity().setTitle(" " + viewM.RegionTitle("needed"));
         //((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.GamesCount("needed"));
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.FragmentSubTitleText("needed"));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.FragmentSubTitleText("needed", "needed"));
         ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(viewM.regionFlag, "drawable", getContext().getPackageName()));
     }
 
