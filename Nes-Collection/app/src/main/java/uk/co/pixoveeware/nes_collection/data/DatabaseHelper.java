@@ -43,7 +43,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String NTSCMANUAL = "ntsc_manual";
     private static final String NTSCOWNED = "ntsc_owned";
     private static final String FAVOURITE = "favourite";
-
+    private static final String ONSHELF = "onshelf";
 
     private static final String EUROCART = "euro_cart";
     private static final String USCART = "ntsc_cart";
@@ -62,7 +62,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String USOWNED = "ntsc_owned";
     private static final String SAOWNED = "sa_owned";
     private static final String WISHLIST = "wishlist";
-    private static final String CONDITION = "condition";
+    private static final String GAMECONDITION = "condition";
     private static final String PLAYOWNED = "play_owned";
     private static final String PLAYTIME = "play_hours";
     private static final String PLAYSCORE = "play_score";
@@ -1043,6 +1043,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
                 gameListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
                 gameListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
+                gameListItems.setOnShelf(c.getInt(c.getColumnIndex("onshelf")));
                 //gameListItems.setEuroOwned(c.getInt(c.getColumnIndex("euro_release")));
                 //gameListItems.setUsOwned(c.getInt(c.getColumnIndex("sa_release")));
                 //gameListItems.setSaOwned(c.getInt(c.getColumnIndex("ntsc_release")));
@@ -1050,7 +1051,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 //gameListItems.setPalACost(c.getDouble(c.getColumnIndex("euro_cost")));
                 //gameListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
                 gameListItems.setWishlist(c.getInt(c.getColumnIndex("wishlist")));
-                //gameListItems.setGameCondition(c.getInt(c.getColumnIndex("condition")));
+                gameListItems.setGameCondition(c.getInt(c.getColumnIndex("condition")));
                 //gameListItems.setGameOwnership(c.getInt(c.getColumnIndex("play_owned")));
                 //gameListItems.setGameCompletion(c.getInt(c.getColumnIndex("play_completed")));
                 //gameListItems.setGameScore(c.getInt(c.getColumnIndex("play_score")));
@@ -1082,7 +1083,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateGameRecord(int owned, int cart, int box, int manual, int pal_a_cart, int pal_a_box, int pal_a_manual, int pal_a_owned, int pal_b_cart, int pal_b_manual, int pal_b_box, int pal_b_owned, int ntsc_cart, int ntsc_box, int ntsc_manual, int ntsc_owned, double price, int gameCondition, int gameOwned, int gameid){
+    public void updateGameRecord(int owned, int cart, int box, int manual, int pal_a_cart, int pal_a_box, int pal_a_manual, int pal_a_owned, int pal_b_cart, int pal_b_manual, int pal_b_box, int pal_b_owned, int ntsc_cart, int ntsc_box, int ntsc_manual, int ntsc_owned, double price, int onshelf, int gameCondition, int gameOwned, int gameid){
         SQLiteDatabase db = this.getReadableDatabase();
 
         ContentValues values = new ContentValues();
@@ -1103,8 +1104,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(NTSCMANUAL, ntsc_manual);
         values.put(NTSCOWNED, ntsc_owned);
         values.put(PRICE, price);
+        values.put(ONSHELF, onshelf);
         values.put(WISHLIST, 0);
-        values.put(CONDITION, gameCondition);
+        values.put(GAMECONDITION, gameCondition);
         values.put(PLAYOWNED, gameOwned);
         db.update("eu", values, KEY_ID + "=" + gameid, null);
         db.close();

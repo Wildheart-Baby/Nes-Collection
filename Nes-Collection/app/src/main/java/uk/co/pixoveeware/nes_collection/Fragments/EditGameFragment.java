@@ -1,22 +1,19 @@
 package uk.co.pixoveeware.nes_collection.Fragments;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -29,14 +26,10 @@ import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
-import uk.co.pixoveeware.nes_collection.activities.About;
-import uk.co.pixoveeware.nes_collection.activities.EditOwnedGame;
-import uk.co.pixoveeware.nes_collection.activities.GameDetail;
-import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.adapters.spinners.PlayedSpinnerAdapter;
 import uk.co.pixoveeware.nes_collection.models.GameItem;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
-import uk.co.pixoveeware.nes_collection.models.spinners.DataPlayed;
+import uk.co.pixoveeware.nes_collection.models.spinners.Data;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -45,8 +38,8 @@ import uk.co.pixoveeware.nes_collection.models.spinners.DataPlayed;
  */
 public class EditGameFragment extends Fragment {
 
-    private Spinner spinner_played;
-    private SpinnerAdapter adapter;
+    public Spinner spinner_played;
+    public SpinnerAdapter spinnerAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -140,9 +133,9 @@ public class EditGameFragment extends Fragment {
         PalBCurrency = v.findViewById(R.id.lblCurrencyPalB);
         USCurrency = v.findViewById(R.id.lblCurrencyUS);
 
-        spinner_played = v.findViewById(R.id.spinner_play);
-        adapter = new PlayedSpinnerAdapter(getActivity(), DataPlayed.getPlayedList());
-        spinner_played.setAdapter(adapter);
+        spinner_played = v.findViewById(R.id.spinner_condition);
+        spinnerAdapter = new PlayedSpinnerAdapter(getActivity(), Data.getConditionList());
+        spinner_played.setAdapter(spinnerAdapter);
 
         ShowOwnedDetails();
         // Inflate the layout for this fragment
@@ -163,6 +156,16 @@ public class EditGameFragment extends Fragment {
             }
         });
 
+        spinner_played.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                gameDetails.gameCondition = (int) spinner_played.getSelectedItem();
+            }
+
+            public void onNothingSelected(
+                    AdapterView<?> adapterView) {
+            }
+        });
+
         return v;
     }
 
@@ -172,6 +175,8 @@ public class EditGameFragment extends Fragment {
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.menu_editgame, menu);
     }*/
+
+
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
@@ -205,9 +210,11 @@ public class EditGameFragment extends Fragment {
 
     private void ShowOwnedDetails(){
 
-        gamename.setText(gameDetails.getName());
-        coverid = getResources().getIdentifier(gameDetails.getImage(), "drawable", getContext().getPackageName());
+        gamename.setText(gameDetails.name);
+        coverid = getResources().getIdentifier(gameDetails.image, "drawable", getContext().getPackageName());
         cover.setImageResource(coverid);
+
+        spinner_played.setSelection(gameDetails.gameCondition);
 
         if(gameDetails.pal_a_release == 0){
             chkpalacart.setEnabled(false); chkpalabox.setEnabled(false); chkpalamanual.setEnabled(false);  PalACost.setEnabled(false); PalACost.setText("");

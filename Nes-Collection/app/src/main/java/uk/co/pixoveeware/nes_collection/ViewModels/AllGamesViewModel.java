@@ -84,7 +84,7 @@ public class AllGamesViewModel extends AndroidViewModel {
 
     public void WriteGame(int listPos, GameItem theGame){
         GameItem game = theGame;
-        dbh.updateGameRecord(game.owned, game.cart, game.box, game.manual, game.pal_a_cart, game.pal_a_box, game.pal_a_manual, game.pal_a_owned, game.pal_b_cart, game.pal_b_manual, game.pal_b_box, game.pal_b_owned, game.ntsc_cart, game.ntsc_box, game.ntsc_manual, game.ntsc_owned, game.gamePrice, game.gameCondition, game.pal_a_owned, game._id);
+        dbh.updateGameRecord(game.owned, game.cart, game.box, game.manual, game.pal_a_cart, game.pal_a_box, game.pal_a_manual, game.pal_a_owned, game.pal_b_cart, game.pal_b_manual, game.pal_b_box, game.pal_b_owned, game.ntsc_cart, game.ntsc_box, game.ntsc_manual, game.ntsc_owned, game.gamePrice, game.onShelf, game.gameCondition, game.pal_a_owned, game._id);
         gamesList.get(listPos).setOwned(game.owned);
         gamesList.get(listPos).setCart(game.cart);
         gamesList.get(listPos).setBox(game.box);
@@ -104,6 +104,7 @@ public class AllGamesViewModel extends AndroidViewModel {
         gamesList.get(listPos).setGamePrice(game.gamePrice);
         gamesList.get(listPos).setGameCondition(game.gameCondition);
         gamesList.get(listPos).setWishlist(game.wishlist);
+        gamesList.get(listPos).setGameCondition(game.gameCondition);
     }
 
     public void favouriteGame(int listPos, int gameId){

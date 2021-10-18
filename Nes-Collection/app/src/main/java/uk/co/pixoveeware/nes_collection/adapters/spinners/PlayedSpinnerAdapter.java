@@ -11,13 +11,13 @@ import android.widget.TextView;
 import java.util.List;
 
 import uk.co.pixoveeware.nes_collection.R;
-import uk.co.pixoveeware.nes_collection.models.spinners.PlaySpinner;
+import uk.co.pixoveeware.nes_collection.models.spinners.Spinner;
 
 public class PlayedSpinnerAdapter extends BaseAdapter {
     private Context context;
-    private List<PlaySpinner> spinnerList;
+    private List<Spinner> spinnerList;
 
-    public PlayedSpinnerAdapter(Context context, List<PlaySpinner> spinnerList){
+    public PlayedSpinnerAdapter(Context context, List<Spinner> spinnerList){
         this.context = context;
         this.spinnerList = spinnerList;
     }
@@ -40,7 +40,7 @@ public class PlayedSpinnerAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         View rootView = LayoutInflater.from(context)
-                .inflate(R.layout.spinner_played, viewGroup, false);
+                .inflate(R.layout.spinner_custom, viewGroup, false);
 
         TextView txtName = rootView.findViewById(R.id.playedName);
         ImageView image = rootView.findViewById(R.id.playedImage);

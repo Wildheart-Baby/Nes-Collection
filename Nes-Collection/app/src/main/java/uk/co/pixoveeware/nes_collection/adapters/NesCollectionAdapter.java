@@ -95,6 +95,26 @@ public class NesCollectionAdapter extends BaseAdapter {
         //holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
         holder.publisher.setText(nesListItems.getPublisher());
 
+        int partCount = nesListItems.cart + nesListItems.box + nesListItems.manual;
+
+        switch (partCount){
+            case 1:
+                ownedid=context.getResources().getIdentifier("icon_owned_crown_bronze", "drawable", context.getPackageName());
+                holder.owned.setImageResource(ownedid);
+                break;
+            case 2:
+                ownedid=context.getResources().getIdentifier("icon_owned_crown_silver", "drawable", context.getPackageName());
+                holder.owned.setImageResource(ownedid);
+                break;
+            case 3:
+                ownedid=context.getResources().getIdentifier("icon_owned_crown_gold", "drawable", context.getPackageName());
+                holder.owned.setImageResource(ownedid);
+                break;
+            default:
+                break;
+        }
+
+
 
         /*if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
             ownedid=context.getResources().getIdentifier("icon_owned_gold", "drawable", context.getPackageName());

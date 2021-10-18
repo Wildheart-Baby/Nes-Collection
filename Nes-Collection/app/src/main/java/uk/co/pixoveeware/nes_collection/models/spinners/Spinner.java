@@ -1,11 +1,11 @@
 package uk.co.pixoveeware.nes_collection.models.spinners;
 
-public class PlaySpinner {
+public class Spinner {
 
     private String name;
     private int image;
 
-    public PlaySpinner(){
+    public Spinner(){
 
     }
 

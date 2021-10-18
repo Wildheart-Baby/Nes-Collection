@@ -1,12 +1,10 @@
 <resources>
     <string name="app_name">Nes Collection</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">Paramètres</string>
     <string name="action_credits">Credits</string>
     <string name="action_wishlist">Wish list</string>
     <string name="name">name</string>
 
-
-    <string name="banner_ad_unit_id">ca-app-pub-0537596348696744/4062549395</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -38,7 +36,7 @@
 
     <string name="Settings">Settings</string>
 
-    <string name="RandomHeading">Your randomly selected game is</string>
+    <string name="RandomHeading">Votre jeu sélectionné au hasard est</string>
     <string name="action_order_alphabetic">Order alphabetically</string>
     <string name="action_order_price">Order by price</string>
 
@@ -643,7 +641,7 @@
 
     <string name="title_activity_credits">Credits</string>
     <string name="Aboutdesc">votre compagnon pour votre collection de jeux</string>
-    <string name="About">© Pixoveeware 2016 \n  All rights reserved.</string>
+    <string name="About">" © Pixoveeware 2021 \n Tous droits réservés."</string>
 
 
 
@@ -796,7 +794,7 @@
     <string name="statsUS3">jeux US sortis.\nLes jeux de US représentent</string>
 
     <string name="statsCib1">Vous possédez</string>
-    <string name="statsCib2">games that are complete in box\n</string>
+    <string name="statsCib2">jeux complets en boite</string>
     <string name="statsCib2a">game that is complete in box\n</string>
     <string name="statsCib3">They make up</string>
     <string name="statsCib3a">It makes up</string>
@@ -842,4 +840,5 @@
     <string name="StatisticsButton"></string>
     <string name="FinishedGamesButton"></string>
     <string name="SettingsButton"></string>
+    <string name="EditGameCondition">" État du jeu"</string>
 </resources>

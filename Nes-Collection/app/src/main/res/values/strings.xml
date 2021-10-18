@@ -676,9 +676,9 @@
     <string name="title_activity_about">About</string>
     <string name="title_activity_credits">Credits</string>
     <string name="Aboutdesc">Your game collecting companion</string>
-    <string name="About">© Pixoveeware 2017 \n  All rights reserved.</string>
+    <string name="About">"© Pixoveeware 2021 \n All rights reserved"</string>
 
-    <string name="title_activity_shelf_order">Shelf Order</string>
+    <string name="title_activity_shelf_order">Shelf order</string>
 
 
     <string name="SubGenre">Sub genre</string>
@@ -800,7 +800,7 @@
     <string name="statsUS3">US games released.\nUS games make up</string>
 
     <string name="statsCib1">You own</string>
-    <string name="statsCib2">games that are complete in box\n</string>
+    <string name="statsCib2">"games that are complete in box "</string>
     <string name="statsCib2a">game that is complete in box\n</string>
     <string name="statsCib3">They make up</string>
     <string name="statsCib3a">It makes up</string>
@@ -837,27 +837,27 @@
     <string name="regionname01">All Regions</string>
     <string name="Owned">Owned</string>
 
-    <string name="AllGamesButton">All games</string>
-    <string name="NeededGamesButton">Needed games</string>
-    <string name="OwnedGamesButton">Owned games</string>
-    <string name="FavouriteGamesButton">Favourite games</string>
-    <string name="WishlistGamesButton">Wishlist</string>
-    <string name="ShelfOrderGamesButton">Shelf order</string>
-    <string name="StatisticsButton">Statistics</string>
-    <string name="FinishedGamesButton">Finished games</string>
-    <string name="SettingsButton">Settings</string>
+    <string name="AllGamesButton" translatable="false">All games button</string>
+    <string name="NeededGamesButton" translatable="false">Needed games button</string>
+    <string name="OwnedGamesButton" translatable="false">Owned games</string>
+    <string name="FavouriteGamesButton" translatable="false">Favourite games</string>
+    <string name="WishlistGamesButton" translatable="false">Wishlist</string>
+    <string name="ShelfOrderGamesButton" translatable="false">Shelf order</string>
+    <string name="StatisticsButton" translatable="false">Statistics</string>
+    <string name="FinishedGamesButton" translatable="false">Finished games</string>
+    <string name="SettingsButton" translatable="false">Settings</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_main">MainActivity</string>
+    <string name="hello_blank_fragment" translatable="false">Hello blank fragment</string>
+    <string name="title_activity_main" translatable="false">MainActivity</string>
     <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
+    <string name="first_fragment_label" translatable="false">First Fragment</string>
+    <string name="second_fragment_label" translatable="false">Second Fragment</string>
+    <string name="next" translatable="false">Next</string>
+    <string name="previous" translatable="false">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-
+    <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
+    <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
+    <string name="EditGameCondition">Game condition</string>
 
 </resources>
 

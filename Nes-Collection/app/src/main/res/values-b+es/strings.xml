@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">Nes Collection</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">" Colección Nes"</string>
+    <string name="action_settings">" Ajustes"</string>
     <string name="action_credits">Credits</string>
     <string name="action_wishlist">Wish list</string>
     <string name="name">name</string>
 
-
-    <string name="banner_ad_unit_id">ca-app-pub-0537596348696744/4062549395</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -26,7 +24,7 @@
 
     <string name="Totalgames">Total games</string>
 
-    <string name="AllGames">All Games</string>
+    <string name="AllGames">Todos los juegos</string>
     <string name="Needed">Needed</string>
     <string name="Stats">Statistics</string>
     <string name="title_activity_main_page">MainPage</string>
@@ -38,7 +36,7 @@
 
     <string name="Settings">Settings</string>
 
-    <string name="RandomHeading">Your randomly selected game is</string>
+    <string name="RandomHeading">" Tu juego seleccionado al azar es"</string>
     <string name="action_order_alphabetic">Order alphabetically</string>
     <string name="action_order_price">Order by price</string>
 
@@ -643,7 +641,7 @@
 
     <string name="title_activity_credits">Credits</string>
     <string name="Aboutdesc">votre compagnon pour votre collection de jeux</string>
-    <string name="About">© Pixoveeware 2016 \n  All rights reserved.</string>
+    <string name="About">© Pixoveeware 2021 \nTodos los derechos reservados.</string>
 
 
 
@@ -685,7 +683,7 @@
     <string name="mainOwnedGames">Jeux possédés</string>
     <string name="mainFavouriteGames">Favoris</string>
     <string name="mainWishList">Liste de voeux</string>
-    <string name="mainShelfOrder">Ordre de rangement</string>
+    <string name="mainShelfOrder">" Orden de la estantería"</string>
     <string name="mainStatistics">Statistiques</string>
     <string name="mainFinishedGames">Jeux terminés</string>
     <string name="mainSettings">Paramètres</string>
@@ -794,7 +792,7 @@
     <string name="statsUS3">US games released.\nUS games make up</string>
 
     <string name="statsCib1">You own</string>
-    <string name="statsCib2">games that are complete in box\n</string>
+    <string name="statsCib2">juegos que están completos en caja</string>
     <string name="statsCib2a">game that is complete in box\n</string>
     <string name="statsCib3">They make up</string>
     <string name="statsCib3a">It makes up</string>
@@ -840,4 +838,5 @@
     <string name="StatisticsButton"></string>
     <string name="FinishedGamesButton"></string>
     <string name="SettingsButton"></string>
+    <string name="EditGameCondition">" Condición del juego"</string>
 </resources>
