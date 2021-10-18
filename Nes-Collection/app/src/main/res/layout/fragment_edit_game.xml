@@ -18,7 +18,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/EditGameConstraint"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/lblGame"
@@ -341,6 +341,33 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/chkUSCart" />
 
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="16dp"
+            android:text="Game completion"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/chkShelf" />
+
+        <Spinner
+            android:id="@+id/spinner_play"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/spinner_bg"
+            android:dropDownVerticalOffset="40dp"
+            android:popupBackground="@drawable/bg_spinner_popup_window"
+            app:layout_constraintEnd_toEndOf="@+id/txtUScost"
+
+            app:layout_constraintStart_toEndOf="@+id/textView4"
+            app:layout_constraintTop_toBottomOf="@+id/chkShelf" />
 
         <Button
             android:id="@+id/rgnCancel"
@@ -353,8 +380,9 @@
             android:layout_toStartOf="@+id/rgnOk"
             android:layout_toLeftOf="@+id/rgnOk"
             android:text="@string/editGameCancel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chkShelf" />
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <Button
             android:id="@+id/rgnOk"
@@ -367,8 +395,9 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:text="@string/editGameOk"
-            app:layout_constraintEnd_toStartOf="@+id/rgnCancel"
-            app:layout_constraintTop_toBottomOf="@+id/chkShelf" />
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rgnCancel" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

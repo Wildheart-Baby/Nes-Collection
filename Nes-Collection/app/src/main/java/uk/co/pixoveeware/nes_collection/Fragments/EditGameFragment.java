@@ -21,6 +21,8 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,8 +33,10 @@ import uk.co.pixoveeware.nes_collection.activities.About;
 import uk.co.pixoveeware.nes_collection.activities.EditOwnedGame;
 import uk.co.pixoveeware.nes_collection.activities.GameDetail;
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
+import uk.co.pixoveeware.nes_collection.adapters.spinners.PlayedSpinnerAdapter;
 import uk.co.pixoveeware.nes_collection.models.GameItem;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.spinners.DataPlayed;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -40,6 +44,9 @@ import uk.co.pixoveeware.nes_collection.models.GameItems;
  * create an instance of this fragment.
  */
 public class EditGameFragment extends Fragment {
+
+    private Spinner spinner_played;
+    private SpinnerAdapter adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -132,6 +139,11 @@ public class EditGameFragment extends Fragment {
         PalACurrency = v.findViewById(R.id.lblCurrencyPalA);
         PalBCurrency = v.findViewById(R.id.lblCurrencyPalB);
         USCurrency = v.findViewById(R.id.lblCurrencyUS);
+
+        spinner_played = v.findViewById(R.id.spinner_play);
+        adapter = new PlayedSpinnerAdapter(getActivity(), DataPlayed.getPlayedList());
+        spinner_played.setAdapter(adapter);
+
         ShowOwnedDetails();
         // Inflate the layout for this fragment
 
