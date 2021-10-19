@@ -29,7 +29,7 @@ import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionImageAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesOwnedAdapter;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 
 public class SearchResults extends AppCompatActivity {
 
@@ -40,7 +40,7 @@ public class SearchResults extends AppCompatActivity {
     String prevgroup = "";
     int readgameid, gameid, totalResults, viewas, titles;
     ArrayAdapter<CharSequence> adapter;
-    ArrayList<GameItems> nesList;
+    ArrayList<AllGameItems> nesList;
     ListView gamelistView;
     TextView thesearchresults;
     GridView gamegalleryview;
@@ -90,7 +90,7 @@ public class SearchResults extends AppCompatActivity {
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
 
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
                 Intent intent = new Intent(SearchResults.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
@@ -106,7 +106,7 @@ public class SearchResults extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                 final Integer itemId = gameListItems.getItemId();//get the item id
 
                 Intent intent = new Intent(SearchResults.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
@@ -121,7 +121,7 @@ public class SearchResults extends AppCompatActivity {
         gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
                 Intent intent = new Intent(SearchResults.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
@@ -137,7 +137,7 @@ public class SearchResults extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                 final Integer itemId = gameListItems.getItemId();//get the item id
 
                 Intent intent = new Intent(SearchResults.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
@@ -194,7 +194,7 @@ public class SearchResults extends AppCompatActivity {
 
         if (c.moveToFirst()) {//move to the first record
                 while ( !c.isAfterLast() ) {//while there are records to read
-                GameItems nesListItems = new GameItems();//creates a new array
+                AllGameItems nesListItems = new AllGameItems();//creates a new array
                     currentgroup = c.getString(c.getColumnIndex("groupheader"));
 
                     if(!currentgroup.equals(prevgroup)){

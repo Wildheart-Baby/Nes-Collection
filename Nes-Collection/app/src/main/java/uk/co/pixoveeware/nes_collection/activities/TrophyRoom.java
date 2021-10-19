@@ -14,13 +14,13 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 
 public class TrophyRoom extends AppCompatActivity {
 
     Context context;
-    ArrayList<GameItems> nesList;
-    GameItems nesListItems;
+    ArrayList<AllGameItems> nesList;
+    AllGameItems nesListItems;
     String gameimage, sql;
     int coverid, cgames;
     Cursor c;

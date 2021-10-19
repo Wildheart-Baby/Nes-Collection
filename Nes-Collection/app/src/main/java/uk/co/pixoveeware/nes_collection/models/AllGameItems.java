@@ -3,7 +3,7 @@ package uk.co.pixoveeware.nes_collection.models;
 /**
  * Created by Wildheart on 06/06/2016.
  */
-public class GameItems {
+public class AllGameItems {
 
     public String group;
     public String name, publisher, synopsis, image, genre, region, subgenre, developer, year, usyear, sayear, currency;
@@ -235,4 +235,5 @@ public class GameItems {
 
     public int getShowPrice() { return showPrice; }
     public void setShowPrice(int showPrice) { this.showPrice = showPrice;}
+
 }

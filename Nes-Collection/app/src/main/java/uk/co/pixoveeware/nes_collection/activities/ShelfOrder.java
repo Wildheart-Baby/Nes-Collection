@@ -30,7 +30,7 @@ import java.util.ArrayList;
 import uk.co.pixoveeware.nes_collection.adapters.FillShelfAdapter;
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.adapters.ShelfCollectionAdapter;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 
 public class ShelfOrder extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -42,7 +42,7 @@ public class ShelfOrder extends AppCompatActivity
     String prevgroup = "";
     int readgameid, readgameid2, gameid, totalgames, neededgames, index, top, palAcart, palBcart, uscart, pos, pos2, shelf, id, rec, shelfsize, titles, posInList;
     ArrayAdapter<CharSequence> adapter;
-    ArrayList<GameItems> ShelfOrderList;
+    ArrayList<AllGameItems> ShelfOrderList;
     ListView gamelistView;
 
 
@@ -76,7 +76,7 @@ public class ShelfOrder extends AppCompatActivity
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
                 posInList = gameListItems.getListPosition();
@@ -99,7 +99,7 @@ public class ShelfOrder extends AppCompatActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                 final Integer itemId = gameListItems.getItemId();//get the item id
 
                 Intent intent = new Intent(ShelfOrder.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked

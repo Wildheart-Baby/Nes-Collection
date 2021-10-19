@@ -21,7 +21,7 @@ import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModelFactory;
 import uk.co.pixoveeware.nes_collection.adapters.FillGamesAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesPagerAdapter;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 
 public class GamesDetail extends AppCompatActivity {
     public static int idforgame, favourited, ownedgame, wishlist, finished;
@@ -36,8 +36,8 @@ public class GamesDetail extends AppCompatActivity {
     ViewPager viewPager;
     NesPagerAdapter adapter;
     private Menu menu;
-    ArrayList<GameItems> gamesList;
-    GameItems nesListItems;
+    ArrayList<AllGameItems> gamesList;
+    AllGameItems nesListItems;
     //View v;
     //Cursor c;
     //SQLiteDatabase db;//sets up the connection to the database

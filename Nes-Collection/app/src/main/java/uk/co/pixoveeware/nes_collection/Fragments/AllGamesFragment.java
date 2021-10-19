@@ -1,6 +1,5 @@
 package uk.co.pixoveeware.nes_collection.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,14 +18,9 @@ import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
-import uk.co.pixoveeware.nes_collection.activities.AllGames;
-import uk.co.pixoveeware.nes_collection.activities.EditOwnedGame;
-import uk.co.pixoveeware.nes_collection.activities.GamesDetail;
-import uk.co.pixoveeware.nes_collection.adapters.LightCollectionAdapter;
-import uk.co.pixoveeware.nes_collection.adapters.LightImageCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
@@ -48,7 +42,7 @@ public class AllGamesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    ArrayList<GameItems> gameList;
+    ArrayList<AllGameItems> gameList;
     ArrayList<GameItemsIndex> indexList;
 
     public AllGamesFragment() {

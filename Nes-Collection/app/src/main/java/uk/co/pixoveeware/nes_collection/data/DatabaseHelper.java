@@ -5,14 +5,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItem;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
@@ -199,8 +198,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return new SimpleDateFormat("mm:ss.SSS").format(new Date());
     }
 
-    public ArrayList<GameItems> getGames(String games) {
-        ArrayList<GameItems> gamesList = new ArrayList<>();
+    public ArrayList<AllGameItems> getGames(String games) {
+        ArrayList<AllGameItems> gamesList = new ArrayList<>();
         gamesList.clear();
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -328,7 +327,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                GameItems gameListItems = new GameItems();//creates a new array
+                AllGameItems gameListItems = new AllGameItems();//creates a new array
 
                 String currentgroup = c.getString(c.getColumnIndex(groupHeader));
 
@@ -780,7 +779,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
-    public ArrayList<GameItems> ShelfOrder(){
+    public ArrayList<AllGameItems> ShelfOrder(){
         int gameid, totalgames, index,palAcart, palBcart, uscart, pos, shelf, id, rec, shelfsize, posInList, shelfPos;
         String currentgroup, prevgroup, wherestatement, orderby, groupHeader, theimage, thename, title, currency, name, check, gamename;
 
@@ -791,7 +790,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         theimage = "";
         shelfPos = 0;
 
-        ArrayList<GameItems> gamesList = new ArrayList<>();
+        ArrayList<AllGameItems> gamesList = new ArrayList<>();
         gamesList.clear();
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -834,7 +833,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                GameItems gameListItems = new GameItems();//creates a new array
+                AllGameItems gameListItems = new AllGameItems();//creates a new array
                 id = c.getInt(c.getColumnIndex("_id"));
 
                 name = c.getString(c.getColumnIndex("name"));
@@ -1216,8 +1215,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  subtitle;
     }
 
-    public ArrayList<GameItems> getSpecificSearch(String InformationType, String Query) {
-        ArrayList<GameItems> gamesList = new ArrayList<>();
+    public ArrayList<AllGameItems> getSpecificSearch(String InformationType, String Query) {
+        ArrayList<AllGameItems> gamesList = new ArrayList<>();
         gamesList.clear();
 
         String iType = InformationType;
@@ -1356,7 +1355,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                GameItems gameListItems = new GameItems();//creates a new array
+                AllGameItems gameListItems = new AllGameItems();//creates a new array
 
                 String currentgroup = c.getString(c.getColumnIndex(groupHeader));
 

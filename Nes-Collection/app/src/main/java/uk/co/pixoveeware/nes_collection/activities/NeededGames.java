@@ -28,14 +28,13 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
 
-import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.pixoveeware.nes_collection.ViewModels.LightGamesViewModel;
 import uk.co.pixoveeware.nes_collection.ViewModels.LightGamesViewModelFactory;
 import uk.co.pixoveeware.nes_collection.adapters.LightCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.LightImageCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
@@ -51,7 +50,7 @@ public class NeededGames extends AppCompatActivity
     String prevgroup = "";
     int readgameid, gameid, totalgames, neededgames, index, top, viewas, titles, readindexid;
     ArrayAdapter<CharSequence> adapter;
-    ArrayList<GameItems> nesList;
+    ArrayList<AllGameItems> nesList;
     ListView gamelistView, alphaIndex;
     GridView gamegalleryview;
     Toolbar toolbar;
@@ -97,7 +96,7 @@ public class NeededGames extends AppCompatActivity
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
                 sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
                 Log.d("pixo-owned", sql);
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
                 Intent intent = new Intent(NeededGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
@@ -114,7 +113,7 @@ public class NeededGames extends AppCompatActivity
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                 final Integer itemId = gameListItems.getItemId();//get the item id
 
                 Intent intent = new Intent(NeededGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
@@ -228,7 +227,7 @@ public class NeededGames extends AppCompatActivity
                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
                     sql = "SELECT * FROM eu where owned = 0 and (" + wherestatement + licensed +  ")";
                     Log.d("pixo-owned", sql);
-                    GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                    AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                     readgameid = gameListItems.getItemId();//get the name of the shopping list table
                     readgamename = gameListItems.getName();//get the name of the shopping list table
                     Intent intent = new Intent(NeededGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
@@ -247,7 +246,7 @@ public class NeededGames extends AppCompatActivity
                 @Override
                 public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                    GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                    AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                     final Integer itemId = gameListItems.getItemId();//get the item id
 
                     Intent intent = new Intent(NeededGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked

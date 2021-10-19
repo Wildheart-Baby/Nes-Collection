@@ -1,8 +1,6 @@
 package uk.co.pixoveeware.nes_collection.adapters;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -15,24 +13,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.viewpager.widget.PagerAdapter;
-import androidx.viewpager.widget.ViewPager;
 
 import java.util.ArrayList;
 
-import uk.co.pixoveeware.nes_collection.Fragments.EditGameFragment;
-import uk.co.pixoveeware.nes_collection.Fragments.GamesDetailFragment;
 import uk.co.pixoveeware.nes_collection.Fragments.SpecificCountryFragment;
 import uk.co.pixoveeware.nes_collection.Fragments.SpecificInformationFragment;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
-import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.activities.GamesDetail;
 import uk.co.pixoveeware.nes_collection.R;
-import uk.co.pixoveeware.nes_collection.activities.StatsSearchResults;
 
 /**
  * Created by Wildheart on 31/07/2016.
@@ -42,7 +32,7 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
     public static String licensed;
 
     Context context; //sets up a variable as context
-    ArrayList<GameItems> gamesList; //sets up  an array called shoppingList
+    ArrayList<AllGameItems> gamesList; //sets up  an array called shoppingList
     String gameimage, synop, gen, subgen, pub, dev, gname, img, theyear, sql;
     int owned, carttrue, boxtrue, manualtrue, gameid, editgameid, pos, idforgame, favourite, coverid;
     int flagAustralia, flagAustria, flagBenelux, flagDenmark, flagFinland, flagFrance, flagGermany, flagGreece, flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS ;
@@ -51,15 +41,15 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
     Menu menu;
     FragmentManager frg;
 
-    GameItems nesListItems;
+    AllGameItems nesListItems;
 
-    /*public NesPagerAdapter(Context context, ArrayList<GameItems> list) {
+    /*public NesPagerAdapter(Context context, ArrayList<AllGameItems> list) {
         //super();
         this.context = context;//sets up the context for the class
         gamesList = list; //sets up a variable as a list
     }*/
 
-    public NesPagerAdapter(FragmentManager fm, Context context, ArrayList<GameItems> list) {
+    public NesPagerAdapter(FragmentManager fm, Context context, ArrayList<AllGameItems> list) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.context = context;//sets up the context for the class
         gamesList = list; //sets up a variable as a list

@@ -1,6 +1,5 @@
 package uk.co.pixoveeware.nes_collection.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.pixoveeware.nes_collection.adapters.NesPagerAdapter;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +26,7 @@ import uk.co.pixoveeware.nes_collection.models.GameItems;
 public class GamesDetailFragment extends Fragment {
 
     AllGamesViewModel viewM;
-    //ArrayList<GameItems> gameList;
+    //ArrayList<AllGameItems> gameList;
     ViewPager viewPager;
     public static NesPagerAdapter gamesAdapter;
     public static int idforgame, favourited, ownedgame, wishlist, finished, listPos;

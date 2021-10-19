@@ -20,7 +20,7 @@ import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
@@ -57,7 +57,7 @@ public class SpecificInformationFragment extends Fragment {
      */
     // TODO: Rename and change types and number of parameters
 
-    ArrayList<GameItems> gameList;
+    ArrayList<AllGameItems> gameList;
     ArrayList<GameItemsIndex> indexList;
 
     public static SpecificInformationFragment newInstance(String param1, String param2) {
@@ -79,7 +79,7 @@ public class SpecificInformationFragment extends Fragment {
         }
         viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
         gameList = viewM.GetSpecificGames(mParam1, mParam2);
-        indexList = viewM.GetIndex(mParam2);
+        //indexList = viewM.GetIndex(mParam2);
         //SetTitles();
     }
 
@@ -93,7 +93,7 @@ public class SpecificInformationFragment extends Fragment {
         alphaIndex = v.findViewById(R.id.lvAlphaIndex);
         //NesCollectionAdapter nes = new NesCollectionAdapter(getContext(), gameList);//set up an new list adapter from the arraylist
         gamelistView.setAdapter(new NesCollectionAdapter(getContext(), gameList));
-        alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
+        /*alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
 
         alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -104,7 +104,7 @@ public class SpecificInformationFragment extends Fragment {
                 gamelistView.setSelection(readindexid);
                 //gamegalleryview.setSelection(readindexid);
             }
-        });
+        });*/
 
         gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -134,9 +134,9 @@ public class SpecificInformationFragment extends Fragment {
     }
 
     private void SetTitles(){
-        getActivity().setTitle(" " + viewM.SpecificTitle(mParam2));
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(viewM.FragmentSubTitleText("all", mParam2));
-        //((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(mParam2, "drawable", getContext().getPackageName()));
+        getActivity().setTitle(" " + mParam1.substring(0, 1).toUpperCase() + mParam1.substring(1) + ": ");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(" " + viewM.SpecificTitle(mParam2));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(mParam2.toLowerCase(), "drawable", getContext().getPackageName()));
     }
 
     @Override

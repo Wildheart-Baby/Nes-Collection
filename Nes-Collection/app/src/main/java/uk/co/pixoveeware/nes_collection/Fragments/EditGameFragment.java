@@ -27,8 +27,8 @@ import java.util.ArrayList;
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.pixoveeware.nes_collection.adapters.spinners.PlayedSpinnerAdapter;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItem;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
 import uk.co.pixoveeware.nes_collection.models.spinners.Data;
 
 /**
@@ -59,7 +59,7 @@ public class EditGameFragment extends Fragment {
     EditText PalACost, PalBCost, USCost;
 
     AllGamesViewModel viewM;
-    ArrayList<GameItems> gameList;
+    ArrayList<AllGameItems> gameList;
 
     GameItem gameDetails;
 

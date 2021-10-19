@@ -24,7 +24,7 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 
 public class EditOwnedGame extends AppCompatActivity {
 
@@ -125,7 +125,7 @@ public class EditOwnedGame extends AppCompatActivity {
     }
 
     public void readGame() {//the readlist function
-        ArrayList<GameItems> nesList = new ArrayList<GameItems>();//sets up an array list called shoppingList
+        ArrayList<AllGameItems> nesList = new ArrayList<AllGameItems>();//sets up an array list called shoppingList
         nesList.clear();//clear the shoppingList array
         TextView gamename = (TextView) findViewById(R.id.lblGame);
         ImageView cover = (ImageView) findViewById(R.id.imgCover);

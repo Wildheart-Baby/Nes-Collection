@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.R;
 
 /**
@@ -31,13 +31,13 @@ public class NesOwnedPriceAdapter extends BaseAdapter {
         }
 
         Context context; //sets up a variable as context
-        ArrayList<GameItems> nesList; //sets up  an array called shoppingList
+        ArrayList<AllGameItems> nesList; //sets up  an array called shoppingList
         String gameimage, cart, box, manual;
         String  palAcart, palBcart, ntscart, palAbox, palBbox, ntscbox, palAmanual, palBmanual, ntscmanual, gamescost, currency, thegamename;
         int palAcartlist, palBcartlist, uscartlist, palAboxlist, palBboxlist, usboxlist, palAmanuallist, palBmanuallist, usmanuallist, l, ownedCart, ownedBox, ownedManual;
         double palAcost, palBcost, ntsccost, thegamecost;
 
-        public NesOwnedPriceAdapter(Context context, ArrayList<GameItems> list) {
+        public NesOwnedPriceAdapter(Context context, ArrayList<AllGameItems> list) {
 
             this.context = context;//sets up the context for the class
             HomeScreenActivity.gamesList = list; //sets up a variable as a list
@@ -60,7 +60,7 @@ public class NesOwnedPriceAdapter extends BaseAdapter {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            GameItems nesListItems = HomeScreenActivity.gamesList.get(position); //gets the item position from the array
+            AllGameItems nesListItems = HomeScreenActivity.gamesList.get(position); //gets the item position from the array
 
             if (convertView == null) { //if the layout isn't inflated
                 LayoutInflater inflater = (LayoutInflater) context

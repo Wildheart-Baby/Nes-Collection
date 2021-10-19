@@ -23,7 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.R;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 
 public class HomeScreenActivity extends AppCompatActivity
@@ -35,7 +35,7 @@ public class HomeScreenActivity extends AppCompatActivity
     String wherestatement;
     public static int width, totalGames, viewas;
 
-    public static ArrayList<GameItems> gamesList;
+    public static ArrayList<AllGameItems> gamesList;
     public static ArrayList<GameItemsIndex> indexList;
     public static String sqlstatement;
 

@@ -29,7 +29,7 @@ import uk.co.pixoveeware.nes_collection.adapters.LightImageCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.adapters.LightCollectionAdapter;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
@@ -47,7 +47,7 @@ public class AllGames extends AppCompatActivity
     GridView gamegalleryview;
 
     ArrayList<GameListItems> gamesList;
-    ArrayList<GameItems> gameList;
+    ArrayList<AllGameItems> gameList;
     ArrayList<GameItemsIndex> indexList;
     LightGamesViewModel viewM;
 

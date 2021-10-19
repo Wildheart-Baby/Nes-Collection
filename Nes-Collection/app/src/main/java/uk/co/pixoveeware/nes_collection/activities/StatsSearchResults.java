@@ -29,7 +29,7 @@ import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.adapters.NesOwnedAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.StatsCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.StatsCollectionImageAdapter;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 
 public class StatsSearchResults extends AppCompatActivity {
 
@@ -40,7 +40,7 @@ public class StatsSearchResults extends AppCompatActivity {
     String prevgroup = "";
     int readgameid, gameid, totalResults, viewas, showsubtitle, titles;
     ArrayAdapter<CharSequence> adapter;
-    ArrayList<GameItems> nesList;
+    ArrayList<AllGameItems> nesList;
     ListView gamelistView;
     TextView thesearchresults;
     GridView gamegalleryview;
@@ -91,7 +91,7 @@ public class StatsSearchResults extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
                 Intent intent = new Intent(StatsSearchResults.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
@@ -108,7 +108,7 @@ public class StatsSearchResults extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                 final Integer itemId = gameListItems.getItemId();//get the item id
 
                 Intent intent = new Intent(StatsSearchResults.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
@@ -123,7 +123,7 @@ public class StatsSearchResults extends AppCompatActivity {
         gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 readgameid = gameListItems.getItemId();//get the name of the shopping list table
                 readgamename = gameListItems.getName();//get the name of the shopping list table
                 Intent intent = new Intent(StatsSearchResults.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
@@ -139,7 +139,7 @@ public class StatsSearchResults extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                GameItems gameListItems = (GameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
                 final Integer itemId = gameListItems.getItemId();//get the item id
 
                 Intent intent = new Intent(StatsSearchResults.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
@@ -190,7 +190,7 @@ public class StatsSearchResults extends AppCompatActivity {
     public void readList(){//the readlist function
         Log.d("Pixo", sql);
         //if (HomeScreenActivity.nesList == null){ HomeScreenActivity.readList(); }
-        //ArrayList<GameItems> nesList = new ArrayList<GameItems>();//sets up an array list called shoppingList
+        //ArrayList<AllGameItems> nesList = new ArrayList<AllGameItems>();//sets up an array list called shoppingList
         HomeScreenActivity.gamesList.clear();//clear the shoppingList array
 
         SQLiteDatabase db;//sets up the connection to the database
@@ -200,7 +200,7 @@ public class StatsSearchResults extends AppCompatActivity {
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                GameItems nesListItems = new GameItems();//creates a new array
+                AllGameItems nesListItems = new AllGameItems();//creates a new array
                 currentgroup = c.getString(c.getColumnIndex("groupheader"));
 
                 if(!currentgroup.equals(prevgroup)){

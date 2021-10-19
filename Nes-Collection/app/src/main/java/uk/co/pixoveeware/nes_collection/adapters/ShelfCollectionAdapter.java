@@ -16,7 +16,7 @@ package uk.co.pixoveeware.nes_collection.adapters;
         import java.util.ArrayList;
 
         import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
-        import uk.co.pixoveeware.nes_collection.models.GameItems;
+        import uk.co.pixoveeware.nes_collection.models.AllGameItems;
         import uk.co.pixoveeware.nes_collection.R;
 
 /**
@@ -33,7 +33,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
     }
 
     Context context; //sets up a variable as context
-    //ArrayList<GameItems> nesList; //sets up  an array called shoppingList
+    //ArrayList<AllGameItems> nesList; //sets up  an array called shoppingList
     String gameimage;
     private static final int TYPE_GAME = 0;
     private static final int TYPE_DIVIDER = 1;
@@ -41,7 +41,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
     int ownedgame, l;
     String test, thegamename;
 
-    public ShelfCollectionAdapter(Context context, ArrayList<GameItems> list) {
+    public ShelfCollectionAdapter(Context context, ArrayList<AllGameItems> list) {
 
         this.context = context;//sets up the context for the class
         HomeScreenActivity.gamesList = list; //sets up a variable as a list
@@ -65,7 +65,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        GameItems nesListItems = HomeScreenActivity.gamesList.get(position); //gets the item position from the array
+        AllGameItems nesListItems = HomeScreenActivity.gamesList.get(position); //gets the item position from the array
 
         if (convertView == null) { //if the layout isn't inflated
             LayoutInflater inflater = (LayoutInflater) context

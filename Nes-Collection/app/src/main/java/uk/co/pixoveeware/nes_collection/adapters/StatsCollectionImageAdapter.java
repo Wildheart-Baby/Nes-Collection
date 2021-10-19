@@ -13,7 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.R;
 
 /**
@@ -27,11 +27,11 @@ public class StatsCollectionImageAdapter extends BaseAdapter {
     }
 
     Context context; //sets up a variable as context
-    ArrayList<GameItems> nesList; //sets up  an array called shoppingList
+    ArrayList<AllGameItems> nesList; //sets up  an array called shoppingList
     String gameimage;
     int i, listsize, addviews = 0;
 
-    public StatsCollectionImageAdapter(Context context, ArrayList<GameItems> list) {
+    public StatsCollectionImageAdapter(Context context, ArrayList<AllGameItems> list) {
 
         this.context = context;//sets up the context for the class
         HomeScreenActivity.gamesList = list; //sets up a variable as a list
@@ -59,7 +59,7 @@ public class StatsCollectionImageAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        GameItems nesListItems = HomeScreenActivity.gamesList.get(position); //gets the item position from the array
+        AllGameItems nesListItems = HomeScreenActivity.gamesList.get(position); //gets the item position from the array
         ViewHolder holder;
 
         if (convertView == null) { //if the layout isn't inflated

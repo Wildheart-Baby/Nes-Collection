@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 
 /**
  * Created by Wildheart on 10/09/2018.
@@ -44,7 +44,7 @@ public class FillShelfAdapter {
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                GameItems nesListItems = new GameItems();//creates a new array
+                AllGameItems nesListItems = new AllGameItems();//creates a new array
                 id = c.getInt(c.getColumnIndex("_id"));
 
                 name = c.getString(c.getColumnIndex("name"));

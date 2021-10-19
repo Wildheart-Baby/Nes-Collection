@@ -1,25 +1,20 @@
 package uk.co.pixoveeware.nes_collection.ViewModels;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 
 import uk.co.pixoveeware.nes_collection.data.DatabaseHelper;
 import uk.co.pixoveeware.nes_collection.models.GameItem;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
-import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
 public class AllGamesViewModel extends AndroidViewModel {
 
     DatabaseHelper dbh;
-    public ArrayList<GameItems> gamesList;
+    public ArrayList<AllGameItems> gamesList;
     public ArrayList<GameItemsIndex> indexList;
 
     public String regionTitle, regionFlag, gamesCount;
@@ -38,7 +33,7 @@ public class AllGamesViewModel extends AndroidViewModel {
     /*public ArrayList<GameListItems> ConvertToLightList(){
 
         allGames = dbh.getGames("all");
-        Iterator<GameItems> itr = allGames.iterator();
+        Iterator<AllGameItems> itr = allGames.iterator();
         while (itr.hasNext()) {
             Log.d("pixo-time2","items for list: "+ times);
             GameListItems gameListItems = new GameListItems();
@@ -52,7 +47,7 @@ public class AllGamesViewModel extends AndroidViewModel {
         return gamesList;
     }*/
 
-    public ArrayList<GameItems> GetGames(String games){
+    public ArrayList<AllGameItems> GetGames(String games){
         gamesList = dbh.getGames(games);
         return gamesList;
     }
@@ -139,7 +134,7 @@ public class AllGamesViewModel extends AndroidViewModel {
         return title;
     }
 
-    public ArrayList<GameItems> GetSpecificGames(String InformationType, String Query){
+    public ArrayList<AllGameItems> GetSpecificGames(String InformationType, String Query){
         gamesList = dbh.getSpecificSearch(InformationType, Query);
         return gamesList;
     }

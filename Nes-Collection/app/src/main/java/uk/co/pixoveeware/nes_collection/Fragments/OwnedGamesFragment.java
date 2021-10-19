@@ -20,7 +20,7 @@ import uk.co.pixoveeware.nes_collection.R;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.pixoveeware.nes_collection.adapters.NesCollectionAdapter;
 import uk.co.pixoveeware.nes_collection.adapters.NesIndexAdapter;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
@@ -42,7 +42,7 @@ public class OwnedGamesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    ArrayList<GameItems> gameList;
+    ArrayList<AllGameItems> gameList;
     ArrayList<GameItemsIndex> indexList;
 
     public OwnedGamesFragment() {

@@ -8,7 +8,7 @@ import android.util.Log;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 
 /**
@@ -43,7 +43,7 @@ public class FillGamesAdapter {
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                GameItems nesListItems = new GameItems();//creates a new array
+                AllGameItems nesListItems = new AllGameItems();//creates a new array
                 GameItemsIndex indexListItems = new GameItemsIndex();
                 currentgroup = c.getString(c.getColumnIndex("groupheader"));
 

@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import java.util.ArrayList;
 
 import uk.co.pixoveeware.nes_collection.data.DatabaseHelper;
-import uk.co.pixoveeware.nes_collection.models.GameItems;
+import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
 
@@ -16,8 +16,8 @@ public class LightGamesViewModel extends AndroidViewModel {
     DatabaseHelper dbh;
     public ArrayList<GameListItems> gamesList;
     public ArrayList<GameItemsIndex> indexList;
-    ArrayList<GameItems> specificGames;
-    ArrayList<GameItems> allGames;
+    ArrayList<AllGameItems> specificGames;
+    ArrayList<AllGameItems> allGames;
 
     public String regionTitle, regionFlag, gamesCount;
     public int viewType;
