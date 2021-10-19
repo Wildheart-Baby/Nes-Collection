@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import uk.co.pixoveeware.nes_collection.Fragments.EditGameFragment;
 import uk.co.pixoveeware.nes_collection.Fragments.GamesDetailFragment;
 import uk.co.pixoveeware.nes_collection.Fragments.SpecificCountryFragment;
+import uk.co.pixoveeware.nes_collection.Fragments.SpecificInformationFragment;
 import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.models.GameItems;
@@ -94,11 +95,11 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
         FrameLayout Owned = convertView.findViewById(R.id.frmOwned);
         TextView gamename = convertView.findViewById(R.id.lblGameName);
         ImageView cover = convertView.findViewById(R.id.imgGameCover);
-        TextView genre = convertView.findViewById(R.id.lblGenre);
-        TextView subgenre = convertView.findViewById(R.id.lblSubgenre);
-        TextView publisher = convertView.findViewById(R.id.lblPublisher);
-        TextView developer = convertView.findViewById(R.id.lblDeveloper);
-        TextView year = convertView.findViewById(R.id.lblYear);
+        final TextView genre = convertView.findViewById(R.id.lblGenre);
+        final TextView subgenre = convertView.findViewById(R.id.lblSubgenre);
+        final TextView publisher = convertView.findViewById(R.id.lblPublisher);
+        final TextView developer = convertView.findViewById(R.id.lblDeveloper);
+        final TextView year = convertView.findViewById(R.id.lblYear);
         ImageView cart = convertView.findViewById(R.id.imgCart);
         ImageView box = convertView.findViewById(R.id.imgBox);
         ImageView manual = convertView.findViewById(R.id.imgManual);
@@ -316,8 +317,35 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
             }
         });
 
+        genre.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                loadInformation("genre",  genre.getText().toString());
+            }
+        });
 
+        subgenre.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                loadInformation("subgenre",  subgenre.getText().toString());
+            }
+        });
 
+        publisher.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                loadInformation("publisher",  publisher.getText().toString());
+            }
+        });
+
+        developer.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                loadInformation("developer",  developer.getText().toString());
+            }
+        });
+
+        year.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                loadInformation("year", year.getText().toString());
+            }
+        });
 
 
         if(owned == 1){
@@ -353,6 +381,18 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
         frg.popBackStack();
         frg.beginTransaction()
                 .add(R.id.container, SpecificCountryFragment.newInstance("", countrySelection), "gamesList")
+                .addToBackStack("gamesList")
+                .commit();
+    }
+
+    public void loadInformation(String InformationType, String Query){
+        Fragment f = frg.findFragmentByTag("gamesList");
+        frg.beginTransaction()
+                .remove(f)
+                .commit();
+        frg.popBackStack();
+        frg.beginTransaction()
+                .add(R.id.container, SpecificInformationFragment.newInstance(InformationType, Query), "gamesList")
                 .addToBackStack("gamesList")
                 .commit();
     }

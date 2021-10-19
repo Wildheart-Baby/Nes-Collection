@@ -1213,9 +1213,281 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 subtitle = "";
                 break;
         }
-
-
         return  subtitle;
     }
+
+    public ArrayList<GameItems> getSpecificSearch(String InformationType, String Query) {
+        ArrayList<GameItems> gamesList = new ArrayList<>();
+        gamesList.clear();
+
+        String iType = InformationType;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+
+                wherestatement = (c.getString(c.getColumnIndex("region")));
+                title = (c.getString(c.getColumnIndex("region_title")));
+                licensed = (c.getString(c.getColumnIndex("licensed")));
+                titles = (c.getInt(c.getColumnIndex("us_titles")));
+                orderby = (c.getString(c.getColumnIndex("orderedby")));
+                groupHeader = (c.getString(c.getColumnIndex("group_header")));
+                ordering = (c.getInt(c.getColumnIndex("ordered")));
+                currency = (c.getString(c.getColumnIndex("currency")));
+                conditionstatement = (c.getInt(c.getColumnIndex("show_condition")));
+                c.moveToNext();//move to the next record
+            }
+            c.close();//close the cursor
+        }
+        //db.close();//close the database
+        if (titles == 0){
+            thename = "eu_name";
+            theimage = "image";
+            thePublisher = "eu_publisher";
+            if(iType.equals("publisher")) {
+                iType = "eu_publisher";
+                }
+        } else if (titles == 1){
+            thename = "us_name";
+            theimage = "us_image";
+            thePublisher = "us_publisher";
+            if(iType.equals("publisher")) {
+                 iType = "us_publisher";
+             }
+        }
+
+        searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + orderby + "";
+
+
+        /*switch (games){
+            case "all":
+                searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + orderby +"";
+                //String t = "select * from eu where " + wherestatement + licensed + "";
+                break;
+            case "owned":
+                if (ordering == 0) {
+                    //"SELECT * FROM eu where " + wherestatement + licensed +  "";
+                    //sql = "select * from eu where owned = 1 " + " order by " + orderby +"";
+                    searchQuery = "select * from eu where owned = 1 " + " order by " + orderby +"";}
+                else if(ordering == 1){
+                    //sql = "select * from eu where owned = 1 order by price desc";
+                    searchQuery = "select * from eu where owned = 1 order by price desc";}
+                break;
+            case "needed":
+                searchQuery = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ") order by " + orderby +"";
+                break;
+            case "favourites":
+                searchQuery = "SELECT * FROM eu where favourite = 1 " + wherestatement + " order by " + orderby +"";
+                break;
+            case "wishlist":
+                searchQuery = "SELECT * FROM eu where wishlist = 1 " + wherestatement + "order by " + orderby +"";
+                break;
+            case "finished":
+                searchQuery ="SELECT * FROM eu where finished_game = 1 " + wherestatement + "order by " + orderby +"";
+                break;
+            case "search":
+                //searchQuery = SearchResults.searchString + " order by " + orderby;
+                break;
+            case "statsearch":
+                //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
+                break;
+            case "australia":
+                searchQuery = "SELECT * FROM eu where flag_australia = 1" + licensed + "";
+                break;
+            case "austria":
+                searchQuery = "SELECT * FROM eu where flag_austria = 1" + licensed + "";
+                break;
+            case "benelux":
+                searchQuery = "SELECT * FROM eu where flag_benelux = 1" + licensed + "";
+                break;
+            case "denmark":
+                searchQuery = "SELECT * FROM eu where flag_denmark = 1" + licensed + "";
+                break;
+            case "finland":
+                searchQuery = "SELECT * FROM eu where flag_finland = 1" + licensed + "";
+                break;
+            case "france":
+                searchQuery = "SELECT * FROM eu where flag_france = 1" + licensed + "";
+                break;
+            case "germany":
+                searchQuery = "SELECT * FROM eu where flag_germany = 1" + licensed + "";
+                break;
+            case "greece":
+                searchQuery = "SELECT * FROM eu where flag_greece = 1" + licensed + "";
+                break;
+            case "ireland":
+                searchQuery = "SELECT * FROM eu where flag_ireland = 1" + licensed + "";
+                break;
+            case "italy":
+                searchQuery = "SELECT * FROM eu where flag_italy = 1" + licensed + "";
+                break;
+            case "norway":
+                searchQuery = "SELECT * FROM eu where flag_norway = 1" + licensed + "";
+                break;
+            case "poland":
+                searchQuery = "SELECT * FROM eu where flag_poland = 1" + licensed + "";
+                break;
+            case "portugal":
+                searchQuery = "SELECT * FROM eu where flag_portugal = 1" + licensed + "";
+                break;
+            scandinavia":
+                    searchQuery = "SELECT * FROM eu where flag_scandinavian = 1" + licensed + "";
+                    break;
+            case "spain":
+                searchQuery = "SELECT * FROM eu where flag_spain = 1" + licensed + "";
+                break;
+            case "sweden":
+                searchQuery = "SELECT * FROM eu where flag_sweden = 1" + licensed + "";
+                break;
+            case "switzerland":
+                searchQuery = "SELECT * FROM eu where flag_switzerland = 1" + licensed + "";
+                break;
+            case "us":
+                searchQuery = "SELECT * FROM eu where flag_us = 1" + licensed + "";
+                break;
+            case "uk":
+                searchQuery = "SELECT * FROM eu where flag_uk = 1" + licensed + "";
+                break;
+        }*/
+
+        c = db.rawQuery(searchQuery, null);
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+                GameItems gameListItems = new GameItems();//creates a new array
+
+                String currentgroup = c.getString(c.getColumnIndex(groupHeader));
+
+                if(!currentgroup.equals(prevgroup)){
+                    gameListItems.setGroup(c.getString(c.getColumnIndex(groupHeader)));
+                    gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
+                    gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                    gameListItems.setName(c.getString(c.getColumnIndex(thename)));
+                    gameListItems.setPublisher(c.getString(c.getColumnIndex(thePublisher)));
+                    gameListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
+                    gameListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
+                    gameListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
+                    gameListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
+                    gameListItems.setBoxPalA(c.getInt(c.getColumnIndex("pal_a_box")));
+                    gameListItems.setBoxPalB(c.getInt(c.getColumnIndex("pal_b_box")));
+                    gameListItems.setBoxNtsc(c.getInt(c.getColumnIndex("ntsc_box")));
+                    gameListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
+                    gameListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
+                    gameListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
+                    gameListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
+                    gameListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
+                    gameListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
+                    gameListItems.setCart(c.getInt(c.getColumnIndex("cart")));
+                    gameListItems.setManual(c.getInt(c.getColumnIndex("manual")));
+                    gameListItems.setBox(c.getInt(c.getColumnIndex("box")));
+                    gameListItems.setFavourite(c.getInt(c.getColumnIndex("favourite")));
+                    gameListItems.setFinished(c.getInt(c.getColumnIndex("finished_game")));
+                    gameListItems.setGamePrice(c.getDouble(c.getColumnIndex("price")));
+                    gameListItems.setWishlist(c.getInt(c.getColumnIndex("wishlist")));
+                    gameListItems.setYear(c.getString(c.getColumnIndex("eu_year"))); //re-edit this after testing
+                    gameListItems.setUSYear(c.getString(c.getColumnIndex("us_year")));
+                    gameListItems.setGenre((c.getString(c.getColumnIndex("genre"))));
+                    gameListItems.setSubgenre((c.getString(c.getColumnIndex("subgenre"))));
+                    gameListItems.setDeveloper((c.getString(c.getColumnIndex("developer"))));
+                    gameListItems.setSynopsis((c.getString(c.getColumnIndex("synopsis"))));
+                    gameListItems.setAustralia(c.getInt(c.getColumnIndex("flag_australia")));
+                    gameListItems.setAustria(c.getInt(c.getColumnIndex("flag_austria")));
+                    gameListItems.setBenelux(c.getInt(c.getColumnIndex("flag_benelux")));
+                    gameListItems.setDenmark(c.getInt(c.getColumnIndex("flag_denmark")));
+                    gameListItems.setFinland(c.getInt(c.getColumnIndex("flag_finland")));
+                    gameListItems.setFrance(c.getInt(c.getColumnIndex("flag_france")));
+                    gameListItems.setGermany((c.getInt(c.getColumnIndex("flag_germany"))));
+                    gameListItems.setGreece(c.getInt(c.getColumnIndex("flag_greece")));
+                    gameListItems.setIreland(c.getInt(c.getColumnIndex("flag_ireland")));
+                    gameListItems.setItaly(c.getInt(c.getColumnIndex("flag_italy")));
+                    gameListItems.setNorway(c.getInt(c.getColumnIndex("flag_norway")));
+                    gameListItems.setPoland(c.getInt(c.getColumnIndex("flag_poland")));
+                    gameListItems.setPortugal(c.getInt(c.getColumnIndex("flag_portugal")));
+                    gameListItems.setSpain(c.getInt(c.getColumnIndex("flag_spain")));
+                    gameListItems.setSweden(c.getInt(c.getColumnIndex("flag_sweden")));
+                    gameListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
+                    gameListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
+                    gameListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
+                    gameListItems.setGameCondition(c.getInt(c.getColumnIndex("condition")));
+                    gameListItems.setGameOwnership(c.getInt(c.getColumnIndex("play_owned")));
+                    gameListItems.setGameCompletion(c.getInt(c.getColumnIndex("play_completed")));
+                    gameListItems.setGameScore(c.getInt(c.getColumnIndex("play_score")));
+                    gameListItems.setGameTime(c.getDouble(c.getColumnIndex("play_hours")));
+                    gameListItems.setConditionStatement(conditionstatement);
+                    gameListItems.setCurrency(currency);
+                    gamesList.add(gameListItems);//add items to the arraylist
+                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
+                }
+                else if(currentgroup.equals(prevgroup)){
+                    gameListItems.setGroup("no");
+                    gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
+                    gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                    gameListItems.setName(c.getString(c.getColumnIndex(thename)));
+                    gameListItems.setPublisher(c.getString(c.getColumnIndex(thePublisher)));
+                    gameListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
+                    gameListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
+                    gameListItems.setCartPalB(c.getInt(c.getColumnIndex("pal_b_cart")));
+                    gameListItems.setCartNtsc(c.getInt(c.getColumnIndex("ntsc_cart")));
+                    gameListItems.setBoxPalA(c.getInt(c.getColumnIndex("pal_a_box")));
+                    gameListItems.setBoxPalB(c.getInt(c.getColumnIndex("pal_b_box")));
+                    gameListItems.setBoxNtsc(c.getInt(c.getColumnIndex("ntsc_box")));
+                    gameListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
+                    gameListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
+                    gameListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
+                    gameListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
+                    gameListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
+                    gameListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
+                    gameListItems.setCart(c.getInt(c.getColumnIndex("cart")));
+                    gameListItems.setManual(c.getInt(c.getColumnIndex("manual")));
+                    gameListItems.setBox(c.getInt(c.getColumnIndex("box")));
+                    gameListItems.setFavourite(c.getInt(c.getColumnIndex("favourite")));
+                    gameListItems.setFinished(c.getInt(c.getColumnIndex("finished_game")));
+                    gameListItems.setGamePrice(c.getDouble(c.getColumnIndex("price")));
+                    gameListItems.setWishlist(c.getInt(c.getColumnIndex("wishlist")));
+                    gameListItems.setYear(c.getString(c.getColumnIndex("eu_year"))); //re-edit this after testing
+                    gameListItems.setUSYear(c.getString(c.getColumnIndex("us_year")));
+                    gameListItems.setGenre((c.getString(c.getColumnIndex("genre"))));
+                    gameListItems.setSubgenre((c.getString(c.getColumnIndex("subgenre"))));
+                    gameListItems.setDeveloper((c.getString(c.getColumnIndex("developer"))));
+                    gameListItems.setSynopsis((c.getString(c.getColumnIndex("synopsis"))));
+                    gameListItems.setAustralia(c.getInt(c.getColumnIndex("flag_australia")));
+                    gameListItems.setAustria(c.getInt(c.getColumnIndex("flag_austria")));
+                    gameListItems.setBenelux(c.getInt(c.getColumnIndex("flag_benelux")));
+                    gameListItems.setDenmark(c.getInt(c.getColumnIndex("flag_denmark")));
+                    gameListItems.setFinland(c.getInt(c.getColumnIndex("flag_finland")));
+                    gameListItems.setFrance(c.getInt(c.getColumnIndex("flag_france")));
+                    gameListItems.setGermany((c.getInt(c.getColumnIndex("flag_germany"))));
+                    gameListItems.setGreece(c.getInt(c.getColumnIndex("flag_greece")));
+                    gameListItems.setIreland(c.getInt(c.getColumnIndex("flag_ireland")));
+                    gameListItems.setItaly(c.getInt(c.getColumnIndex("flag_italy")));
+                    gameListItems.setNorway(c.getInt(c.getColumnIndex("flag_norway")));
+                    gameListItems.setPoland(c.getInt(c.getColumnIndex("flag_poland")));
+                    gameListItems.setPortugal(c.getInt(c.getColumnIndex("flag_portugal")));
+                    gameListItems.setSpain(c.getInt(c.getColumnIndex("flag_spain")));
+                    gameListItems.setSweden(c.getInt(c.getColumnIndex("flag_sweden")));
+                    gameListItems.setSwitzerland(c.getInt(c.getColumnIndex("flag_switzerland")));
+                    gameListItems.setUS((c.getInt(c.getColumnIndex("flag_us"))));
+                    gameListItems.setUK((c.getInt(c.getColumnIndex("flag_uk"))));
+                    gameListItems.setGameCondition(c.getInt(c.getColumnIndex("condition")));
+                    gameListItems.setGameOwnership(c.getInt(c.getColumnIndex("play_owned")));
+                    gameListItems.setGameCompletion(c.getInt(c.getColumnIndex("play_completed")));
+                    gameListItems.setGameScore(c.getInt(c.getColumnIndex("play_score")));
+                    gameListItems.setGameTime(c.getDouble(c.getColumnIndex("play_hours")));
+                    gameListItems.setConditionStatement(conditionstatement);
+                    gameListItems.setCurrency(currency);
+                    gamesList.add(gameListItems);//add items to the arraylist
+                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
+
+                }
+                c.moveToNext();//move to the next record
+            }
+            //c = db.rawQuery(HomeScreenActivity.sqlstatement, null);
+            c.close();//close the cursor
+        }
+        return gamesList;
+    }
+
 
 }

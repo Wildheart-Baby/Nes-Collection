@@ -138,6 +138,10 @@ public class AllGamesViewModel extends AndroidViewModel {
 
         return title;
     }
-    //public void Get
+
+    public ArrayList<GameItems> GetSpecificGames(String InformationType, String Query){
+        gamesList = dbh.getSpecificSearch(InformationType, Query);
+        return gamesList;
+    }
 
 }
