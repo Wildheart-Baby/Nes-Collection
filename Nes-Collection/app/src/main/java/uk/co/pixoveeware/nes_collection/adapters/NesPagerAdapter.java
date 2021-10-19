@@ -186,7 +186,7 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
 
         australia.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
+                /*Fragment f = frg.findFragmentByTag("gamesList");
                 frg.beginTransaction()
                             .remove(f)
                             .commit();
@@ -194,179 +194,81 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                 frg.beginTransaction()
                         .add(R.id.container, SpecificCountryFragment.newInstance("", "australia"), "gamesList")
                         .addToBackStack("gamesList")
-                        .commit();
+                        .commit();*/
+                openFragment("australia");
             }
         });
 
         austria.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "austria"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("austria");
             }
         });
         benelux.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "benelux"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
-
+                openFragment("benelux");
             }
         });
 
         denmark.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "denmark"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("denmark");
             }
         });
 
         finland.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "finland"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
-
+                openFragment("finland");
             }
         });
 
         france.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "france"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
-
+                openFragment("france");
             }
         });
 
         germany.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "germany"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("germany");
 
             }
         });
 
         greece.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "greece"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("greece");
 
             }
         });
 
         ireland.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "ireland"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("ireland");
             }
         });
 
         italy.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "italy"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("italy");
             }
         });
 
         norway.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "norway"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("norway");
             }
         });
 
         poland.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "poland"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("poland");
             }
         });
 
         portugal.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "portugal"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("portugal");
             }
         });
 
@@ -386,73 +288,35 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
 
         spain.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "spain"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("spain");
             }
         });
 
         sweden.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "sweden"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("sweden");
             }
         });
 
         switzerland.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "switzerland"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("switzerland");
             }
         });
 
         us.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "us"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("us");
             }
         });
 
         uk.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                        .remove(f)
-                        .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "uk"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();
+                openFragment("uk");
             }
         });
+
+
 
 
 
@@ -480,6 +344,18 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                 .addToBackStack(null)
                 .commit();
     }*/
+
+    public void openFragment(String countrySelection){
+        Fragment f = frg.findFragmentByTag("gamesList");
+        frg.beginTransaction()
+                .remove(f)
+                .commit();
+        frg.popBackStack();
+        frg.beginTransaction()
+                .add(R.id.container, SpecificCountryFragment.newInstance("", countrySelection), "gamesList")
+                .addToBackStack("gamesList")
+                .commit();
+    }
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
