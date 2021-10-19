@@ -354,7 +354,7 @@
 
         <Spinner
             android:id="@+id/spinner_condition"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="40dp"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
