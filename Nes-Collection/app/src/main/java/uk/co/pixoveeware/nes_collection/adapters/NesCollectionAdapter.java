@@ -134,6 +134,7 @@ public class NesCollectionAdapter extends BaseAdapter {
     public String convertLogoTitle(String title){
         title = title.toLowerCase();
         title = title.replaceAll("-","_");
+        title = title.replaceAll(" ", "_");
         return title;
     }
 
