@@ -1488,5 +1488,50 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return gamesList;
     }
 
+    public ArrayList<GameItemsIndex> specificGamesIndex(String InformationType, String Query){
+        ArrayList<GameItemsIndex> indexList = new ArrayList<>();
+        indexList.clear();
+        int indexpos = 0;
+        String iType = InformationType;
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+
+                wherestatement = (c.getString(c.getColumnIndex("region")));
+                orderby = (c.getString(c.getColumnIndex("orderedby")));
+                c.moveToNext();//move to the next record
+            }
+            c.close();//close the cursor
+        }
+
+        searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + orderby + "";
+
+        c = db.rawQuery(searchQuery, null);
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+                GameItemsIndex indexListItems = new GameItemsIndex();
+                currentgroup = c.getString(c.getColumnIndex(groupHeader));
+
+                if(!currentgroup.equals(prevgroup)){
+                    indexListItems.setItemid(indexpos);
+                    indexListItems.setLetter(c.getString(c.getColumnIndex(groupHeader)));
+                    indexList.add(indexListItems);
+                    indexpos = indexpos +1;
+                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
+                }
+                else if(currentgroup.equals(prevgroup)){
+                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
+                    indexpos = indexpos +1;
+                }
+                c.moveToNext();//move to the next record
+            }
+            c.close();//close the cursor
+        }
+        return indexList;
+    }
 
 }

@@ -139,6 +139,13 @@ public class AllGamesViewModel extends AndroidViewModel {
         return gamesList;
     }
 
+    public ArrayList<GameItemsIndex> GetSpecificGamesIndex(String InformationType, String Query){
+        indexList = dbh.specificGamesIndex(InformationType, Query);
+        return indexList;
+    }
+
+
+
     public String convertLogoTitle(String title){
         title = title.toLowerCase();
         title = title.replaceAll("-","_");
