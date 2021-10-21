@@ -24,7 +24,7 @@ public class NesCollectionAdapter extends BaseAdapter {
         TextView gamename;
         TextView publisher;
         ImageView cover;
-        ImageView owned;
+        ImageView owned, genre, subgenre;
         TextView separator;
     }
 
@@ -69,22 +69,27 @@ public class NesCollectionAdapter extends BaseAdapter {
             convertView = inflater.inflate(R.layout.single_item, null); //use the layout to diaplay the array data
 
             ViewHolder holder = new ViewHolder();
-            holder.separator = (TextView) convertView.findViewById(R.id.lblDivider);
-            holder.owned = (ImageView) convertView.findViewById(R.id.imgOwned);
-            holder.cover = (ImageView) convertView.findViewById(R.id.imgGameCover);
-            holder.gamename = (TextView) convertView.findViewById(R.id.lblGameName);
-            holder.publisher = (TextView) convertView.findViewById(R.id.lblPublisher);
+            holder.separator = convertView.findViewById(R.id.lblDivider);
+            holder.owned = convertView.findViewById(R.id.imgOwned);
+            holder.cover = convertView.findViewById(R.id.imgGameCover);
+            holder.genre = convertView.findViewById(R.id.imgGenre);
+            holder.subgenre = convertView.findViewById(R.id.imgSubgenre);
+            holder.gamename = convertView.findViewById(R.id.lblGameName);
+            holder.publisher = convertView.findViewById(R.id.lblPublisher);
 
             convertView.setTag(holder);
     }
 
         ViewHolder holder = (ViewHolder) convertView.getTag();
         if (nesListItems.group.equals("no")){ holder.separator.setVisibility(View.GONE); } else { holder.separator.setVisibility(View.VISIBLE); }
-        holder.separator.setText(nesListItems.getGroup());
+        holder.separator.setText("  "+nesListItems.getGroup());
         gameimage = nesListItems.getImage();
         int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
         int ownedid;
         holder.cover.setImageResource(coverid);
+
+        holder.genre.setImageResource(context.getResources().getIdentifier(convertLogoTitle(nesListItems.getGenre()), "drawable", context.getPackageName()));
+        holder.subgenre.setImageResource(context.getResources().getIdentifier(convertLogoTitle(nesListItems.getSubgenre()), "drawable", context.getPackageName()));
 
         thegamename = nesListItems.getName();
         l = thegamename.length();
@@ -114,28 +119,7 @@ public class NesCollectionAdapter extends BaseAdapter {
 
 
 
-        /*if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 1){
-            ownedid=context.getResources().getIdentifier("icon_owned_gold", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 1 && nesListItems.box == 1 && nesListItems.manual == 0){
-            ownedid=context.getResources().getIdentifier("icon_owned_silver", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 1 && nesListItems.box == 0 && nesListItems.manual == 1){
-        ownedid=context.getResources().getIdentifier("icon_owned_silver", "drawable", context.getPackageName());
-        holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 0 && nesListItems.box == 1 && nesListItems.manual == 1){
-            ownedid=context.getResources().getIdentifier("icon_owned_silver", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 1 && nesListItems.box == 0 && nesListItems.manual == 0){
-        ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
-        holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 0 && nesListItems.box == 1 && nesListItems.manual == 0){
-            ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }else if (nesListItems.cart == 0 && nesListItems.box == 0 && nesListItems.manual == 1){
-            ownedid=context.getResources().getIdentifier("icon_owned_bronze", "drawable", context.getPackageName());
-            holder.owned.setImageResource(ownedid);
-        }*/
+
         if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}
         if (position % 2 == 0) {
             convertView.setBackgroundColor(Color.parseColor("#CAC9C5"));
@@ -145,6 +129,12 @@ public class NesCollectionAdapter extends BaseAdapter {
 
 
         return convertView; //return the convertview and show the listview
+    }
+
+    public String convertLogoTitle(String title){
+        title = title.toLowerCase();
+        title = title.replaceAll("-","_");
+        return title;
     }
 
 }

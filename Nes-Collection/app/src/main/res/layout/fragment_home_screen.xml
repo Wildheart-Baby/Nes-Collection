@@ -108,20 +108,18 @@
         android:layout_marginLeft="16dp" />
 
     <ImageButton
+        android:id="@+id/btnFinished"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btnFinished"
-        android:src="@drawable/btnfinishedgames"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="8dp"
         android:background="@null"
         android:scaleType="fitCenter"
-        android:layout_marginTop="16dp"
-        app:layout_constraintTop_toBottomOf="@+id/lblWishList"
-        android:layout_marginStart="8dp"
+        android:src="@drawable/btnfinishedgames"
         app:layout_constraintLeft_toRightOf="@+id/btnStats"
-        android:layout_marginLeft="8dp"
         app:layout_constraintRight_toLeftOf="@+id/btnShelfOrder"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp" />
+        app:layout_constraintTop_toBottomOf="@+id/lblWishList" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -151,121 +149,102 @@
         android:layout_marginRight="16dp"></com.google.android.gms.ads.AdView>-->
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/mainAllGames"
         android:id="@+id/lblAllGames"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnAllGames"
-        android:layout_marginStart="40dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="40dp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mainFavouriteGames"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/mainAllGames"
+        app:layout_constraintEnd_toEndOf="@+id/btnAllGames"
+        app:layout_constraintStart_toStartOf="@+id/btnAllGames"
+        app:layout_constraintTop_toBottomOf="@+id/btnAllGames" />
+
+    <TextView
         android:id="@+id/lblFavouriteGames"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnFavouriteGames"
-        android:layout_marginStart="32dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="32dp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mainStatistics"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/mainFavouriteGames"
+        app:layout_constraintEnd_toEndOf="@+id/btnFavouriteGames"
+        app:layout_constraintStart_toStartOf="@+id/btnFavouriteGames"
+        app:layout_constraintTop_toBottomOf="@+id/btnFavouriteGames" />
+
+    <TextView
         android:id="@+id/lblStats"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnStats"
-        android:layout_marginStart="32dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginLeft="32dp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mainNeededGames"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/mainStatistics"
+        app:layout_constraintEnd_toEndOf="@+id/btnStats"
+        app:layout_constraintStart_toStartOf="@+id/btnStats"
+        app:layout_constraintTop_toBottomOf="@+id/btnStats" />
+
+    <TextView
         android:id="@+id/lblNeededGames"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnneeded"
-        app:layout_constraintRight_toLeftOf="@+id/lblOwnedGames"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/lblAllGames"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="0.66" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mainOwnedGames"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/mainNeededGames"
+        app:layout_constraintEnd_toEndOf="@+id/btnneeded"
+        app:layout_constraintStart_toStartOf="@+id/btnneeded"
+        app:layout_constraintTop_toBottomOf="@+id/btnneeded" />
+
+    <TextView
         android:id="@+id/lblOwnedGames"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnowned"
-        android:layout_marginEnd="24dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="24dp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mainWishList"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/mainOwnedGames"
+        app:layout_constraintEnd_toEndOf="@+id/btnowned"
+        app:layout_constraintStart_toStartOf="@+id/btnowned"
+        app:layout_constraintTop_toBottomOf="@+id/btnowned" />
+
+    <TextView
         android:id="@+id/lblWishList"
-        android:gravity="center_horizontal"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnWishList"
-        app:layout_constraintRight_toLeftOf="@+id/lblShelfOrder"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/lblFavouriteGames"
-        android:layout_marginLeft="8dp" />
-
-    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mainShelfOrder"
-        android:id="@+id/lblShelfOrder"
-        android:gravity="center_horizontal"
-        android:layout_marginEnd="32dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="32dp"
         android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/mainWishList"
+        app:layout_constraintEnd_toEndOf="@+id/btnWishList"
+        app:layout_constraintStart_toStartOf="@+id/btnWishList"
+        app:layout_constraintTop_toBottomOf="@+id/btnWishList" />
+
+    <TextView
+        android:id="@+id/lblShelfOrder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/mainShelfOrder"
+        app:layout_constraintEnd_toEndOf="@+id/btnShelfOrder"
+        app:layout_constraintStart_toStartOf="@+id/btnShelfOrder"
         app:layout_constraintTop_toBottomOf="@+id/btnShelfOrder" />
 
     <TextView
+        android:id="@+id/lblFinishedGames"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mainFinishedGames"
-        android:id="@+id/lblFinishedGames"
-        android:gravity="center_horizontal"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/btnFinished"
-        android:layout_marginStart="8dp"
-        app:layout_constraintLeft_toRightOf="@+id/lblStats"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintRight_toLeftOf="@+id/lblSettings"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp" />
+        android:gravity="center_horizontal"
+        android:text="@string/mainFinishedGames"
+        app:layout_constraintEnd_toEndOf="@+id/btnFinished"
+        app:layout_constraintStart_toStartOf="@+id/btnFinished"
+        app:layout_constraintTop_toBottomOf="@+id/btnFinished" />
 
     <TextView
+        android:id="@+id/lblSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/mainSettings"
-        android:id="@+id/lblSettings"
-        android:gravity="center_horizontal"
-        android:layout_marginEnd="40dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginRight="40dp"
         android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/mainSettings"
+        app:layout_constraintEnd_toEndOf="@+id/btnSettings"
+        app:layout_constraintStart_toStartOf="@+id/btnSettings"
         app:layout_constraintTop_toBottomOf="@+id/btnSettings" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

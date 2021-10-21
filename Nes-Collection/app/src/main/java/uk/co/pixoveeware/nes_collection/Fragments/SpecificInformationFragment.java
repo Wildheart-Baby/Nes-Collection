@@ -136,7 +136,7 @@ public class SpecificInformationFragment extends Fragment {
     private void SetTitles(){
         getActivity().setTitle(" " + mParam1.substring(0, 1).toUpperCase() + mParam1.substring(1) + ": ");
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(" " + viewM.SpecificTitle(mParam2));
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(mParam2.toLowerCase(), "drawable", getContext().getPackageName()));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(viewM.convertLogoTitle(mParam2), "drawable", getContext().getPackageName()));
     }
 
     @Override
@@ -151,4 +151,16 @@ public class SpecificInformationFragment extends Fragment {
         inflater.inflate(R.menu.menu_allgames, menu);
         SetTitles();
     }
+
+    /*private String convertLogoTitle(String title){
+        switch(title){
+            case "Action-Adventure":
+                title = "action_adventure";
+                break;
+            default:
+                title = title.toLowerCase();
+                break;
+        }
+        return title;
+    }*/
 }
