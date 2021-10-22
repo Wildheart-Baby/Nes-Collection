@@ -119,8 +119,73 @@ public class Data {
         Region8.setImage(R.drawable.denmark);
         regionList.add(Region8);
 
-        //,Denmark,Finland,France,Germany
-        //Greece,Ireland,Italy,Norway,Poland,Portugal
+        Spinner Region9 = new Spinner();
+        Region9.setName("Finland");
+        Region9.setImage(R.drawable.finland);
+        regionList.add(Region9);
+
+        Spinner Region10 = new Spinner();
+        Region10.setName("France");
+        Region10.setImage(R.drawable.france);
+        regionList.add(Region10);
+
+        Spinner Region11 = new Spinner();
+        Region11.setName("Germany");
+        Region11.setImage(R.drawable.germany);
+        regionList.add(Region11);
+
+        Spinner Region12 = new Spinner();
+        Region12.setName("Greece");
+        Region12.setImage(R.drawable.greece);
+        regionList.add(Region12);
+
+        Spinner Region13 = new Spinner();
+        Region13.setName("Ireland");
+        Region13.setImage(R.drawable.ireland);
+        regionList.add(Region13);
+
+        Spinner Region14 = new Spinner();
+        Region14.setName("Italy");
+        Region14.setImage(R.drawable.italy);
+        regionList.add(Region14);
+
+        Spinner Region15 = new Spinner();
+        Region15.setName("Norway");
+        Region15.setImage(R.drawable.norway);
+        regionList.add(Region15);
+
+        Spinner Region16 = new Spinner();
+        Region16.setName("Poland");
+        Region16.setImage(R.drawable.denmark);
+        regionList.add(Region16);
+
+        Spinner Region17 = new Spinner();
+        Region17.setName("Portugal");
+        Region17.setImage(R.drawable.denmark);
+        regionList.add(Region17);
+
+        Spinner Region18 = new Spinner();
+        Region18.setName("Spain");
+        Region18.setImage(R.drawable.denmark);
+        regionList.add(Region18);
+
+        Spinner Region19 = new Spinner();
+        Region19.setName("Sweden");
+        Region19.setImage(R.drawable.sweden);
+        regionList.add(Region19);
+
+        Spinner Region20 = new Spinner();
+        Region20.setName("Switzerland");
+        Region20.setImage(R.drawable.switzerland);
+        regionList.add(Region20);
+
+        Spinner Region21 = new Spinner();
+        Region21.setName("All regions");
+        Region21.setImage(R.drawable.allregions);
+        regionList.add(Region21);
+
+
+        //,oland,Portugal
         //Spain,Sweden,Switzerland
 
         //getString(R.string.regionname01)

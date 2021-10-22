@@ -308,34 +308,28 @@ public class SettingsFragment extends Fragment {
                 sql = "(pal_uk_release = 1)";
                 regionselected = "Pal A UK";
                 break;
+            case 2:
+                sql = "(pal_b_release = 1)";
+                regionselected = "Pal B";
+                break;
+            case 3:
+                sql = "(ntsc_release = 1)";
+                regionselected = "US";
+                break;
+            case 4:
+                sql = "(pal_a_release = 1 or pal_b_release = 1)";
+                regionselected = "Europe";
+                break;
+            case 5:
+                sql = " flag_australia = 1";
+                regionselected = "Australia";
+                break;
+
             default:
                 break;
         }
 
-        /*if (regionselected.contains("Pal A")) {
-            sql = "(pal_a_release = 1)";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Pal A UK")) {
-            sql = "(pal_uk_release = 1)";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Pal B")) {
-            sql = "(pal_b_release = 1)";
-            //missingsql = "and (pal_b_cart = 32573)";
-        }
-        if (regionselected.contains("US")) {
-            sql = "(ntsc_release = 1)";
-            //missingsql = "and (ntsc_cart = 32573)";
-        }
-        if (regionselected.contains("Europe")) {
-            sql = "(pal_a_release = 1 or pal_b_release = 1)";
-            //missingsql = "and (pal_a_cart = 32573 or pal_b_cart = 32573)";
-        }
-
-        if (regionselected.contains("Australia")) {
-            sql = " flag_australia = 1";
-            //missingsql = "and (ntsc_cart = 32573)";
+        /*
         }
         if (regionselected.contains("Austria")) {
             sql = " flag_austria = 1";
