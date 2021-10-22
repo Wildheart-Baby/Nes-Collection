@@ -169,12 +169,12 @@ public class EditGameFragment extends Fragment {
         return v;
     }
 
-    /*@Override
+
     public void onCreateOptionsMenu(Menu menu) {
         menu.clear();
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.menu_editgame, menu);
-    }*/
+    }
 
 
 

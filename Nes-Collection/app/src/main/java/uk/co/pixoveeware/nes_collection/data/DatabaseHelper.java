@@ -14,6 +14,7 @@ import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItem;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
 import uk.co.pixoveeware.nes_collection.models.GameListItems;
+import uk.co.pixoveeware.nes_collection.models.GameSettings;
 
 /**
  * Created by Wildheart on 28/08/2019.
@@ -44,22 +45,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String FAVOURITE = "favourite";
     private static final String ONSHELF = "onshelf";
 
-    private static final String EUROCART = "euro_cart";
-    private static final String USCART = "ntsc_cart";
-    private static final String SACART = "sa_cart";
-    private static final String EUROBOX = "euro_box";
-    private static final String USBOX = "ntsc_box";
-    private static final String SABOX = "sa_box";
-    private static final String EUROMAN = "euro_manual";
-    private static final String USMAN = "ntsc_manual";
-    private static final String SAMAN = "sa_manual";
-    private static final String EUROCOST = "euro_cost";
-    private static final String USCOST = "ntsc_cost";
-    private static final String SACOST = "sa_cost";
     private static final String PRICE = "price";
-    private static final String EUROOWNED = "euro_owned";
-    private static final String USOWNED = "ntsc_owned";
-    private static final String SAOWNED = "sa_owned";
     private static final String WISHLIST = "wishlist";
     private static final String GAMECONDITION = "condition";
     private static final String PLAYOWNED = "play_owned";
@@ -67,6 +53,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String PLAYSCORE = "play_score";
     private static final String PLAYCOMPLETION = "play_completed";
     private static final String FINISHED = "finished_game";
+
+    private static final String REGIONSQL = "region_sql";
+    private static final String REGIONTITLE = "region_title";
+    private static final String NEEDEDGAMES = "needed_games";
+    private static final String LICENSEDORNOT = "licensed_or_not";
+    private static final String CURRENCY = "currency";
+    private static final String SHELFSIZE = "shelf_size";
+    private static final String SHOWPRICE = "show_price";
+    private static final String GAMEVIEW = "game_view";
+    private static final String OWNEDGRAPHIC = "owned_graphic";
+    private static final String GAMEORDERING = "game_ordering";
+    private static final String SHOWALLGAMES = "show_all_games";
+    private static final String USTITLES = "us_titles";
+    private static final String ORDEREDBY = "orderedby";
+    private static final String GROUPHEADER ="group_header";
+    private static final String SHOWCONDITION = "show_condition";
 
     // Database Version
     private static final int DATABASE_VERSION = 1;
@@ -1532,6 +1534,78 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             c.close();//close the cursor
         }
         return indexList;
+    }
+
+    public int ownedGamesCount(){
+        int gCount = 0;
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM eu where owned = 1", null);//select everything from the database table
+
+        if (c.moveToFirst()) {//move to the first record
+            gCount= c.getCount();
+            c.close();//close the cursor
+        }
+
+        return gCount;
+    }
+
+    public GameSettings getSettings(){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+        GameSettings gSettings = new GameSettings();
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+
+                gSettings.setRegionSql(c.getString(c.getColumnIndex("region_sql")));
+                gSettings.setRegionTitle(c.getString(c.getColumnIndex("region_title")));
+                gSettings.setLicensedOrNot(c.getString(c.getColumnIndex("licensed_or_not")));
+                gSettings.setNeededGames(c.getString(c.getColumnIndex("needed_games")));
+                gSettings.setShowAllGames(c.getString(c.getColumnIndex("show_all_games")));
+                gSettings.setCurrency(c.getString(c.getColumnIndex("currency")));
+                gSettings.setShelfSize(c.getInt(c.getColumnIndex("shelf_size")));
+                gSettings.setShowPrice(c.getInt(c.getColumnIndex("show_price")));
+                gSettings.setGameView(c.getInt(c.getColumnIndex("game_view")));
+                gSettings.setOwnedGraphic(c.getInt(c.getColumnIndex("owned_graphic")));
+                gSettings.setGameOrdering(c.getInt(c.getColumnIndex("game_ordering")));
+                gSettings.setUsTitles(c.getInt(c.getColumnIndex("us_titles")));
+                gSettings.setOrderedBy(c.getString(c.getColumnIndex("orderedby")));
+                gSettings.setShowCondition(c.getInt(c.getColumnIndex("show_condition")));
+                //regionmissingcheck = (c.getString(c.getColumnIndex("region_missing_check")));
+                c.moveToNext();//move to the next record
+            }
+            c.close();//close the cursor
+        }
+        db.close();//close the database
+
+        return gSettings;
+    }
+
+    public void UpdateSettings(GameSettings gSettings){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(REGIONSQL, gSettings.getRegionSql());
+        values.put(REGIONTITLE, gSettings.getRegionTitle());
+        values.put(NEEDEDGAMES, gSettings.getNeededGames());
+        values.put(LICENSEDORNOT, gSettings.getLicensedOrNot());
+        values.put(SHOWALLGAMES, gSettings.getShowAllGames());
+        values.put(CURRENCY, gSettings.getCurrency());
+        values.put(ORDEREDBY, gSettings.getOrderedBy());
+        values.put(GROUPHEADER, gSettings.getGroupHeader());
+
+        values.put(SHELFSIZE, gSettings.getShelfSize());
+        values.put(SHOWPRICE, gSettings.getShowPrice());
+        values.put(GAMEVIEW, gSettings.getGameView());
+        values.put(OWNEDGRAPHIC, gSettings.getOwnedGraphic());
+        values.put(GAMEORDERING, gSettings.getGameOrdering());
+        values.put(USTITLES, gSettings.getUsTitles());
+        values.put(SHOWCONDITION, gSettings.getShowCondition());
+
+
+
+        db.update("settings", values, null, null);
+        db.close();
     }
 
 }

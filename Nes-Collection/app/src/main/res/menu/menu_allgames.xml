@@ -10,7 +10,7 @@
         app:showAsAction="ifRoom"
         />
 
-<!-- Settings, should always be in the overflow -->
+<!-- GameSettings, should always be in the overflow -->
 <item android:id="@+id/action_settings"
     android:title="@string/title_activity_settings"
     />

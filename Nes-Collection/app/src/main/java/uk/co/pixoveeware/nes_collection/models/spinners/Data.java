@@ -73,4 +73,16 @@ public class Data {
 
         return conditionList;
     }
+
+    public static List<Spinner> getRegionList(){
+        List<Spinner> regionList = new ArrayList<>();
+
+        Spinner Condition1 = new Spinner();
+        Condition1.setName("Pal A");
+        Condition1.setImage(R.drawable.pal_a);
+        regionList.add(Condition1);
+
+
+        return regionList;
+    }
 }

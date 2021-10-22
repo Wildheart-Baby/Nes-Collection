@@ -10,6 +10,7 @@ import uk.co.pixoveeware.nes_collection.data.DatabaseHelper;
 import uk.co.pixoveeware.nes_collection.models.GameItem;
 import uk.co.pixoveeware.nes_collection.models.AllGameItems;
 import uk.co.pixoveeware.nes_collection.models.GameItemsIndex;
+import uk.co.pixoveeware.nes_collection.models.GameSettings;
 
 public class AllGamesViewModel extends AndroidViewModel {
 
@@ -60,6 +61,11 @@ public class AllGamesViewModel extends AndroidViewModel {
     public String GamesCount(String type){
         gamesCount = dbh.gamesCount(type);
         return gamesCount;
+    }
+
+    public int OwnedGamesCount(){
+        int gCount = dbh.ownedGamesCount();
+        return gCount;
     }
 
     public String RegionTitle(String type){
@@ -151,6 +157,15 @@ public class AllGamesViewModel extends AndroidViewModel {
         title = title.replaceAll("-","_");
         title = title.replaceAll(" ", "_");
         return title;
+    }
+
+    public GameSettings AppSettings(){
+        GameSettings gSettings = dbh.getSettings();
+        return gSettings;
+    }
+
+    public void updateSettings(GameSettings settings){
+        dbh.UpdateSettings(settings);
     }
 
 }

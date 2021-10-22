@@ -60,7 +60,7 @@ public class Settings extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        setTitle("Settings");
+        setTitle("GameSettings");
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
