@@ -39,7 +39,7 @@ import uk.co.pixoveeware.nes_collection.models.spinners.Data;
 public class EditGameFragment extends Fragment {
 
     public Spinner spinner_played;
-    public SpinnerAdapter spinnerAdapter;
+    public PlayedSpinnerAdapter spinnerAdapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

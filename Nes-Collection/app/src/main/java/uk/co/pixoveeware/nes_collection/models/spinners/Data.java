@@ -1,5 +1,7 @@
 package uk.co.pixoveeware.nes_collection.models.spinners;
 
+import android.graphics.Region;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,12 +79,51 @@ public class Data {
     public static List<Spinner> getRegionList(){
         List<Spinner> regionList = new ArrayList<>();
 
-        Spinner Condition1 = new Spinner();
-        Condition1.setName("Pal A");
-        Condition1.setImage(R.drawable.pal_a);
-        regionList.add(Condition1);
+        Spinner Region1 = new Spinner();
+        Region1.setName("Pal A");
+        Region1.setImage(R.drawable.pal_a);
+        regionList.add(Region1);
 
+        Spinner Region2 = new Spinner();
+        Region2.setName("Pal A UK");
+        Region2.setImage(R.drawable.uk);
+        regionList.add(Region2);
 
+        Spinner Region3 = new Spinner();
+        Region3.setName("Pal B");
+        Region3.setImage(R.drawable.euro);
+        regionList.add(Region3);
+
+        Spinner Region4 = new Spinner();
+        Region4.setName("US");
+        Region4.setImage(R.drawable.us);
+        regionList.add(Region4);
+
+        Spinner Region5 = new Spinner();
+        Region5.setName("Australia");
+        Region5.setImage(R.drawable.australia);
+        regionList.add(Region5);
+
+        Spinner Region6 = new Spinner();
+        Region6.setName("Austria");
+        Region6.setImage(R.drawable.austria);
+        regionList.add(Region6);
+
+        Spinner Region7 = new Spinner();
+        Region7.setName("Benelux");
+        Region7.setImage(R.drawable.benelux);
+        regionList.add(Region7);
+
+        Spinner Region8 = new Spinner();
+        Region8.setName("Canada");
+        Region8.setImage(R.drawable.denmark);
+        regionList.add(Region8);
+
+        //,Denmark,Finland,France,Germany
+        //Greece,Ireland,Italy,Norway,Poland,Portugal
+        //Spain,Sweden,Switzerland
+
+        //getString(R.string.regionname01)
         return regionList;
     }
 }

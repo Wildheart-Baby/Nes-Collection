@@ -98,22 +98,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
 
-        if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
+        GameSettings gSettings = getSettings();
 
-                wherestatement = (c.getString(c.getColumnIndex("region")));
-                title = (c.getString(c.getColumnIndex("region_title")));
-                licensed = (c.getString(c.getColumnIndex("licensed")));
-                titles = (c.getInt(c.getColumnIndex("us_titles")));
-                orderby = (c.getString(c.getColumnIndex("orderedby")));
-                groupHeader = (c.getString(c.getColumnIndex("group_header")));
-                ordering = (c.getInt(c.getColumnIndex("ordered")));
-                currency = (c.getString(c.getColumnIndex("currency")));
-                conditionstatement = (c.getInt(c.getColumnIndex("show_condition")));
-                c.moveToNext();//move to the next record
-            }
-            c.close();//close the cursor
-        }
+        wherestatement = gSettings.getRegionSql();
+        title = gSettings.getRegionTitle();
+        licensed = gSettings.getLicensedOrNot();
+        titles = gSettings.getUsTitles();
+        orderby = gSettings.getOrderedBy();
+        groupHeader = gSettings.getGroupHeader();
+        ordering = gSettings.getGameOrdering();
+        currency = gSettings.getCurrency();
+        conditionstatement = gSettings.getShowCondition();
+
         if (titles == 0){
             thename = "eu_name";
             theimage = "image";
@@ -210,19 +206,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
-                wherestatement = (c.getString(c.getColumnIndex("region")));
+        //GameSettings gSettings = getSettings();
+
+        /*wherestatement = gSettings.getRegionSql();
+        title = gSettings.getRegionTitle();
+        licensed = gSettings.getLicensedOrNot();
+        titles = gSettings.getUsTitles();
+        orderby = gSettings.getOrderedBy();
+        groupHeader = gSettings.getGroupHeader();
+        ordering = gSettings.getGameOrdering();
+        currency = gSettings.getCurrency();
+        conditionstatement = gSettings.getShowCondition();*/
+
+                wherestatement = (c.getString(c.getColumnIndex("region_sql")));
                 title = (c.getString(c.getColumnIndex("region_title")));
-                licensed = (c.getString(c.getColumnIndex("licensed")));
+                licensed = (c.getString(c.getColumnIndex("licensed_or_not")));
                 titles = (c.getInt(c.getColumnIndex("us_titles")));
                 orderby = (c.getString(c.getColumnIndex("orderedby")));
                 groupHeader = (c.getString(c.getColumnIndex("group_header")));
-                ordering = (c.getInt(c.getColumnIndex("ordered")));
+                ordering = (c.getInt(c.getColumnIndex("orderedby")));
                 currency = (c.getString(c.getColumnIndex("currency")));
                 conditionstatement = (c.getInt(c.getColumnIndex("show_condition")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
+
         //db.close();//close the database
         if (titles == 0){
             thename = "eu_name";
@@ -570,7 +579,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
-                wherestatement = (c.getString(c.getColumnIndex("region")));
+                wherestatement = (c.getString(c.getColumnIndex("region_sql")));
                 orderby = (c.getString(c.getColumnIndex("orderedby")));
                 c.moveToNext();//move to the next record
             }
@@ -1160,7 +1169,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
-                wherestatement = (c.getString(c.getColumnIndex("region")));
+                wherestatement = (c.getString(c.getColumnIndex("region_sql")));
                 orderby = (c.getString(c.getColumnIndex("orderedby")));
                 c.moveToNext();//move to the next record
             }
@@ -1562,6 +1571,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 gSettings.setLicensedOrNot(c.getString(c.getColumnIndex("licensed_or_not")));
                 gSettings.setNeededGames(c.getString(c.getColumnIndex("needed_games")));
                 gSettings.setShowAllGames(c.getString(c.getColumnIndex("show_all_games")));
+                gSettings.setGroupHeader(c.getString(c.getColumnIndex("group_header")));
                 gSettings.setCurrency(c.getString(c.getColumnIndex("currency")));
                 gSettings.setShelfSize(c.getInt(c.getColumnIndex("shelf_size")));
                 gSettings.setShowPrice(c.getInt(c.getColumnIndex("show_price")));

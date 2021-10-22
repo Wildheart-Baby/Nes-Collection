@@ -30,6 +30,7 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,9 @@ import uk.co.pixoveeware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.pixoveeware.nes_collection.activities.About;
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.activities.Settings;
+import uk.co.pixoveeware.nes_collection.adapters.spinners.PlayedSpinnerAdapter;
 import uk.co.pixoveeware.nes_collection.models.GameSettings;
+import uk.co.pixoveeware.nes_collection.models.spinners.Data;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,13 +57,16 @@ import uk.co.pixoveeware.nes_collection.models.GameSettings;
 public class SettingsFragment extends Fragment {
 
     String regionselected, sql, currentregion, licensed, currentcurrency, shelfS, wherestatement, regionmissing, missingsql, missingchecked, regionmissingcheck;
-    int shelfsize, showprice, posF, posT, listtype, titles, titlestype;
+    int shelfsize, showprice, posF, posT, listtype, titles, titlestype, regionSelectedPos;
     ArrayAdapter<CharSequence> adapter, adapter2;
     public Button btnexport, btnimport, ok, cancel;
 
     private CheckBox unlicensed, showprices;
     private TextView shelfspace;
     private Spinner region, currency;
+
+
+    public PlayedSpinnerAdapter spinnerAdapter;
 
     AllGamesViewModel viewM;
 
@@ -146,13 +152,15 @@ public class SettingsFragment extends Fragment {
 
         shelfspace.setText(String.valueOf(shelfsize));
 
+        spinnerAdapter = new PlayedSpinnerAdapter(getActivity(), Data.getRegionList());
+        region.setAdapter(spinnerAdapter);
 
         adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.regionsArray, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Apply the adapter to the spinner
-        region.setAdapter(adapter);
+        region.setAdapter(spinnerAdapter);
         int spinnerPosition = adapter.getPosition(currentregion);
         region.setSelection(spinnerPosition);
 
@@ -206,7 +214,9 @@ public class SettingsFragment extends Fragment {
 
         region.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                regionselected = (String) region.getSelectedItem();
+                int pos = (int) region.getSelectedItem();
+                //regionselected = (String) region.getSelectedItem();
+                 regionselected = String.valueOf(Data.getRegionList().indexOf(pos));
             }
 
             public void onNothingSelected(
@@ -289,8 +299,20 @@ public class SettingsFragment extends Fragment {
 
     public void setSetttings(){
 
+        switch(regionSelectedPos){
+            case 0:
+                sql = "(pal_a_release = 1)";
+                regionselected = "Pal A";
+                break;
+            case 1:
+                sql = "(pal_uk_release = 1)";
+                regionselected = "Pal A UK";
+                break;
+            default:
+                break;
+        }
 
-        if (regionselected.contains("Pal A")) {
+        /*if (regionselected.contains("Pal A")) {
             sql = "(pal_a_release = 1)";
             //missingsql = "and (pal_a_cart = 32573)";
         }
@@ -390,7 +412,7 @@ public class SettingsFragment extends Fragment {
         if (regionselected.contains(getString(R.string.regionname01))) {
             sql = "(pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1)";
             //missingsql = "";
-        }
+        }*/
 
         //if (missingregion.isChecked()){ regionmissing = missingsql; missingchecked = "(owned = 0 or 1)";} else {regionmissing = ""; missingchecked = "( owned = 0)";}
         if (unlicensed.isChecked()){ licensed = " and (unlicensed = 0 or 1)";} else  { licensed = " and (unlicensed = 0)"; }
