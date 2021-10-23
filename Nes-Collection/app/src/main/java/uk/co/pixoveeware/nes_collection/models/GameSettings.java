@@ -2,23 +2,17 @@ package uk.co.pixoveeware.nes_collection.models;
 
 public class GameSettings {
 
-    String region_sql, needed_games, licensed_or_not;
+    String region_sql, needed_games;
     String show_all_games, currency, orderedby, group_header;
 
-    int shelf_size, show_price, game_view, owned_graphic, game_ordering, us_titles, show_condition, region_title;
+    int shelf_size, show_price, game_view, owned_graphic, game_ordering,
+            us_titles, show_condition, region_title, licensed_or_not;
 
+    public int getRegionCode() { return region_title; }
+    public void setRegionCode(int region_title) { this.region_title = region_title; }
 
-    public String getRegionSql() { return region_sql; }
-    public void setRegionSql(String region_sql) { this.region_sql = region_sql; }
-
-    public int getRegionTitle() { return region_title; }
-    public void setRegionTitle(int region_title) { this.region_title = region_title; }
-
-    public String getNeededGames() { return needed_games; }
-    public void setNeededGames(String needed_games) { this.needed_games = needed_games; }
-
-    public String getLicensedOrNot() { return licensed_or_not; }
-    public void setLicensedOrNot(String licensed_or_not) { this.licensed_or_not = licensed_or_not; }
+    public int getLicensedOrNot() { return licensed_or_not; }
+    public void setLicensedOrNot(int licensed_or_not) { this.licensed_or_not = licensed_or_not; }
 
     public String getShowAllGames() { return show_all_games; }
     public void setShowAllGames(String show_all_games) { this.show_all_games = show_all_games; }

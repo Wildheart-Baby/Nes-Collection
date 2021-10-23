@@ -23,7 +23,7 @@ import uk.co.pixoveeware.nes_collection.models.GameSettings;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     String currentgroup, prevgroup, wherestatement, orderby, groupHeader, theimage, thename, currency, searchQuery, thePublisher, licensed;
-    int titles, ordering, conditionstatement, showprice, title;
+    int titles, ordering, conditionstatement, showprice, title, regionCode, license;
 
     private static final String KEY_ID = "_id";
     private static final String OWNED = "owned";
@@ -54,9 +54,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String PLAYCOMPLETION = "play_completed";
     private static final String FINISHED = "finished_game";
 
-    private static final String REGIONSQL = "region_sql";
-    private static final String REGIONTITLE = "region_title";
-    private static final String NEEDEDGAMES = "needed_games";
+    private static final String REGIONCODE = "region_code";
     private static final String LICENSEDORNOT = "licensed_or_not";
     private static final String CURRENCY = "currency";
     private static final String SHELFSIZE = "shelf_size";
@@ -91,7 +89,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<GameListItems> getGameslist(String games){
-        String times = getCurrentTimeStamp();
         ArrayList<GameListItems> gamesList = new ArrayList<>();
         gamesList.clear();
 
@@ -100,15 +97,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         GameSettings gSettings = getSettings();
 
-        wherestatement = gSettings.getRegionSql();
-        title = gSettings.getRegionTitle();
-        licensed = gSettings.getLicensedOrNot();
+        regionCode = gSettings.getRegionCode();
+        license = gSettings.getLicensedOrNot();
         titles = gSettings.getUsTitles();
         orderby = gSettings.getOrderedBy();
         groupHeader = gSettings.getGroupHeader();
         ordering = gSettings.getGameOrdering();
         currency = gSettings.getCurrency();
         conditionstatement = gSettings.getShowCondition();
+
+        wherestatement = SqlStatement.Region(regionCode);
+        licensed = SqlStatement.LicensedGames(license);
 
         if (titles == 0){
             thename = "eu_name";
@@ -154,7 +153,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
                 break;
         }
-        times = getCurrentTimeStamp();
         //d("pixo-time","Got query time: "+ times);
         c = db.rawQuery(searchQuery, null);
 
@@ -188,7 +186,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             //c = db.rawQuery(HomeScreenActivity.sqlstatement, null);
             c.close();//close the cursor
         }
-        times = getCurrentTimeStamp();
         return gamesList;
     }
 
@@ -200,10 +197,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         ArrayList<AllGameItems> gamesList = new ArrayList<>();
         gamesList.clear();
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+        GameSettings gSettings = getSettings();
 
-        if (c.moveToFirst()) {//move to the first record
+        regionCode = gSettings.getRegionCode();
+        license = gSettings.getLicensedOrNot();
+        titles = gSettings.getUsTitles();
+        orderby = gSettings.getOrderedBy();
+        groupHeader = gSettings.getGroupHeader();
+        ordering = gSettings.getGameOrdering();
+        currency = gSettings.getCurrency();
+        conditionstatement = gSettings.getShowCondition();
+
+        wherestatement = SqlStatement.Region(regionCode);
+        licensed = SqlStatement.LicensedGames(license);
+
+        //SQLiteDatabase db = this.getWritableDatabase();
+        //Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+
+        /*if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
         //GameSettings gSettings = getSettings();
@@ -218,7 +229,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         currency = gSettings.getCurrency();
         conditionstatement = gSettings.getShowCondition();*/
 
-                wherestatement = (c.getString(c.getColumnIndex("region_sql")));
+                /*wherestatement = (c.getString(c.getColumnIndex("region_sql")));
                 title = (c.getInt(c.getColumnIndex("region_title")));
                 licensed = (c.getString(c.getColumnIndex("licensed_or_not")));
                 titles = (c.getInt(c.getColumnIndex("us_titles")));
@@ -230,7 +241,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
-        }
+        }*/
 
         //db.close();//close the database
         if (titles == 0){
@@ -242,6 +253,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             theimage = "us_image";
             thePublisher = "us_publisher";
         }
+
+
 
         switch (games){
             case "all":
@@ -334,7 +347,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     break;
         }
 
-        c = db.rawQuery(searchQuery, null);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(searchQuery, null);
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
@@ -478,85 +492,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                title = (c.getInt(c.getColumnIndex("region_title")));
+                regionCode = (c.getInt(c.getColumnIndex("region_code")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
         db.close();//close the database
-        switch(title){
-            case 0:
-                flagid = "pal_a";
-                break;
-            case 1:
-                flagid = "uk";
-                break;
-            case 3:
-                flagid = "euro";
-                break;
-            case 4:
-                flagid = "us";
-                break;
-            case 5:
-                flagid = "australia";
-                break;
-            case 6:
-                flagid = "austria";
-                break;
-            case 7:
-                flagid = "benelux";
-                break;
-            case 8:
-                flagid = "denmark";
-                break;
-            case 9:
-                flagid = "finland";
-                break;
-            case 10:
-                flagid = "france";
-                break;
-            case 11:
-                flagid = "germany";
-                break;
-            case 12:
-                flagid = "greece";
-                break;
-            case 13:
-                flagid = "ireland";
-                break;
-            case 14:
-                flagid = "italy";
-                break;
-            case 15:
-                flagid = "norway";
-                break;
-            case 16:
-                flagid = "poland";
-                break;
-            case 17:
-                flagid = "portugal";
-                break;
-            case 18:
-                flagid = "scandinavia";
-                break;
-            case 19:
-                flagid = "spain";
-                break;
-            case 20:
-                flagid = "sweden";
-                break;
-            case 21:
-                flagid = "switzerland";
-                break;
-            case 22:
-                flagid = "allregions";
-                break;
-        }
-        return flagid;
+
+        return SqlStatement.RegionFlag(regionCode);
     }
 
     public ArrayList<GameItemsIndex> gamesIndex(String games){
-        String times = getCurrentTimeStamp();
         ArrayList<GameItemsIndex> indexList = new ArrayList<>();
         indexList.clear();
         int indexpos = 0;
@@ -567,7 +513,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
-                wherestatement = (c.getString(c.getColumnIndex("region_sql")));
+                regionCode = (c.getInt(c.getColumnIndex("region_code")));
                 orderby = (c.getString(c.getColumnIndex("orderedby")));
                 c.moveToNext();//move to the next record
             }
@@ -614,7 +560,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
             c.close();//close the cursor
         }
-        times = getCurrentTimeStamp();
+
         return indexList;
     }
 
@@ -635,19 +581,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String regionTitle(){
-        String title = "";
+        //String title = "";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                title = (c.getString(c.getColumnIndex("region_title")));
+                regionCode = (c.getInt(c.getColumnIndex("region_code")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
 
-        return title;
+        return SqlStatement.RegionTitle(regionCode);
     }
 
     public String gamesCount(String games){
@@ -789,30 +735,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         theimage = "";
         shelfPos = 0;
 
+        GameSettings gSettings = getSettings();
+
+        titles = gSettings.getUsTitles();
+        ordering = gSettings.getGameOrdering();
+        conditionstatement = gSettings.getShowCondition();
+
         ArrayList<AllGameItems> gamesList = new ArrayList<>();
         gamesList.clear();
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
 
-        if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
-
-                wherestatement = (c.getString(c.getColumnIndex("region")));
-                title = (c.getString(c.getColumnIndex("region_title")));
-                //HomeScreenActivity.viewas = (c.getInt(c.getColumnIndex("game_view")));
-                titles = (c.getInt(c.getColumnIndex("us_titles")));
-                orderby = (c.getString(c.getColumnIndex("orderedby")));
-                groupHeader = (c.getString(c.getColumnIndex("group_header")));
-                ordering = (c.getInt(c.getColumnIndex("ordered")));
-                currency = (c.getString(c.getColumnIndex("currency")));
-                shelfsize = (c.getInt(c.getColumnIndex("shelf_size")));
-                conditionstatement = (c.getInt(c.getColumnIndex("show_condition")));
-
-                c.moveToNext();//move to the next record
-            }
-            c.close();//close the cursor
-        }
         //db.close();//close the database
         if (titles == 0){
             thename = "eu_name";
@@ -828,7 +760,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         posInList = -1;
         shelf = 1;
         String sql = "SELECT * FROM eu where owned = 1 and cart = 1";
-        c = db.rawQuery(sql, null);//select everything from the database table
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(sql, null);//select everything from the database table
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
@@ -1150,19 +1084,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int fragmentSubtitleCount(String option){
         int gCount = 0;
 
-        SQLiteDatabase db = this.getWritableDatabase();
+        //c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
 
-        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
-
-        if (c.moveToFirst()) {//move to the first record
+        /*if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
-                wherestatement = (c.getString(c.getColumnIndex("region_sql")));
+                regionCode = (c.getInt(c.getColumnIndex("region_code")));
                 orderby = (c.getString(c.getColumnIndex("orderedby")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
-        }
+        }*/
+
+        GameSettings gSettings = getSettings();
+
+        titles = gSettings.getUsTitles();
+        ordering = gSettings.getGameOrdering();
+        license = gSettings.getLicensedOrNot();
+
+        wherestatement = SqlStatement.Region(regionCode);
+        licensed = SqlStatement.LicensedGames(license);
 
         switch (option){
             case "all":
@@ -1182,14 +1123,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 break;
 
         }
-        c = db.rawQuery(searchQuery, null);//select everything from the database table
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor c = db.rawQuery(searchQuery, null);//select everything from the database table
         if (c.moveToFirst()) {//move to the first record
             gCount= c.getCount();
             c.close();//close the cursor
         }
-
-        //String t = "select * from eu where " + wherestatement + licensed + "";
-
 
         return gCount;
     }
@@ -1224,9 +1165,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         GameSettings gSettings = getSettings();
 
-        wherestatement = gSettings.getRegionSql();
-        title = gSettings.getRegionTitle();
-        licensed = gSettings.getLicensedOrNot();
+        regionCode = gSettings.getRegionCode();
+        license = gSettings.getLicensedOrNot();
         titles = gSettings.getUsTitles();
         orderby = gSettings.getOrderedBy();
         groupHeader = gSettings.getGroupHeader();
@@ -1266,6 +1206,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                  iType = "us_publisher";
              }
         }
+
+        licensed = SqlStatement.LicensedGames(license);
 
         searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + orderby + "";
 
@@ -1475,10 +1417,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
-                gSettings.setRegionSql(c.getString(c.getColumnIndex("region_sql")));
-                gSettings.setRegionTitle(c.getInt(c.getColumnIndex("region_title")));
-                gSettings.setLicensedOrNot(c.getString(c.getColumnIndex("licensed_or_not")));
-                gSettings.setNeededGames(c.getString(c.getColumnIndex("needed_games")));
+                gSettings.setRegionCode(c.getInt(c.getColumnIndex("region_code")));
+                gSettings.setLicensedOrNot(c.getInt(c.getColumnIndex("licensed_or_not")));
                 gSettings.setShowAllGames(c.getString(c.getColumnIndex("show_all_games")));
                 gSettings.setGroupHeader(c.getString(c.getColumnIndex("group_header")));
                 gSettings.setCurrency(c.getString(c.getColumnIndex("currency")));
@@ -1504,9 +1444,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(REGIONSQL, gSettings.getRegionSql());
-        values.put(REGIONTITLE, gSettings.getRegionTitle());
-        values.put(NEEDEDGAMES, gSettings.getNeededGames());
+        values.put(REGIONCODE, gSettings.getRegionCode());
         values.put(LICENSEDORNOT, gSettings.getLicensedOrNot());
         values.put(SHOWALLGAMES, gSettings.getShowAllGames());
         values.put(CURRENCY, gSettings.getCurrency());

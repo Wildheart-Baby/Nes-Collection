@@ -80,39 +80,44 @@ public class Data {
     public static List<Spinner> getRegionList(){
         List<Spinner> regionList = new ArrayList<>();
 
+        Spinner Region0 = new Spinner();
+        Region0.setName("Pal A");
+        Region0.setImage(R.drawable.pal_a);
+        regionList.add(Region0);
+
         Spinner Region1 = new Spinner();
-        Region1.setName("Pal A");
-        Region1.setImage(R.drawable.pal_a);
+        Region1.setName("Pal A UK");
+        Region1.setImage(R.drawable.uk);
         regionList.add(Region1);
 
         Spinner Region2 = new Spinner();
-        Region2.setName("Pal A UK");
-        Region2.setImage(R.drawable.uk);
+        Region2.setName("Pal B");
+        Region2.setImage(R.drawable.euro);
         regionList.add(Region2);
 
         Spinner Region3 = new Spinner();
-        Region3.setName("Pal B");
-        Region3.setImage(R.drawable.euro);
+        Region3.setName("US");
+        Region3.setImage(R.drawable.us);
         regionList.add(Region3);
 
         Spinner Region4 = new Spinner();
-        Region4.setName("US");
-        Region4.setImage(R.drawable.us);
+        Region4.setName("Pal A & B");
+        Region4.setImage(R.drawable.euro);
         regionList.add(Region4);
 
         Spinner Region5 = new Spinner();
-        Region5.setName("Australia");
-        Region5.setImage(R.drawable.australia);
+        Region4.setName("Australia");
+        Region4.setImage(R.drawable.australia);
         regionList.add(Region5);
 
         Spinner Region6 = new Spinner();
-        Region6.setName("Austria");
-        Region6.setImage(R.drawable.austria);
+        Region5.setName("Austria");
+        Region5.setImage(R.drawable.austria);
         regionList.add(Region6);
 
         Spinner Region7 = new Spinner();
-        Region7.setName("Benelux");
-        Region7.setImage(R.drawable.benelux);
+        Region6.setName("Benelux");
+        Region6.setImage(R.drawable.benelux);
         regionList.add(Region7);
 
         Spinner Region8 = new Spinner();

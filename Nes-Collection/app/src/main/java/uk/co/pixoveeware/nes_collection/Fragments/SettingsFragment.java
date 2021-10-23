@@ -46,6 +46,7 @@ import uk.co.pixoveeware.nes_collection.activities.About;
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.activities.Settings;
 import uk.co.pixoveeware.nes_collection.adapters.spinners.PlayedSpinnerAdapter;
+import uk.co.pixoveeware.nes_collection.data.SqlStatement;
 import uk.co.pixoveeware.nes_collection.models.GameSettings;
 import uk.co.pixoveeware.nes_collection.models.spinners.Data;
 
@@ -57,7 +58,8 @@ import uk.co.pixoveeware.nes_collection.models.spinners.Data;
 public class SettingsFragment extends Fragment {
 
     String sql, currentregion, licensed, currentcurrency, shelfS, wherestatement, regionmissing, missingsql, missingchecked, regionmissingcheck;
-    int regionselected, shelfsize, showprice, posF, posT, listtype, titles, titlestype, regionSelectedPos;
+    int regionselected, shelfsize, showprice, posF, posT, listtype, titles,
+            titlestype, license, regionSelectedPos, regionCode;
     ArrayAdapter<CharSequence> adapter, adapter2;
     public Button btnexport, btnimport, ok, cancel;
 
@@ -162,7 +164,7 @@ public class SettingsFragment extends Fragment {
         // Apply the adapter to the spinner
         region.setAdapter(spinnerAdapter);
         int spinnerPosition = adapter.getPosition(currentregion);
-        region.setSelection(gSettings.getRegionTitle());
+        region.setSelection(gSettings.getRegionCode());
 
         adapter2 = ArrayAdapter.createFromResource(getActivity(),
                 R.array.currencyArray, android.R.layout.simple_spinner_item);
@@ -172,7 +174,7 @@ public class SettingsFragment extends Fragment {
         spinnerPosition = adapter2.getPosition(currentcurrency);
         currency.setSelection(spinnerPosition);
 
-        if (gSettings.getLicensedOrNot().contains(" and (unlicensed = 0 or 1)")) { unlicensed.setChecked(true); } else { unlicensed.setChecked(false);}
+        if (gSettings.getLicensedOrNot() == 1) { unlicensed.setChecked(true); } else { unlicensed.setChecked(false);}
         //if (regionmissingcheck.contains("(owned = 0 or 1") ){ missingregion.setChecked(true); } else { missingregion.setChecked(false);}
         if (gSettings.getShowPrice() == 1) { showprices.setChecked(true); } else { showprices.setChecked(false);}
         if (gSettings.getGameView() == 0) {ListView.setChecked(true);} else {GalleryView.setChecked(true);}
@@ -215,7 +217,7 @@ public class SettingsFragment extends Fragment {
         region.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 int pos = (int) region.getSelectedItem();
-                //regionselected = (String) region.getSelectedItem();
+                Log.d("region spinner", "selected pos: "+pos);
                  regionselected = pos;
             }
 
@@ -287,8 +289,8 @@ public class SettingsFragment extends Fragment {
     public void getsettings(){
         gSettings = viewM.AppSettings();
 
-        currentregion = gSettings.getRegionSql();
-        licensed = gSettings.getLicensedOrNot();
+        regionCode = gSettings.getRegionCode();
+        license = gSettings.getLicensedOrNot();
         currentcurrency = gSettings.getCurrency();
         shelfsize = gSettings.getShelfSize();
         //wherestatement = gSettings.getWherestatement();
@@ -299,180 +301,8 @@ public class SettingsFragment extends Fragment {
 
     public void setSetttings(){
 
-        switch(regionselected){
-            case 0:
-                sql = "(pal_a_release = 1)";
-                //regionselected = "Pal A";
-                break;
-            case 1:
-                sql = "(pal_uk_release = 1)";
-                //regionselected = "Pal A UK";
-                break;
-            case 2:
-                sql = "(pal_b_release = 1)";
-                //regionselected = "Pal B";
-                break;
-            case 3:
-                sql = "(ntsc_release = 1)";
-                //regionselected = "US";
-                break;
-            case 4:
-                sql = "(pal_a_release = 1 or pal_b_release = 1)";
-                //regionselected = "Europe";
-                break;
-            case 5:
-                sql = " flag_australia = 1";
-                //regionselected = "Australia";
-                break;
-            case 6:
-                sql = " flag_austria = 1";
-                //regionselected = "Pal A";
-                break;
-            case 7:
-                sql = " flag_australia = 1";
-                //regionselected = "Pal A UK";
-                break;
-            case 8:
-                sql = "(pal_b_release = 1)";
-                ///regionselected = "Pal B";
-                break;
-            case 9:
-                sql = "(ntsc_release = 1)";
-                //regionselected = "US";
-                break;
-            case 10:
-                sql = "(pal_a_release = 1 or pal_b_release = 1)";
-                //regionselected = "Europe";
-                break;
-            case 11:
-                sql = " flag_australia = 1";
-                //regionselected = "Australia";
-                break;
-            case 12:
-                sql = "(pal_a_release = 1)";
-                //regionselected = "Pal A";
-                break;
-            case 13:
-                sql = "(pal_uk_release = 1)";
-                //regionselected = "Pal A UK";
-                break;
-            case 14:
-                sql = "(pal_b_release = 1)";
-                //regionselected = "Pal B";
-                break;
-            case 15:
-                sql = "(ntsc_release = 1)";
-                //regionselected = "US";
-                break;
-            case 16:
-                sql = "(pal_a_release = 1 or pal_b_release = 1)";
-                //regionselected = "Europe";
-                break;
-            case 17:
-                sql = " flag_australia = 1";
-                //regionselected = "Australia";
-                break;
-            case 18:
-                sql = "(pal_a_release = 1)";
-                //regionselected = "Pal A";
-                break;
-            case 19:
-                sql = "(pal_uk_release = 1)";
-                //regionselected = "Pal A UK";
-                break;
-            case 20:
-                sql = "(pal_b_release = 1)";
-                //regionselected = "Pal B";
-                break;
-            case 21:
-                sql = "(pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1)";
-                //regionselected = "All regions";
-                break;
-            default:
-                break;
-        }
-
-        /*
-        }
-        if (regionselected.contains("Austria")) {
-            sql = " flag_austria = 1";
-            //missingsql = "and (pal_a_cart = 32573 or pal_b_cart = 32573)";
-        }
-        if (regionselected.contains("Benelux")) {
-            sql = " flag_benelux = 1";
-            //missingsql = "and (pal_a_cart = 32573 or ntsc_cart = 32573)";
-        }
-        if (regionselected.contains("Brazil")) {
-            sql = " sa_release = 1";
-            //missingsql = "and (pal_a_cart = 32573 or ntsc_cart = 32573)";
-        }
-        if (regionselected.contains("Canada")) {
-            sql = " flag_canada = 1";
-            //missingsql = "and (pal_b_cart = 32573 or pal_b_cart = 32573)";
-        }
-        if (regionselected.contains("Denmark")) {
-            sql = " flag_denmark = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Finland")) {
-            sql = " flag_finland = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("France")) {
-            sql = " flag_france = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Germany")) {
-            sql = " flag_germany = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Greece")) {
-            sql = " flag_greece = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Ireland")) {
-            sql = " flag_ireland = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Italy")) {
-            sql = " flag_italy = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Norway")) {
-            sql = " flag_norway = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Poland")) {
-            sql = " flag_poland = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Portugal")) {
-            sql = " flag_portugal = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Scandinavia")) {
-            sql = " flag_scandinavia = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Spain")) {
-            sql = " flag_spain = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Sweden")) {
-            sql = " flag_sweden = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains("Switzerland")) {
-            sql = " flag_switzerland = 1";
-            //missingsql = "and (pal_a_cart = 32573)";
-        }
-        if (regionselected.contains(getString(R.string.regionname01))) {
-            sql = "(pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1)";
-            //missingsql = "";
-        }*/
-
         //if (missingregion.isChecked()){ regionmissing = missingsql; missingchecked = "(owned = 0 or 1)";} else {regionmissing = ""; missingchecked = "( owned = 0)";}
-        if (unlicensed.isChecked()){ licensed = " and (unlicensed = 0 or 1)";} else  { licensed = " and (unlicensed = 0)"; }
+        if (unlicensed.isChecked()){ license = 1;} else  { license = 0; }
         if (showprices.isChecked()){ showprice = 1;} else  { showprice = 0; }
 
         shelfS = shelfspace.getText().toString();
@@ -487,10 +317,8 @@ public class SettingsFragment extends Fragment {
                 "', shelf_size = '" + shelfsize + "',currency = '" + currentcurrency + "',game_view = '" + listtype + "',us_titles = '" +
                 titlestype +"',show_price = '" + showprice + "'"; //update the database basket field with 8783
 
-        gSettings.setRegionSql(sql);
-        gSettings.setRegionTitle(regionselected);
-        //gSettings.setNeededGames();
-        gSettings.setLicensedOrNot(licensed);
+        gSettings.setRegionCode(regionselected);
+        gSettings.setLicensedOrNot(license);
         gSettings.setShelfSize(shelfsize);
         gSettings.setCurrency(currentcurrency);
         gSettings.setGameView(listtype);
