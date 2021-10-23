@@ -1232,15 +1232,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         String iType = InformationType;
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+        //Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
 
-        if (c.moveToFirst()) {//move to the first record
+        GameSettings gSettings = getSettings();
+
+        wherestatement = gSettings.getRegionSql();
+        title = gSettings.getRegionTitle();
+        licensed = gSettings.getLicensedOrNot();
+        titles = gSettings.getUsTitles();
+        orderby = gSettings.getOrderedBy();
+        groupHeader = gSettings.getGroupHeader();
+        ordering = gSettings.getGameOrdering();
+        currency = gSettings.getCurrency();
+        conditionstatement = gSettings.getShowCondition();
+
+        /*if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
-                wherestatement = (c.getString(c.getColumnIndex("region")));
+                wherestatement = (c.getString(c.getColumnIndex("region_sql")));
                 title = (c.getString(c.getColumnIndex("region_title")));
-                licensed = (c.getString(c.getColumnIndex("licensed")));
+                licensed = (c.getString(c.getColumnIndex("licensed_or_not")));
                 titles = (c.getInt(c.getColumnIndex("us_titles")));
                 orderby = (c.getString(c.getColumnIndex("orderedby")));
                 groupHeader = (c.getString(c.getColumnIndex("group_header")));
@@ -1250,7 +1261,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
-        }
+        }*/
         //db.close();//close the database
         if (titles == 0){
             thename = "eu_name";
@@ -1270,99 +1281,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + orderby + "";
 
+        SQLiteDatabase db = this.getWritableDatabase();
 
-        /*switch (games){
-            case "all":
-                searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + orderby +"";
-                //String t = "select * from eu where " + wherestatement + licensed + "";
-                break;
-            case "owned":
-                if (ordering == 0) {
-                    //"SELECT * FROM eu where " + wherestatement + licensed +  "";
-                    //sql = "select * from eu where owned = 1 " + " order by " + orderby +"";
-                    searchQuery = "select * from eu where owned = 1 " + " order by " + orderby +"";}
-                else if(ordering == 1){
-                    //sql = "select * from eu where owned = 1 order by price desc";
-                    searchQuery = "select * from eu where owned = 1 order by price desc";}
-                break;
-            case "needed":
-                searchQuery = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ") order by " + orderby +"";
-                break;
-            case "favourites":
-                searchQuery = "SELECT * FROM eu where favourite = 1 " + wherestatement + " order by " + orderby +"";
-                break;
-            case "wishlist":
-                searchQuery = "SELECT * FROM eu where wishlist = 1 " + wherestatement + "order by " + orderby +"";
-                break;
-            case "finished":
-                searchQuery ="SELECT * FROM eu where finished_game = 1 " + wherestatement + "order by " + orderby +"";
-                break;
-            case "search":
-                //searchQuery = SearchResults.searchString + " order by " + orderby;
-                break;
-            case "statsearch":
-                //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
-                break;
-            case "australia":
-                searchQuery = "SELECT * FROM eu where flag_australia = 1" + licensed + "";
-                break;
-            case "austria":
-                searchQuery = "SELECT * FROM eu where flag_austria = 1" + licensed + "";
-                break;
-            case "benelux":
-                searchQuery = "SELECT * FROM eu where flag_benelux = 1" + licensed + "";
-                break;
-            case "denmark":
-                searchQuery = "SELECT * FROM eu where flag_denmark = 1" + licensed + "";
-                break;
-            case "finland":
-                searchQuery = "SELECT * FROM eu where flag_finland = 1" + licensed + "";
-                break;
-            case "france":
-                searchQuery = "SELECT * FROM eu where flag_france = 1" + licensed + "";
-                break;
-            case "germany":
-                searchQuery = "SELECT * FROM eu where flag_germany = 1" + licensed + "";
-                break;
-            case "greece":
-                searchQuery = "SELECT * FROM eu where flag_greece = 1" + licensed + "";
-                break;
-            case "ireland":
-                searchQuery = "SELECT * FROM eu where flag_ireland = 1" + licensed + "";
-                break;
-            case "italy":
-                searchQuery = "SELECT * FROM eu where flag_italy = 1" + licensed + "";
-                break;
-            case "norway":
-                searchQuery = "SELECT * FROM eu where flag_norway = 1" + licensed + "";
-                break;
-            case "poland":
-                searchQuery = "SELECT * FROM eu where flag_poland = 1" + licensed + "";
-                break;
-            case "portugal":
-                searchQuery = "SELECT * FROM eu where flag_portugal = 1" + licensed + "";
-                break;
-            scandinavia":
-                    searchQuery = "SELECT * FROM eu where flag_scandinavian = 1" + licensed + "";
-                    break;
-            case "spain":
-                searchQuery = "SELECT * FROM eu where flag_spain = 1" + licensed + "";
-                break;
-            case "sweden":
-                searchQuery = "SELECT * FROM eu where flag_sweden = 1" + licensed + "";
-                break;
-            case "switzerland":
-                searchQuery = "SELECT * FROM eu where flag_switzerland = 1" + licensed + "";
-                break;
-            case "us":
-                searchQuery = "SELECT * FROM eu where flag_us = 1" + licensed + "";
-                break;
-            case "uk":
-                searchQuery = "SELECT * FROM eu where flag_uk = 1" + licensed + "";
-                break;
-        }*/
-
-        c = db.rawQuery(searchQuery, null);
+        Cursor c = db.rawQuery(searchQuery, null);
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
@@ -1511,7 +1432,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
 
-                wherestatement = (c.getString(c.getColumnIndex("region")));
+                wherestatement = (c.getString(c.getColumnIndex("region_sql")));
                 orderby = (c.getString(c.getColumnIndex("orderedby")));
                 c.moveToNext();//move to the next record
             }
