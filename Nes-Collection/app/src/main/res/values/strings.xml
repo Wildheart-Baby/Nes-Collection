@@ -828,7 +828,7 @@
     <string name="regionsA">Pal A</string>
     <string name="regionsA2">Pal A UK</string>
     <string name="regionsB">Pal B</string>
-    <string name="regionsUS">US</string>
+    <string name="regionsUSA" translatable="false">USA</string>
     <string name="regionsAB">Pal A &amp; Pal B</string>
     <string name="regionsAUS">Pal A &amp; US</string>
     <string name="regionsBUS">Pal B &amp; US</string>
@@ -836,6 +836,34 @@
 
     <string name="regionname01">All Regions</string>
     <string name="Owned">Owned</string>
+
+    <string-array name="regionArray">
+        <item>Pal A</item>
+        <item>Pal A UK</item>
+        <item>Pal B</item>
+        <item>US</item>
+        <item>Europe</item>
+        <item>Australia</item>
+        <item>Austria</item>
+        <item>Benelux</item>
+        <item>Brazil</item>
+        <item>Canada</item>
+        <item>Denmark</item>
+        <item>Finland</item>
+        <item>France</item>
+        <item>Germany</item>
+        <item>Greece</item>
+        <item>Ireland</item>
+        <item>Italy</item>
+        <item>Norway</item>
+        <item>Poland</item>
+        <item>Portugal</item>
+        <item>Scandinavia</item>
+        <item>Spain</item>
+        <item>Sweden</item>
+        <item>Switzerland</item>
+        <item>All Regions</item>
+    </string-array>
 
     <string name="AllGamesButton" translatable="false">All games button</string>
     <string name="NeededGamesButton" translatable="false">Needed games button</string>

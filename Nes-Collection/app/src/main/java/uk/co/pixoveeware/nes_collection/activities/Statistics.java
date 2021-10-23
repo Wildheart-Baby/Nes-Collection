@@ -579,7 +579,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                     c = db.rawQuery(sql, null);
                     c.moveToFirst();
                     collectiongames = c.getCount();
-                    regionselected = getString(R.string.regionsUS);
+                    regionselected = getString(R.string.regionsUSA);
                 break;
                 case "(pal_a_release = 1 or pal_b_release = 1)":
                     if (licensed.equals(" and (unlicensed = 0)")) {

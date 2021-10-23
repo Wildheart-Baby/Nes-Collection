@@ -22,8 +22,8 @@ import uk.co.pixoveeware.nes_collection.models.GameSettings;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    String currentgroup, prevgroup, wherestatement, orderby, groupHeader, theimage, thename, title, currency, searchQuery, thePublisher, licensed;
-    int titles, ordering, conditionstatement, showprice;
+    String currentgroup, prevgroup, wherestatement, orderby, groupHeader, theimage, thename, currency, searchQuery, thePublisher, licensed;
+    int titles, ordering, conditionstatement, showprice, title;
 
     private static final String KEY_ID = "_id";
     private static final String OWNED = "owned";
@@ -219,7 +219,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         conditionstatement = gSettings.getShowCondition();*/
 
                 wherestatement = (c.getString(c.getColumnIndex("region_sql")));
-                title = (c.getString(c.getColumnIndex("region_title")));
+                title = (c.getInt(c.getColumnIndex("region_title")));
                 licensed = (c.getString(c.getColumnIndex("licensed_or_not")));
                 titles = (c.getInt(c.getColumnIndex("us_titles")));
                 orderby = (c.getString(c.getColumnIndex("orderedby")));
@@ -478,89 +478,77 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
-                title = (c.getString(c.getColumnIndex("region_title")));
+                title = (c.getInt(c.getColumnIndex("region_title")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
         db.close();//close the database
         switch(title){
-            case "UK":
-                flagid = "uk";
-                break;
-            case "US":
-                flagid = "us";
-                break;
-            case "Pal A":
+            case 0:
                 flagid = "pal_a";
                 break;
-            case "Pal A UK":
+            case 1:
                 flagid = "uk";
                 break;
-            case "Pal B":
+            case 3:
                 flagid = "euro";
                 break;
-            case "Australia":
+            case 4:
+                flagid = "us";
+                break;
+            case 5:
                 flagid = "australia";
                 break;
-            case "Austria":
+            case 6:
                 flagid = "austria";
                 break;
-            case "Benelux":
+            case 7:
                 flagid = "benelux";
                 break;
-            case "Brazil":
-                flagid = "brazil";
-                break;
-            case "Canada":
-                flagid = "canada";
-                break;
-            case "Denmark":
+            case 8:
                 flagid = "denmark";
                 break;
-            case "Finland":
+            case 9:
                 flagid = "finland";
                 break;
-            case "France":
+            case 10:
                 flagid = "france";
                 break;
-            case "Germany":
+            case 11:
                 flagid = "germany";
                 break;
-            case "Greece":
+            case 12:
                 flagid = "greece";
                 break;
-            case "Ireland":
+            case 13:
                 flagid = "ireland";
                 break;
-            case "Italy":
+            case 14:
                 flagid = "italy";
                 break;
-            case "Norway":
+            case 15:
                 flagid = "norway";
                 break;
-            case "Poland":
+            case 16:
                 flagid = "poland";
                 break;
-            case "Portugal":
+            case 17:
                 flagid = "portugal";
                 break;
-            case "Scandinavia":
+            case 18:
                 flagid = "scandinavia";
                 break;
-            case "Spain":
+            case 19:
                 flagid = "spain";
                 break;
-            case "Sweden":
+            case 20:
                 flagid = "sweden";
                 break;
-            case "Switzerland":
+            case 21:
                 flagid = "switzerland";
                 break;
-            case "Europe":
-                flagid = "europe";
-                break;
-            case "All Regions":
+            case 22:
                 flagid = "allregions";
                 break;
         }
@@ -1488,7 +1476,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while ( !c.isAfterLast() ) {//while there are records to read
 
                 gSettings.setRegionSql(c.getString(c.getColumnIndex("region_sql")));
-                gSettings.setRegionTitle(c.getString(c.getColumnIndex("region_title")));
+                gSettings.setRegionTitle(c.getInt(c.getColumnIndex("region_title")));
                 gSettings.setLicensedOrNot(c.getString(c.getColumnIndex("licensed_or_not")));
                 gSettings.setNeededGames(c.getString(c.getColumnIndex("needed_games")));
                 gSettings.setShowAllGames(c.getString(c.getColumnIndex("show_all_games")));

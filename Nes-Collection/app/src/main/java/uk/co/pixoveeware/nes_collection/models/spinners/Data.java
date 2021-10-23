@@ -1,5 +1,6 @@
 package uk.co.pixoveeware.nes_collection.models.spinners;
 
+import android.content.res.Resources;
 import android.graphics.Region;
 
 import java.util.ArrayList;
@@ -115,7 +116,7 @@ public class Data {
         regionList.add(Region7);
 
         Spinner Region8 = new Spinner();
-        Region8.setName("Canada");
+        Region8.setName("Denmark");
         Region8.setImage(R.drawable.denmark);
         regionList.add(Region8);
 
@@ -156,17 +157,17 @@ public class Data {
 
         Spinner Region16 = new Spinner();
         Region16.setName("Poland");
-        Region16.setImage(R.drawable.denmark);
+        Region16.setImage(R.drawable.poland);
         regionList.add(Region16);
 
         Spinner Region17 = new Spinner();
         Region17.setName("Portugal");
-        Region17.setImage(R.drawable.denmark);
+        Region17.setImage(R.drawable.portugal);
         regionList.add(Region17);
 
         Spinner Region18 = new Spinner();
         Region18.setName("Spain");
-        Region18.setImage(R.drawable.denmark);
+        Region18.setImage(R.drawable.spain);
         regionList.add(Region18);
 
         Spinner Region19 = new Spinner();

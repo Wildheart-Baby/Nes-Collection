@@ -56,8 +56,8 @@ import uk.co.pixoveeware.nes_collection.models.spinners.Data;
  */
 public class SettingsFragment extends Fragment {
 
-    String regionselected, sql, currentregion, licensed, currentcurrency, shelfS, wherestatement, regionmissing, missingsql, missingchecked, regionmissingcheck;
-    int shelfsize, showprice, posF, posT, listtype, titles, titlestype, regionSelectedPos;
+    String sql, currentregion, licensed, currentcurrency, shelfS, wherestatement, regionmissing, missingsql, missingchecked, regionmissingcheck;
+    int regionselected, shelfsize, showprice, posF, posT, listtype, titles, titlestype, regionSelectedPos;
     ArrayAdapter<CharSequence> adapter, adapter2;
     public Button btnexport, btnimport, ok, cancel;
 
@@ -162,7 +162,7 @@ public class SettingsFragment extends Fragment {
         // Apply the adapter to the spinner
         region.setAdapter(spinnerAdapter);
         int spinnerPosition = adapter.getPosition(currentregion);
-        region.setSelection(spinnerPosition);
+        region.setSelection(gSettings.getRegionTitle());
 
         adapter2 = ArrayAdapter.createFromResource(getActivity(),
                 R.array.currencyArray, android.R.layout.simple_spinner_item);
@@ -216,7 +216,7 @@ public class SettingsFragment extends Fragment {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 int pos = (int) region.getSelectedItem();
                 //regionselected = (String) region.getSelectedItem();
-                 regionselected = String.valueOf(Data.getRegionList().indexOf(pos));
+                 regionselected = pos;
             }
 
             public void onNothingSelected(
@@ -299,32 +299,95 @@ public class SettingsFragment extends Fragment {
 
     public void setSetttings(){
 
-        switch(regionSelectedPos){
+        switch(regionselected){
             case 0:
                 sql = "(pal_a_release = 1)";
-                regionselected = "Pal A";
+                //regionselected = "Pal A";
                 break;
             case 1:
                 sql = "(pal_uk_release = 1)";
-                regionselected = "Pal A UK";
+                //regionselected = "Pal A UK";
                 break;
             case 2:
                 sql = "(pal_b_release = 1)";
-                regionselected = "Pal B";
+                //regionselected = "Pal B";
                 break;
             case 3:
                 sql = "(ntsc_release = 1)";
-                regionselected = "US";
+                //regionselected = "US";
                 break;
             case 4:
                 sql = "(pal_a_release = 1 or pal_b_release = 1)";
-                regionselected = "Europe";
+                //regionselected = "Europe";
                 break;
             case 5:
                 sql = " flag_australia = 1";
-                regionselected = "Australia";
+                //regionselected = "Australia";
                 break;
-
+            case 6:
+                sql = " flag_austria = 1";
+                //regionselected = "Pal A";
+                break;
+            case 7:
+                sql = " flag_australia = 1";
+                //regionselected = "Pal A UK";
+                break;
+            case 8:
+                sql = "(pal_b_release = 1)";
+                ///regionselected = "Pal B";
+                break;
+            case 9:
+                sql = "(ntsc_release = 1)";
+                //regionselected = "US";
+                break;
+            case 10:
+                sql = "(pal_a_release = 1 or pal_b_release = 1)";
+                //regionselected = "Europe";
+                break;
+            case 11:
+                sql = " flag_australia = 1";
+                //regionselected = "Australia";
+                break;
+            case 12:
+                sql = "(pal_a_release = 1)";
+                //regionselected = "Pal A";
+                break;
+            case 13:
+                sql = "(pal_uk_release = 1)";
+                //regionselected = "Pal A UK";
+                break;
+            case 14:
+                sql = "(pal_b_release = 1)";
+                //regionselected = "Pal B";
+                break;
+            case 15:
+                sql = "(ntsc_release = 1)";
+                //regionselected = "US";
+                break;
+            case 16:
+                sql = "(pal_a_release = 1 or pal_b_release = 1)";
+                //regionselected = "Europe";
+                break;
+            case 17:
+                sql = " flag_australia = 1";
+                //regionselected = "Australia";
+                break;
+            case 18:
+                sql = "(pal_a_release = 1)";
+                //regionselected = "Pal A";
+                break;
+            case 19:
+                sql = "(pal_uk_release = 1)";
+                //regionselected = "Pal A UK";
+                break;
+            case 20:
+                sql = "(pal_b_release = 1)";
+                //regionselected = "Pal B";
+                break;
+            case 21:
+                sql = "(pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1)";
+                //regionselected = "All regions";
+                break;
             default:
                 break;
         }
