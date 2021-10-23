@@ -1459,10 +1459,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(USTITLES, gSettings.getUsTitles());
         values.put(SHOWCONDITION, gSettings.getShowCondition());
 
-
-
         db.update("settings", values, null, null);
         db.close();
     }
+
 
 }

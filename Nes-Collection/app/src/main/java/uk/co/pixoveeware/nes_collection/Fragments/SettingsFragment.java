@@ -46,6 +46,7 @@ import uk.co.pixoveeware.nes_collection.activities.About;
 import uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity;
 import uk.co.pixoveeware.nes_collection.activities.Settings;
 import uk.co.pixoveeware.nes_collection.adapters.spinners.PlayedSpinnerAdapter;
+import uk.co.pixoveeware.nes_collection.data.DatabaseHelper;
 import uk.co.pixoveeware.nes_collection.data.SqlStatement;
 import uk.co.pixoveeware.nes_collection.models.GameSettings;
 import uk.co.pixoveeware.nes_collection.models.spinners.Data;
@@ -57,6 +58,7 @@ import uk.co.pixoveeware.nes_collection.models.spinners.Data;
  */
 public class SettingsFragment extends Fragment {
 
+    DatabaseHelper dbh;
     String sql, currentregion, licensed, currentcurrency, shelfS, wherestatement, regionmissing, missingsql, missingchecked, regionmissingcheck;
     int regionselected, shelfsize, showprice, posF, posT, listtype, titles,
             titlestype, license, regionSelectedPos, regionCode;
@@ -151,6 +153,8 @@ public class SettingsFragment extends Fragment {
         cancel = v.findViewById(R.id.rgnCancel);
         btnexport = v.findViewById(R.id.btnExport);
         btnimport = v.findViewById(R.id.btnImport);
+
+        dbh = new DatabaseHelper(getActivity());
 
         shelfspace.setText(String.valueOf(shelfsize));
 
@@ -334,7 +338,9 @@ public class SettingsFragment extends Fragment {
     public void ExportDatabase(){
         //SQLiteDatabase db;//set up the connection to the database
         //db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
-       /* Cursor c = null;
+        dbh.getWritableDatabase();
+
+        Cursor c;
         String FOLDER_NAME = "nes_collect";
         File folder = new File(Environment.getExternalStorageDirectory() + File.separator + FOLDER_NAME);
         if( !folder.exists() )
@@ -345,7 +351,7 @@ public class SettingsFragment extends Fragment {
         //main code begins here
         try {
             String sql = "select _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_a_cost, pal_b_cart, pal_b_box, pal_b_manual, pal_b_cost, ntsc_cart, ntsc_box, ntsc_manual,  ntsc_cost, price, favourite, wishlist, onshelf, pal_a_owned, pal_b_owned, ntsc_owned, finished_game from eu where owned = 1 or favourite = 1 or wishlist = 1 or finished_game = 1";
-            //c = db.rawQuery(sql, null);
+            c = dbh.getWritableDatabase().rawQuery(sql, null);
             int rowcount = 0;
             int colcount = 0;
 
@@ -390,8 +396,8 @@ public class SettingsFragment extends Fragment {
                 }
             }
         } catch (Exception ex) {
-            if (db.isOpen()) {
-                db.close();
+            if (dbh.getWritableDatabase().isOpen()) {
+                dbh.getWritableDatabase().close();
                 {Toast toast = Toast.makeText(getContext(),
                         ex.getMessage().toString(),
                         Toast.LENGTH_SHORT);
@@ -399,13 +405,16 @@ public class SettingsFragment extends Fragment {
             }
         } finally {
         }
-        db.close();*/
+        dbh.getWritableDatabase().close();
 
     }
 
     public void ImportDatabase(){
-        /*SQLiteDatabase db;//set up the connection to the database
-        db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+        //SQLiteDatabase db;//set up the connection to the database
+        //db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
+
+        dbh.getWritableDatabase();
+
         String FOLDER_NAME = "nes_collect";
         //Cursor c = null;
         String gameid, own, cartridge, man, boxed, palAcart, palAbox, palAmanual, palAcost, palBcart, palBbox, palBmanual, palBcost, UScart, USbox, USmanual,  UScost, gameprice, fave, wish, ontheshelf, palAowned, palBowned, USowned, finished;
@@ -449,7 +458,7 @@ public class SettingsFragment extends Fragment {
 
                 String str = "UPDATE eu SET owned = " + own + ", cart = " + cartridge + ", box = " + boxed + ", manual = " + man + ", pal_a_cart = " + palAcart + ", pal_a_box = " + palAbox + ", pal_a_manual = " + palAmanual + ", pal_b_cart = " + palBcart + ", pal_b_box = " + palBbox + ", pal_b_manual = " + palBmanual + ", ntsc_cart = " + UScart + ", ntsc_box = " + USbox + ",  ntsc_manual = " + USmanual + ",  pal_a_cost = " + palAcost + ",  pal_b_cost = " + palBcost + ",  ntsc_cost = " + UScost + ",  favourite = " + fave + ",price = " + gameprice + ",  pal_a_owned = " + palAowned +  ",  pal_b_owned = " + palBowned +  ",  ntsc_owned = " + USowned +  ",  wishlist = " + wish + ", onshelf = " + ontheshelf + ", finished_game = " + finished + " where _id = " + gameid + " "; //update the database basket field with 8783
                 Log.d("pixovee", str);
-                db.execSQL(str);//run the sql command
+                dbh.getWritableDatabase().execSQL(str);//run the sql command
             }
             btnexport.setEnabled(true);
             {Toast toast = Toast.makeText(getContext(),
@@ -458,8 +467,8 @@ public class SettingsFragment extends Fragment {
                 toast.show();}
 
         } catch (Exception ex){
-            if (db.isOpen()) {
-                db.close();
+            if (dbh.getWritableDatabase().isOpen()) {
+                dbh.getWritableDatabase().close();
                 {Toast toast = Toast.makeText(getContext(),
                         ex.getMessage().toString(),
                         Toast.LENGTH_SHORT);
@@ -469,7 +478,7 @@ public class SettingsFragment extends Fragment {
 
         }
 
-        db.close();*/
+        dbh.getWritableDatabase().close();
     }
 
     public boolean isStoragePermissionGranted() {
