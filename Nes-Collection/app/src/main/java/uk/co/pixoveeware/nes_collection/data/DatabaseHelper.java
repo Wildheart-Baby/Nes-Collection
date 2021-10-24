@@ -725,8 +725,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public ArrayList<AllGameItems> ShelfOrder(){
-        int gameid, totalgames, index,palAcart, palBcart, uscart, pos, shelf, id, rec, shelfsize, posInList, shelfPos;
-        String currentgroup, prevgroup, wherestatement, orderby, groupHeader, theimage, thename, title, currency, name, check, gamename;
+        int palAcart, palBcart, uscart, pos, shelf, id, rec, shelfsize, posInList, shelfPos;
+        String theimage, thename, name, check, gamename;
 
         Boolean newShelf = true;
         rec = 0;
@@ -1084,18 +1084,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int fragmentSubtitleCount(String option){
         int gCount = 0;
 
-        //c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
-
-        /*if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
-
-                regionCode = (c.getInt(c.getColumnIndex("region_code")));
-                orderby = (c.getString(c.getColumnIndex("orderedby")));
-                c.moveToNext();//move to the next record
-            }
-            c.close();//close the cursor
-        }*/
-
         GameSettings gSettings = getSettings();
 
         titles = gSettings.getUsTitles();
@@ -1165,7 +1153,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         GameSettings gSettings = getSettings();
 
-        regionCode = gSettings.getRegionCode();
         license = gSettings.getLicensedOrNot();
         titles = gSettings.getUsTitles();
         orderby = gSettings.getOrderedBy();
@@ -1174,23 +1161,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         currency = gSettings.getCurrency();
         conditionstatement = gSettings.getShowCondition();
 
-        /*if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
-
-                wherestatement = (c.getString(c.getColumnIndex("region_sql")));
-                title = (c.getString(c.getColumnIndex("region_title")));
-                licensed = (c.getString(c.getColumnIndex("licensed_or_not")));
-                titles = (c.getInt(c.getColumnIndex("us_titles")));
-                orderby = (c.getString(c.getColumnIndex("orderedby")));
-                groupHeader = (c.getString(c.getColumnIndex("group_header")));
-                ordering = (c.getInt(c.getColumnIndex("ordered")));
-                currency = (c.getString(c.getColumnIndex("currency")));
-                conditionstatement = (c.getInt(c.getColumnIndex("show_condition")));
-                c.moveToNext();//move to the next record
-            }
-            c.close();//close the cursor
-        }*/
-        //db.close();//close the database
         if (titles == 0){
             thename = "eu_name";
             theimage = "image";
@@ -1357,15 +1327,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String iType = InformationType;
 
         GameSettings gSettings = getSettings();
-        //regionCode = gSettings.getRegionCode();
         license = gSettings.getLicensedOrNot();
-        //titles = gSettings.getUsTitles();
         orderby = gSettings.getOrderedBy();
-        //groupHeader = gSettings.getGroupHeader();
-        //ordering = gSettings.getGameOrdering();
-        //currency = gSettings.getCurrency();
-        //conditionstatement = gSettings.getShowCondition();
-
         licensed = SqlStatement.LicensedGames(license);
 
         searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + orderby + "";
