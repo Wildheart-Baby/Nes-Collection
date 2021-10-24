@@ -1356,22 +1356,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         int indexpos = 0;
         String iType = InformationType;
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
+        GameSettings gSettings = getSettings();
+        //regionCode = gSettings.getRegionCode();
+        license = gSettings.getLicensedOrNot();
+        //titles = gSettings.getUsTitles();
+        orderby = gSettings.getOrderedBy();
+        //groupHeader = gSettings.getGroupHeader();
+        //ordering = gSettings.getGameOrdering();
+        //currency = gSettings.getCurrency();
+        //conditionstatement = gSettings.getShowCondition();
 
-        if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
-
-                wherestatement = (c.getString(c.getColumnIndex("region_sql")));
-                orderby = (c.getString(c.getColumnIndex("orderedby")));
-                c.moveToNext();//move to the next record
-            }
-            c.close();//close the cursor
-        }
+        licensed = SqlStatement.LicensedGames(license);
 
         searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + orderby + "";
 
-        c = db.rawQuery(searchQuery, null);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(searchQuery, null);
 
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read

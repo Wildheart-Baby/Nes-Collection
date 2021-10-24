@@ -1,7 +1,5 @@
 package uk.co.pixoveeware.nes_collection.data;
 
-import uk.co.pixoveeware.nes_collection.R;
-
 public class SqlStatement {
 
     public static String Region(int regionCode){
