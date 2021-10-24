@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import uk.co.pixoveeware.nes_collection.R;
+import uk.co.pixoveeware.nes_collection.data.DatabaseHelper;
+import uk.co.pixoveeware.nes_collection.data.statistics.StatisticsDatabaseHelper;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +18,8 @@ import uk.co.pixoveeware.nes_collection.R;
  * create an instance of this fragment.
  */
 public class StatisticsFragment extends Fragment {
+
+    StatisticsDatabaseHelper dbh;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -51,6 +55,7 @@ public class StatisticsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+         dbh = new StatisticsDatabaseHelper(getContext());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
