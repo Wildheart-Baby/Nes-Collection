@@ -530,9 +530,9 @@ public class SettingsFragment extends Fragment {
 
 
     private void SetTitles(){
-        getActivity().setTitle("Settings");
+        getActivity().setTitle("  Settings");
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle("");
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(null);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier("setting_logo", "drawable", getContext().getPackageName()));
     }
 
     public void closeEditFragment(){
