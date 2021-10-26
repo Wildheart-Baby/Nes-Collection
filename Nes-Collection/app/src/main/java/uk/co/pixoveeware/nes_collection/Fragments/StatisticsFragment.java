@@ -1,5 +1,7 @@
 package uk.co.pixoveeware.nes_collection.Fragments;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,9 +9,15 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import uk.co.pixoveeware.nes_collection.R;
+import uk.co.pixoveeware.nes_collection.activities.Statistics;
+import uk.co.pixoveeware.nes_collection.activities.StatsSearchResults;
+import uk.co.pixoveeware.nes_collection.data.DataColorSet;
 import uk.co.pixoveeware.nes_collection.data.DatabaseHelper;
+import uk.co.pixoveeware.nes_collection.data.PieChartView;
 import uk.co.pixoveeware.nes_collection.data.statistics.StatisticsDatabaseHelper;
 
 /**
@@ -17,9 +25,20 @@ import uk.co.pixoveeware.nes_collection.data.statistics.StatisticsDatabaseHelper
  * Use the {@link StatisticsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StatisticsFragment extends Fragment {
+public class StatisticsFragment extends Fragment implements PieChartView.Callback {
 
     StatisticsDatabaseHelper dbh;
+
+    TextView PalALabel, PalBLabel, USLabel, CompleteLabel;
+    LinearLayout keyContainer;
+    PieChartView pieChartView;
+    String gamesCost;
+    TextView cost;
+
+    String[] GenreNames;
+    float[] DataPoints;
+    int[] PieColours;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -60,12 +79,87 @@ public class StatisticsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        GenreNames = dbh.GenreNames;
+        PieColours = dbh.piecolours;
+        DataPoints = dbh.datapoints;
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_statistics, container, false);
+        View v =  inflater.inflate(R.layout.fragment_statistics, container, false);
+        PalALabel = v.findViewById(R.id.lblPalATitle);
+        PalBLabel = v.findViewById(R.id.lblPalBTitle);
+        USLabel = v.findViewById(R.id.lblUSTitle);
+        CompleteLabel = v.findViewById(R.id.lblCompleteTitle);
+        keyContainer = v.findViewById(R.id.key);
+        pieChartView = v.findViewById(R.id.pie_chart);
+        cost = v.findViewById(R.id.lblCost);
+
+        DisplayData();
+        return v;
+    }
+
+    public void DisplayData(){
+
+        gamesCost +=
+
+                getString(R.string.statsGamescost3) + " " + dbh.ownedGameCount + " " + dbh.GameOrGames() +
+                getString(R.string.statsGamescost4) + " " + dbh.CollectionPercentage() +
+                getString(R.string.statsGamescost5) + " "+ dbh.RegionSelected() +
+                //getString(R.string.statsGamescost6) + " " + dbh.poppublisher +
+                getString(R.string.statsGamescost7) + " " + dbh.getPopGenre() +
+                getString(R.string.statsGamescost8) + " " + dbh.finishedGames + " " + getString(R.string.statsGamescost9);
+
+        cost.setText(gamesCost);
+
+
+        if (dbh.pieCount() > 0){
+            pieChartView.setDataPoints(DataPoints, GenreNames, PieColours);
+            // Because this activity is of the type PieChartView.Callback
+            pieChartView.setCallback(this);}
+    }
+
+    @Override
+    public void onDrawFinished(DataColorSet[] data) {
+        // When the chart has finished drawing it will return the colors used
+        // and the value along (for our key)
+
+
+        if (keyContainer.getChildCount() > 0)
+            keyContainer.removeAllViews(); // Empty all views if any found
+
+        for (int i = 0; i < data.length; i++) {
+            DataColorSet dataColorSet = data[i];
+
+            LinearLayout keyItem = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.key_item, null);
+            LinearLayout colorView = (LinearLayout) keyItem.findViewById(R.id.color);
+            TextView name = (TextView) keyItem.findViewById(R.id.names);
+            TextView valueView = (TextView) keyItem.findViewById(R.id.value);
+
+            colorView.setBackgroundColor(Color.parseColor("#" + dataColorSet.getColor()));
+            name.setText("" + dataColorSet.getName() + "  ");
+            String pievalue = String.format("%.0f",dataColorSet.getDataValue());
+            valueView.setText(pievalue);
+
+            // Add the key to the container
+            keyContainer.addView(keyItem, i);
+        }
+
+    }
+
+    @Override
+    public void onSliceClick(DataColorSet data) {
+        //gamename = data.getName();
+        //sql = "select * from eu where owned = 1 and genre = '" + gamename + "';";
+        //Log.d("Pixo", sql);
+        //Intent intent = new Intent(this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
+        //intent.putExtra("columnname", fieldname);//passes the table name to the new screen
+        //intent.putExtra("search", searchterm);//passes the table name to the new screen
+        //intent.putExtra("sqlstatement", sql);
+        //intent.putExtra("pagetitle", "" + gamename + " games");
+        //startActivity(intent);//start the new screen
     }
 }

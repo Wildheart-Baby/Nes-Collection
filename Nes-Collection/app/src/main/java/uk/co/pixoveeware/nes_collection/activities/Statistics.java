@@ -168,7 +168,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     }
 
     @Override
-    public void onDrawFinised(DataColorSet[] data) {
+    public void onDrawFinished(DataColorSet[] data) {
         // When the chart has finished drawing it will return the colors used
         // and the value along (for our key)
 

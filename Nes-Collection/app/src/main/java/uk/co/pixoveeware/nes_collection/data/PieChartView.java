@@ -90,7 +90,7 @@ public class PieChartView extends View {
 
             // After the drawing has been done use your Callback's
             // onDrawFinished() method
-            callback.onDrawFinised(dataColorSet);
+            callback.onDrawFinished(dataColorSet);
         }
     }
 
@@ -186,7 +186,7 @@ public class PieChartView extends View {
 
     // Our Callback interface
     public interface Callback {
-        public void onDrawFinised(DataColorSet[] data);
+        public void onDrawFinished(DataColorSet[] data);
 
         public void onSliceClick(DataColorSet data);
     }
