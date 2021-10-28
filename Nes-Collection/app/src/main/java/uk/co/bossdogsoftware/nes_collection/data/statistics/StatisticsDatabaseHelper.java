@@ -10,6 +10,8 @@ import android.util.Log;
 import java.util.ArrayList;
 import java.util.List;
 
+import uk.co.bossdogsoftware.nes_collection.R;
+import uk.co.bossdogsoftware.nes_collection.activities.Statistics;
 import uk.co.bossdogsoftware.nes_collection.data.SqlStatement;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameSettings;
@@ -37,6 +39,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     public Double costPalA, costPalB, costUs, costTotal;
     public int finishedGames, ownedGameCount;
+    Context mContext;
 
     int piechartCount, palACount, palBCount, usCount;
     boolean actionGame, actionAdventureGame, adventureGame, miscellaneousGame, puzzleGame, racingGame, rolePlayingGame, simulationGame, sportsGame;
@@ -58,15 +61,14 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     public StatisticsDatabaseHelper(Context context) {
         super(context,  DATABASE_NAME, null, DATABASE_VERSION);
-
         ClearVariables();
         ReadIntoArray();
         getData();
+        mContext = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-
     }
 
     @Override
@@ -210,9 +212,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             GenreItems.add(newItem);
 
             for (int g=0; g < gamesList.size(); g++) {
-                costPalA += gamesList.get(g).pal_a_cost;
-                costPalB += gamesList.get(g).pal_b_cost;
-                costUs += gamesList.get(g).ntsc_cost;
+
                 finishedGames += gamesList.get(g).finished;
 
                 if (gamesList.get(g).genre.equals(GenreItems.get(i).getGName())){
@@ -220,17 +220,19 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                         theCount = GenreItems.get(i).getPalAOwned();
                         theCount ++;
                         GenreItems.get(i).setPalAOwned(theCount);
-
+                        costPalA += gamesList.get(g).pal_a_cost;
                     }
                     if (gamesList.get(g).pal_b_cart == 8783) {
                         theCount = GenreItems.get(i).getPalBOwned();
                         theCount ++;
                         GenreItems.get(i).setPalBOwned(theCount);
+                        costPalB += gamesList.get(g).pal_b_cost;
                     }
                     if (gamesList.get(g).ntsc_cart == 8783) {
                         theCount = GenreItems.get(i).getUSOwned();
                         theCount ++;
                         GenreItems.get(i).setUSOwned(theCount);
+                        costUs += gamesList.get(g).ntsc_cost;
                     }
 
                     if (gamesList.get(g).pal_a_box == 8783) {
@@ -716,7 +718,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     public String GameOrGames(){
         String temp;
-        if(ownedGameCount > 1){
+        if(OwnedGameCount() > 1){
             temp = " games ";
         }
         else
@@ -806,5 +808,102 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
         return temp;
     }
+
+    public int PalAGames(){
+        int temp = 0;
+
+        for(int i=0; i < GenreItems.size(); i++){
+            temp += GenreItems.get(i).getPalAOwned();
+        }
+
+        return temp;
+    }
+
+    public int PalBGames(){
+        int temp = 0;
+
+        for(int i=0; i < GenreItems.size(); i++){
+            temp += GenreItems.get(i).getPalBOwned();
+        }
+
+        return temp;
+    }
+
+    public int USGames(){
+        int temp = 0;
+
+        for(int i=0; i < GenreItems.size(); i++){
+            temp += GenreItems.get(i).getUSOwned();
+        }
+        return temp;
+    }
+
+    public String GetPalAData(){
+        String temp;
+        int ownedGames = PalAGames();
+        int releasedGames = StatisticsData.LicensedGamesCollection(0);
+        double percentPalAOwned = ((double)  ownedGames / StatisticsData.LicensedGamesCollection(0)) * 100;
+        double percentagepalacollection = ((double) ownedGames / OwnedGameCount()) * 100;
+        String s = String.format("%.2f", percentPalAOwned);
+        String perpalacoll = String.format("%.2f", percentagepalacollection);
+
+        temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " + mContext.getResources().getString(R.string.statsPala3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4);
+
+        return temp;
+    }
+
+    public boolean palAData(){
+        boolean temp = false;
+        if(PalAGames() > 0){
+            temp = true;
+        }
+        return temp;
+    }
+
+    public String GetPalBData(){
+        String temp;
+        int ownedGames = PalBGames();
+        int releasedGames = StatisticsData.LicensedGamesCollection(0);
+        double percentPalAOwned = ((double)  ownedGames / StatisticsData.LicensedGamesCollection(0)) * 100;
+        double percentagepalacollection = ((double) ownedGames / OwnedGameCount()) * 100;
+        String s = String.format("%.2f", percentPalAOwned);
+        String perpalacoll = String.format("%.2f", percentagepalacollection);
+
+        temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " + mContext.getResources().getString(R.string.statsPala3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4);
+
+        return temp;
+    }
+
+    public boolean palBData(){
+        boolean temp = false;
+        if(PalBGames() > 0){
+            temp = true;
+        }
+        return temp;
+    }
+
+    public String GetUSData(){
+        String temp;
+        int ownedGames = USGames();
+        int releasedGames = StatisticsData.LicensedGamesCollection(3);
+        double percentPalAOwned = ((double)  ownedGames / StatisticsData.LicensedGamesCollection(3)) * 100;
+        double percentagepalacollection = ((double) ownedGames / OwnedGameCount()) * 100;
+        String s = String.format("%.2f", percentPalAOwned);
+        String perpalacoll = String.format("%.2f", percentagepalacollection);
+
+        temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " + mContext.getResources().getString(R.string.statsUS3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4);
+
+        return temp;
+    }
+
+    public boolean USData(){
+        boolean temp = false;
+        if(USGames() > 0){
+            temp = true;
+        }
+        return temp;
+    }
+
+
 
 }

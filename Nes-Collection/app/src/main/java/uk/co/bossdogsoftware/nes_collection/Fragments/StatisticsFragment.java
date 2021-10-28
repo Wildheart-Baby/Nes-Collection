@@ -29,7 +29,7 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
     LinearLayout keyContainer;
     PieChartView pieChartView;
     String gamesCost;
-    TextView cost;
+    TextView cost, palAData, palBData, usData;
 
     String[] GenreNames;
     float[] DataPoints;
@@ -93,6 +93,9 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
         keyContainer = v.findViewById(R.id.key);
         pieChartView = v.findViewById(R.id.pie_chart);
         cost = v.findViewById(R.id.lblCost);
+        palAData = v.findViewById(R.id.lblPalA);
+        palBData = v.findViewById(R.id.lblPalB);
+        usData = v.findViewById(R.id.lblUS);
 
         DisplayData();
         return v;
@@ -106,9 +109,9 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
         //String avgCst = String.valueOf(avgCost);
         String avgCst = String.format("%.2f", avgCost);
 
-        gamesCost = "You have spent " + dbh.getSettings().getCurrency() + String.valueOf(dbh.totalGamesCost()) +
-                " on games for your collection\n"+
-                getString(R.string.statsGamescost3) + " " + totalNumberOfGames + " " + dbh.GameOrGames() +
+        gamesCost = "You have spent " + dbh.getSettings().getCurrency() + String.format("%.2f", dbh.totalGamesCost()) + " " +
+                getString(R.string.statsGamescost2) + " "+dbh.getSettings().getCurrency() + avgCst +
+                "\n"+ getString(R.string.statsGamescost3) + " " + totalNumberOfGames + " " + dbh.GameOrGames() +
                 getString(R.string.statsGamescost4) + " " + dbh.CollectionPercentage() +
                 getString(R.string.statsGamescost5) + " "+ dbh.RegionSelected() +
                 //getString(R.string.statsGamescost6) + " " + dbh.poppublisher +
@@ -116,9 +119,23 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
                 getString(R.string.statsGamescost8) + " " + dbh.finishedGames + " " + getString(R.string.statsGamescost9);
 
         cost.setText(gamesCost);
+        if(dbh.palAData()){
+            palAData.setText(dbh.GetPalAData());
+        } else{
+            palAData.setVisibility(View.INVISIBLE);
+        }
 
+        if(dbh.palBData()){
+            palBData.setText(dbh.GetPalBData());
+        } else{
+            palBData.setVisibility(View.INVISIBLE);
+        }
 
-
+        if(dbh.palAData()){
+            usData.setText(dbh.GetUSData());
+        } else{
+            usData.setVisibility(View.INVISIBLE);
+        }
 
         if (dbh.ShowPieChart()){
             pieChartView.setDataPoints(DataPoints, GenreNames, PieColours);
