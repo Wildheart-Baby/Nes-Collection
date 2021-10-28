@@ -5,7 +5,7 @@ android {
     buildToolsVersion '29.0.2'
 
     defaultConfig {
-        applicationId "uk.co.pixoveeware.nes_collection"
+        applicationId "uk.co.bossdogsoftware.nes_collection"
         minSdkVersion 16
         targetSdkVersion 26
         versionCode 26

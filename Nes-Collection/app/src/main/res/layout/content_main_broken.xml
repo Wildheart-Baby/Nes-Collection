@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="uk.co.pixoveeware.nes_collection.activities.HomeScreenActivity"
+    tools:context="uk.co.bossdogsoftware.nes_collection.activities.HomeScreenActivity"
     android:background="#C0C0BB"
     android:paddingTop="60dp">
 

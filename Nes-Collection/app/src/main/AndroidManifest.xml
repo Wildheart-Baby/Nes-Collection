@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="uk.co.pixoveeware.nes_collection">
+    package="uk.co.bossdogsoftware.nes_collection">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
@@ -14,11 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.MainActivity"
+            android:name="uk.co.bossdogsoftware.nes_collection.activities.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="uk.co.bossdogsoftware.nes_collection.activities.SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,101 +27,46 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.HomeScreenActivity"
-            android:label="Nes Collection"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.AllGames"
-            android:label="@string/title_activity_all_games"
-            android:parentActivityName=".activities.HomeScreenActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.GameDetail"
-            android:label="@string/title_activity_game_detail"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.SearchResults"
-            android:label="@string/title_activity_search_results"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.OwnedGames"
-            android:label="@string/title_activity_owned_games"
-            android:parentActivityName=".activities.HomeScreenActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.EditOwnedGame"
-            android:label="@string/title_activity_edit_owned_game"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.NeededGames"
-            android:label="@string/title_activity_needed_games"
-            android:parentActivityName=".activities.HomeScreenActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".activities.FavouriteGames"
-            android:label="@string/title_activity_favourite_games"
-            android:parentActivityName=".activities.HomeScreenActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".activities.Settings"
-            android:label="@string/title_activity_settings"
-            android:parentActivityName=".activities.HomeScreenActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".activities.Search"
+            android:name="uk.co.bossdogsoftware.nes_collection.activities.Search"
             android:label="@string/title_activity_search"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.Statistics"
+            android:name="uk.co.bossdogsoftware.nes_collection.activities.Statistics"
             android:label="@string/title_activity_statistics"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.About"
+            android:name="uk.co.bossdogsoftware.nes_collection.activities.About"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.Credits"
-            android:label="@string/title_activity_credits"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".activities.ShelfOrder"
+            android:name="uk.co.bossdogsoftware.nes_collection.activities.ShelfOrder"
             android:label="@string/title_activity_shelf_order"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.WishList"
+            android:name="uk.co.bossdogsoftware.nes_collection.activities.WishList"
             android:label="@string/title_activity_wish_list"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.GamesDetail"
+            android:name="uk.co.bossdogsoftware.nes_collection.activities.GamesDetail"
             android:label="@string/title_activity_games_detail"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.FinishedGames"
+            android:name="uk.co.bossdogsoftware.nes_collection.activities.FinishedGames"
             android:label="@string/title_activity_finished_games"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.StatsSearchResults"
+            android:name="uk.co.bossdogsoftware.nes_collection.activities.StatsSearchResults"
             android:label="@string/title_activity_stats_search_results"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
         <activity
-            android:name=".activities.TrophyRoom"
+            android:name="uk.co.bossdogsoftware.nes_collection.activities.TrophyRoom"
             android:label="@string/title_activity_trophy_room"
             android:theme="@style/AppTheme" />
     </application>

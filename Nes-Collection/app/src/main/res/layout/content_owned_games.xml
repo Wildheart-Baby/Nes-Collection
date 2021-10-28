@@ -9,7 +9,7 @@
     android:paddingRight="0dp"
     android:paddingTop="0dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="uk.co.pixoveeware.nes_collection.activities.OwnedGames"
+    tools:context="uk.co.bossdogsoftware.nes_collection.activities.OwnedGames"
     android:background="#C0C0BB">
 
         <ListView

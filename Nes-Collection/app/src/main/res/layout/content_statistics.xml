@@ -10,7 +10,7 @@
     android:paddingRight="5dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="uk.co.pixoveeware.nes_collection.activities.Statistics"
+    tools:context="uk.co.bossdogsoftware.nes_collection.activities.Statistics"
     tools:showIn="@layout/activity_statistics"
     android:background="@color/nctopGrey">
 
@@ -54,7 +54,7 @@
                 android:gravity="center"
                 android:textSize="18sp" />
 
-            <uk.co.pixoveeware.nes_collection.data.PieChartView
+            <uk.co.bossdogsoftware.nes_collection.data.PieChartView
                 android:id="@+id/pie_chart_region"
                 android:layout_width="175dp"
                 android:layout_height="175dp"
@@ -86,7 +86,7 @@
             </LinearLayout>
 
 
-            <uk.co.pixoveeware.nes_collection.data.PieChartView
+            <uk.co.bossdogsoftware.nes_collection.data.PieChartView
                 android:id="@+id/pie_chart"
                 android:layout_width="175dp"
                 android:layout_height="175dp"
@@ -137,7 +137,7 @@
                 android:gravity="center"
                 android:textSize="18sp" />
 
-            <uk.co.pixoveeware.nes_collection.data.SecondPieChartView
+            <uk.co.bossdogsoftware.nes_collection.data.SecondPieChartView
                 android:id="@+id/pie_chart_region2"
                 android:layout_width="175dp"
                 android:layout_height="175dp"
@@ -186,7 +186,7 @@
                 android:gravity="center"
                 android:textSize="18sp" />
 
-            <uk.co.pixoveeware.nes_collection.data.SecondPieChartView
+            <uk.co.bossdogsoftware.nes_collection.data.SecondPieChartView
                 android:id="@+id/pie_chart2"
                 android:layout_width="175dp"
                 android:layout_height="175dp"
