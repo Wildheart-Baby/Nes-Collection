@@ -106,7 +106,7 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
 
         gamesCost +=
 
-                getString(R.string.statsGamescost3) + " " + dbh.ownedGameCount + " " + dbh.GameOrGames() +
+                getString(R.string.statsGamescost3) + " " + dbh.OwnedGameCount() + " " + dbh.GameOrGames() +
                 getString(R.string.statsGamescost4) + " " + dbh.CollectionPercentage() +
                 getString(R.string.statsGamescost5) + " "+ dbh.RegionSelected() +
                 //getString(R.string.statsGamescost6) + " " + dbh.poppublisher +
@@ -116,7 +116,7 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
         cost.setText(gamesCost);
 
 
-        if (dbh.pieCount() > 0){
+        if (dbh.ShowPieChart()){
             pieChartView.setDataPoints(DataPoints, GenreNames, PieColours);
             // Because this activity is of the type PieChartView.Callback
             pieChartView.setCallback(this);}

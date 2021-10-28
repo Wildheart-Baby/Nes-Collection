@@ -5,14 +5,19 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Color;
+import android.os.Build;
 import android.telephony.IccOpenLogicalChannelResponse;
+import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import uk.co.pixoveeware.nes_collection.data.SqlStatement;
 import uk.co.pixoveeware.nes_collection.models.AllGameItems;
@@ -25,10 +30,14 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
     String[] palbnames;
     String[] usnames;
     String[] gamenames;
+    ArrayList<GenreCountItems> GenreItems;
+    List<String>genreNames;
     public String[] GenreNames, names2;
     String popgenre;
     public float[] datapoints, datapoints2;
     public int[] piecolours, piecolours2;
+
+    String[] PieColours = new String[]{"#02A0E9","#FFD800","#4800FF","#FF6A00","#A975CE","#FF0000","#FFAC78","#7CA60F","#FF3F42","#FFB548","#5a45e1"};
 
     ArrayList<AllGameItems> gamesList;
     ArrayList<GenreCountItems>genreList;
@@ -39,7 +48,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
     public int finishedGames, ownedGameCount;
 
     int piechartCount, palACount, palBCount, usCount;
-    boolean actionGame, actionAdventureGame, adventureGame, miscellaneousGame, puzzleGame, racingGame, rolePlayingGame, simulationGame, sportsGame, strategyGame;
+    boolean actionGame, actionAdventureGame, adventureGame, miscellaneousGame, puzzleGame, racingGame, rolePlayingGame, simulationGame, sportsGame;
     int ownedAction, ownedActionAdventure, ownedAdventure, ownedMiscellaneous, ownedPuzzle, ownedRacing, ownedRolePlaying, ownedSimulation, ownedSports, ownedStrategy;
     int actionGenreCount, actionAdventureGenreCount, adventureGenreCount, miscellaneousGenreCount, puzzleGenreCount, racingGenreCount, rolePlayingGenreCount, simulationGenreCount, sportsGenreCount, strategyGenreCount;
 
@@ -76,7 +85,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     public void ReadIntoArray(){
         gamesList = new ArrayList<>();
-        genreList = new ArrayList<>();
+        //genreList = new ArrayList<>();
         GameSettings gSettings = getSettings();
 
         regionCode = gSettings.getRegionCode();
@@ -96,6 +105,10 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             thePublisher = "us_publisher";
         }
 
+        String genreName = "";
+        GenreItems = new ArrayList<GenreCountItems>();
+        genreNames = new ArrayList<String>();
+
         SQLiteDatabase db = this.getWritableDatabase();
         sql = "select * from eu where owned = 1";
         Cursor c = db.rawQuery(sql, null);
@@ -103,7 +116,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
                 AllGameItems gameListItems = new AllGameItems();//creates a new array
-
+                GenreCountItems gCount = new GenreCountItems();
                 gameListItems.setGroup(c.getString(c.getColumnIndex(groupHeader)));
                 gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
                 gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
@@ -128,7 +141,8 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setFavourite(c.getInt(c.getColumnIndex("favourite")));
                 gameListItems.setFinished(c.getInt(c.getColumnIndex("finished_game")));
                 gameListItems.setGamePrice(c.getDouble(c.getColumnIndex("price")));
-                gameListItems.setGenre((c.getString(c.getColumnIndex("genre"))));
+                genreName = c.getString(c.getColumnIndex("genre"));
+                gameListItems.setGenre(genreName);
                 gameListItems.setSubgenre((c.getString(c.getColumnIndex("subgenre"))));
                 gameListItems.setGameCondition(c.getInt(c.getColumnIndex("condition")));
                 gameListItems.setGameOwnership(c.getInt(c.getColumnIndex("play_owned")));
@@ -137,6 +151,13 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setGameTime(c.getDouble(c.getColumnIndex("play_hours")));
                 gameListItems.setCurrency(currency);
                 gamesList.add(gameListItems);//add items to the arraylist
+
+
+
+                if(!genreNames.contains(genreName))
+                    genreNames.add(genreName);
+                    //gCount.setGName(genreName);
+                    //GenreItems.add(gCount);
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
@@ -178,215 +199,81 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     public void getData(){
 
-        for (int i=0; i < gamesList.size(); i++){
-            costPalA += gamesList.get(i).pal_a_cost;
-            costPalB += gamesList.get(i).pal_b_cost;
-            costUs += gamesList.get(i).ntsc_cost;
-            finishedGames += gamesList.get(i).finished;
+//That's all you need
+        //list = (ArrayList) list.stream().distinct().collect(Collectors.toList());
+        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        //    list = list.stream().distinct().collect(Collectors.toList());
+        //}
 
-            if(gamesList.get(i).genre.equals("Action")){
-                actionGame = true;
-                if(gamesList.get(i).pal_a_cart == 8783){ palACount ++; ownedAction ++;}
-                if(gamesList.get(i).pal_b_cart == 8783){ palBCount ++; ownedAction ++;}
-                if(gamesList.get(i).ntsc_cart == 8783){ usCount ++; ownedAction ++;}
-                actionGenreCount ++;
+        int theCount;
+
+        if(genreNames.size() > 0){
+        for (int i=0; i < genreNames.size(); i++) {
+            finishedGames = 0;
+            GenreCountItems newItem = new GenreCountItems();
+            newItem.setGName(genreNames.get(i));
+            newItem.setPalAOwned(0);
+            newItem.setPalBOwned(0);
+            newItem.setUSOwned(0);
+            GenreItems.add(newItem);
+
+            for (int g=0; g < gamesList.size(); g++) {
+                costPalA += gamesList.get(g).pal_a_cost;
+                costPalB += gamesList.get(g).pal_b_cost;
+                costUs += gamesList.get(g).ntsc_cost;
+                finishedGames += gamesList.get(g).finished;
+
+                if (gamesList.get(g).genre.equals(GenreItems.get(i).getGName())){
+                    if (gamesList.get(g).pal_a_cart == 8783) {
+                        theCount = GenreItems.get(i).getPalAOwned();
+                        theCount ++;
+                        GenreItems.get(i).setPalAOwned(theCount);
+                    }
+                    if (gamesList.get(g).pal_b_cart == 8783) {
+                        theCount = GenreItems.get(i).getPalBOwned();
+                        theCount ++;
+                        GenreItems.get(i).setPalBOwned(theCount);
+                    }
+                    if (gamesList.get(g).ntsc_cart == 8783) {
+                        theCount = GenreItems.get(i).getUSOwned();
+                        theCount ++;
+                        GenreItems.get(i).setUSOwned(theCount);
+                    }
+
+                    Log.d("pixo", "matching genre names: " + genreNames);
+                }
+
             }
-
-            if(gamesList.get(i).genre.equals("Action-Adventure")){
-                actionAdventureGame = true;
-                if(gamesList.get(i).pal_a_cart == 8783){ palACount ++; ownedActionAdventure ++;}
-                if(gamesList.get(i).pal_b_cart == 8783){ palBCount ++; ownedActionAdventure ++;}
-                if(gamesList.get(i).ntsc_cart == 8783){ usCount ++; ownedActionAdventure ++;}
-                actionAdventureGenreCount++;
-            }
-
-            if(gamesList.get(i).genre.equals("Adventure")){
-                adventureGame = true;
-                if(gamesList.get(i).pal_a_cart == 8783){ palACount ++; ownedAdventure ++;}
-                if(gamesList.get(i).pal_b_cart == 8783){ palBCount ++;ownedAdventure ++;}
-                if(gamesList.get(i).ntsc_cart == 8783){ usCount ++; ownedAdventure++;}
-                adventureGenreCount++;
-            }
-
-            if(gamesList.get(i).genre.equals("Miscellaneous")){
-                miscellaneousGame = true;
-                if(gamesList.get(i).pal_a_cart == 8783){ palACount ++; ownedMiscellaneous ++;}
-                if(gamesList.get(i).pal_b_cart == 8783){ palBCount ++; ownedMiscellaneous ++;}
-                if(gamesList.get(i).ntsc_cart == 8783){ usCount ++; ownedMiscellaneous ++;}
-                miscellaneousGenreCount++;
-            }
-
-            if(gamesList.get(i).genre.equals("Puzzle")){
-                puzzleGame = true;
-                if(gamesList.get(i).pal_a_cart == 8783){ palACount ++; ownedPuzzle ++;}
-                if(gamesList.get(i).pal_b_cart == 8783){ palBCount ++; ownedPuzzle ++;}
-                if(gamesList.get(i).ntsc_cart == 8783){ usCount ++; ownedPuzzle ++;}
-                puzzleGenreCount++;
-            }
-
-            if(gamesList.get(i).genre.equals("Racing")){
-                racingGame = true;
-                if(gamesList.get(i).pal_a_cart == 8783){ palACount ++; ownedRacing ++;}
-                if(gamesList.get(i).pal_b_cart == 8783){ palBCount ++; ownedRacing ++;}
-                if(gamesList.get(i).ntsc_cart == 8783){ usCount ++; ownedRacing ++;}
-                racingGenreCount++;
-            }
-
-            if(gamesList.get(i).genre.equals("Role-Playing")){
-                rolePlayingGame = true;
-                if(gamesList.get(i).pal_a_cart == 8783){ palACount ++; ownedRolePlaying ++;}
-                if(gamesList.get(i).pal_b_cart == 8783){ palBCount ++; ownedRolePlaying ++;}
-                if(gamesList.get(i).ntsc_cart == 8783){ usCount ++; ownedRolePlaying ++;}
-                rolePlayingGenreCount++;
-            }
-
-            if(gamesList.get(i).genre.equals("Simulation")){
-                simulationGame = true;
-                if(gamesList.get(i).pal_a_cart == 8783){ palACount ++; ownedSimulation ++;}
-                if(gamesList.get(i).pal_b_cart == 8783){ palBCount ++; ownedSimulation ++;}
-                if(gamesList.get(i).ntsc_cart == 8783){ usCount ++; ownedSimulation ++;}
-                simulationGenreCount++;
-            }
-
-            if(gamesList.get(i).genre.equals("Sports")){
-                sportsGame = true;
-                if(gamesList.get(i).pal_a_cart == 8783){ palACount ++; ownedSports ++;}
-                if(gamesList.get(i).pal_b_cart == 8783){ palBCount ++; ownedSports ++;}
-                if(gamesList.get(i).ntsc_cart == 8783){ usCount ++; ownedSports ++;}
-                sportsGenreCount++;
-            }
-
-            if(gamesList.get(i).genre.equals("Strategy")){
-                strategyGame = true;
-                if(gamesList.get(i).pal_a_cart == 8783){ palACount ++; ownedStrategy ++;}
-                if(gamesList.get(i).pal_b_cart == 8783){ palBCount ++; ownedStrategy ++;}
-                if(gamesList.get(i).ntsc_cart == 8783){ usCount ++; ownedStrategy ++;}
-                strategyGenreCount++;
-            }
-
-
+            int t = GenreItems.get(i).getPalAOwned() + GenreItems.get(i).getPalBOwned() + GenreItems.get(i).getUSOwned();
+            GenreItems.get(i).setGCount(t);
         }
         costTotal = costPalA + costPalB + costUs;
         ownedGameCount = palACount + palBCount + usCount;
-        piechartCount = pieCount();
+        //piechartCount = pieCount();
         //if(gamesList.get(i).cart == 1){ piechartCount ++;}
         setPieData();
         //sortGenreList();
+        }
     }
 
-    public int pieCount(){
-        int temp = 0;
-        if(actionGame){
-            temp ++;
-        }
-        if(actionAdventureGame){
-            temp ++;
-        }
-        if(adventureGame){
-            temp ++;
-        }
-        if(miscellaneousGame){
-            temp ++;
-        }
-        if(puzzleGame){
-            temp ++;
-        }
-        if(racingGame){
-            temp ++;
-        }
-        if(rolePlayingGame){
-            temp ++;
-        }
-        if(simulationGame){
-            temp ++;
-        }
-        if(sportsGame){
-            temp ++;
-        }
-        if(strategyGame){
-            temp ++;
-        }
-        return temp;
-    }
-
-    public int setPieData(){
-        int temp = pieCount();
-        GenreNames = new String[temp];
-        datapoints = new float[temp];
-        piecolours = new int[temp];
+    public void setPieData(){
+        //int temp = pieCount();
+        GenreNames = new String[GenreItems.size()];
+        datapoints = new float[GenreItems.size()];
+        piecolours = new int[GenreItems.size()];
         int io = 0;
-            if(actionGame){
-                GenreNames[io] = "Action";
-                datapoints[io] = ownedAction;
-                piecolours[io] = Color.parseColor("#02A0E9");
-                SetGenre("action", actionGenreCount);
-                io++;
-            }
-            if(actionAdventureGame){
-                GenreNames[io] = "Action-Adventure";
-                datapoints[io] = ownedActionAdventure;
-                piecolours[io] = Color.parseColor("#FFD800");
-                SetGenre("action-adventure", actionGenreCount);
-                io++;
-            }
-            if(adventureGame){
-                GenreNames[io] = "Adventure";
-                datapoints[io] = ownedAdventure;
-                piecolours[io] = Color.parseColor("#4800FF");
-                SetGenre("adventure", adventureGenreCount);
-                io++;
-            }
-            if(miscellaneousGame){
-                GenreNames[io] = "Miscellaneous";
-                datapoints[io] = ownedMiscellaneous;
-                piecolours[io] = Color.parseColor("#FF6A00");
-                SetGenre("miscellaneous", miscellaneousGenreCount);
-                io++;
-            }
-            if(puzzleGame){
-                GenreNames[io] = "Puzzle";
-                datapoints[io] = ownedPuzzle;
-                piecolours[io] = Color.parseColor("#A975CE");
-                SetGenre("puzzle", puzzleGenreCount);
-                io++;
-            }
-            if(racingGame){
-                GenreNames[io] = "Racing";
-                datapoints[io] = ownedRacing;
-                piecolours[io] = Color.parseColor("#FF0000");
-                SetGenre("racing", racingGenreCount);
-                io++;
-            }
-            if(rolePlayingGame){
-                GenreNames[io] = "Role-Playing";
-                datapoints[io] = ownedRolePlaying;
-                piecolours[io] = Color.parseColor("#FFAC78");
-                SetGenre("role-playing", rolePlayingGenreCount);
-                io++;
-            }
-            if(simulationGame){
-                GenreNames[io] = "Simulation";
-                datapoints[io] = ownedSimulation;
-                piecolours[io] = Color.parseColor("#7CA60F");
-                SetGenre("simulation", simulationGenreCount);
-                io++;
-            }
-            if(sportsGame){
-                GenreNames[io] = "Sports";
-                datapoints[io] = ownedSports;
-                piecolours[io] = Color.parseColor("#FF3F42");
-                SetGenre("sports", sportsGenreCount);
-                io++;
-            }
-            if(strategyGame){
-                GenreNames[io] = "Strategy";
-                datapoints[io] = ownedStrategy;
-                piecolours[io] = Color.parseColor("#FFB548");
-                SetGenre("strategy", strategyGenreCount);
-                io++;
-            }
-        return temp;
+
+        for(int i=0; i < GenreItems.size(); i++){
+            GenreNames[io] = GenreItems.get(i).getGName();
+            datapoints[io] = GenreItems.get(i).getGCount();
+            piecolours[io] = Color.parseColor(PieColours[i]);
+            io ++;
+        }
+
+
     }
+
+
 
     /*
 
@@ -784,7 +671,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     public void ClearVariables(){
         piechartCount = 0; palACount = 0; palBCount = 0; usCount = 0; ownedGameCount = 0; finishedGames = 0;
-        actionGame = false; actionAdventureGame = false; adventureGame = false; miscellaneousGame = false; puzzleGame = false; racingGame = false; rolePlayingGame = false; simulationGame = false; sportsGame = false; strategyGame = false;
+        actionGame = false; actionAdventureGame = false; adventureGame = false; miscellaneousGame = false; puzzleGame = false; racingGame = false; rolePlayingGame = false; simulationGame = false; sportsGame = false;
         ownedAction = 0; ownedActionAdventure = 0; ownedAdventure = 0; ownedMiscellaneous = 0; ownedPuzzle = 0; ownedRacing = 0; ownedRolePlaying = 0; ownedSimulation = 0; ownedSports = 0; ownedStrategy = 0;
         costPalA = 0.0; costPalB = 0.0; costUs =0.0; costTotal = 0.0;
         actionGenreCount=0; actionAdventureGenreCount=0; adventureGenreCount=0; miscellaneousGenreCount=0; puzzleGenreCount=0; racingGenreCount=0; rolePlayingGenreCount=0; simulationGenreCount=0; sportsGenreCount=0; strategyGenreCount=0;
@@ -792,7 +679,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String GameOrGames(){
-        String temp = "";
+        String temp;
         if(ownedGameCount > 1){
             temp = " games ";
         }
@@ -805,7 +692,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     public String CollectionPercentage(){
 
-        double collectionpercentage  = ((double) ownedGameCount / StatisticsData.LicensedGamesCollection(regionCode)) * 100;
+        double collectionpercentage  = ((double) OwnedGameCount() / StatisticsData.LicensedGamesCollection(regionCode)) * 100;
 
         return String.format("%.2f", collectionpercentage);
     }
@@ -823,23 +710,36 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     public String getPopGenre(){
         int pos = 0;
-        if(genreList.size() != -1){
+        if(GenreItems.size() != -1){
 
-            int max = genreList.get(0).getGCount();
+            int max = GenreItems.get(0).getGCount();
 
-            for(int i=1; i<genreList.size(); i++) {
-                if (genreList.get(i).getGCount() > max) {
+            for(int i=1; i<GenreItems.size(); i++) {
+                if (GenreItems.get(i).getGCount() > max) {
                     pos = i;
-                    max = genreList.get(i).getGCount();
+                    max = GenreItems.get(i).getGCount();
                 }
             }
         }
 
-        return genreList.get(pos).getGName();
+        return GenreItems.get(pos).getGName();
     }
 
     public void SortGenreLIst(){
-        
+
     }
+
+    public Boolean ShowPieChart()  { return GenreItems.size() > 0;}
+
+    public int OwnedGameCount(){
+        int temp = 0;
+
+        for(int i=0; i < GenreItems.size(); i++){
+            temp += GenreItems.get(i).getGCount();
+        }
+
+        return temp;
+    }
+
 
 }
