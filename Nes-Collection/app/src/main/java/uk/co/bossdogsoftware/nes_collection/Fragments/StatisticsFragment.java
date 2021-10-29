@@ -11,10 +11,13 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.data.DataColorSet;
 import uk.co.bossdogsoftware.nes_collection.data.PieChartView;
 import uk.co.bossdogsoftware.nes_collection.data.statistics.StatisticsDatabaseHelper;
+import uk.co.bossdogsoftware.nes_collection.models.statistics.GameCostItems;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,7 +31,7 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
     TextView PalALabel, PalBLabel, USLabel, CompleteLabel;
     LinearLayout keyContainer;
     PieChartView pieChartView;
-    String gamesCost;
+    String gamesCost, gamesOwned;
     TextView cost, palAData, palBData, usData;
 
     String[] GenreNames;
@@ -111,7 +114,10 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
 
         gamesCost = "You have spent " + dbh.getSettings().getCurrency() + String.format("%.2f", dbh.totalGamesCost()) + " " +
                 getString(R.string.statsGamescost2) + " "+dbh.getSettings().getCurrency() + avgCst +
-                "\n"+ getString(R.string.statsGamescost3) + " " + totalNumberOfGames + " " + dbh.GameOrGames() +
+                "\n\n" + dbh.ReturnAllPrices("all");
+
+
+        gamesOwned = getString(R.string.statsGamescost3) + " " + totalNumberOfGames + " " + dbh.GameOrGames() +
                 getString(R.string.statsGamescost4) + " " + dbh.CollectionPercentage() +
                 getString(R.string.statsGamescost5) + " "+ dbh.RegionSelected() +
                 //getString(R.string.statsGamescost6) + " " + dbh.poppublisher +
@@ -119,6 +125,9 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
                 getString(R.string.statsGamescost8) + " " + dbh.finishedGames + " " + getString(R.string.statsGamescost9);
 
         cost.setText(gamesCost);
+
+
+
         if(dbh.palAData()){
             palAData.setText(dbh.GetPalAData());
         } else{

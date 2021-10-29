@@ -1,9 +1,13 @@
 package uk.co.bossdogsoftware.nes_collection.models;
 
+import java.util.Comparator;
+
+import uk.co.bossdogsoftware.nes_collection.models.statistics.GameCostItems;
+
 /**
  * Created by Wildheart on 06/06/2016.
  */
-public class AllGameItems {
+public class AllGameItems implements Comparable<AllGameItems>{
 
     public String group;
     public String name, publisher, synopsis, image, genre, region, subgenre, developer, year, usyear, sayear, currency;
@@ -235,5 +239,45 @@ public class AllGameItems {
 
     public int getShowPrice() { return showPrice; }
     public void setShowPrice(int showPrice) { this.showPrice = showPrice;}
+
+
+
+    @Override
+    public int compareTo(AllGameItems allGameItems) {
+        return this._id > allGameItems._id ? 1 : (this._id < allGameItems._id ? - 1 : 0);
+    }
+
+
+    public static class ByPrice implements Comparator<AllGameItems> {
+
+        @Override
+        public int compare(AllGameItems item1, AllGameItems item2) {
+            return item1.gamePrice < item2.gamePrice ? 1 : (item1.gamePrice > item2.gamePrice ? - 1 : 0);
+        }
+    }
+
+    public static class ByPalAPrice implements Comparator<AllGameItems> {
+
+        @Override
+        public int compare(AllGameItems item1, AllGameItems item2) {
+            return item1.pal_a_cost < item2.pal_a_cost ? 1 : (item1.pal_a_cost > item2.pal_a_cost ? - 1 : 0);
+        }
+    }
+
+    public static class ByPalBPrice implements Comparator<AllGameItems> {
+
+        @Override
+        public int compare(AllGameItems item1, AllGameItems item2) {
+            return item1.pal_b_cost < item2.pal_b_cost ? 1 : (item1.pal_b_cost > item2.pal_b_cost ? - 1 : 0);
+        }
+    }
+
+    public static class ByUSPrice implements Comparator<AllGameItems> {
+
+        @Override
+        public int compare(AllGameItems item1, AllGameItems item2) {
+            return item1.ntsc_cost < item2.ntsc_cost ? 1 : (item1.ntsc_cost > item2.ntsc_cost ? - 1 : 0);
+        }
+    }
 
 }

@@ -36,6 +36,11 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     ArrayList<AllGameItems> gamesList;
     ArrayList<GenreCountItems>genreList;
+
+    ArrayList<GameCostItems> palAPrices;
+    ArrayList<GameCostItems> palBPrices;
+    ArrayList<GameCostItems> usPrices;
+
     String orderby, groupHeader, sql, theimage, thename, currency, thePublisher, expensivePalAGame, expensivePalBGame, expensiveUSGame;
     int titles, ordering, regionCode, license,_id;
 
@@ -99,6 +104,9 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         String genreName = "";
         GenreItems = new ArrayList<GenreCountItems>();
         genreNames = new ArrayList<String>();
+        palAPrices = new ArrayList<>();
+        palBPrices = new ArrayList<>();
+        usPrices = new ArrayList<>();
 
         SQLiteDatabase db = this.getWritableDatabase();
         sql = "select * from eu where owned = 1";
@@ -107,24 +115,12 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
                 AllGameItems gameListItems = new AllGameItems();//creates a new array
-                GameCostItems palACostListItem = new GameCostItems();
-                GameCostItems palBCostListItem = new GameCostItems();
-                GameCostItems usCostListItem = new GameCostItems();
-
                 GenreCountItems gCount = new GenreCountItems();
                 gameListItems.setGroup(c.getString(c.getColumnIndex(groupHeader)));
                 _id = c.getInt(c.getColumnIndex("_id"));
                 gameListItems.setItemId(_id);//set the array with the data from the database
-                palACostListItem.setId(_id);
-                palBCostListItem.setId(_id);
-                usCostListItem.setId(_id);
-
                 gName = c.getString(c.getColumnIndex(theimage));
                 gameListItems.setImage(gName);
-                palACostListItem.setName(gName);
-                palBCostListItem.setName(gName);
-                usCostListItem.setName(gName);
-
                 gameListItems.setName(c.getString(c.getColumnIndex(thename)));
                 gameListItems.setPublisher(c.getString(c.getColumnIndex(thePublisher)));
                 gameListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
@@ -137,19 +133,9 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setManualPalA(c.getInt(c.getColumnIndex("pal_a_manual")));
                 gameListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
                 gameListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
-
-                costPalA = c.getDouble(c.getColumnIndex("pal_a_cost"));
-                gameListItems.setPalACost(costPalA);
-                palACostListItem.setCost(costPalA);
-
-                costPalB = c.getDouble(c.getColumnIndex("pal_b_cost"));
-                gameListItems.setPalBCost(costPalB);
-                palBCostListItem.setCost(costPalB);
-
-                costUs = c.getDouble(c.getColumnIndex("ntsc_cost"));
-                gameListItems.setNtscCost(costUs);
-                usCostListItem.setCost(costUs);
-
+                gameListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
+                gameListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
+                gameListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
                 gameListItems.setCart(c.getInt(c.getColumnIndex("cart")));
                 gameListItems.setManual(c.getInt(c.getColumnIndex("manual")));
                 gameListItems.setBox(c.getInt(c.getColumnIndex("box")));
@@ -166,8 +152,6 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setGameTime(c.getDouble(c.getColumnIndex("play_hours")));
                 gameListItems.setCurrency(currency);
                 gamesList.add(gameListItems);//add items to the arraylist
-
-
 
                 if(!genreNames.contains(genreName))
                     genreNames.add(genreName);
@@ -242,21 +226,21 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                         theCount = GenreItems.get(i).getPalAOwned();
                         theCount ++;
                         GenreItems.get(i).setPalAOwned(theCount);
-                        costPalA += gamesList.get(g).pal_a_cost;
+                        //costPalA += gamesList.get(g).pal_a_cost;
                     }
                     if (gamesList.get(g).pal_b_cart == 8783) {
                         theCount = GenreItems.get(i).getPalBOwned();
                         theCount ++;
                         GenreItems.get(i).setPalBOwned(theCount);
-                        costPalB += gamesList.get(g).pal_b_cost;
-                        if(b_cost >= costPalB){ expensivePalBGame = gamesList.get(g).getName(); b_cost = costPalB;}
+                        //costPalB += gamesList.get(g).pal_b_cost;
+                        //if(b_cost >= costPalB){ expensivePalBGame = gamesList.get(g).getName(); b_cost = costPalB;}
                     }
                     if (gamesList.get(g).ntsc_cart == 8783) {
                         theCount = GenreItems.get(i).getUSOwned();
                         theCount ++;
                         GenreItems.get(i).setUSOwned(theCount);
-                        costUs += gamesList.get(g).ntsc_cost;
-                        if(us_cost >= costUs){ expensiveUSGame = gamesList.get(g).getName(); us_cost = costUs;}
+                        //costUs += gamesList.get(g).ntsc_cost;
+                        //if(us_cost >= costUs){ expensiveUSGame = gamesList.get(g).getName(); us_cost = costUs;}
                     }
 
                     if (gamesList.get(g).pal_a_box == 8783) {
@@ -307,8 +291,8 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             t = GenreItems.get(i).getPalAManual() + GenreItems.get(i).getPalBManual() + GenreItems.get(i).getUSManual();
             GenreItems.get(i).setGManualCount(t);
 
-            double c = costPalA + costPalB + costUs;
-            GenreItems.get(i).setGCost(c);
+            //double c = costPalA + costPalB + costUs;
+           // GenreItems.get(i).setGCost(c);
             costPalA = 0.0;
             costPalB = 0.0;
             costUs = 0.0;
@@ -332,10 +316,54 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             io ++;
         }
 
+    }
 
+    public ArrayList<GameCostItems> ExpensiveGames(String region){
+        ArrayList<GameCostItems> temp = new ArrayList<>();
+        int c = 0;
+        switch(region){
+            case "all":
+                Collections.sort(gamesList, new AllGameItems.ByPrice());
+                c = 10;
+                break;
+            case"pala":
+                Collections.sort(gamesList, new AllGameItems.ByPalAPrice());
+                c = 3;
+                break;
+            case "palb":
+                Collections.sort(gamesList, new AllGameItems.ByPalBPrice());
+                c = 3;
+                break;
+            case "us":
+                Collections.sort(gamesList, new AllGameItems.ByUSPrice());
+                c = 3;
+                break;
+            }
+
+
+        for(int i=0; i < c; i++){
+            GameCostItems item = new GameCostItems();
+            item.setId(gamesList.get(i).getItemId());
+            item.setName(gamesList.get(i).getName());
+            item.setCost(gamesList.get(i).getGamePrice());
+            temp.add(item);
+        }
+        return temp;
     }
 
 
+    public String ReturnAllPrices(String type){
+        String t = "";
+        ArrayList<GameCostItems> temp = new ArrayList<>();
+        temp = ExpensiveGames(type);
+        int g = 1;
+        for(int i=0; i < temp.size(); i++){
+            t += g +" " + temp.get(i).getName() + "\t"+ getSettings().getCurrency() + String.format("%.2f", temp.get(i).getCost()) + "\n";
+            g++;
+        }
+
+        return t;
+    }
 
     /*
 
@@ -455,30 +483,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
             }
 
-            sql = "select genre, COUNT(genre) AS MOST_FREQUENT from eu where owned = 1 GROUP BY genre ORDER BY COUNT(genre) DESC limit 1";
-            c = db.rawQuery(sql, null);
-            c.moveToFirst();
-            popgenre = c.getString(c.getColumnIndex("genre"));
 
-            sql = "select publisher, COUNT(publisher) AS MOST_FREQUENT from eu where owned = 1 GROUP BY genre ORDER BY COUNT(publisher) DESC limit 1";
-            c = db.rawQuery(sql, null);
-            c.moveToFirst();
-            poppublisher = c.getString(c.getColumnIndex("publisher"));
-
-            i = 0;
-
-            sql = "select * from eu where (owned = 1 and cart = 1 and box = 1 and manual = 1)";
-            c = db.rawQuery(sql, null);
-            c.moveToFirst();
-            completeinbox = c.getCount();
-
-            sql = "select * from eu where (owned = 1 and cart = 1 and box = 1)";
-            c = db.rawQuery(sql, null);
-            c.moveToFirst();
-            boxed = c.getCount();
-            boxed = boxed - completeinbox;
-            //c.close();
-            //db.close();//close the database
             totalOwned = ownedPalA + ownedPalB + ownedUS;
             Log.d("pixo-stats", "Total owned " + totalOwned + " Total counted " + numberowned);
             DecimalFormat decimalFormat = new DecimalFormat(getString(R.string.statsDecimalFormat));
@@ -556,7 +561,6 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             GenreItems.get(1).getGName() + " and " + GenreItems.get(2).getGName();
 
         }
-
         return temp;
     }
 
@@ -645,8 +649,8 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         String perpalacoll = String.format("%.2f", percentagepalacollection);
 
         temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " +
-                mContext.getResources().getString(R.string.statsPala3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4)+
-                mContext.getResources().getString(R.string.statsMostexpensivegame) + expensivePalAGame;
+                mContext.getResources().getString(R.string.statsPala3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4)+ "\n"+
+                mContext.getResources().getString(R.string.statsMostexpensivegame) + "\n" + ReturnAllPrices("pala");
 
         return temp;
     }
@@ -669,8 +673,8 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         String perpalacoll = String.format("%.2f", percentagepalacollection);
 
         temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " +
-                mContext.getResources().getString(R.string.statsPala3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4)+
-                mContext.getResources().getString(R.string.statsMostexpensivegame) + expensivePalBGame;
+                mContext.getResources().getString(R.string.statsPala3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4)+"\n"+
+                mContext.getResources().getString(R.string.statsMostexpensivegame) + "\n" + ReturnAllPrices("palb");
 
         return temp;
     }
@@ -693,8 +697,8 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         String perpalacoll = String.format("%.2f", percentagepalacollection);
 
         temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " +
-                mContext.getResources().getString(R.string.statsUS3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4) +
-                mContext.getResources().getString(R.string.statsMostexpensivegame) + expensiveUSGame;
+                mContext.getResources().getString(R.string.statsUS3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4) +"\n"+
+                mContext.getResources().getString(R.string.statsMostexpensivegame) + "\n" + ReturnAllPrices("us");
 
         return temp;
     }
