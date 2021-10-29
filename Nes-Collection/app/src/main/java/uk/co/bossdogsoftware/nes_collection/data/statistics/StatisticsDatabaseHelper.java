@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import uk.co.bossdogsoftware.nes_collection.R;
@@ -15,6 +16,7 @@ import uk.co.bossdogsoftware.nes_collection.activities.Statistics;
 import uk.co.bossdogsoftware.nes_collection.data.SqlStatement;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameSettings;
+import uk.co.bossdogsoftware.nes_collection.models.statistics.GameCostItems;
 import uk.co.bossdogsoftware.nes_collection.models.statistics.GenreCountItems;
 
 public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
@@ -34,24 +36,15 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     ArrayList<AllGameItems> gamesList;
     ArrayList<GenreCountItems>genreList;
-    String orderby, groupHeader, sql, theimage, thename, currency, thePublisher;
-    int titles, ordering, regionCode, license;
+    String orderby, groupHeader, sql, theimage, thename, currency, thePublisher, expensivePalAGame, expensivePalBGame, expensiveUSGame;
+    int titles, ordering, regionCode, license,_id;
 
-    public Double costPalA, costPalB, costUs, costTotal;
+    public Double costPalA, costPalB, costUs, costTotal, a_cost, b_cost, us_cost;
     public int finishedGames, ownedGameCount;
     Context mContext;
 
     int piechartCount, palACount, palBCount, usCount;
     boolean actionGame, actionAdventureGame, adventureGame, miscellaneousGame, puzzleGame, racingGame, rolePlayingGame, simulationGame, sportsGame;
-    int ownedAction, ownedActionAdventure, ownedAdventure, ownedMiscellaneous, ownedPuzzle, ownedRacing, ownedRolePlaying, ownedSimulation, ownedSports, ownedStrategy;
-    int actionGenreCount, actionAdventureGenreCount, adventureGenreCount, miscellaneousGenreCount, puzzleGenreCount, racingGenreCount, rolePlayingGenreCount, simulationGenreCount, sportsGenreCount, strategyGenreCount;
-
-    //public String licensed, PalA, PalB, US, s, gamecost, wherestatement, palaadd, palbadd, usadd, palanames2, palbnames2, usnames2, poppublisher, perpalacoll, perpalbcoll, peruscoll, gamename, gamescost, gameorgames, regionselected, loosecarts, looseboxes, looseman, looseitems, collectionpercentagestr, avgCst;
-    //int totalOwned, totalReleased, totalPalA, totalPalB, totalUS, ownedPalA, ownedPalB, ownedUS, io,cost, totalCost, percentPalANeeded, percentPalBNeeded, percentUSNeeded, i, showprices, numberowned, palaMaxCost, palbMaxCost, usMaxCost,totalfinished, collectiongames, collectionreleased, loosecart, loosemanual, loosebox;
-    //int ownedPalAbox, ownedPalBbox, ownedUSbox, ownedPalAman, ownedPalBman, ownedUSman, boxed, totalOwnedGames;
-    //int ownedaction, ownedadventure, ownedbeatemup, ownedactionadventure, ownedarcade, ownedboardgame, ownedcompilation, ownedfighting, ownedother, ownedplatformer, ownedpuzzle, ownedracing, ownedroleplayinggame, ownedshootemup, ownedshooter, ownedsimulation, ownedsports, ownedstrategy, ownedtraditional, ownedtrivia;
-    //double percentPalAOwned, percentPalBOwned, percentUSOwned, percentagepalacollection, percentagepalbcollection, percentageuscollection, collectionpercentage, cibpercentage, boxedpercentage;
-    //float palacost, palbcost, uscost, totalpalacost, totalpalbcost, totaluscost, totalcost, avgCost, percentageOwned;
 
     private static final int DATABASE_VERSION = 1;
 
@@ -81,6 +74,11 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         //genreList = new ArrayList<>();
         GameSettings gSettings = getSettings();
 
+        String gName;
+        a_cost = 0.0;
+        b_cost = 0.0;
+        us_cost = 0.0;
+
         regionCode = gSettings.getRegionCode();
         license = gSettings.getLicensedOrNot();
         titles = gSettings.getUsTitles();
@@ -109,10 +107,24 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
                 AllGameItems gameListItems = new AllGameItems();//creates a new array
+                GameCostItems palACostListItem = new GameCostItems();
+                GameCostItems palBCostListItem = new GameCostItems();
+                GameCostItems usCostListItem = new GameCostItems();
+
                 GenreCountItems gCount = new GenreCountItems();
                 gameListItems.setGroup(c.getString(c.getColumnIndex(groupHeader)));
-                gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                _id = c.getInt(c.getColumnIndex("_id"));
+                gameListItems.setItemId(_id);//set the array with the data from the database
+                palACostListItem.setId(_id);
+                palBCostListItem.setId(_id);
+                usCostListItem.setId(_id);
+
+                gName = c.getString(c.getColumnIndex(theimage));
+                gameListItems.setImage(gName);
+                palACostListItem.setName(gName);
+                palBCostListItem.setName(gName);
+                usCostListItem.setName(gName);
+
                 gameListItems.setName(c.getString(c.getColumnIndex(thename)));
                 gameListItems.setPublisher(c.getString(c.getColumnIndex(thePublisher)));
                 gameListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
@@ -126,9 +138,18 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setManualPalB(c.getInt(c.getColumnIndex("pal_b_manual")));
                 gameListItems.setManualNtsc(c.getInt(c.getColumnIndex("ntsc_manual")));
 
-                gameListItems.setPalACost(c.getDouble(c.getColumnIndex("pal_a_cost")));
-                gameListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
-                gameListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
+                costPalA = c.getDouble(c.getColumnIndex("pal_a_cost"));
+                gameListItems.setPalACost(costPalA);
+                palACostListItem.setCost(costPalA);
+
+                costPalB = c.getDouble(c.getColumnIndex("pal_b_cost"));
+                gameListItems.setPalBCost(costPalB);
+                palBCostListItem.setCost(costPalB);
+
+                costUs = c.getDouble(c.getColumnIndex("ntsc_cost"));
+                gameListItems.setNtscCost(costUs);
+                usCostListItem.setCost(costUs);
+
                 gameListItems.setCart(c.getInt(c.getColumnIndex("cart")));
                 gameListItems.setManual(c.getInt(c.getColumnIndex("manual")));
                 gameListItems.setBox(c.getInt(c.getColumnIndex("box")));
@@ -209,6 +230,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             newItem.setPalAOwned(0);
             newItem.setPalBOwned(0);
             newItem.setUSOwned(0);
+            newItem.setId(i);
             GenreItems.add(newItem);
 
             for (int g=0; g < gamesList.size(); g++) {
@@ -227,12 +249,14 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                         theCount ++;
                         GenreItems.get(i).setPalBOwned(theCount);
                         costPalB += gamesList.get(g).pal_b_cost;
+                        if(b_cost >= costPalB){ expensivePalBGame = gamesList.get(g).getName(); b_cost = costPalB;}
                     }
                     if (gamesList.get(g).ntsc_cart == 8783) {
                         theCount = GenreItems.get(i).getUSOwned();
                         theCount ++;
                         GenreItems.get(i).setUSOwned(theCount);
                         costUs += gamesList.get(g).ntsc_cost;
+                        if(us_cost >= costUs){ expensiveUSGame = gamesList.get(g).getName(); us_cost = costUs;}
                     }
 
                     if (gamesList.get(g).pal_a_box == 8783) {
@@ -483,236 +507,13 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             }
             //gamecost = "You have spent " + currency + totalcost + " on games for your collection\n" +
 
-            switch (wherestatement) {
-                case "(pal_a_release = 1)":
-                    if (licensed.equals(" and (unlicensed = 0)")) {
-                        collectionreleased = 327;
-                    } else {
-                        collectionreleased = 361;
-                    }
-                    sql = "select * from eu where (owned = 1 and pal_a_release = 1)";
-                    c = db.rawQuery(sql, null);
-                    c.moveToFirst();
-                    collectiongames = c.getCount();
-                    regionselected = getString(R.string.regionsA);
 
-                    break;
-                 case "(pal_uk_release = 1)":
-                    if (licensed.equals(" and (unlicensed = 0)")) {
-                        collectionreleased = 246;
-                    } else {
-                        collectionreleased = 255;
-                    }
-                    sql = "select * from eu where (owned = 1 and pal_uk_release = 1)";
-                    c = db.rawQuery(sql, null);
-                    c.moveToFirst();
-                    collectiongames = c.getCount();
-                    regionselected = getString(R.string.regionsA2);
-                     break;
-                case "(pal_b_release = 1)":
-                    if (licensed.equals(" and (unlicensed = 0)")) {
-                        collectionreleased = 242;
-                    } else {
-                        collectionreleased = 268;
-                    }
-                    sql = "select * from eu where (owned = 1 and pal_b_release = 1)";
-                    c = db.rawQuery(sql, null);
-                    c.moveToFirst();
-                    collectiongames = c.getCount();
-                    regionselected = getString(R.string.regionsB);
-                    break;
-                case "(ntsc_release = 1)":
-                    if (licensed.equals(" and (unlicensed = 0)")) {
-                        collectionreleased = 673;
-                    } else {
-                        collectionreleased = 760;
-                    }
-                    sql = "select * from eu where (owned = 1 and ntsc_release = 1)";
-                    c = db.rawQuery(sql, null);
-                    c.moveToFirst();
-                    collectiongames = c.getCount();
-                    regionselected = getString(R.string.regionsUSA);
-                break;
-                case "(pal_a_release = 1 or pal_b_release = 1)":
-                    if (licensed.equals(" and (unlicensed = 0)")) {
-                        collectionreleased = 350;
-                    } else {
-                        collectionreleased = 384;
-                    }
-                    sql = "select * from eu where (owned = 1 and (pal_a_release = 1 or pal_b_release = 1))";
-                    c = db.rawQuery(sql, null);
-                    c.moveToFirst();
-                    collectiongames = c.getCount();
-                    regionselected = "Pal A & Pal B";
-                    break;
-                case "(pal_a_release = 1 or ntsc_release = 1)":
-                    if (licensed.equals(" and (unlicensed = 0)")) {
-                        collectionreleased = 717;
-                    } else {
-                        collectionreleased = 818;
-                    }
-                    sql = "select * from eu where (owned = 1 and (pal_a_release = 1 or ntsc_release = 1))";
-                    c = db.rawQuery(sql, null);
-                    c.moveToFirst();
-                    collectiongames = c.getCount();
-                    regionselected = "Pal A & Ntsc";
-                    break;
-                case "(pal_b_release = 1 or ntsc_release = 1)":
-                    if (licensed.equals(" and (unlicensed = 0)")) {
-                        collectionreleased = 723;
-                    } else {
-                        collectionreleased = 822;
-                    }
-                    sql = "select * from eu where (owned = 1 and (pal_b_release = 1 or ntsc_release = 1))";
-                    c = db.rawQuery(sql, null);
-                    c.moveToFirst();
-                    collectiongames = c.getCount();
-                    regionselected = "Pal B & Ntsc";
-                    break;
-                case "(pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1)":
-                    if (licensed.equals(" and (unlicensed = 0)")) {
-                        collectionreleased = 725;
-                    } else {
-                        collectionreleased = 826;
-                    }
-                    Log.d("pixo-stats", "all regions count hit");
-                    sql = "select * from eu where (owned = 1 and (pal_a_release = 1 or pal_b_release = 1 or ntsc_release = 1))";
-                    c = db.rawQuery(sql, null);
-                    c.moveToFirst();
-                    collectiongames = c.getCount();
-                    Log.d("pixo-stats", "Count % " + collectiongames);
-                    regionselected = getString(R.string.regionsAll);
-                    break;
-                }
 
-     if (ownedactionadventure > 0) {
-        names[io] = "Action-Adventure";
-        datapoints[io] = ownedactionadventure;
-        piecolours[io] = Color.parseColor("#FF2B32");
-        io++;
-    }
-        if (ownedaction > 0) {
-        names[io] = "Action";
-        datapoints[io] = ownedaction;
-        piecolours[io] = Color.parseColor("#FF6A00");
-        io++;
-    }
-        if (ownedadventure > 0) {
-        names[io] = "Adventure";
-        datapoints[io] = ownedadventure;
-        piecolours[io] = Color.parseColor("#FFD800");
-        io++;
-    }
-        if (ownedarcade > 0) {
-        names[io] = "Arcade";
-        datapoints[io] = ownedarcade;
-        piecolours[io] = Color.parseColor("#B6FF00");
-        io++;
-    }
-        if (ownedbeatemup > 0) {
-        names[io] = "Beat em Up";
-        datapoints[io] = ownedbeatemup;
-        piecolours[io] = Color.parseColor("#FF004C");
-        io++;
-    }
-        if (ownedboardgame > 0) {
-        names[io] = "Board game";
-        datapoints[io] = ownedboardgame;
-        piecolours[io] = Color.parseColor("#FF0FFF");
-        io++;
-    }
-        if (ownedcompilation > 0) {
-        names[io] = "Compilation";
-        datapoints[io] = ownedcompilation;
-        piecolours[io] = Color.parseColor("#0095FF");
-        io++;
-    }
-        if (ownedfighting > 0) {
-        names[io] = "Fighting";
-        datapoints[io] = ownedfighting;
-        piecolours[io] = Color.parseColor("#B200FF");
-        io++;
-    }
-        if (ownedother > 0) {
-        names[io] = "Other";
-        datapoints[io] = ownedother;
-        piecolours[io] = Color.parseColor("#FF006E");
-        io++;
-    }
-        if (ownedplatformer > 0) {
-        names[io] = "Platformer";
-        datapoints[io] = ownedplatformer;
-        piecolours[io] = Color.parseColor("#FF00DC");
-        io++;
-    }
-        if (ownedpuzzle > 0) {
-        names[io] = "Puzzle";
-        datapoints[io] = ownedpuzzle;
-        piecolours[io] = Color.parseColor("#B002FF");
-        io++;
-    }
-        if (ownedracing > 0) {
-        names[io] = "Racing";
-        datapoints[io] = ownedracing;
-        piecolours[io] = Color.parseColor("#FF7F7F");
-        io++;
-    }
-        if (ownedroleplayinggame > 0) {
-        names[io] = "Role-Playing Game";
-        datapoints[io] = ownedroleplayinggame;
-        piecolours[io] = Color.parseColor("#C0C0C0");
-        io++;
-    }
-        if (ownedshootemup > 0) {
-        names[io] = "Shoot em Up";
-        datapoints[io] = ownedshootemup;
-        piecolours[io] = Color.parseColor("#613F7C");
-        io++;
-    }
-        if (ownedshooter > 0) {
-        names[io] = "Shooter";
-        datapoints[io] = ownedshooter;
-        piecolours[io] = Color.parseColor("#60C5FF");
-        io++;
-    }
-        if (ownedsimulation > 0) {
-        names[io] = "Simulation";
-        datapoints[io] = ownedsimulation;
-        piecolours[io] = Color.parseColor("#FFAFB5");
-        io++;
-    }
-        if (ownedsports > 0) {
-        names[io] = "Sports";
-        datapoints[io] = ownedsports;
-        piecolours[io] = Color.parseColor("#D5FFBF");
-        io++;
-    }
-        if (ownedstrategy > 0) {
-        names[io] = "Strategy";
-        datapoints[io] = ownedstrategy;
-        piecolours[io] = Color.parseColor("#4FFFBE");
-        io++;
-    }
-        if (ownedtraditional > 0) {
-        names[io] = "Traditional";
-        datapoints[io] = ownedtraditional;
-        piecolours[io] = Color.parseColor("#A856FF");
-        io++;
-    }
-        if (ownedtrivia > 0) {
-        names[io] = "Trivia";
-        datapoints[io] = ownedtrivia;
-        piecolours[io] = Color.parseColor("#CBFF72");
-        io++;
-    }
+
      */
 
     public void ClearVariables(){
-        piechartCount = 0; palACount = 0; palBCount = 0; usCount = 0; ownedGameCount = 0; finishedGames = 0;
-        actionGame = false; actionAdventureGame = false; adventureGame = false; miscellaneousGame = false; puzzleGame = false; racingGame = false; rolePlayingGame = false; simulationGame = false; sportsGame = false;
-        ownedAction = 0; ownedActionAdventure = 0; ownedAdventure = 0; ownedMiscellaneous = 0; ownedPuzzle = 0; ownedRacing = 0; ownedRolePlaying = 0; ownedSimulation = 0; ownedSports = 0; ownedStrategy = 0;
-        costPalA = 0.0; costPalB = 0.0; costUs =0.0; costTotal = 0.0;
-        //actionGenreCount=0; actionAdventureGenreCount=0; adventureGenreCount=0; miscellaneousGenreCount=0; puzzleGenreCount=0; racingGenreCount=0; rolePlayingGenreCount=0; simulationGenreCount=0; sportsGenreCount=0; strategyGenreCount=0;
+        //piechartCount = 0; palACount = 0; palBCount = 0; usCount = 0; ownedGameCount = 0; finishedGames = 0;
 
     }
 
@@ -747,24 +548,20 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String getPopGenre(){
-        int pos = 0;
+        SortGenreList();
+        String temp ="";
         if(GenreItems.size() != -1){
 
-            int max = GenreItems.get(0).getGCount();
+            temp = GenreItems.get(0).getGName()+ ", "+
+            GenreItems.get(1).getGName() + " and " + GenreItems.get(2).getGName();
 
-            for(int i=1; i<GenreItems.size(); i++) {
-                if (GenreItems.get(i).getGCount() > max) {
-                    pos = i;
-                    max = GenreItems.get(i).getGCount();
-                }
-            }
         }
 
-        return GenreItems.get(pos).getGName();
+        return temp;
     }
 
-    public void SortGenreLIst(){
-
+    public void SortGenreList(){
+        Collections.sort(GenreItems, new GenreCountItems.ByLargest());
     }
 
     public Boolean ShowPieChart()  { return GenreItems.size() > 0;}
@@ -847,7 +644,9 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         String s = String.format("%.2f", percentPalAOwned);
         String perpalacoll = String.format("%.2f", percentagepalacollection);
 
-        temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " + mContext.getResources().getString(R.string.statsPala3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4);
+        temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " +
+                mContext.getResources().getString(R.string.statsPala3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4)+
+                mContext.getResources().getString(R.string.statsMostexpensivegame) + expensivePalAGame;
 
         return temp;
     }
@@ -869,7 +668,9 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         String s = String.format("%.2f", percentPalAOwned);
         String perpalacoll = String.format("%.2f", percentagepalacollection);
 
-        temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " + mContext.getResources().getString(R.string.statsPala3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4);
+        temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " +
+                mContext.getResources().getString(R.string.statsPala3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4)+
+                mContext.getResources().getString(R.string.statsMostexpensivegame) + expensivePalBGame;
 
         return temp;
     }
@@ -891,7 +692,9 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         String s = String.format("%.2f", percentPalAOwned);
         String perpalacoll = String.format("%.2f", percentagepalacollection);
 
-        temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " + mContext.getResources().getString(R.string.statsUS3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4);
+        temp = mContext.getResources().getString(R.string.statsPala1) + " " + ownedGames + " " + mContext.getResources().getString(R.string.statsPala2) + " " + releasedGames + " " +
+                mContext.getResources().getString(R.string.statsUS3) + " " + perpalacoll + mContext.getResources().getString(R.string.statsPala4) +
+                mContext.getResources().getString(R.string.statsMostexpensivegame) + expensiveUSGame;
 
         return temp;
     }

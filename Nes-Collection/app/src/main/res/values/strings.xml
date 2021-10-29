@@ -778,8 +778,8 @@
     <string name="statsDecimalFormat">#.##</string>
 
     <string name="statsNogames">You currently have no games, so sadly there are no statistics</string>
-    <string name="statsMostexpensivegames">Your most expensive games are</string>
-    <string name="statsMostexpensivegame">Your most expensive game is</string>
+    <string name="statsMostexpensivegames">Your most expensive games are </string>
+    <string name="statsMostexpensivegame">Your most expensive game is </string>
     <string name="statsGameorgames1">games</string>
     <string name="statsGameorgames2">game</string>
     <string name="statsGamescost1">You have spent </string>

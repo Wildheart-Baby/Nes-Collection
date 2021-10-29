@@ -1,9 +1,11 @@
 package uk.co.bossdogsoftware.nes_collection.models.statistics;
 
-public class GenreCountItems {
+import java.util.Comparator;
+
+public class GenreCountItems implements Comparable<GenreCountItems>{
 
     private String name, colour;
-    private int count, box_count, manual_count, owned, pal_a_owned, pal_a_box, pal_a_manual,
+    private int _id, count, box_count, manual_count, owned, pal_a_owned, pal_a_box, pal_a_manual,
             pal_b_owned, pal_b_box, pal_b_manual,
             us_owned, us_box, us_manual;
 
@@ -11,6 +13,14 @@ public class GenreCountItems {
 
     public GenreCountItems() {
 
+    }
+
+    public int getId() {
+        return this._id;
+    }
+
+    public void setId(int _id) {
+        this._id = _id;
     }
 
     public String getGName() {
@@ -144,6 +154,20 @@ public class GenreCountItems {
 
     public void setUSManual(int us_manual) {
         this.us_manual = us_manual;
+    }
+
+    @Override
+    public int compareTo(GenreCountItems genreCountItems) {
+        return this._id > genreCountItems._id ? 1 : (this._id < genreCountItems._id ? - 1 : 0);
+    }
+
+
+    public static class ByLargest implements Comparator<GenreCountItems> {
+
+        @Override
+        public int compare(GenreCountItems item1, GenreCountItems item2) {
+            return item1.count < item2.count ? 1 : (item1.count > item2.count ? - 1 : 0);
+        }
     }
 
 }
