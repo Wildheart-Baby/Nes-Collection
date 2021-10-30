@@ -33,7 +33,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
     }
 
     Context context; //sets up a variable as context
-    //ArrayList<AllGameItems> nesList; //sets up  an array called shoppingList
+    ArrayList<AllGameItems> gamesList; //sets up  an array called shoppingList
     String gameimage;
     private static final int TYPE_GAME = 0;
     private static final int TYPE_DIVIDER = 1;
@@ -44,18 +44,18 @@ public class ShelfCollectionAdapter extends BaseAdapter {
     public ShelfCollectionAdapter(Context context, ArrayList<AllGameItems> list) {
 
         this.context = context;//sets up the context for the class
-        HomeScreenActivity.gamesList = list; //sets up a variable as a list
+        gamesList = list; //sets up a variable as a list
 
     }
 
     @Override
     public int getCount() {
-        return HomeScreenActivity.gamesList.size();
+        return gamesList.size();
     } //returns the number of items in the array
 
     @Override
     public Object getItem(int position) {
-        return HomeScreenActivity.gamesList.get(position);
+        return gamesList.get(position);
     } //gets the position within the list
 
     @Override
@@ -65,7 +65,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        AllGameItems nesListItems = HomeScreenActivity.gamesList.get(position); //gets the item position from the array
+        AllGameItems nesListItems = gamesList.get(position); //gets the item position from the array
 
         if (convertView == null) { //if the layout isn't inflated
             LayoutInflater inflater = (LayoutInflater) context

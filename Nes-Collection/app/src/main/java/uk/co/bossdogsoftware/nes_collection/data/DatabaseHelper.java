@@ -740,6 +740,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         titles = gSettings.getUsTitles();
         ordering = gSettings.getGameOrdering();
         conditionstatement = gSettings.getShowCondition();
+        shelfsize = gSettings.getShelfSize();
 
         ArrayList<AllGameItems> gamesList = new ArrayList<>();
         gamesList.clear();
@@ -767,21 +768,20 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
                 AllGameItems gameListItems = new AllGameItems();//creates a new array
-                id = c.getInt(c.getColumnIndex("_id"));
+                gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
+                gameListItems.setName(c.getString(c.getColumnIndex(thename)));
+                gameListItems.setPublisher(c.getString(c.getColumnIndex(thePublisher)));
 
-                name = c.getString(c.getColumnIndex("name"));
-
-                palAcart = c.getInt(c.getColumnIndex("euro_cart"));
+                palAcart = c.getInt(c.getColumnIndex("pal_a_cart"));
+                palBcart = c.getInt(c.getColumnIndex("pal_b_cart"));
                 uscart = c.getInt(c.getColumnIndex("ntsc_cart"));
-                palBcart = c.getInt(c.getColumnIndex("sa_cart"));
-
 
                 if (check.equals("y")){
                     rec = 0;
 
                     if (palAcart == 8783){rec ++; posInList++; }
-                    if (uscart == 8783){rec ++; posInList++; }
                     if (palBcart == 8783){rec ++; posInList++; }
+                    if (uscart == 8783){rec ++; posInList++; }
 
                     check = "n";
                 }

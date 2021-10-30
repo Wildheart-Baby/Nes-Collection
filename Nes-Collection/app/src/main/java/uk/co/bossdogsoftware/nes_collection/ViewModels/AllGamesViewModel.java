@@ -150,6 +150,10 @@ public class AllGamesViewModel extends AndroidViewModel {
         return indexList;
     }
 
+    public ArrayList<AllGameItems> GetShelfOrder(){
+        gamesList = dbh.ShelfOrder();
+        return gamesList;
+    }
 
 
     public String convertLogoTitle(String title){

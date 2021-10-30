@@ -26,7 +26,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
     String[] usnames;
     String[] gamenames;
     ArrayList<GenreCountItems> GenreItems;
-    List<String>genreNames;
+    List<String>genreNames, topGames;
     public String[] GenreNames, names2;
     String popgenre;
     public float[] datapoints, datapoints2;
@@ -102,8 +102,9 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         }
 
         String genreName = "";
-        GenreItems = new ArrayList<GenreCountItems>();
-        genreNames = new ArrayList<String>();
+        GenreItems = new ArrayList<>();
+        genreNames = new ArrayList<>();
+        topGames = new ArrayList<>();
         palAPrices = new ArrayList<>();
         palBPrices = new ArrayList<>();
         usPrices = new ArrayList<>();
@@ -151,7 +152,11 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setGameScore(c.getInt(c.getColumnIndex("play_score")));
                 gameListItems.setGameTime(c.getDouble(c.getColumnIndex("play_hours")));
                 gameListItems.setCurrency(currency);
+                gameListItems.setRanking(c.getInt(c.getColumnIndex("Ranking")));
+                if(gameListItems.getRanking() > 0){ topGames.add(gName); }
                 gamesList.add(gameListItems);//add items to the arraylist
+
+
 
                 if(!genreNames.contains(genreName))
                     genreNames.add(genreName);
@@ -217,6 +222,10 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             newItem.setId(i);
             GenreItems.add(newItem);
 
+            costPalA = 0.0;
+            costPalB = 0.0;
+            costUs = 0.0;
+
             for (int g=0; g < gamesList.size(); g++) {
 
                 finishedGames += gamesList.get(g).finished;
@@ -226,21 +235,19 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                         theCount = GenreItems.get(i).getPalAOwned();
                         theCount ++;
                         GenreItems.get(i).setPalAOwned(theCount);
-                        //costPalA += gamesList.get(g).pal_a_cost;
+                        costPalA += gamesList.get(g).getPalACost();
                     }
                     if (gamesList.get(g).pal_b_cart == 8783) {
                         theCount = GenreItems.get(i).getPalBOwned();
                         theCount ++;
                         GenreItems.get(i).setPalBOwned(theCount);
-                        //costPalB += gamesList.get(g).pal_b_cost;
-                        //if(b_cost >= costPalB){ expensivePalBGame = gamesList.get(g).getName(); b_cost = costPalB;}
+                        costPalB += gamesList.get(g).getPalBCost();
                     }
                     if (gamesList.get(g).ntsc_cart == 8783) {
                         theCount = GenreItems.get(i).getUSOwned();
                         theCount ++;
                         GenreItems.get(i).setUSOwned(theCount);
-                        //costUs += gamesList.get(g).ntsc_cost;
-                        //if(us_cost >= costUs){ expensiveUSGame = gamesList.get(g).getName(); us_cost = costUs;}
+                        costUs += gamesList.get(g).getNtscCost();
                     }
 
                     if (gamesList.get(g).pal_a_box == 8783) {
@@ -291,11 +298,9 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             t = GenreItems.get(i).getPalAManual() + GenreItems.get(i).getPalBManual() + GenreItems.get(i).getUSManual();
             GenreItems.get(i).setGManualCount(t);
 
-            //double c = costPalA + costPalB + costUs;
-           // GenreItems.get(i).setGCost(c);
-            costPalA = 0.0;
-            costPalB = 0.0;
-            costUs = 0.0;
+            double c = costPalA + costPalB + costUs;
+            GenreItems.get(i).setGCost(c);
+
 
         }
         setPieData();

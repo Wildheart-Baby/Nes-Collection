@@ -18,7 +18,7 @@ public class AllGameItems implements Comparable<AllGameItems>{
     public int flagAustralia, flagAustria, flagBrazil, flagBenelux, flagCanada, flagDenmark, flagFrance, flagFinland, flagGermany, flagGreece,
             flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS,
             play_score, play_completion, play_ownership;
-    public int euro_owned, us_owned, sa_owned, gameCondition, conditionStatement;
+    public int euro_owned, us_owned, sa_owned, gameCondition, conditionStatement, ranking;
     public double pal_a_cost, pal_b_cost, ntsc_cost, gamePrice, play_time;
 
     public int getItemId() { return _id; }
@@ -240,7 +240,8 @@ public class AllGameItems implements Comparable<AllGameItems>{
     public int getShowPrice() { return showPrice; }
     public void setShowPrice(int showPrice) { this.showPrice = showPrice;}
 
-
+    public int getRanking() { return ranking; }
+    public void setRanking(int ranking) { this.ranking = ranking;}
 
     @Override
     public int compareTo(AllGameItems allGameItems) {
