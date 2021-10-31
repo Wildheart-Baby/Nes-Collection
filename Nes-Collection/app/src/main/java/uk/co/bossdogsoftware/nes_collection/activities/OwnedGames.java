@@ -264,7 +264,7 @@ public class OwnedGames extends AppCompatActivity
 
         if (viewas == 0) {
             if (ordering == 0) {
-                NesOwnedAdapter nes = new NesOwnedAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
+                NesOwnedAdapter nes = new NesOwnedAdapter(this, HomeScreenActivity.gamesList, 1);//set up an new list adapter from the arraylist
                 gamegalleryview.setVisibility(View.GONE);
                 alphaIndex.setVisibility(View.VISIBLE);
                 ownedlistView.setAdapter(nes);

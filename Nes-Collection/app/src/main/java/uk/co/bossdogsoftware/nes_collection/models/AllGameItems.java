@@ -9,17 +9,17 @@ import uk.co.bossdogsoftware.nes_collection.models.statistics.GameCostItems;
  */
 public class AllGameItems implements Comparable<AllGameItems>{
 
-    public String group;
-    public String name, publisher, synopsis, image, genre, region, subgenre, developer, year, usyear, sayear, currency;
-    public int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_a_owned, pal_a_release,
+    private String group;
+    private String name, publisher, synopsis, image, genre, region, subgenre, developer, year, usyear, sayear, currency;
+    private int _id, owned, cart, manual, box, pal_a_cart, pal_a_box, pal_a_manual, pal_a_owned, pal_a_release,
             pal_b_cart, pal_b_manual, pal_b_box, pal_b_owned, pal_b_release,
             ntsc_cart, ntsc_box, ntsc_manual, ntsc_owned, ntsc_release,
             favourite, wishlist, finished, listPos, onShelf, showPrice;
-    public int flagAustralia, flagAustria, flagBrazil, flagBenelux, flagCanada, flagDenmark, flagFrance, flagFinland, flagGermany, flagGreece,
+    private int flagAustralia, flagAustria, flagBrazil, flagBenelux, flagCanada, flagDenmark, flagFrance, flagFinland, flagGermany, flagGreece,
             flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS,
             play_score, play_completion, play_ownership;
-    public int euro_owned, us_owned, sa_owned, gameCondition, conditionStatement, ranking;
-    public double pal_a_cost, pal_b_cost, ntsc_cost, gamePrice, play_time;
+    private int euro_owned, us_owned, sa_owned, gameCondition, conditionStatement, ranking;
+    private double pal_a_cost, pal_b_cost, ntsc_cost, gamePrice, play_time;
 
     public int getItemId() { return _id; }
     public void setItemId(int _id) { this._id = _id; } //returns the item id
@@ -81,6 +81,8 @@ public class AllGameItems implements Comparable<AllGameItems>{
     public String getRegion() { return region; }
     public void setRegion(String region) { this.region = region; }//returns the item department
 
+
+
     public int getCartPalA() { return pal_a_cart; }
     public void setCartPalA(int pal_a_cart) { this.pal_a_cart = pal_a_cart; } //returns the item id
 
@@ -99,6 +101,8 @@ public class AllGameItems implements Comparable<AllGameItems>{
     public int getManualPalB() { return pal_b_manual; }
     public void setManualPalB(int pal_b_manual) { this.pal_b_manual = pal_b_manual; } //returns the item id
 
+
+
     public int getBoxPalB() { return pal_b_box; }
     public void setBoxPalB(int pal_b_box) { this.pal_b_box = pal_b_box; } //returns the item id
 
@@ -116,6 +120,8 @@ public class AllGameItems implements Comparable<AllGameItems>{
 
     public int getNtscOwned(){ return ntsc_owned ;}
     public void setNtscOwned(int ntsc_owned) { this.ntsc_owned = ntsc_owned; }
+
+
 
     public int getFavourite() { return favourite; }
     public void setFavourite(int favourite) { this.favourite = favourite; }
@@ -192,7 +198,7 @@ public class AllGameItems implements Comparable<AllGameItems>{
     public int getSweden() { return flagSweden; }
     public void setSweden(int flagSweden) { this.flagSweden = flagSweden; } //returns the item id
 
-    public int getSwitzerland() { return flagAustria; }
+    public int getSwitzerland() { return flagSwitzerland; }
     public void setSwitzerland(int flagSwitzerland) { this.flagSwitzerland = flagSwitzerland; } //returns the item id
 
     public int getUK() { return flagUK; }

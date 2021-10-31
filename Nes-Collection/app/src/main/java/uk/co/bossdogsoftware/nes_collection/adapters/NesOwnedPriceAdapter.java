@@ -81,7 +81,6 @@ public class NesOwnedPriceAdapter extends BaseAdapter {
                 holder.ownedmanual = (TextView) convertView.findViewById(R.id.manual);
                 holder.owned = (ImageView) convertView.findViewById(R.id.imgOwned);
                 holder.gamecost = (TextView) convertView.findViewById(R.id.lblCost);
-                holder.gamecost480 = (TextView) convertView.findViewById(R.id.lblCost480);
                 convertView.setTag(holder);
             }
 
@@ -180,16 +179,10 @@ public class NesOwnedPriceAdapter extends BaseAdapter {
             holder.cover.setImageResource(coverid);
             thegamename = nesListItems.getName();
             l = thegamename.length();
-            if (screenwidth < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
+            //if (screenwidth < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
             holder.gamename.setText(thegamename); //sets the textview name with data from name
             if (showprice == 1){
-                if (screenwidth > 599) {
-                    holder.gamecost.setText(gamescost);
-                } else if (screenwidth < 600) {
-                    holder.gamecost480.setVisibility(View.VISIBLE);
-                    holder.gamecost480.setText(gamescost);
-                    holder.gamecost.setVisibility(View.GONE);
-                }
+                holder.gamecost.setText(gamescost);
             }
             //holder.gamename.setText(test);
 

@@ -184,7 +184,7 @@ public class EditGameFragment extends Fragment {
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.menu_editgame, menu);
         MenuItem fav = menu.findItem(R.id.action_favourite);
-        if(viewM.gamesList.get(mParam1).favourite == 1){ fav.setIcon(R.drawable.ic_heart_red_24dp); }else { fav.setIcon(R.drawable.ic_favorite_border_white_24dp);}
+        if(viewM.gamesList.get(mParam1).getFavourite() == 1){ fav.setIcon(R.drawable.ic_heart_red_24dp); }else { fav.setIcon(R.drawable.ic_favorite_border_white_24dp);}
 
     }
 
@@ -216,36 +216,36 @@ public class EditGameFragment extends Fragment {
 
         spinner_played.setSelection(gameDetails.gameCondition);
 
-        if(gameDetails.pal_a_release == 0){
+        if(gameDetails.getPalARelease() == 0){
             chkpalacart.setEnabled(false); chkpalabox.setEnabled(false); chkpalamanual.setEnabled(false);  PalACost.setEnabled(false); PalACost.setText("");
         } else {
-            if (gameDetails.pal_a_cart == 8783) { chkpalacart.setChecked(true); } else { chkpalacart.setChecked(false); }
-            if (gameDetails.pal_a_box == 8783) { chkpalabox.setChecked(true); } else { chkpalabox.setChecked(false); }
-            if (gameDetails.pal_a_manual == 8783) { chkpalamanual.setChecked(true); } else { chkpalamanual.setChecked(false); }
+            if (gameDetails.getCartPalA() == 8783) { chkpalacart.setChecked(true); } else { chkpalacart.setChecked(false); }
+            if (gameDetails.getBoxPalA() == 8783) { chkpalabox.setChecked(true); } else { chkpalabox.setChecked(false); }
+            if (gameDetails.getManualPalA() == 8783) { chkpalamanual.setChecked(true); } else { chkpalamanual.setChecked(false); }
             }
 
         if (gameDetails.pal_b_release == 0) { chkpalbcart.setEnabled(false); chkpalbbox.setEnabled(false); chkpalbmanual.setEnabled(false);  PalBCost.setEnabled(false); PalBCost.setText("");}
         else {
-            if (gameDetails.pal_b_cart == 8783) { chkpalbcart.setChecked(true);  } else { chkpalbcart.setChecked(false); }
-            if (gameDetails.pal_b_box == 8783) { chkpalbbox.setChecked(true); } else { chkpalbbox.setChecked(false);  }
-            if (gameDetails.pal_b_manual == 8783) { chkpalbmanual.setChecked(true); } else { chkpalbmanual.setChecked(false);}
+            if (gameDetails.getCartPalB() == 8783) { chkpalbcart.setChecked(true);  } else { chkpalbcart.setChecked(false); }
+            if (gameDetails.getBoxPalB() == 8783) { chkpalbbox.setChecked(true); } else { chkpalbbox.setChecked(false);  }
+            if (gameDetails.getManualPalB() == 8783) { chkpalbmanual.setChecked(true); } else { chkpalbmanual.setChecked(false);}
             //if (gameDetails. == 0 ){ chkpalbbox.setEnabled(false); }
         }
         if (gameDetails.ntsc_release == 0) { chkuscart.setEnabled(false); chkusbox.setEnabled(false); chkusmanual.setEnabled(false);  USCost.setEnabled(false); USCost.setText("");}
         else {
-            if (gameDetails.ntsc_cart == 8783) { chkuscart.setChecked(true); } else { chkuscart.setChecked(false); }
-            if (gameDetails.ntsc_box == 8783) { chkusbox.setChecked(true); } else { chkusbox.setChecked(false); }
-            if (gameDetails.ntsc_manual == 8783) { chkusmanual.setChecked(true); } else { chkusmanual.setChecked(false);}
+            if (gameDetails.getCartNtsc() == 8783) { chkuscart.setChecked(true); } else { chkuscart.setChecked(false); }
+            if (gameDetails.getBoxNtsc() == 8783) { chkusbox.setChecked(true); } else { chkusbox.setChecked(false); }
+            if (gameDetails.getManualNtsc() == 8783) { chkusmanual.setChecked(true); } else { chkusmanual.setChecked(false);}
             //if (usbox == 0){ chkusbox.setEnabled(false); }
         }
 
-        favourite = gameDetails.favourite;
-        PalAcost = gameDetails.pal_a_cost;
-        PalBcost = gameDetails.pal_b_cost;
-        UScost = gameDetails.ntsc_cost;
+        favourite = gameDetails.getFavourite();
+        PalAcost = gameDetails.getPalACost();
+        PalBcost = gameDetails.getPalBCost();
+        UScost = gameDetails.getNtscCost();
 
 
-        if (gameDetails.onShelf == 1){onshelf.setChecked(true);} else { onshelf.setChecked(false);}
+        if (gameDetails.getOnShelf() == 1){onshelf.setChecked(true);} else { onshelf.setChecked(false);}
         if (gameDetails.showPrice == 0){CostHdr.setVisibility(View.INVISIBLE);
             PalACurrency.setVisibility(View.INVISIBLE); PalBCurrency.setVisibility(View.INVISIBLE); USCurrency.setVisibility(View.INVISIBLE);
             PalACost.setVisibility(View.INVISIBLE); PalBCost.setVisibility(View.INVISIBLE); USCost.setVisibility(View.INVISIBLE);}
@@ -268,43 +268,45 @@ public class EditGameFragment extends Fragment {
 
         if(gameDetails.wishlist == 1){gameDetails.wishlist = 0;}
 
-        if (gameDetails.pal_a_cart == 32573 && gameDetails.pal_b_cart == 32573 && gameDetails.ntsc_cart == 32573) { gameDetails.cart = 0;  }
+        if (gameDetails.getCartPalA() == 32573 && gameDetails.getCartPalB() == 32573 && gameDetails.getCartNtsc() == 32573) { gameDetails.setOwned(0);  }
         if (gameDetails.pal_a_box == 32573 && gameDetails.pal_b_box == 32573 && usbox == 32573) { gameDetails.box = 0; }
         if (gameDetails.pal_a_manual == 32573 && gameDetails.pal_b_manual == 32573 && gameDetails.ntsc_manual == 32573) { manual = 0; }
 
-        viewM.WriteGame(mParam1, gameDetails);
-       /* if (cart == 0 && box == 0 && manual == 0) {owned = 0; HomeScreenActivity.gamesList.get(gamepos).setOwned(0);}
+
+       /* if (cart == 0 && box == 0 && manual == 0) {owned = 0; HomeScreenActivity.gamesList.get(gamepos).setOwned(0);}*/
         PACheck = PalACost.getText().toString().replaceAll("[,]", ".");
-        Log.d("Pixo-cost", PACheck);
+        //Log.d("Pixo-cost", PACheck);
         PACheck = PalACost.getText().toString().replaceAll("[^0-9.]", "");
-        Log.d("Pixo-cost", PACheck);
-        //PACheck = PACheck.replaceAll("[^0-9.]", "");
-
         PBCheck = PalBCost.getText().toString().replaceAll("[^0-9.]", "");
-        //PBCheck = PBCheck.replaceAll("[^0-9.]", "");
-
         USCheck = USCost.getText().toString().replaceAll("[^0-9.]", "");
         //USCheck = USCheck.replaceAll("[^0-9.]", "");
 
-        Log.d("pixo", " " + PACheck + " " + PBCheck + " " + USCheck  );
+        //Log.d("pixo", " " + PACheck + " " + PBCheck + " " + USCheck  );
 
         if (PACheck.matches("") || !Character.isDigit(PACheck.charAt(0))) {PalAcost = 0.0;}
         else {PalAcost = Double.parseDouble(PACheck);}
+        gameDetails.setPalACost(PalAcost);
 
         if (PBCheck.matches("") || !Character.isDigit(PBCheck.charAt(0))) {PalBcost = 0.0;}
         else {PalBcost = Double.parseDouble(PBCheck);}
+        gameDetails.setPalBCost(PalBcost);
         //else {PalBcost = Double.valueOf(PalBCost.getText().toString());}
 
         if (USCheck.matches("") || !Character.isDigit(USCheck.charAt(0))) {UScost = 0.0;}
         else {UScost = Double.parseDouble(USCheck);}
+        gameDetails.setNtscCost(UScost);
         //else {UScost = Double.valueOf(USCost.getText().toString());}
 
-        if (PalAcost > PalBcost && PalAcost > UScost){price = PalAcost;}
-        else if (PalBcost > PalAcost && PalBcost > UScost){price = PalBcost;}
-        else if (UScost > PalAcost && UScost > PalBcost){price = UScost;}
+        if (PalAcost > PalBcost && PalAcost > UScost){gameDetails.setGamePrice(PalAcost);}
+        else if (PalBcost > PalAcost && PalBcost > UScost){gameDetails.setGamePrice(PalBcost);}
+        else if (UScost > PalAcost && UScost > PalBcost){gameDetails.setGamePrice(UScost);}
 
-        if (PACheck.equals("0.00") && PBCheck.equals("0.00") && USCheck.equals("0.00")){price = 0.00;}*/
+        if (PACheck.equals("0.00") && PBCheck.equals("0.00") && USCheck.equals("0.00")){gameDetails.setGamePrice(0.00);}
         //gameDetails._id = mParam2;
+
+
+
+        viewM.WriteGame(mParam1, gameDetails);
         closeEditFragment();
     }
 

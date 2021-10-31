@@ -1,248 +1,271 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:descendantFocusability="blocksDescendants">
-    <RelativeLayout
-        android:layout_width="match_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/lblDivider"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:id="@+id/relativeLayout3">
+        android:background="#666666"
+        android:paddingLeft="5dp"
+        android:text="separator"
+        android:textColor="@android:color/white"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/lblDivider"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:background="#1e1e1e"
-            android:paddingLeft="5dp"
-            android:text="separator"
-            android:textColor="@android:color/white"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:visibility="gone" />
-    </RelativeLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:paddingLeft="10dp"
-        android:paddingTop="5dp"
+    <ImageView
+        android:id="@+id/imgGameCover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/name"
+        android:maxWidth="45dp"
+        android:paddingRight="5dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/placeholdersml"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblDivider" />
+
+
+    <TextView
+        android:id="@+id/lblGameName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toEndOf="@+id/imgGameCover"
+        android:layout_toRightOf="@+id/imgGameCover"
+        android:hint="gamename"
         android:paddingBottom="5dp"
+        android:text="game name"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgGameCover"
+        app:layout_constraintTop_toTopOf="@+id/imgGameCover" />
+
+    <ImageView
+        android:id="@+id/imgOwned"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imgGameCover"
+        android:layout_toStartOf="@+id/lblGameName"
+        android:layout_toLeftOf="@+id/lblGameName"
+        android:adjustViewBounds="true"
+        android:maxWidth="45dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/icon_owned_crown_bronze"
+        app:layout_constraintEnd_toEndOf="@+id/imgGameCover"
+        app:layout_constraintTop_toTopOf="@+id/imgGameCover" />
+
+    <ImageView
+        android:id="@+id/imgCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:contentDescription="Cart icon"
+        android:src="@drawable/cart"
+        app:layout_constraintBottom_toBottomOf="@+id/imgGameCover"
+        app:layout_constraintStart_toEndOf="@+id/imgGameCover"
+        app:layout_constraintTop_toBottomOf="@+id/lblGameName" />
+
+    <ImageView
+        android:id="@+id/imgPalACart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@+id/imgCart"
+        android:layout_toRightOf="@+id/imgCart"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCart"
+        app:layout_constraintStart_toEndOf="@+id/imgCart"
+        app:layout_constraintTop_toTopOf="@+id/imgCart"
+        app:layout_constraintVertical_bias="0.562"
+        app:srcCompat="@drawable/pal_a_smallest" />
+
+    <ImageView
+        android:id="@+id/imgPalBCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toEndOf="@+id/imgPalACart"
+        android:layout_toRightOf="@+id/imgPalACart"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPalACart"
+        app:layout_constraintStart_toEndOf="@+id/imgPalACart"
+        app:layout_constraintTop_toTopOf="@+id/imgPalACart"
+        app:srcCompat="@drawable/euro_smallest" />
+
+
+    <ImageView
+        android:id="@+id/imgUsCart"
+        android:layout_width="11dp"
+        android:layout_height="6dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toEndOf="@+id/imgPalBCart"
+        android:layout_toRightOf="@+id/imgPalBCart"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPalBCart"
+        app:layout_constraintStart_toEndOf="@+id/imgPalBCart"
+        app:layout_constraintTop_toTopOf="@+id/imgPalBCart"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/us_smallest" />
+
+    <ImageView
+        android:id="@+id/imgBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@+id/imgUsCart"
+        android:layout_toRightOf="@+id/imgUsCart"
+        android:contentDescription="@string/boximage"
+        android:src="@drawable/box"
+        app:layout_constraintBottom_toBottomOf="@+id/imgCart"
+        app:layout_constraintStart_toEndOf="@+id/imgUsCart"
+        app:layout_constraintTop_toTopOf="@+id/imgCart" />
+
+    <ImageView
+        android:id="@+id/imgPalABox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@+id/imgBox"
+        android:layout_toRightOf="@+id/imgBox"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBox"
+        app:layout_constraintStart_toEndOf="@+id/imgBox"
+        app:layout_constraintTop_toTopOf="@+id/imgBox"
+        app:srcCompat="@drawable/pal_a_smallest" />
+
+    <ImageView
+        android:id="@+id/imgPalBBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toEndOf="@+id/imgPalABox"
+        android:layout_toRightOf="@+id/imgPalABox"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPalABox"
+        app:layout_constraintStart_toEndOf="@+id/imgPalABox"
+        app:layout_constraintTop_toTopOf="@+id/imgPalABox"
+        app:srcCompat="@drawable/euro_smallest" />
+
+    <ImageView
+        android:id="@+id/imgUsBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toEndOf="@+id/imgPalBBox"
+        android:layout_toRightOf="@+id/imgPalBBox"
+        app:layout_constraintBottom_toBottomOf="@+id/imgPalBBox"
+        app:layout_constraintStart_toEndOf="@+id/imgPalBBox"
+        app:layout_constraintTop_toTopOf="@+id/imgPalBBox"
+        app:srcCompat="@drawable/us_smallest" />
+
+    <ImageView
+        android:id="@+id/imgManual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="false"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/relativeLayout3">
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@+id/imgUsBox"
+        android:layout_toRightOf="@+id/imgUsBox"
+        android:contentDescription="Manual icon"
+        android:src="@drawable/manual"
+        app:layout_constraintBottom_toBottomOf="@+id/imgBox"
+        app:layout_constraintStart_toEndOf="@+id/imgUsBox"
+        app:layout_constraintTop_toTopOf="@+id/imgBox"
+        app:layout_constraintVertical_bias="1.0" />
 
-        <ImageView
-            android:id="@+id/imgGameCover"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/name"
-            android:maxWidth="45dp"
-            android:paddingRight="5dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/placeholdersml" />
+    <ImageView
+        android:id="@+id/imgPalAMan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_toEndOf="@+id/imgManual"
+        android:layout_toRightOf="@+id/imgManual"
+        app:layout_constraintBottom_toBottomOf="@+id/imgManual"
+        app:layout_constraintStart_toEndOf="@+id/imgManual"
+        app:layout_constraintTop_toTopOf="@+id/imgManual"
+        app:srcCompat="@drawable/pal_a_smallest" />
 
-        <ImageView
-            android:id="@+id/imgOwned"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imgGameCover"
-            android:layout_marginEnd="9dp"
-            android:layout_marginRight="9dp"
-            android:layout_marginTop="10dp"
-            android:layout_toLeftOf="@+id/lblGameName"
-            android:layout_toStartOf="@+id/lblGameName"
-            android:adjustViewBounds="true"
-            android:maxWidth="45dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/icon_owned_bronze"
-            android:visibility="invisible" />
-
-        <TextView
-            android:id="@+id/lblGameName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="5dp"
-            android:layout_toEndOf="@+id/imgGameCover"
-            android:layout_toRightOf="@+id/imgGameCover"
-            android:hint="gamename"
-            android:paddingBottom="5dp"
-            android:text="game name"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="18sp" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/lblGameName"
-            android:text="New Text"
-            android:id="@+id/lblCost480"
-            android:layout_toRightOf="@+id/imgGameCover"
-            android:layout_toEndOf="@+id/imgGameCover"
-            android:visibility="gone"
-            android:textSize="20sp"
-            android:layout_marginLeft="5dp" />
+    <ImageView
+        android:id="@+id/imgPalBMan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toEndOf="@+id/imgPalAMan"
+        android:layout_toRightOf="@+id/imgPalAMan"
+        app:layout_constraintBottom_toBottomOf="@+id/imgManual"
+        app:layout_constraintStart_toEndOf="@+id/imgPalAMan"
+        app:layout_constraintTop_toTopOf="@+id/imgManual"
+        app:srcCompat="@drawable/euro_smallest" />
 
 
-        <RelativeLayout
-            android:id="@+id/carthold"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lblCost480"
-            android:layout_marginLeft="1dp"
-            android:layout_marginRight="5dp"
-            android:layout_toEndOf="@+id/imgGameCover"
-            android:layout_toRightOf="@+id/imgGameCover"
-            android:paddingBottom="3dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="10dp">
+    <ImageView
+        android:id="@+id/imgUsMan"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_toEndOf="@+id/imgPalBMan"
+        android:layout_toRightOf="@+id/imgPalBMan"
+        app:layout_constraintBottom_toBottomOf="@+id/imgManual"
+        app:layout_constraintStart_toEndOf="@+id/imgPalBMan"
+        app:layout_constraintTop_toTopOf="@+id/imgManual"
+        app:srcCompat="@drawable/us_smallest" />
 
-            <ImageView
-                android:id="@+id/imgCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="2dp"
-                android:contentDescription="Cart icon"
-                android:src="@drawable/cart"
-                android:visibility="visible" />
-
-            <ImageView
-                android:id="@+id/imgPalACart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/imgCart"
-                android:layout_toRightOf="@+id/imgCart"
-                app:srcCompat="@drawable/pal_a_smallest" />
-
-            <ImageView
-                android:id="@+id/imgPalBCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:layout_toEndOf="@+id/imgPalACart"
-                android:layout_toRightOf="@+id/imgPalACart"
-                app:srcCompat="@drawable/euro_smallest" />
-
-            <ImageView
-                android:id="@+id/imgUsCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:layout_toEndOf="@+id/imgPalBCart"
-                android:layout_toRightOf="@+id/imgPalBCart"
-                app:srcCompat="@drawable/us_smallest" />
+    <TextView
+        android:id="@+id/lblCost"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imgManual"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/imgUsMan"
+        android:layout_toRightOf="@+id/imgUsMan"
+        android:foregroundGravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:text=""
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgManual"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgUsMan"
+        app:layout_constraintTop_toTopOf="@+id/imgManual"
+        app:layout_constraintVertical_bias="0.921" />
 
 
-            <ImageView
-                android:id="@+id/imgBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="2dp"
-                android:layout_toEndOf="@+id/imgUsCart"
-                android:layout_toRightOf="@+id/imgUsCart"
-                android:contentDescription="@string/boximage"
-                android:src="@drawable/box"
-                android:visibility="visible" />
-
-            <ImageView
-                android:id="@+id/imgPalABox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/imgBox"
-                android:layout_toRightOf="@+id/imgBox"
-                app:srcCompat="@drawable/pal_a_smallest" />
-
-            <ImageView
-                android:id="@+id/imgPalBBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:layout_toEndOf="@+id/imgPalABox"
-                android:layout_toRightOf="@+id/imgPalABox"
-                app:srcCompat="@drawable/euro_smallest" />
-
-            <ImageView
-                android:id="@+id/imgUsBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:layout_marginRight="2dp"
-                android:layout_toEndOf="@+id/imgPalBBox"
-                android:layout_toRightOf="@+id/imgPalBBox"
-                app:srcCompat="@drawable/us_smallest" />
-
-            <ImageView
-                android:id="@+id/imgManual"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="false"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="2dp"
-                android:layout_toEndOf="@+id/imgUsBox"
-                android:layout_toRightOf="@+id/imgUsBox"
-                android:contentDescription="Manual icon"
-                android:src="@drawable/manual"
-                android:visibility="visible" />
-
-            <ImageView
-                android:id="@+id/imgPalAMan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/imgManual"
-                android:layout_toRightOf="@+id/imgManual"
-                app:srcCompat="@drawable/pal_a_smallest" />
-
-            <ImageView
-                android:id="@+id/imgPalBMan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:layout_toEndOf="@+id/imgPalAMan"
-                android:layout_toRightOf="@+id/imgPalAMan"
-                app:srcCompat="@drawable/euro_smallest" />
-
-            <ImageView
-                android:id="@+id/imgUsMan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="2dp"
-                android:layout_toEndOf="@+id/imgPalBMan"
-                android:layout_toRightOf="@+id/imgPalBMan"
-                app:srcCompat="@drawable/us_smallest" />
-
-
-            <TextView
-                android:id="@+id/lblCost"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignTop="@+id/imgManual"
-                android:layout_centerVertical="true"
-                android:layout_marginTop="5dp"
-                android:layout_toEndOf="@+id/imgUsMan"
-                android:layout_toRightOf="@+id/imgUsMan"
-                android:foregroundGravity="center_horizontal"
-                android:gravity="center_horizontal"
-                android:text=""
-                android:textSize="12sp" />
-
-
-        </RelativeLayout>
-    </RelativeLayout>
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

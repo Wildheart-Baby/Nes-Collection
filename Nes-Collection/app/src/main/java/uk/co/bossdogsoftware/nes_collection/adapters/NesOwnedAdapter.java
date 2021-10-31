@@ -32,26 +32,27 @@ public class NesOwnedAdapter  extends BaseAdapter {
         }
 
         Context context; //sets up a variable as context
-        ArrayList<AllGameItems> nesList; //sets up  an array called shoppingList
+        ArrayList<AllGameItems> gamesList; //sets up  an array called shoppingList
         String gameimage, cart, box, manual;
         String  palAcart, palBcart, ntscart, palAbox, palBbox, ntscbox, palAmanual, palBmanual, ntscmanual, gamescost, currency, thegamename;
         int palAcartlist, palBcartlist, uscartlist, palAboxlist, palBboxlist, usboxlist, palAmanuallist, palBmanuallist, usmanuallist, l, ownedCart, ownedBox, ownedManual;
         double palAcost, palBcost, ntsccost, thegamecost;
 
-        public NesOwnedAdapter(Context context, ArrayList<AllGameItems> list) {
+        public NesOwnedAdapter(Context context, ArrayList<AllGameItems> list, int showPrices) {
 
             this.context = context;//sets up the context for the class
-            HomeScreenActivity.gamesList = list; //sets up a variable as a list
+            gamesList = list; //sets up a variable as a list
+            showprice = showPrices;
         }
 
         @Override
         public int getCount() {
-            return HomeScreenActivity.gamesList.size();
+            return gamesList.size();
         } //returns the number of items in the array
 
         @Override
         public Object getItem(int position) {
-            return HomeScreenActivity.gamesList.get(position);
+            return gamesList.get(position);
         } //gets the position within the list
 
         @Override
@@ -61,7 +62,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            AllGameItems nesListItems = HomeScreenActivity.gamesList.get(position); //gets the item position from the array
+            AllGameItems nesListItems = gamesList.get(position); //gets the item position from the array
 
             if (convertView == null) { //if the layout isn't inflated
                 LayoutInflater inflater = (LayoutInflater) context
@@ -82,8 +83,6 @@ public class NesOwnedAdapter  extends BaseAdapter {
                 holder.ownedmanual = convertView.findViewById(R.id.manual);
                 holder.owned = convertView.findViewById(R.id.imgOwned);
                 holder.gamecost = convertView.findViewById(R.id.lblCost);
-                holder.gamecost480 = convertView.findViewById(R.id.lblCost480);
-
                 holder.cartPalA = convertView.findViewById(R.id.imgPalACart);
                 holder.boxPalA = convertView.findViewById(R.id.imgPalABox);
                 holder.manPalA = convertView.findViewById(R.id.imgPalAMan);
@@ -128,11 +127,11 @@ public class NesOwnedAdapter  extends BaseAdapter {
                     palBmanuallist  + " man us:" +
                     usmanuallist);
 
-            if(ownedCart == 0){holder.Cart.setVisibility(View.INVISIBLE);}
+            if(ownedCart == 0){holder.Cart.setAlpha(0.25f);}
             else if (ownedCart == 1){holder.Cart.setVisibility(View.VISIBLE);}
-            if(ownedBox == 0){holder.Box.setVisibility(View.INVISIBLE);}
+            if(ownedBox == 0){holder.Box.setAlpha(0.25f);}
             else if(ownedBox == 1){holder.Box.setVisibility(View.VISIBLE);}
-            if(ownedManual == 0){holder.Manual.setVisibility(View.INVISIBLE);}
+            if(ownedManual == 0){holder.Manual.setAlpha(0.25f);}
             else  if(ownedManual == 1){holder.Manual.setVisibility(View.VISIBLE);}
 
             int blankId = context.getResources().getIdentifier("blank_flag_small", "drawable", context.getPackageName());
@@ -203,7 +202,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
             manual = palAmanual + palBmanual + ntscmanual;
             //cover.setImageURI(Uri.parse(gameimage));
 
-            if (nesListItems.group.equals("no")) {
+            if (nesListItems.getGroup().equals("no")) {
                 holder.separator.setVisibility(View.GONE);
             } else {
                 holder.separator.setVisibility(View.VISIBLE);
@@ -216,13 +215,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
             if (screenwidth < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
             holder.gamename.setText(thegamename); //sets the textview name with data from name
             if (showprice == 1){
-                if (screenwidth > 599) {
-                    holder.gamecost.setText(gamescost);
-                } else if (screenwidth < 600) {
-                    holder.gamecost480.setVisibility(View.VISIBLE);
-                    holder.gamecost480.setText(gamescost);
-                    holder.gamecost.setVisibility(View.GONE);
-                }
+                holder.gamecost.setText(gamescost);
             }
 
             if (position % 2 == 0){

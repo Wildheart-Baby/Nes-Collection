@@ -83,7 +83,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
         }
 
         ViewHolder holder = (ViewHolder) convertView.getTag();
-        if (nesListItems.group.equals("no")){ holder.separator.setVisibility(View.GONE); } else { holder.separator.setVisibility(View.VISIBLE); }
+        if (nesListItems.getGroup().equals("no")){ holder.separator.setVisibility(View.GONE); } else { holder.separator.setVisibility(View.VISIBLE); }
         holder.separator.setText(nesListItems.getGroup());
         gameimage = nesListItems.getImage();
         int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());

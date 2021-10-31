@@ -79,12 +79,12 @@ public class NesCollectionImageAdapter extends BaseAdapter {
             holder.cover.setImageResource(coverid);
             int ownedid;
 
-            if (nesListItems.owned == 1) {
+            if (nesListItems.getOwned() == 1) {
                 holder.owned.setVisibility(View.VISIBLE);
             } else {
                 holder.owned.setVisibility(View.GONE);
             }
-            int totalItems = nesListItems.cart = nesListItems.box + nesListItems.manual;
+            int totalItems = nesListItems.getCart() + nesListItems.getBox() + nesListItems.getManual();
 
             switch (totalItems) {
                 case 1:

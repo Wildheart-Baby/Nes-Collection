@@ -81,7 +81,7 @@ public class NesCollectionAdapter extends BaseAdapter {
     }
 
         ViewHolder holder = (ViewHolder) convertView.getTag();
-        if (nesListItems.group.equals("no")){ holder.separator.setVisibility(View.GONE); } else { holder.separator.setVisibility(View.VISIBLE); }
+        if (nesListItems.getGroup().equals("no")){ holder.separator.setVisibility(View.GONE); } else { holder.separator.setVisibility(View.VISIBLE); }
         holder.separator.setText("  "+nesListItems.getGroup());
         gameimage = nesListItems.getImage();
         int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
@@ -98,7 +98,7 @@ public class NesCollectionAdapter extends BaseAdapter {
         //holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
         holder.publisher.setText(nesListItems.getPublisher());
 
-        int partCount = nesListItems.cart + nesListItems.box + nesListItems.manual;
+        int partCount = nesListItems.getCart() + nesListItems.getBox() + nesListItems.getManual();
 
         switch (partCount){
             case 1:
@@ -120,7 +120,7 @@ public class NesCollectionAdapter extends BaseAdapter {
 
 
 
-        if (nesListItems.owned == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}
+        if (nesListItems.getOwned() == 1){ holder.owned.setVisibility(View.VISIBLE);} else { holder.owned.setVisibility(View.INVISIBLE);}
         if (position % 2 == 0) {
             convertView.setBackgroundColor(Color.parseColor("#CAC9C5"));
         } else {

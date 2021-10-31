@@ -85,7 +85,7 @@ public class AllGamesViewModel extends AndroidViewModel {
 
     public void WriteGame(int listPos, GameItem theGame){
         GameItem game = theGame;
-        dbh.updateGameRecord(game.owned, game.cart, game.box, game.manual, game.pal_a_cart, game.pal_a_box, game.pal_a_manual, game.pal_a_owned, game.pal_b_cart, game.pal_b_manual, game.pal_b_box, game.pal_b_owned, game.ntsc_cart, game.ntsc_box, game.ntsc_manual, game.ntsc_owned, game.gamePrice, game.onShelf, game.gameCondition, game.pal_a_owned, game._id);
+        dbh.updateGameRecord(game.owned, game.cart, game.box, game.manual, game.pal_a_cart, game.pal_a_box, game.pal_a_manual, game.pal_a_owned, game.pal_a_cost, game.pal_b_cart, game.pal_b_manual, game.pal_b_box, game.pal_b_owned, game.pal_b_cost, game.ntsc_cart, game.ntsc_box, game.ntsc_manual, game.ntsc_owned, game.ntsc_cost, game.gamePrice, game.onShelf, game.gameCondition, game.pal_a_owned, game._id);
         gamesList.get(listPos).setOwned(game.owned);
         gamesList.get(listPos).setCart(game.cart);
         gamesList.get(listPos).setBox(game.box);
@@ -109,7 +109,7 @@ public class AllGamesViewModel extends AndroidViewModel {
     }
 
     public void favouriteGame(int listPos, int gameId){
-        if(gamesList.get(listPos).favourite == 0 ){
+        if(gamesList.get(listPos).getFavourite() == 0 ){
             gamesList.get(listPos).setFavourite(1);
             dbh.favouriteGame("1", gameId);
         } else {
@@ -119,7 +119,7 @@ public class AllGamesViewModel extends AndroidViewModel {
     }
 
     public void wishList(int listPos, int gameId){
-        if(gamesList.get(listPos).wishlist == 0 ){
+        if(gamesList.get(listPos).getWishlist() == 0 ){
             gamesList.get(listPos).setWishlist(1);
             dbh.wishList("1", gameId);
         } else {
@@ -172,4 +172,7 @@ public class AllGamesViewModel extends AndroidViewModel {
         dbh.UpdateSettings(settings);
     }
 
+    public int ShowPrices(){
+        return dbh.getSettings().getShowPrice();
+    }
 }

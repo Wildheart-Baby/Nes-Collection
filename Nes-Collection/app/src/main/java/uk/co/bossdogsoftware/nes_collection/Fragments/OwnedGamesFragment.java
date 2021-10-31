@@ -20,6 +20,8 @@ import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesCollectionAdapter;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesIndexAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.NesOwnedAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.NesOwnedPriceAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameItemsIndex;
 import uk.co.bossdogsoftware.nes_collection.models.GameListItems;
@@ -82,7 +84,7 @@ public class OwnedGamesFragment extends Fragment {
         gamelistView = v.findViewById(R.id.lvAllGames);
         alphaIndex = v.findViewById(R.id.lvAlphaIndex);
 
-        gamelistView.setAdapter(new NesCollectionAdapter(getContext(), gameList));
+        gamelistView.setAdapter(new NesOwnedAdapter(getContext(), gameList, viewM.ShowPrices()));
         alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
 
         alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {

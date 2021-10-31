@@ -34,14 +34,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String PALABOX = "pal_a_box";
     private static final String PALAMANUAL = "pal_a_manual";
     private static final String PALAOWNED = "pal_a_owned";
+    private static final String PALACOST = "pal_a_cost";
     private static final String PALBCART = "pal_b_cart";
     private static final String PALBMANUAL = " pal_b_manual";
     private static final String PALBBOX = "pal_b_box";
     private static final String PALBOWNED = "pal_b_owned";
+    private static final String PALBCOST = "pal_b_cost";
     private static final String NTSCCART = "ntsc_cart";
     private static final String NTSCBOX = "ntsc_box";
     private static final String NTSCMANUAL = "ntsc_manual";
     private static final String NTSCOWNED = "ntsc_owned";
+    private static final String NTSCCOST = "ntsc_cost";
     private static final String FAVOURITE = "favourite";
     private static final String ONSHELF = "onshelf";
 
@@ -1015,7 +1018,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void updateGameRecord(int owned, int cart, int box, int manual, int pal_a_cart, int pal_a_box, int pal_a_manual, int pal_a_owned, int pal_b_cart, int pal_b_manual, int pal_b_box, int pal_b_owned, int ntsc_cart, int ntsc_box, int ntsc_manual, int ntsc_owned, double price, int onshelf, int gameCondition, int gameOwned, int gameid){
+    public void updateGameRecord(int owned, int cart, int box, int manual, int pal_a_cart, int pal_a_box, int pal_a_manual, int pal_a_owned, double pal_a_cost, int pal_b_cart, int pal_b_manual, int pal_b_box, int pal_b_owned, double pal_b_cost, int ntsc_cart, int ntsc_box, int ntsc_manual, int ntsc_owned, double ntsc_cost, double price, int onshelf, int gameCondition, int gameOwned, int gameid){
         SQLiteDatabase db = this.getReadableDatabase();
 
         ContentValues values = new ContentValues();
@@ -1027,14 +1030,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(PALABOX, pal_a_box);
         values.put(PALAMANUAL, pal_a_manual);
         values.put(PALAOWNED, pal_a_owned);
+        values.put(PALACOST, pal_a_cost);
         values.put(PALBCART, pal_b_cart);
         values.put(PALBMANUAL, pal_b_manual);
         values.put(PALBBOX, pal_b_box);
         values.put(PALBOWNED, pal_b_owned);
+        values.put(PALBCOST, pal_b_cost);
         values.put(NTSCCART, ntsc_cart);
         values.put(NTSCBOX, ntsc_box);
         values.put(NTSCMANUAL, ntsc_manual);
         values.put(NTSCOWNED, ntsc_owned);
+        values.put(NTSCCOST, ntsc_cost);
         values.put(PRICE, price);
         values.put(ONSHELF, onshelf);
         values.put(WISHLIST, 0);
