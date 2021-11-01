@@ -40,6 +40,8 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
     ArrayList<GameCostItems> palAPrices;
     ArrayList<GameCostItems> palBPrices;
     ArrayList<GameCostItems> usPrices;
+    GameSettings gSettings;
+
 
     String orderby, groupHeader, sql, theimage, thename, currency, thePublisher, expensivePalAGame, expensivePalBGame, expensiveUSGame;
     int titles, ordering, regionCode, license,_id;
@@ -59,7 +61,6 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     public StatisticsDatabaseHelper(Context context) {
         super(context,  DATABASE_NAME, null, DATABASE_VERSION);
-        ClearVariables();
         ReadIntoArray();
         getData();
         mContext = context;
@@ -77,7 +78,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
     public void ReadIntoArray(){
         gamesList = new ArrayList<>();
         //genreList = new ArrayList<>();
-        GameSettings gSettings = getSettings();
+        gSettings = getSettings();
 
         String gName;
         a_cost = 0.0;
@@ -203,12 +204,6 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     public void getData(){
 
-//That's all you need
-        //list = (ArrayList) list.stream().distinct().collect(Collectors.toList());
-        //if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        //    list = list.stream().distinct().collect(Collectors.toList());
-        //}
-
         int theCount;
 
         if(genreNames.size() > 0){
@@ -250,43 +245,6 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                         GenreItems.get(i).setUSOwned(theCount);
                         costUs += gamesList.get(g).getNtscCost();
                     }
-
-                    if (gamesList.get(g).getBoxPalA() == 8783) {
-                        theCount = GenreItems.get(i).getPalABox();
-                        theCount ++;
-                        GenreItems.get(i).setPalABox(theCount);
-                    }
-                    if (gamesList.get(g).getBoxPalB() == 8783) {
-                        theCount = GenreItems.get(i).getPalBBox();
-                        theCount ++;
-                        GenreItems.get(i).setPalBBox(theCount);
-                    }
-                    if (gamesList.get(g).getBoxNtsc() == 8783) {
-                        theCount = GenreItems.get(i).getUSBox();
-                        theCount ++;
-                        GenreItems.get(i).setUSBox(theCount);
-                    }
-
-                    if (gamesList.get(g).getManualPalA() == 8783) {
-                        theCount = GenreItems.get(i).getPalAManual();
-                        theCount ++;
-                        GenreItems.get(i).setPalAManual(theCount);
-                    }
-                    if (gamesList.get(g).getManualPalB() == 8783) {
-                        theCount = GenreItems.get(i).getPalBManual();
-                        theCount ++;
-                        GenreItems.get(i).setPalBManual(theCount);
-                    }
-                    if (gamesList.get(g).getManualNtsc() == 8783) {
-                        theCount = GenreItems.get(i).getUSManual();
-                        theCount ++;
-                        GenreItems.get(i).setUSManual(theCount);
-                    }
-
-
-
-
-                    //Log.d("pixo", "matching genre names: " + genreNames);
                 }
 
             }
@@ -301,9 +259,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
             double c = costPalA + costPalB + costUs;
             GenreItems.get(i).setGCost(c);
-
-
-        }
+            }
         setPieData();
         }
     }
@@ -392,162 +348,6 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         return t;
     }
 
-    /*
-
-
-
-
-            sql = "SELECT * FROM eu where pal_a_release = 1 " + licensed + "";
-            c = db.rawQuery(sql, null);
-            totalPalA = c.getCount();
-
-            sql = "SELECT * FROM eu where owned = 1 and (pal_a_cart = 8783 " + licensed + ")";
-            //Log.d("Pixo", sql);
-            c = db.rawQuery(sql, null);
-            ownedPalA = c.getCount();
-
-            sql = "SELECT * FROM eu where pal_b_release = 1 " + licensed + "";
-            c = db.rawQuery(sql, null);
-            totalPalB = c.getCount();
-            sql = "SELECT * FROM eu where owned = 1 and (pal_b_cart = 8783 " + licensed + ")";
-            //Log.d("Pixo", sql);
-            c = db.rawQuery(sql, null);
-            ownedPalB = c.getCount();
-
-            sql = "SELECT * FROM eu where ntsc_release = 1 " + licensed + "";
-            c = db.rawQuery(sql, null);
-            totalUS = c.getCount();
-
-            sql = "SELECT * FROM eu where owned = 1 and (ntsc_cart = 8783 " + licensed + ")";
-            c = db.rawQuery(sql, null);
-            //Log.d("Pixo", sql);
-            ownedUS = c.getCount();
-
-            sql = "SELECT * FROM eu where 1 " + licensed + "";
-            c = db.rawQuery(sql, null);
-            totalReleased = c.getCount();
-
-            sql = "SELECT * FROM eu where owned = 1 " + licensed + "";
-            c = db.rawQuery(sql, null);
-            totalOwned = c.getCount();
-
-            sql = "select name from eu where pal_a_owned = 1 and pal_a_cost >0 and pal_a_cost=(select max(pal_a_cost) from eu) limit 1";
-            c = db.rawQuery(sql, null);
-            i = c.getCount();
-            //Log.d("pixo", "value:" + i);
-            if (i > 1) {
-                palaadd = getString(R.string.statsMostexpensivegames);
-            } else {
-                palaadd = getString(R.string.statsMostexpensivegame);
-            }
-            if (ownedPalA == 0) {
-                RlPalA.setVisibility(View.GONE);
-                Div2.setVisibility(View.GONE);
-            }
-            palanames = new String[i];
-            if (c.moveToFirst()) {//move to the first record
-                io = 0;
-                while (!c.isAfterLast()) {//while there are records to read
-                    palanames[io] = c.getString(c.getColumnIndex("name")) + " ";
-                    c.moveToNext();
-                    io++;
-                }
-                palanames2 = Arrays.toString(palanames);
-                palanames2 = palanames2.substring(1, palanames2.length() - 1);
-                Log.d("Pixo", "Pal A: " + palanames2);
-                //i = 0;
-            }
-            sql = "select name from eu where pal_b_owned = 1 and pal_b_cost >0 and pal_b_cost=(select max(pal_b_cost) from eu) limit 1";
-            c = db.rawQuery(sql, null);
-            i = c.getCount();
-
-            if (i > 1) {
-                palbadd = getString(R.string.statsMostexpensivegames);
-            } else {
-                palbadd = getString(R.string.statsMostexpensivegame);
-            }
-            if (ownedPalB == 0) {
-                RlPalB.setVisibility(View.GONE);
-                //Div3.setVisibility(View.GONE);
-            }
-            palbnames = new String[i];
-            if (c.moveToFirst()) {//move to the first record
-                io = 0;
-                while (!c.isAfterLast()) {//while there are records to read
-                    palbnames[io] = c.getString(c.getColumnIndex("name")) + " ";
-                    c.moveToNext();
-                    io++;
-                }
-                palbnames2 = Arrays.toString(palbnames);
-                palbnames2 = palbnames2.substring(1, palbnames2.length() - 1);
-                Log.d("Pixo", "Pal B: " + palbnames2);
-            }
-
-            sql = "select name from eu where ntsc_owned = 1 and ntsc_cost >0 and ntsc_cost=(select max(ntsc_cost) from eu) limit 1";
-            c = db.rawQuery(sql, null);
-            i = c.getCount();
-
-            if (i > 1) {
-                usadd = getString(R.string.statsMostexpensivegames);
-            } else {
-                usadd = getString(R.string.statsMostexpensivegame);
-            }
-            if (ownedUS == 0) {
-                RlUS.setVisibility(View.GONE);
-                //Div3.setVisibility(View.GONE);
-            }
-            usnames = new String[i];
-            if (c.moveToFirst()) {//move to the first record
-                io = 0;
-                while (!c.isAfterLast()) {//while there are records to read
-                    usnames[io] = c.getString(c.getColumnIndex("name")) + " ";
-                    c.moveToNext();
-                    io++;
-                }
-                usnames2 = Arrays.toString(usnames);
-                usnames2 = usnames2.substring(1, usnames2.length() - 1);
-                Log.d("Pixo", "US: " + usnames2);
-
-            }
-
-
-            totalOwned = ownedPalA + ownedPalB + ownedUS;
-            Log.d("pixo-stats", "Total owned " + totalOwned + " Total counted " + numberowned);
-            DecimalFormat decimalFormat = new DecimalFormat(getString(R.string.statsDecimalFormat));
-
-
-            if (showprices == 1) {
-                if (totalcost > 0) {
-
-                    avgCost = Float.valueOf(totalcost / totalOwned);
-                    //String avgCst = String.valueOf(avgCost);
-                    avgCst = String.format("%.2f", avgCost);
-                    //avgCst = avgCst.replace(",",".");
-                    Log.d("pixo-stats", "avg cost: " + avgCst);
-                    gamescost = getString(R.string.statsGamescost1) + " " + currency + String.format("%.2f", totalcost)  + " " + getString(R.string.statsGamescost2) + " " + currency + avgCst + "\n";
-                } else if (totalcost == 0) {
-                    gamescost = "";
-                }
-            } else if (showprices == 0) {
-                gamescost = "";
-            }
-
-            if (totalOwned > 1) {
-                gameorgames = getString(R.string.statsGameorgames1);
-            } else {
-                gameorgames = getString(R.string.statsGameorgames2);
-            }
-            //gamecost = "You have spent " + currency + totalcost + " on games for your collection\n" +
-
-
-
-
-     */
-
-    public void ClearVariables(){
-        //piechartCount = 0; palACount = 0; palBCount = 0; usCount = 0; ownedGameCount = 0; finishedGames = 0;
-
-    }
 
     public String GameOrGames(){
         String temp;
@@ -580,52 +380,16 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String getPopGenre(){
-        SortGenreList();
-        String temp ="";
-        if(GenreItems.size() != -1){
-
-            temp = GenreItems.get(0).getGName()+ ", "+
-            GenreItems.get(1).getGName() + " and " + GenreItems.get(2).getGName();
-
-        }
-        return temp;
-    }
-
-    public void SortGenreList(){
         Collections.sort(GenreItems, new GenreCountItems.ByLargest());
+        String temp ="";
+        int listSize = GenreItems.size();
+        if(listSize > 3){temp = GenreItems.get(0).getGName()+ ", "+ GenreItems.get(1).getGName() + " and " + GenreItems.get(2).getGName();}
+        if(listSize == 2){temp = GenreItems.get(0).getGName() + " and " + GenreItems.get(1).getGName();}
+        if(listSize == 1){temp = GenreItems.get(0).getGName();}
+        return temp;
     }
 
     public Boolean ShowPieChart()  { return GenreItems.size() > 0;}
-
-    public int OwnedGameCount(){
-        int temp = 0;
-
-        for(int i=0; i < GenreItems.size(); i++){
-            temp += GenreItems.get(i).getGCount();
-        }
-
-        return temp;
-    }
-
-    public int ownedBoxes(){
-        int temp = 0;
-
-        for(int i=0; i < GenreItems.size(); i++){
-            temp += GenreItems.get(i).getGBoxCount();
-        }
-
-        return temp;
-    }
-
-    public int ownedManuals(){
-        int temp = 0;
-
-        for(int i=0; i < GenreItems.size(); i++){
-            temp += GenreItems.get(i).getGManualCount();
-        }
-
-        return temp;
-    }
 
     public float totalGamesCost(){
         float temp = 0.0f;
@@ -738,6 +502,96 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         return temp;
     }
 
+    public String CompleteInBox(){
+        int temp = 0;
 
+        for (int g=0; g < gamesList.size(); g++) {
+                if (gamesList.get(g).getCartPalA() == 8783 && gamesList.get(g).getBoxPalA() == 8783 && gamesList.get(g).getManualPalA() == 8783) { temp++; }
+                if (gamesList.get(g).getCartPalB() == 8783 && gamesList.get(g).getBoxPalB() == 8783 && gamesList.get(g).getManualPalB() == 8783) { temp++; }
+                if (gamesList.get(g).getCartNtsc() == 8783 && gamesList.get(g).getBoxNtsc() == 8783 && gamesList.get(g).getManualNtsc() == 8783) { temp++; }
+        }
+
+        return "You have " + temp + " games that are complete in box";
+    }
+
+    public String BoxedGames(){
+        int temp = 0;
+
+        for (int g=0; g < gamesList.size(); g++) {
+            if (gamesList.get(g).getCartPalA() == 8783 && gamesList.get(g).getBoxPalA() == 8783 && gamesList.get(g).getManualPalA() == 32573) { temp++; }
+            if (gamesList.get(g).getCartPalB() == 8783 && gamesList.get(g).getBoxPalB() == 8783 && gamesList.get(g).getManualPalB() == 32573) { temp++; }
+            if (gamesList.get(g).getCartNtsc() == 8783 && gamesList.get(g).getBoxNtsc() == 8783 && gamesList.get(g).getManualNtsc() == 32573) { temp++; }
+        }
+
+        return "You have " + temp +" that are boxed";
+    }
+
+    public String LooseCarts(){
+        int temp = 0;
+
+        for (int g=0; g < gamesList.size(); g++) {
+            if (gamesList.get(g).getCartPalA() == 8783 && gamesList.get(g).getBoxPalA() == 32573 && gamesList.get(g).getManualPalA() == 32573) { temp++; }
+            if (gamesList.get(g).getCartPalB() == 8783 && gamesList.get(g).getBoxPalB() == 32573 && gamesList.get(g).getManualPalB() == 32573) { temp++; }
+            if (gamesList.get(g).getCartNtsc() == 8783 && gamesList.get(g).getBoxNtsc() == 32573 && gamesList.get(g).getManualNtsc() == 32573) { temp++; }
+        }
+
+        return "You have " + temp + "loose carts";
+    }
+
+
+
+    //
+    //
+    //                    if (gamesList.get(g).getManualPalA() == 8783) {
+    //                        theCount = GenreItems.get(i).getPalAManual();
+    //                        theCount ++;
+    //                        GenreItems.get(i).setPalAManual(theCount);
+    //                    }
+    //                    if (gamesList.get(g).getManualPalB() == 8783) {
+    //                        theCount = GenreItems.get(i).getPalBManual();
+    //                        theCount ++;
+    //                        GenreItems.get(i).setPalBManual(theCount);
+    //                    }
+    //                    if (gamesList.get(g).getManualNtsc() == 8783) {
+    //                        theCount = GenreItems.get(i).getUSManual();
+    //                        theCount ++;
+    //                        GenreItems.get(i).setUSManual(theCount);
+    //                    }   //Log.d("pixo", "matching genre names: " + genreNames);
+
+
+
+    public int OwnedGameCount(){
+        int temp = 0;
+
+        for(int i=0; i < GenreItems.size(); i++){
+            temp += GenreItems.get(i).getGCount();
+        }
+
+        return temp;
+    }
+
+    public int ownedBoxes(){
+        String t = "";
+        int temp = 0;
+
+        for(int i=0; i < gamesList.size(); i++){
+            if (gamesList.get(i).getBoxPalA() == 8783) { temp++;}
+            if (gamesList.get(i).getBoxPalB() == 8783) { temp++; }
+            if (gamesList.get(i).getBoxNtsc() == 8783) { temp++; }
+        }
+        return temp;
+    }
+
+    public int ownedManuals(){
+        int temp = 0;
+
+        for(int i=0; i < gamesList.size(); i++){
+            if (gamesList.get(i).getManualPalA() == 8783) { temp++;}
+            if (gamesList.get(i).getManualPalB() == 8783) { temp++; }
+            if (gamesList.get(i).getManualNtsc() == 8783) { temp++; }
+        }
+
+        return temp;
+    }
 
 }

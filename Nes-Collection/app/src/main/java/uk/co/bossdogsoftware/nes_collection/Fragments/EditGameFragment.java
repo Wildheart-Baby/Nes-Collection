@@ -1,5 +1,6 @@
 package uk.co.bossdogsoftware.nes_collection.Fragments;
 
+import android.icu.util.Currency;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,7 +22,9 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
@@ -47,11 +50,9 @@ public class EditGameFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
 
 
-    int gameid, coverid, palAcart, palAbox, palAmanual, palBcart, palBbox, gamepos,
-            palBmanual, uscart, usbox, usmanual, cart, box, manual, owned,
-            regionatrue, regionbtrue, regionustrue, favourite, ontheshelf, wishlist, showprice, palaowned, palbowned, usowned;
-    String covername, sql, test, currency, PACheck, PBCheck, USCheck;
-    Double  PalAcost,PalBcost, UScost, price;
+    int coverid, usbox, manual, favourite;
+    String PACheck, PBCheck, USCheck;
+    Double  PalAcost,PalBcost, UScost;
 
     TextView gamename, CostHdr, PalACurrency, PalBCurrency, USCurrency;
     ImageView cover;
@@ -239,16 +240,46 @@ public class EditGameFragment extends Fragment {
             //if (usbox == 0){ chkusbox.setEnabled(false); }
         }
 
+        Locale deviceLocale = Locale.getDefault();
+        Currency currency = Currency.getInstance(deviceLocale);
+
+        if(viewM.ShowPrices() == 1){
+            PalACurrency.setText(currency.getSymbol());
+            PalBCurrency.setText(currency.getSymbol());
+            USCurrency.setText(currency.getSymbol());
+        }
+
+        //String deviceLocale = Locale.getDefault().getCountry();
+
+
+
+
+        if(gameDetails.getPalACost() > 0.0){
+            PalACost.setText(String.format("%.2f", gameDetails.getPalACost()));
+        }
+
+        if(gameDetails.getPalBCost() > 0.0){
+            PalBCost.setText(String.format("%.2f", gameDetails.getPalBCost()));
+        }
+
+        if(gameDetails.getNtscCost() > 0.0){
+            USCost.setText(String.format("%.2f", gameDetails.getNtscCost()));
+        }
+
         favourite = gameDetails.getFavourite();
         PalAcost = gameDetails.getPalACost();
         PalBcost = gameDetails.getPalBCost();
         UScost = gameDetails.getNtscCost();
 
-
         if (gameDetails.getOnShelf() == 1){onshelf.setChecked(true);} else { onshelf.setChecked(false);}
-        if (gameDetails.showPrice == 0){CostHdr.setVisibility(View.INVISIBLE);
-            PalACurrency.setVisibility(View.INVISIBLE); PalBCurrency.setVisibility(View.INVISIBLE); USCurrency.setVisibility(View.INVISIBLE);
-            PalACost.setVisibility(View.INVISIBLE); PalBCost.setVisibility(View.INVISIBLE); USCost.setVisibility(View.INVISIBLE);}
+        if (gameDetails.showPrice == 0){
+            CostHdr.setVisibility(View.INVISIBLE);
+            PalACurrency.setVisibility(View.INVISIBLE);
+            PalBCurrency.setVisibility(View.INVISIBLE);
+            USCurrency.setVisibility(View.INVISIBLE);
+            PalACost.setVisibility(View.INVISIBLE);
+            PalBCost.setVisibility(View.INVISIBLE);
+            USCost.setVisibility(View.INVISIBLE);}
     }
 
     public void writegame(){

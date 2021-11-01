@@ -7,7 +7,9 @@ public class GenreCountItems implements Comparable<GenreCountItems>{
     private String name, colour;
     private int _id, count, box_count, manual_count, owned, pal_a_owned, pal_a_box, pal_a_manual,
             pal_b_owned, pal_b_box, pal_b_manual,
-            us_owned, us_box, us_manual;
+            us_owned, us_box, us_manual,
+            pal_a_boxed, pal_b_boxed, us_boxed,
+            pal_a_complete, pal_b_complete, us_complete;
 
     private double pal_a_cost, pal_b_cost, us_cost;
 
@@ -154,6 +156,56 @@ public class GenreCountItems implements Comparable<GenreCountItems>{
 
     public void setUSManual(int us_manual) {
         this.us_manual = us_manual;
+    }
+
+
+    public int getPalABoxed() {
+        return this.pal_a_boxed;
+    }
+
+    public void setPalABoxed(int pal_a_boxed) {
+        this.pal_a_boxed = pal_a_boxed;
+    }
+
+    public int getPalBBoxed() {
+        return this.pal_b_boxed;
+    }
+
+    public void setPalBBoxed(int pal_b_boxed) {
+        this.pal_b_boxed = pal_b_boxed;
+    }
+
+    public int getUsBoxed() {
+        return this.us_boxed;
+    }
+
+    public void setUsBoxed(int us_boxed) {
+        this.us_boxed = us_boxed;
+    }
+
+
+    public int getPalAComplete() {
+        return this.pal_a_complete;
+    }
+
+    public void setPalAComplete(int pal_a_complete) {
+        this.pal_a_complete = pal_a_complete;
+    }
+
+    public int getPalBComplete() {
+        return this.pal_b_boxed;
+    }
+
+    public void setPalBComplete(int pal_b_boxed) {
+        this.pal_b_boxed = pal_b_boxed;
+    }
+
+    public int getUsComplete() {
+        return this.us_boxed;
+    }
+
+    public void setUsComplete(int us_boxed) {
+        this.us_boxed = us_boxed;
     }
 
     @Override

@@ -3,12 +3,14 @@ package uk.co.bossdogsoftware.nes_collection.Fragments;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -32,7 +34,9 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
     LinearLayout keyContainer;
     PieChartView pieChartView;
     String gamesCost, gamesOwned;
-    TextView cost, palAData, palBData, usData;
+    TextView gamesInfo, cost, palAData, palBData, usData, boxedGames, completeGames, looseCarts;
+    ConstraintLayout AllData, PalAData, PalBData, UsData;
+    int totalNumberOfGames;
 
     String[] GenreNames;
     float[] DataPoints;
@@ -89,6 +93,11 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v =  inflater.inflate(R.layout.fragment_statistics, container, false);
+        AllData = v.findViewById(R.id.rlAllGames);
+        PalAData = v.findViewById(R.id.rlPalA);
+        PalBData = v.findViewById(R.id.rlPalB);
+        UsData = v.findViewById(R.id.rlUS);
+
         PalALabel = v.findViewById(R.id.lblPalATitle);
         PalBLabel = v.findViewById(R.id.lblPalBTitle);
         USLabel = v.findViewById(R.id.lblUSTitle);
@@ -96,16 +105,21 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
         keyContainer = v.findViewById(R.id.key);
         pieChartView = v.findViewById(R.id.pie_chart);
         cost = v.findViewById(R.id.lblCost);
+        gamesInfo = v.findViewById(R.id.lblGamesInfo);
         palAData = v.findViewById(R.id.lblPalA);
         palBData = v.findViewById(R.id.lblPalB);
         usData = v.findViewById(R.id.lblUS);
 
-        DisplayData();
+        boxedGames = v.findViewById(R.id.lblBoxedInfo);
+        completeGames = v.findViewById(R.id.lblCompleteInfo);
+        looseCarts = v.findViewById(R.id.lblLooseInfo);
+
+        totalNumberOfGames = dbh.OwnedGameCount();
+        if(totalNumberOfGames == 0){DisplayData(); AllData.setVisibility(View.GONE);} else {DisplayData();}
         return v;
     }
 
     public void DisplayData(){
-        int totalNumberOfGames = dbh.OwnedGameCount();
         float totalcost = dbh.totalGamesCost();
 
         double avgCost = Float.valueOf(totalcost / totalNumberOfGames);
@@ -122,34 +136,40 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
                 getString(R.string.statsGamescost5) + " "+ dbh.RegionSelected() +
                 //getString(R.string.statsGamescost6) + " " + dbh.poppublisher +
                 getString(R.string.statsGamescost7) + " " + dbh.getPopGenre() +
-                getString(R.string.statsGamescost8) + " " + dbh.finishedGames + " " + getString(R.string.statsGamescost9);
+                getString(R.string.statsGamescost8) + " " + dbh.finishedGames + " " + getString(R.string.statsGamescost9)+
+                "\nYou also have " + dbh.ownedBoxes() + " boxes and " + dbh.ownedManuals() + " manuals";
 
         cost.setText(gamesCost);
 
-
+        gamesInfo.setText(gamesOwned);
 
         if(dbh.palAData()){
             palAData.setText(dbh.GetPalAData());
         } else{
-            palAData.setVisibility(View.INVISIBLE);
+            PalAData.setVisibility(View.GONE);
         }
 
         if(dbh.palBData()){
             palBData.setText(dbh.GetPalBData());
         } else{
-            palBData.setVisibility(View.INVISIBLE);
+            PalBData.setVisibility(View.GONE);
         }
 
-        if(dbh.palAData()){
+        if(dbh.USData()){
             usData.setText(dbh.GetUSData());
         } else{
-            usData.setVisibility(View.INVISIBLE);
+            UsData.setVisibility(View.GONE);
         }
 
         if (dbh.ShowPieChart()){
             pieChartView.setDataPoints(DataPoints, GenreNames, PieColours);
             // Because this activity is of the type PieChartView.Callback
-            pieChartView.setCallback(this);}
+            pieChartView.setCallback(this);
+        }
+
+        completeGames.setText(dbh.CompleteInBox());
+        boxedGames.setText(dbh.BoxedGames());
+        looseCarts.setText(dbh.LooseCarts());
     }
 
     @Override

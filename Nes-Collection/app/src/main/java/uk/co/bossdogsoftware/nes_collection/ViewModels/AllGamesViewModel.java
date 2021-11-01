@@ -173,6 +173,13 @@ public class AllGamesViewModel extends AndroidViewModel {
     }
 
     public int ShowPrices(){
-        return dbh.getSettings().getShowPrice();
+        GameSettings gSettings = dbh.getSettings();
+        return gSettings.getShowPrice();
     }
+
+    public String GetCurrency(){
+        GameSettings gSettings = dbh.getSettings();
+        return gSettings.getCurrency();
+    }
+
 }

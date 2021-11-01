@@ -251,10 +251,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             thename = "eu_name";
             theimage = "image";
             thePublisher = "eu_publisher";
+            groupHeader = "groupheader";
         } else if (titles == 1){
             thename = "us_name";
             theimage = "us_image";
             thePublisher = "us_publisher";
+            groupHeader = "us_groupheader";
         }
 
 

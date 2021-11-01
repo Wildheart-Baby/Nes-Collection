@@ -54,7 +54,7 @@ import uk.co.bossdogsoftware.nes_collection.models.spinners.Data;
 public class SettingsFragment extends Fragment {
 
     DatabaseHelper dbh;
-    String sql, currentregion, licensed, currentcurrency, shelfS, wherestatement, regionmissing, missingsql, missingchecked, regionmissingcheck;
+    String sql, currentregion, licensed, currentcurrency, shelfS, orderedBy, wherestatement, regionmissing, missingsql, missingchecked, regionmissingcheck;
     int regionselected, shelfsize, showprice, posF, posT, listtype, titles,
             titlestype, license, regionSelectedPos, regionCode;
     ArrayAdapter<CharSequence> adapter, adapter2;
@@ -205,9 +205,11 @@ public class SettingsFragment extends Fragment {
                 switch (posT) {
                     case 0:
                         titlestype = 0;
+                        orderedBy = "listorder";
                         break;
                     case 1:
                         titlestype = 1;
+                        orderedBy = "us_listorder";
                         break;
                 }
             }
@@ -309,6 +311,8 @@ public class SettingsFragment extends Fragment {
         if (shelfS.matches("") || !Character.isDigit(shelfS.charAt(0))) {shelfsize = 9;}
         else {shelfsize = Integer.valueOf(shelfspace.getText().toString());}
 
+        if(EuTitles.isActivated()){ }
+
         //SQLiteDatabase db;//set up the connection to the database
         //db = openOrCreateDatabase("nes.sqlite", MODE_PRIVATE, null);//open or create the database
         //String str = "UPDATE settings SET region = '" + sql + "', region_title = '" + regionselected + "',region_missing = '" + regionmissing + "',region_missing_check = '" + missingchecked + "',licensed = '" + licensed + "', shelf_size = '" + shelfsize + "',currency = '" + currentcurrency + "',game_view = '" + listtype + "',show_price = '" + showprice + "'"; //update the database basket field with 8783
@@ -323,6 +327,7 @@ public class SettingsFragment extends Fragment {
         gSettings.setGameView(listtype);
         gSettings.setUsTitles(titlestype);
         gSettings.setShowPrice(showprice);
+        gSettings.setOrderedBy(orderedBy);
 
         viewM.updateSettings(gSettings);
 

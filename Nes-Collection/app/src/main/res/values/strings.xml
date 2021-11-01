@@ -37,6 +37,8 @@
     <string name="palBcart">Pal B</string>
     <string name="US">US</string>
 
+    <string name="GamesCosts">Game costs</string>
+
     <string name="title_activity_needed_games">Needed Games</string>
     <string name="Totalgames">Total games</string>
     <string name="title_activity_nes_collection">Nes Collection</string>
