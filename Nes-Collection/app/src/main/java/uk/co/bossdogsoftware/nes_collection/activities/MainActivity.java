@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity
     public AllGamesViewModel viewM;
     public Toolbar toolbar;
     GamesDetailFragment fragment;
+    FragmentManager frg;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,8 @@ public class MainActivity extends AppCompatActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
+
+        frg = getSupportFragmentManager();
 
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -118,17 +122,32 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_allgames) {
-            getSupportFragmentManager().beginTransaction()
+            Fragment f = frg.findFragmentByTag("gamesList");
+            frg.beginTransaction()
+                    .remove(f)
+                    .commit();
+            frg.popBackStack();
+            frg.beginTransaction()
                     .add(R.id.container, AllGamesFragment.newInstance(), "gamesList")
                     .addToBackStack("gamesList")
                     .commit();
         } else if (id == R.id.nav_neededgames) {
-            getSupportFragmentManager().beginTransaction()
+            Fragment f = frg.findFragmentByTag("gamesList");
+            frg.beginTransaction()
+                    .remove(f)
+                    .commit();
+            frg.popBackStack();
+            frg.beginTransaction()
                     .add(R.id.container, NeededGamesFragment.newInstance(), "gamesList")
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_ownedgames) {
-            getSupportFragmentManager().beginTransaction()
+            Fragment f = frg.findFragmentByTag("gamesList");
+            frg.beginTransaction()
+                    .remove(f)
+                    .commit();
+            frg.popBackStack();
+            frg.beginTransaction()
                     .add(R.id.container, OwnedGamesFragment.newInstance(), "gamesList")
                     .addToBackStack(null)
                     .commit();
@@ -139,12 +158,22 @@ public class MainActivity extends AppCompatActivity
             //Intent intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
             //startActivity(intent);
         } else if (id == R.id.nav_shelforder) {
-            getSupportFragmentManager().beginTransaction()
+            Fragment f = frg.findFragmentByTag("gamesList");
+            frg.beginTransaction()
+                    .remove(f)
+                    .commit();
+            frg.popBackStack();
+            frg.beginTransaction()
                     .add(R.id.container, ShelfOrderFragment.newInstance("", ""), "gamesList")
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_statistics) {
-            getSupportFragmentManager().beginTransaction()
+            Fragment f = frg.findFragmentByTag("gamesList");
+            frg.beginTransaction()
+                    .remove(f)
+                    .commit();
+            frg.popBackStack();
+            frg.beginTransaction()
                     .add(R.id.container, StatisticsFragment.newInstance("", ""), "gamesList")
                     .addToBackStack(null)
                     .commit();
@@ -152,7 +181,12 @@ public class MainActivity extends AppCompatActivity
             //Intent intent = new Intent(this, FinishedGames.class);//opens a new screen when the shopping list is clicked
             //startActivity(intent);
         } else if (id == R.id.nav_settings) {
-            getSupportFragmentManager().beginTransaction()
+            Fragment f = frg.findFragmentByTag("gamesList");
+            frg.beginTransaction()
+                    .remove(f)
+                    .commit();
+            frg.popBackStack();
+            frg.beginTransaction()
                     .replace(R.id.container, SettingsFragment.newInstance("", ""), "gamesList")
                     .addToBackStack(null)
                     .commit();

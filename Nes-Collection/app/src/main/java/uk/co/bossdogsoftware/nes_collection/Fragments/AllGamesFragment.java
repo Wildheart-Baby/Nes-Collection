@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
@@ -47,6 +48,7 @@ public class AllGamesFragment extends Fragment {
 
     ArrayList<AllGameItems> gameList;
     ArrayList<GameItemsIndex> indexList;
+    FragmentManager frg;
 
     public AllGamesFragment() {
         // Required empty public constructor
@@ -68,6 +70,7 @@ public class AllGamesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        frg = getParentFragmentManager();
         viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
         gameList = viewM.GetGames("all");
         indexList = viewM.GetIndex("all");
@@ -221,7 +224,12 @@ public class AllGamesFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                getParentFragmentManager().beginTransaction()
+                Fragment f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
                         .add(R.id.container, SettingsFragment.newInstance("", ""), "gamesList")
                         .addToBackStack(null)
                         .commit();
