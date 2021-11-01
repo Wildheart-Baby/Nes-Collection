@@ -54,9 +54,9 @@ import uk.co.bossdogsoftware.nes_collection.models.spinners.Data;
 public class SettingsFragment extends Fragment {
 
     DatabaseHelper dbh;
-    String sql, currentregion, licensed, currentcurrency, shelfS, orderedBy, wherestatement, regionmissing, missingsql, missingchecked, regionmissingcheck;
+    String sql, currentregion, licensed, currentcurrency, shelfS,  wherestatement, regionmissing, missingsql, missingchecked, regionmissingcheck;
     int regionselected, shelfsize, showprice, posF, posT, listtype, titles,
-            titlestype, license, regionSelectedPos, regionCode;
+            titlestype, license, regionSelectedPos, orderedBy, regionCode;
     ArrayAdapter<CharSequence> adapter, adapter2;
     public Button btnexport, btnimport, ok, cancel;
 
@@ -205,11 +205,11 @@ public class SettingsFragment extends Fragment {
                 switch (posT) {
                     case 0:
                         titlestype = 0;
-                        orderedBy = "listorder";
+                        orderedBy = 0;
                         break;
                     case 1:
                         titlestype = 1;
-                        orderedBy = "us_listorder";
+                        orderedBy = 1;
                         break;
                 }
             }

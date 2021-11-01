@@ -3,10 +3,10 @@ package uk.co.bossdogsoftware.nes_collection.models;
 public class GameSettings {
 
     String region_sql, needed_games;
-    String show_all_games, currency, orderedby, group_header;
+    String show_all_games, currency,  group_header;
 
     int shelf_size, show_price, game_view, owned_graphic, game_ordering,
-            us_titles, show_condition, region_title, licensed_or_not;
+            us_titles, show_condition, region_title, orderedby, licensed_or_not;
 
     public int getRegionCode() { return region_title; }
     public void setRegionCode(int region_title) { this.region_title = region_title; }
@@ -20,8 +20,8 @@ public class GameSettings {
     public String getCurrency() { return currency; }
     public void setCurrency(String currency) { this.currency = currency; }
 
-    public String getOrderedBy() {return orderedby; }
-    public void setOrderedBy(String orderedby) { this.orderedby = orderedby; }
+    public int getOrderedBy() {return orderedby; }
+    public void setOrderedBy(int orderedby) { this.orderedby = orderedby; }
 
     public String getGroupHeader() { return group_header; }
     public void setGroupHeader(String group_header) { this.group_header = group_header; }

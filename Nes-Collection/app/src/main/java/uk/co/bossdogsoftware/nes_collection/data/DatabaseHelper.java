@@ -22,8 +22,8 @@ import uk.co.bossdogsoftware.nes_collection.models.GameSettings;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
 
-    String currentgroup, prevgroup, wherestatement, orderby, groupHeader, theimage, thename, currency, searchQuery, thePublisher, licensed;
-    int titles, ordering, conditionstatement, showprice, title, regionCode, license;
+    String currentgroup, prevgroup, wherestatement,  groupHeader, theimage, thename, currency, searchQuery, thePublisher, licensed;
+    int titles, ordering, conditionstatement, showprice, orderby, title, regionCode, license;
 
     private static final String KEY_ID = "_id";
     private static final String OWNED = "owned";
@@ -192,10 +192,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return gamesList;
     }
 
-    public String getCurrentTimeStamp() {
-        return new SimpleDateFormat("mm:ss.SSS").format(new Date());
-    }
-
     public ArrayList<AllGameItems> getGames(String games) {
         ArrayList<AllGameItems> gamesList = new ArrayList<>();
         gamesList.clear();
@@ -214,39 +210,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         wherestatement = SqlStatement.Region(regionCode);
         licensed = SqlStatement.LicensedGames(license);
 
-        //SQLiteDatabase db = this.getWritableDatabase();
-        //Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
-
-        /*if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
-
-        //GameSettings gSettings = getSettings();
-
-        /*wherestatement = gSettings.getRegionSql();
-        title = gSettings.getRegionTitle();
-        licensed = gSettings.getLicensedOrNot();
-        titles = gSettings.getUsTitles();
-        orderby = gSettings.getOrderedBy();
-        groupHeader = gSettings.getGroupHeader();
-        ordering = gSettings.getGameOrdering();
-        currency = gSettings.getCurrency();
-        conditionstatement = gSettings.getShowCondition();*/
-
-                /*wherestatement = (c.getString(c.getColumnIndex("region_sql")));
-                title = (c.getInt(c.getColumnIndex("region_title")));
-                licensed = (c.getString(c.getColumnIndex("licensed_or_not")));
-                titles = (c.getInt(c.getColumnIndex("us_titles")));
-                orderby = (c.getString(c.getColumnIndex("orderedby")));
-                groupHeader = (c.getString(c.getColumnIndex("group_header")));
-                ordering = (c.getInt(c.getColumnIndex("orderedby")));
-                currency = (c.getString(c.getColumnIndex("currency")));
-                conditionstatement = (c.getInt(c.getColumnIndex("show_condition")));
-                c.moveToNext();//move to the next record
-            }
-            c.close();//close the cursor
-        }*/
-
-        //db.close();//close the database
         if (titles == 0){
             thename = "eu_name";
             theimage = "image";
@@ -259,98 +222,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             groupHeader = "us_groupheader";
         }
 
-
-
-        switch (games){
-            case "all":
-                searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + orderby +"";
-                //String t = "select * from eu where " + wherestatement + licensed + "";
-                break;
-            case "owned":
-                if (ordering == 0) {
-                    //"SELECT * FROM eu where " + wherestatement + licensed +  "";
-                    //sql = "select * from eu where owned = 1 " + " order by " + orderby +"";
-                    searchQuery = "select * from eu where owned = 1 " + " order by " + orderby +"";}
-                else if(ordering == 1){
-                    //sql = "select * from eu where owned = 1 order by price desc";
-                    searchQuery = "select * from eu where owned = 1 order by price desc";}
-                break;
-            case "needed":
-                searchQuery = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ") order by " + orderby +"";
-                break;
-            case "favourites":
-                searchQuery = "SELECT * FROM eu where favourite = 1 " + wherestatement + " order by " + orderby +"";
-                break;
-            case "wishlist":
-                searchQuery = "SELECT * FROM eu where wishlist = 1 " + wherestatement + "order by " + orderby +"";
-                break;
-            case "finished":
-                searchQuery ="SELECT * FROM eu where finished_game = 1 " + wherestatement + "order by " + orderby +"";
-                break;
-            case "search":
-                //searchQuery = SearchResults.searchString + " order by " + orderby;
-                break;
-            case "statsearch":
-                //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
-                break;
-            case "australia":
-                searchQuery = "SELECT * FROM eu where flag_australia = 1" + licensed + "";
-                break;
-            case "austria":
-                searchQuery = "SELECT * FROM eu where flag_austria = 1" + licensed + "";
-                break;
-            case "benelux":
-                searchQuery = "SELECT * FROM eu where flag_benelux = 1" + licensed + "";
-                break;
-            case "denmark":
-                searchQuery = "SELECT * FROM eu where flag_denmark = 1" + licensed + "";
-                break;
-            case "finland":
-                searchQuery = "SELECT * FROM eu where flag_finland = 1" + licensed + "";
-                break;
-            case "france":
-                searchQuery = "SELECT * FROM eu where flag_france = 1" + licensed + "";
-                break;
-            case "germany":
-                searchQuery = "SELECT * FROM eu where flag_germany = 1" + licensed + "";
-                break;
-            case "greece":
-                searchQuery = "SELECT * FROM eu where flag_greece = 1" + licensed + "";
-                break;
-            case "ireland":
-                searchQuery = "SELECT * FROM eu where flag_ireland = 1" + licensed + "";
-                break;
-            case "italy":
-                searchQuery = "SELECT * FROM eu where flag_italy = 1" + licensed + "";
-                break;
-            case "norway":
-                searchQuery = "SELECT * FROM eu where flag_norway = 1" + licensed + "";
-                break;
-            case "poland":
-                searchQuery = "SELECT * FROM eu where flag_poland = 1" + licensed + "";
-                break;
-            case "portugal":
-                searchQuery = "SELECT * FROM eu where flag_portugal = 1" + licensed + "";
-                break;
-            /*scandinavia":
-                    searchQuery = "SELECT * FROM eu where flag_scandinavian = 1" + licensed + "";
-                    break;*/
-            case "spain":
-                    searchQuery = "SELECT * FROM eu where flag_spain = 1" + licensed + "";
-                    break;
-            case "sweden":
-                    searchQuery = "SELECT * FROM eu where flag_sweden = 1" + licensed + "";
-                    break;
-            case "switzerland":
-                    searchQuery = "SELECT * FROM eu where flag_switzerland = 1" + licensed + "";
-                    break;
-            case "us":
-                    searchQuery = "SELECT * FROM eu where flag_us = 1" + licensed + "";
-                   break;
-            case "uk":
-                    searchQuery = "SELECT * FROM eu where flag_uk = 1" + licensed + "";
-                    break;
-        }
+        searchQuery = SqlStatement.GamesSql(games, regionCode, license, ordering, orderby);
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(searchQuery, null);
@@ -519,29 +391,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while ( !c.isAfterLast() ) {//while there are records to read
 
                 regionCode = (c.getInt(c.getColumnIndex("region_code")));
-                orderby = (c.getString(c.getColumnIndex("orderedby")));
+                orderby = (c.getInt(c.getColumnIndex("orderedby")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
         }
 
-        switch (games){
-            case "all":
-                //searchQuery = "select * from eu where" + wherestatement + " order by " + orderby +"";
-                searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + orderby +"";
-                break;
-            case "owned":
-                if (ordering == 0) {
-                    //sql = "select * from eu where owned = 1 " + " order by " + orderby +"";
-                    searchQuery = "select * from eu where owned = 1 " + " order by " + orderby +"";}
-                else if(ordering == 1){
-                    //sql = "select * from eu where owned = 1 order by price desc";
-                    searchQuery = "select * from eu where owned = 1 order by price desc";}
-                break;
-            case "needed":
-                searchQuery = "SELECT * FROM eu where cart = 0 and (" + wherestatement +  ") order by " + orderby +"";
-                break;
-        }
+        searchQuery = SqlStatement.GamesSql(games, regionCode, license, ordering, orderby);
 
         c = db.rawQuery(searchQuery, null);
 
@@ -614,7 +470,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while ( !c.isAfterLast() ) {//while there are records to read
 
                 wherestatement = (c.getString(c.getColumnIndex("region")));
-                orderby = (c.getString(c.getColumnIndex("orderedby")));
+                orderby = (c.getInt(c.getColumnIndex("orderedby")));
                 licensed = (c.getString(c.getColumnIndex("licensed")));
                 c.moveToNext();//move to the next record
             }
@@ -658,7 +514,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             while ( !c.isAfterLast() ) {//while there are records to read
 
                 wherestatement = (c.getString(c.getColumnIndex("region")));
-                orderby = (c.getString(c.getColumnIndex("orderedby")));
+                orderby = (c.getInt(c.getColumnIndex("orderedby")));
                 c.moveToNext();//move to the next record
             }
             c.close();//close the cursor
@@ -677,30 +533,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         count = " You need " + gCount + " games";
 
         return count;
-    }
-
-    public String ownedGamescount(){
-        String gCount = "";
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c; //= db.rawQuery(sql, null);//select everything from the database table
-        //sql = "SELECT * FROM eu where " + wherestatement + "";
-        String sql1 = "SELECT * FROM eu where euro_cart = 8783 " +  "";
-        String sql2 = "SELECT * FROM eu where ntsc_cart = 8783" +   "";
-        String sql3 = "SELECT * FROM eu where sa_cart = 8783" +  "";
-
-        c = db.rawQuery(sql1, null);
-        int region1games = c.getCount();
-        c.close();
-        c = db.rawQuery(sql2, null);
-        int region2games = c.getCount();
-        c.close();
-        c = db.rawQuery(sql3, null);
-        int region3games = c.getCount();
-        c.close();
-        db.close();//close the database
-        int ownedgames = region1games + region2games + region3games;
-        gCount = "You own " + ownedgames + " games";
-        return gCount;
     }
 
     public void finishedGames(String action, int gameId) {
@@ -1103,16 +935,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         switch (option){
             case "all":
-                searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + orderby +"";
+                searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + SqlStatement.ListOrdering(orderby) +"";
                 break;
             case "needed":
-                searchQuery = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ") order by " + orderby +"";
+                searchQuery = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ") order by " + SqlStatement.ListOrdering(orderby) +"";
                 break;
             case "owned":
                 if (ordering == 0) {
                     //"SELECT * FROM eu where " + wherestatement + licensed +  "";
                     //sql = "select * from eu where owned = 1 " + " order by " + orderby +"";
-                    searchQuery = "select * from eu where owned = 1 " + " order by " + orderby +"";}
+                    searchQuery = "select * from eu where owned = 1 " + " order by " + SqlStatement.ListOrdering(orderby) +"";}
                 else if(ordering == 1){
                     //sql = "select * from eu where owned = 1 order by price desc";
                     searchQuery = "select * from eu where owned = 1 order by price desc";}
@@ -1370,12 +1202,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public int ownedGamesCount(){
         int gCount = 0;
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM eu where owned = 1", null);//select everything from the database table
+        Cursor c;
+        String sql1 = "SELECT * FROM eu where pal_a_cart = 8783 " +  "";
+        String sql2 = "SELECT * FROM eu where pal_b_cart = 8783" +   "";
+        String sql3 = "SELECT * FROM eu where ntsc_cart = 8783" +  "";
 
-        if (c.moveToFirst()) {//move to the first record
-            gCount= c.getCount();
-            c.close();//close the cursor
-        }
+        c = db.rawQuery(sql1, null);
+        gCount = c.getCount();
+        c.close();
+        c = db.rawQuery(sql2, null);
+        gCount += c.getCount();
+        c.close();
+        c = db.rawQuery(sql3, null);
+        gCount += c.getCount();
+        c.close();
+        db.close();//close the database
 
         return gCount;
     }
@@ -1399,7 +1240,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 gSettings.setOwnedGraphic(c.getInt(c.getColumnIndex("owned_graphic")));
                 gSettings.setGameOrdering(c.getInt(c.getColumnIndex("game_ordering")));
                 gSettings.setUsTitles(c.getInt(c.getColumnIndex("us_titles")));
-                gSettings.setOrderedBy(c.getString(c.getColumnIndex("orderedby")));
+                gSettings.setOrderedBy(c.getInt(c.getColumnIndex("orderedby")));
                 gSettings.setShowCondition(c.getInt(c.getColumnIndex("show_condition")));
                 //regionmissingcheck = (c.getString(c.getColumnIndex("region_missing_check")));
                 c.moveToNext();//move to the next record

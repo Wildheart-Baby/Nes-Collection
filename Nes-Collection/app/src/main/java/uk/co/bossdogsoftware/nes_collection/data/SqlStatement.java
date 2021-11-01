@@ -238,4 +238,115 @@ public class SqlStatement {
         return license;
     }
 
+    public static String ListOrdering(int orderedby){
+        String temp = "";
+        switch(orderedby){
+            case 0:
+                temp = "listorder";
+                break;
+            case 1:
+                temp = "us_listorder";
+                break;
+        }
+        return temp;
+    }
+
+    public static String GamesSql(String type, int region, int license,int ordering, int listOrder){
+        String temp ="";
+
+        switch(type){
+            case "all":
+                temp = "select * from eu where " + Region(region) + LicensedGames(license) + " order by " + ListOrdering(listOrder) +"";
+                //String t = "select * from eu where " + wherestatement + licensed + "";
+                break;
+            case "owned":
+                if (ordering == 0) {
+                    //"SELECT * FROM eu where " + wherestatement + licensed +  "";
+                    //sql = "select * from eu where owned = 1 " + " order by " + orderby +"";
+                    temp = "select * from eu where owned = 1 " + " order by " + ListOrdering(listOrder) +"";}
+                else if(ordering == 1){
+                    //sql = "select * from eu where owned = 1 order by price desc";
+                    temp = "select * from eu where owned = 1 order by price desc";}
+                break;
+            case "needed":
+                temp = "SELECT * FROM eu where cart = 0 and (" + Region(region) + LicensedGames(license) +  ") order by " + ListOrdering(listOrder) +"";
+                break;
+            case "favourites":
+                temp = "SELECT * FROM eu where favourite = 1 " + Region(region) + " order by " + ListOrdering(listOrder) +"";
+                break;
+            case "wishlist":
+                temp = "SELECT * FROM eu where wishlist = 1 " + Region(region) + "order by " + ListOrdering(listOrder) +"";
+                break;
+            case "finished":
+                temp ="SELECT * FROM eu where finished_game = 1 " + Region(region) + "order by " + ListOrdering(listOrder) +"";
+                break;
+            case "search":
+                //searchQuery = SearchResults.searchString + " order by " + orderby;
+                break;
+            case "statsearch":
+                //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
+                break;
+            case "australia":
+                temp = "SELECT * FROM eu where flag_australia = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "austria":
+                temp = "SELECT * FROM eu where flag_austria = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "benelux":
+                temp = "SELECT * FROM eu where flag_benelux = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "denmark":
+                temp = "SELECT * FROM eu where flag_denmark = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "finland":
+                temp = "SELECT * FROM eu where flag_finland = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "france":
+                temp = "SELECT * FROM eu where flag_france = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "germany":
+                temp = "SELECT * FROM eu where flag_germany = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "greece":
+                temp = "SELECT * FROM eu where flag_greece = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "ireland":
+                temp = "SELECT * FROM eu where flag_ireland = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "italy":
+                temp = "SELECT * FROM eu where flag_italy = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "norway":
+                temp = "SELECT * FROM eu where flag_norway = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "poland":
+                temp = "SELECT * FROM eu where flag_poland = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "portugal":
+                temp = "SELECT * FROM eu where flag_portugal = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            /*scandinavia":
+                    searchQuery = "SELECT * FROM eu where flag_scandinavian = 1" + licensed + "";
+                    break;*/
+            case "spain":
+                temp = "SELECT * FROM eu where flag_spain = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "sweden":
+                temp = "SELECT * FROM eu where flag_sweden = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "switzerland":
+                temp = "SELECT * FROM eu where flag_switzerland = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "us":
+                temp = "SELECT * FROM eu where flag_us = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+            case "uk":
+                temp = "SELECT * FROM eu where flag_uk = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";
+                break;
+
+        }
+
+        return temp;
+    }
+
 }

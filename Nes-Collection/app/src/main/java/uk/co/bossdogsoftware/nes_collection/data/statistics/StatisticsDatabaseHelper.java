@@ -43,8 +43,8 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
     GameSettings gSettings;
 
 
-    String orderby, groupHeader, sql, theimage, thename, currency, thePublisher, expensivePalAGame, expensivePalBGame, expensiveUSGame;
-    int titles, ordering, regionCode, license,_id;
+    String  groupHeader, sql, theimage, thename, currency, thePublisher, expensivePalAGame, expensivePalBGame, expensiveUSGame;
+    int orderby, titles, ordering, regionCode, license,_id;
 
     public Double costPalA, costPalB, costUs, costTotal, a_cost, b_cost, us_cost;
     public int finishedGames, ownedGameCount;
@@ -190,7 +190,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                 gSettings.setOwnedGraphic(c.getInt(c.getColumnIndex("owned_graphic")));
                 gSettings.setGameOrdering(c.getInt(c.getColumnIndex("game_ordering")));
                 gSettings.setUsTitles(c.getInt(c.getColumnIndex("us_titles")));
-                gSettings.setOrderedBy(c.getString(c.getColumnIndex("orderedby")));
+                gSettings.setOrderedBy(c.getInt(c.getColumnIndex("orderedby")));
                 gSettings.setShowCondition(c.getInt(c.getColumnIndex("show_condition")));
                 //regionmissingcheck = (c.getString(c.getColumnIndex("region_missing_check")));
                 c.moveToNext();//move to the next record

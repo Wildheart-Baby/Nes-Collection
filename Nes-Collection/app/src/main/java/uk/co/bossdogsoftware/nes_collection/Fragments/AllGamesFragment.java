@@ -112,8 +112,10 @@ public class AllGamesFragment extends Fragment {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
-                final Integer itemId = gameListItems.getItemId();//get the item id
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.container, EditGameFragment.newInstance(arg2, viewM.gamesList.get(arg2).getItemId()), "editGame")
+                        .addToBackStack(null)
+                        .commit();
 
                 return true;//return is equal to true
             }

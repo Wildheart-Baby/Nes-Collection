@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.bossdogsoftware.nes_collection.activities.HomeScreenActivity;
+import uk.co.bossdogsoftware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.bossdogsoftware.nes_collection.adapters.ShelfCollectionAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameItemsIndex;
@@ -82,6 +84,44 @@ public class ShelfOrderFragment extends Fragment {
         alphaIndex = v.findViewById(R.id.lvAlphaIndex);
         ShelfCollectionAdapter nes = new ShelfCollectionAdapter(getActivity(), gameList);//set up an new list adapter from the arraylist
         gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
+        alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
+
+        alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                GameItemsIndex indexListItems = (GameItemsIndex) arg0.getItemAtPosition(arg2);
+                int readindexid = indexListItems.getItemid();
+                //readindexid = readindexid - 1;
+                gamelistView.setSelection(readindexid);
+                //gamegalleryview.setSelection(readindexid);
+            }
+        });
+
+        gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
+
+                //GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                getParentFragmentManager().beginTransaction()
+                        .add(R.id.container, GamesDetailFragment.newInstance(0, arg2), "gamesDetail")
+                        .addToBackStack("gamesDetail"+mParam2)
+                        .commit();
+            }
+        });
+
+        gamelistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
+
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.container, EditGameFragment.newInstance(arg2, viewM.gamesList.get(arg2).getItemId()), "editGame")
+                        .addToBackStack(null)
+                        .commit();
+
+                return true;//return is equal to true
+            }
+
+        });
 
         return v;
     }
