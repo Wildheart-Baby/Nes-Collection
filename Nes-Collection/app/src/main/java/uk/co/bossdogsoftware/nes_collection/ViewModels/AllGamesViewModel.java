@@ -155,6 +155,11 @@ public class AllGamesViewModel extends AndroidViewModel {
         return gamesList;
     }
 
+    public ArrayList<GameItemsIndex> GetShelfOrderIndex(){
+        indexList = dbh.GetShelfOrderIndex();
+        return indexList;
+    }
+
 
     public String convertLogoTitle(String title){
         title = title.toLowerCase();

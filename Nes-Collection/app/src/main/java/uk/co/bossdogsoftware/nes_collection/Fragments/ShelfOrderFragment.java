@@ -74,6 +74,7 @@ public class ShelfOrderFragment extends Fragment {
         }
         viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
         gameList = viewM.GetShelfOrder();
+        indexList = viewM.GetShelfOrderIndex();
     }
 
     @Override

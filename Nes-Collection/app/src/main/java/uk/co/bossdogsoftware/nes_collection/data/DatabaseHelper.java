@@ -765,6 +765,52 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return gamesList;
     }
 
+
+    public ArrayList<GameItemsIndex> GetShelfOrderIndex(){
+        ArrayList<GameItemsIndex> indexList = new ArrayList<>();
+        indexList.clear();
+        int indexpos = 0;
+
+        GameSettings g = new GameSettings();
+        regionCode = g.getRegionCode();
+        orderby = g.getOrderedBy();
+        titles = g.getUsTitles();
+
+        if (titles == 0){
+            groupHeader = "groupheader";
+        } else if (titles == 1){
+            groupHeader = "us_groupheader";
+        }
+
+        searchQuery = SqlStatement.GamesSql("owned", regionCode, license, ordering, orderby);
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor c = db.rawQuery(searchQuery, null);
+
+        if (c.moveToFirst()) {//move to the first record
+            while ( !c.isAfterLast() ) {//while there are records to read
+                GameItemsIndex indexListItems = new GameItemsIndex();
+                currentgroup = c.getString(c.getColumnIndex(groupHeader));
+
+                if(!currentgroup.equals(prevgroup)){
+                    indexListItems.setItemid(indexpos);
+                    indexListItems.setLetter(c.getString(c.getColumnIndex(groupHeader)));
+                    indexList.add(indexListItems);
+                    indexpos = indexpos +1;
+                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
+                }
+                else if(currentgroup.equals(prevgroup)){
+                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
+                    indexpos = indexpos +1;
+                }
+                c.moveToNext();//move to the next record
+            }
+            c.close();//close the cursor
+        }
+
+        return indexList;
+    }
+
     public GameItem getGame(int gameid){
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table

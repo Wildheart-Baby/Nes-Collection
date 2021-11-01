@@ -19,7 +19,7 @@ public class About extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView mTv = (TextView) findViewById(R.id.lblVersion); mTv.setText("Version: " + BuildConfig.VERSION_NAME);
-        //setTitle("About");
+        setTitle("About");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
