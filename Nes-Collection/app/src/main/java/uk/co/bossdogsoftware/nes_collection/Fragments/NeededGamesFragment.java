@@ -1,5 +1,6 @@
 package uk.co.bossdogsoftware.nes_collection.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,6 +20,7 @@ import java.util.ArrayList;
 
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
+import uk.co.bossdogsoftware.nes_collection.activities.About;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesCollectionAdapter;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
@@ -146,5 +149,33 @@ public class NeededGamesFragment extends Fragment {
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.menu_allgames, menu);
         SetTitles();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                getParentFragmentManager().beginTransaction()
+                        .add(R.id.container, SettingsFragment.newInstance("", ""), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
+                return true;
+
+            case R.id.action_search:
+                //Intent intent2 = new Intent(HomeScreenActivity.this, Search.class);//opens a new screen when the shopping list is clicked
+                //startActivity(intent2);//start the new screen
+                return true;
+
+            case R.id.action_about:
+                Intent intent3 = new Intent(getActivity(), About.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent3);//start the new screen
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }

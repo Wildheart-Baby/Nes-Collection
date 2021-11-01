@@ -15,8 +15,14 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.view.MenuItem;
 
+import uk.co.bossdogsoftware.nes_collection.Fragments.AllGamesFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.GamesDetailFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.HomeScreenFragment;
+import uk.co.bossdogsoftware.nes_collection.Fragments.NeededGamesFragment;
+import uk.co.bossdogsoftware.nes_collection.Fragments.OwnedGamesFragment;
+import uk.co.bossdogsoftware.nes_collection.Fragments.SettingsFragment;
+import uk.co.bossdogsoftware.nes_collection.Fragments.ShelfOrderFragment;
+import uk.co.bossdogsoftware.nes_collection.Fragments.StatisticsFragment;
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModelFactory;
@@ -81,7 +87,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    @Override
+    /*@Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
@@ -105,39 +111,51 @@ public class MainActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
 
         }
-    }
+    }*/
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.nav_allgames) {
-            Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, AllGamesFragment.newInstance(), "gamesList")
+                    .addToBackStack("gamesList")
+                    .commit();
         } else if (id == R.id.nav_neededgames) {
-            Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, NeededGamesFragment.newInstance(), "gamesList")
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_ownedgames) {
-            Intent intent = new Intent(this, OwnedGames.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, OwnedGamesFragment.newInstance(), "gamesList")
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_favouritegames) {
-            Intent intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+            //Intent intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
+            //startActivity(intent);
         } else if (id == R.id.nav_wishlist) {
-            Intent intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+            //Intent intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
+            //startActivity(intent);
         } else if (id == R.id.nav_shelforder) {
-            Intent intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, ShelfOrderFragment.newInstance("", ""), "gamesList")
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_statistics) {
-            Intent intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .add(R.id.container, StatisticsFragment.newInstance("", ""), "gamesList")
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_finished) {
-            Intent intent = new Intent(this, FinishedGames.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+            //Intent intent = new Intent(this, FinishedGames.class);//opens a new screen when the shopping list is clicked
+            //startActivity(intent);
         } else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.container, SettingsFragment.newInstance("", ""), "gamesList")
+                    .addToBackStack(null)
+                    .commit();
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

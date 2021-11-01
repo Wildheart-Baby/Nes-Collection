@@ -1019,7 +1019,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         licensed = SqlStatement.LicensedGames(license);
 
-        searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + orderby + "";
+        searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -1171,7 +1171,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         orderby = gSettings.getOrderedBy();
         licensed = SqlStatement.LicensedGames(license);
 
-        searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + orderby + "";
+        searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(searchQuery, null);
