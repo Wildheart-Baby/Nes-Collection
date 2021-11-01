@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,8 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
     TextView gamesInfo, cost, palAData, palBData, usData, boxedGames, completeGames, looseCarts;
     ConstraintLayout AllData, PalAData, PalBData, UsData;
     int totalNumberOfGames;
+
+    FragmentManager frg;
 
     String[] GenreNames;
     float[] DataPoints;
@@ -202,14 +205,10 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
 
     @Override
     public void onSliceClick(DataColorSet data) {
-        //gamename = data.getName();
-        //sql = "select * from eu where owned = 1 and genre = '" + gamename + "';";
-        //Log.d("Pixo", sql);
-        //Intent intent = new Intent(this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-        //intent.putExtra("columnname", fieldname);//passes the table name to the new screen
-        //intent.putExtra("search", searchterm);//passes the table name to the new screen
-        //intent.putExtra("sqlstatement", sql);
-        //intent.putExtra("pagetitle", "" + gamename + " games");
-        //startActivity(intent);//start the new screen
+            frg = getParentFragmentManager();
+            frg.beginTransaction()
+                    .add(R.id.container, SpecificInformationFragment.newInstance("genre", data.getName()), "gamesList")
+                    .commit();
+
     }
 }
