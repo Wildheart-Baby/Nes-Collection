@@ -535,7 +535,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             if (gamesList.get(g).getCartNtsc() == 8783 && gamesList.get(g).getBoxNtsc() == 32573 && gamesList.get(g).getManualNtsc() == 32573) { temp++; }
         }
 
-        return "You have " + temp + "loose carts";
+        return "You have " + temp + " loose carts";
     }
 
 
