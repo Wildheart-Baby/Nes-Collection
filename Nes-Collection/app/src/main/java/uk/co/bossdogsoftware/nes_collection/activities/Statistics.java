@@ -1556,9 +1556,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
             Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         } else if (id == R.id.nav_allgames) {
-            Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-            intent.putExtra("wherestatement", wherestatement);
-            startActivity(intent);
+
         } else if (id == R.id.nav_neededgames) {
             Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("wherestatement", wherestatement);

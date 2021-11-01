@@ -22,13 +22,10 @@ import java.util.ArrayList;
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.bossdogsoftware.nes_collection.activities.About;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesCollectionAdapter;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesOwnedAdapter;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesOwnedPriceAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameItemsIndex;
-import uk.co.bossdogsoftware.nes_collection.models.GameListItems;
 
 /**
  * A simple {@link Fragment} subclass.

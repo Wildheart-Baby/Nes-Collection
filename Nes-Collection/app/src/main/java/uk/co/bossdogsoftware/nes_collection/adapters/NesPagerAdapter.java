@@ -17,11 +17,11 @@ import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
 
+import uk.co.bossdogsoftware.nes_collection.Fragments.GamesDetailFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.SpecificCountryFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.SpecificInformationFragment;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
-import uk.co.bossdogsoftware.nes_collection.activities.GamesDetail;
 import uk.co.bossdogsoftware.nes_collection.R;
 
 /**
@@ -33,8 +33,8 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
 
     Context context; //sets up a variable as context
     ArrayList<AllGameItems> gamesList; //sets up  an array called shoppingList
-    String gameimage, synop, gen, subgen, pub, dev, gname, img, theyear, sql;
-    int owned, carttrue, boxtrue, manualtrue, gameid, editgameid, pos, idforgame, favourite, coverid;
+    String gameimage, publisher, synop, gen, subgen, pub, dev, gname, img, theyear, sql;
+    int owned, carttrue, boxtrue, manualtrue, gameid, editgameid, pos, idforgame, favourite, coverid, titles;
     int flagAustralia, flagAustria, flagBenelux, flagDenmark, flagFinland, flagFrance, flagGermany, flagGreece, flagIreland, flagItaly, flagNorway, flagPoland, flagPortugal, flagScandinavia, flagSpain, flagSweden, flagSwitzerland, flagUK, flagUS ;
 
     AllGamesViewModel viewM;
@@ -49,11 +49,14 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
         gamesList = list; //sets up a variable as a list
     }*/
 
-    public NesPagerAdapter(FragmentManager fm, Context context, ArrayList<AllGameItems> list) {
+    public NesPagerAdapter(FragmentManager fm, Context context, ArrayList<AllGameItems> list, int title) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.context = context;//sets up the context for the class
         gamesList = list; //sets up a variable as a list
         frg = fm;
+        titles = title;
+        //viewM = new ViewModelProvider(getApplicationContext()).get(AllGamesViewModel.class);
+        //        //MenuItem fav = menu.findItem(R.id.action_favourite);
     }
 
     @Override
@@ -80,7 +83,6 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE); //sets up the layout inflater
         View convertView = inflater.inflate(R.layout.content_games_detail, null); //use the layout to diaplay the array data
 
-        //MenuItem fav = menu.findItem(R.id.action_favourite);
         //MenuItem own = menu.findItem(R.id.action_edit);
         FrameLayout Owned = convertView.findViewById(R.id.frmOwned);
         TextView gamename = convertView.findViewById(R.id.lblGameName);
@@ -177,15 +179,6 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
 
         australia.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                /*Fragment f = frg.findFragmentByTag("gamesList");
-                frg.beginTransaction()
-                            .remove(f)
-                            .commit();
-                frg.popBackStack();
-                frg.beginTransaction()
-                        .add(R.id.container, SpecificCountryFragment.newInstance("", "australia"), "gamesList")
-                        .addToBackStack("gamesList")
-                        .commit();*/
                 openFragment("australia");
             }
         });
@@ -321,18 +314,24 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
 
         publisher.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                loadInformation("publisher",  publisher.getText().toString());
+                String pub;
+                if(titles==0){pub = "eu_publisher";}else{ pub = "us_publisher";}
+                loadInformation(pub,  publisher.getText().toString());
             }
         });
 
         developer.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                String pub;
+                if(titles==0){pub = "eu_developer";}else{ pub = "us_developer";}
                 loadInformation("developer",  developer.getText().toString());
             }
         });
 
         year.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                String pub;
+                if(titles==0){pub = "eu_year";}else{ pub = "us_year";}
                 loadInformation("year", year.getText().toString());
             }
         });
@@ -398,12 +397,11 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
                                int position,
                                Object object){
         nesListItems = gamesList.get(position);
-        GamesDetail.idforgame = (nesListItems.getItemId());
-        GamesDetail.favourited = (nesListItems.getFavourite());
-        GamesDetail.ownedgame = (nesListItems.getOwned());
-        GamesDetail.gamesname = (nesListItems.getName());
-        GamesDetail.wishlist = (nesListItems.getWishlist());
-        GamesDetail.finished = (nesListItems.getFinished());
+        GamesDetailFragment.idforgame = (nesListItems.getItemId());
+        GamesDetailFragment.favourited = (nesListItems.getFavourite());
+        GamesDetailFragment.ownedgame = (nesListItems.getOwned());
+        //GamesDetailFragment.gamesname = (nesListItems.getName());
+        GamesDetailFragment.wishlist = (nesListItems.getWishlist());
+        GamesDetailFragment.finished = (nesListItems.getFinished());
     }
-
 }

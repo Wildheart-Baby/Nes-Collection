@@ -65,14 +65,7 @@ public class HomeScreenActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         //setTitle("Nes Collection");
 
-        AllGames.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeScreenActivity.this, uk.co.bossdogsoftware.nes_collection.activities.AllGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
 
-            }
-        });
 
         NeededGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -195,9 +188,7 @@ public class HomeScreenActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_allgames) {
-            Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-            intent.putExtra("wherestatement", wherestatement);
-            startActivity(intent);
+
         } else if (id == R.id.nav_neededgames) {
             Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("wherestatement", wherestatement);

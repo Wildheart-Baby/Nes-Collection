@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -34,7 +33,6 @@ import java.util.Random;
 
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesCollectionAdapter;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesCollectionImageAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 
 public class FavouriteGames extends AppCompatActivity
@@ -76,73 +74,9 @@ public class FavouriteGames extends AppCompatActivity
         gameregion();
         readList();
 
-        favouritelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
-                readgameid = gameListItems.getItemId();//get the name of the shopping list table
-                readgamename = gameListItems.getName();//get the name of the shopping list table
-                Intent intent = new Intent(FavouriteGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
-                intent.putExtra("name", readgamename);//passes the table name to the new screen
-                intent.putExtra("position", arg2);
-                intent.putExtra("listposition", arg2);
-                intent.putExtra("sqlstatement", sql);
-                startActivity(intent);//start the new screen
-            }
-        });
 
-        favouritelistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
-                final Integer itemId = gameListItems.getItemId();//get the item id
-
-                Intent intent = new Intent(FavouriteGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("editgameid", itemId);
-                intent.putExtra("listposition", arg2);
-                startActivity(intent);//start the new screen
-
-                return true;//return is equal to true
-            }
-
-        });
-
-        gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
-
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
-                readgameid = gameListItems.getItemId();//get the name of the shopping list table
-                readgamename = gameListItems.getName();//get the name of the shopping list table
-                Intent intent = new Intent(FavouriteGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
-                intent.putExtra("name", readgamename);//passes the table name to the new screen
-                intent.putExtra("position", arg2);
-                intent.putExtra("listposition", arg2);
-                intent.putExtra("sqlstatement", sql);
-                startActivity(intent);//start the new screen
-            }
-        });
-
-        gamegalleryview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
-
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
-                final Integer itemId = gameListItems.getItemId();//get the item id
-
-                Intent intent = new Intent(FavouriteGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("editgameid", itemId);
-                intent.putExtra("listposition", arg2);
-                startActivity(intent);//start the new screen
-
-                return true;//return is equal to true
-            }
-
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -346,9 +280,7 @@ public class FavouriteGames extends AppCompatActivity
                 favouritelistView.setAdapter(nes);
 
             }else if (viewas == 1){
-                NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
-                favouritelistView.setVisibility(View.GONE);
-                gamegalleryview.setAdapter(nes);
+
             }
     }
     }
@@ -453,9 +385,7 @@ public class FavouriteGames extends AppCompatActivity
             Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         } else if (id == R.id.nav_allgames) {
-            Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-            intent.putExtra("wherestatement", wherestatement);
-            startActivity(intent);
+
         } else if (id == R.id.nav_neededgames) {
             Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("wherestatement", wherestatement);

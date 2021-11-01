@@ -72,44 +72,7 @@ public class ShelfOrder extends AppCompatActivity
         gameregion();
         readList();
 
-        gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
-                readgameid = gameListItems.getItemId();//get the name of the shopping list table
-                readgamename = gameListItems.getName();//get the name of the shopping list table
-                posInList = gameListItems.getListPosition();
-
-                Intent intent = new Intent(ShelfOrder.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
-                intent.putExtra("name", readgamename);//passes the table name to the new screen
-                intent.putExtra("sqlstatement", "SELECT * FROM eu where owned = 1 and onshelf = 1" + licensed +  "");
-                //intent.putExtra("position", arg2);
-                intent.putExtra("position", arg2);
-                intent.putExtra("gamename", thename);
-                intent.putExtra("gameimage", theimage);
-                //Log.d("Shelf", "game id:" + readgameid + " Game name: " + readgamename + " List position: " + arg2);
-                Log.d("Pixo","list position: " + arg2 + " generated position " + posInList +" item id: " + readgameid);
-                startActivity(intent);//start the new screen
-            }
-        });
-
-        gamelistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
-
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
-                final Integer itemId = gameListItems.getItemId();//get the item id
-
-                Intent intent = new Intent(ShelfOrder.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("editgameid", itemId);
-                startActivity(intent);//start the new screen
-
-                return true;//return is equal to true
-            }
-
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -223,9 +186,7 @@ public class ShelfOrder extends AppCompatActivity
             Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         }else if (id == R.id.nav_allgames) {
-            Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-            intent.putExtra("wherestatement", wherestatement);
-            startActivity(intent);
+
         } else if (id == R.id.nav_neededgames) {
             Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("wherestatement", wherestatement);

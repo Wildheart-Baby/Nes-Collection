@@ -34,10 +34,8 @@ import com.google.android.material.navigation.NavigationView;
 import java.util.Random;
 
 import uk.co.bossdogsoftware.nes_collection.R;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesCollectionImageAdapter;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesOwnedAdapter;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesOwnedPriceAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameItemsIndex;
 
@@ -84,7 +82,7 @@ public class OwnedGames extends AppCompatActivity
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         NesOwnedAdapter.screenwidth = metrics.widthPixels;
-        NesOwnedPriceAdapter.screenwidth = metrics.widthPixels;
+
 
         gameregion();
         readList();
@@ -103,75 +101,7 @@ public class OwnedGames extends AppCompatActivity
             }
         });
 
-    ownedlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
-        AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
-        readgameid = gameListItems.getItemId();//get the name of the shopping list table
-        readgamename = gameListItems.getName();//get the name of the shopping list table
-        Intent intent = new Intent(OwnedGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
-        intent.putExtra("gameid", readgameid);//passes the table name to the new screen
-        intent.putExtra("name", readgamename);//passes the table name to the new screen
-        if (ordering == 0){intent.putExtra("sqlstatement", "SELECT * FROM eu where owned = 1" + licensed +  "");}
-        else if(ordering == 1){intent.putExtra("sqlstatement", "select * from eu where owned = 1 order by price desc" + licensed +  "");}
-        intent.putExtra("position", arg2);
-        intent.putExtra("listposition", arg2);
-        startActivity(intent);//start the new screen
-        }
-    });
-
-    ownedlistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-        @Override
-        public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
-
-            AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
-            final Integer itemId = gameListItems.getItemId();//get the item id
-            Log.d("Owned","list position: " + arg2 + " item id: " + itemId);
-            Intent intent = new Intent(OwnedGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
-            intent.putExtra("editgameid", itemId);
-            intent.putExtra("listposition", arg2);
-            startActivity(intent);//start the new screen
-
-            return true;//return is equal to true
-        }
-
-    });
-
-        gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
-
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
-                readgameid = gameListItems.getItemId();//get the name of the shopping list table
-                readgamename = gameListItems.getName();//get the name of the shopping list table
-
-                Intent intent = new Intent(OwnedGames.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
-                intent.putExtra("name", readgamename);//passes the table name to the new screen
-                intent.putExtra("sqlstatement", "SELECT * FROM eu where owned = 1");
-                intent.putExtra("position", arg2);
-                intent.putExtra("listposition", arg2);
-                startActivity(intent);//start the new screen
-            }
-        });
-
-        gamegalleryview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
-
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
-                final Integer itemId = gameListItems.getItemId();//get the item id
-
-                Intent intent = new Intent(OwnedGames.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("editgameid", itemId);
-                intent.putExtra("listposition", arg2);
-                startActivity(intent);//start the new screen
-
-                return true;//return is equal to true
-            }
-
-        });
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -271,16 +201,11 @@ public class OwnedGames extends AppCompatActivity
                 NesIndexAdapter nii = new NesIndexAdapter(this, HomeScreenActivity.indexList);
                 alphaIndex.setAdapter(nii);
             } else if (ordering == 1){
-                NesOwnedPriceAdapter nes = new NesOwnedPriceAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
-                gamegalleryview.setVisibility(View.GONE);
-                ownedlistView.setAdapter(nes);
-                alphaIndex.setVisibility(View.GONE);
+
             }
 
         } else if (viewas == 1) {
-            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
-            ownedlistView.setVisibility(View.GONE);
-            gamegalleryview.setAdapter(nes);
+
         }
     }
 
@@ -440,9 +365,7 @@ public class OwnedGames extends AppCompatActivity
             Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         }else if (id == R.id.nav_allgames) {
-            Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-            intent.putExtra("wherestatement", wherestatement);
-            startActivity(intent);
+
         } else if (id == R.id.nav_neededgames) {
             Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("wherestatement", wherestatement);

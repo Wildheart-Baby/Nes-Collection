@@ -187,4 +187,8 @@ public class AllGamesViewModel extends AndroidViewModel {
         return gSettings.getCurrency();
     }
 
+    public int GetTitles(){
+        return dbh.getSettings().getUsTitles();
+    }
+
 }

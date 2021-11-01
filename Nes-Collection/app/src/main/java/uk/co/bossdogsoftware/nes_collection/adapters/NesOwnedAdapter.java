@@ -78,9 +78,6 @@ public class NesOwnedAdapter  extends BaseAdapter {
                 holder.separator = convertView.findViewById(R.id.lblDivider);
                 holder.cover = convertView.findViewById(R.id.imgGameCover);
                 holder.gamename = convertView.findViewById(R.id.lblGameName);
-                holder.ownedcart = convertView.findViewById(R.id.cart);
-                holder.ownedbox = convertView.findViewById(R.id.box);
-                holder.ownedmanual = convertView.findViewById(R.id.manual);
                 holder.owned = convertView.findViewById(R.id.imgOwned);
                 holder.gamecost = convertView.findViewById(R.id.lblCost);
                 holder.cartPalA = convertView.findViewById(R.id.imgPalACart);

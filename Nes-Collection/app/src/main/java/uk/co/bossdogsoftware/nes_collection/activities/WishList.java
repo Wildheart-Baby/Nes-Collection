@@ -27,7 +27,6 @@ import com.google.android.material.navigation.NavigationView;
 
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesCollectionAdapter;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesCollectionImageAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 
 public class WishList extends AppCompatActivity
@@ -69,69 +68,9 @@ public class WishList extends AppCompatActivity
         gameregion();
         readList();
 
-        gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
 
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
-                readgameid = gameListItems.getItemId();//get the name of the shopping list table
-                readgamename = gameListItems.getName();//get the name of the shopping list table
-                Intent intent = new Intent(WishList.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
-                intent.putExtra("name", readgamename);//passes the table name to the new screen
-                intent.putExtra("sqlstatement", "SELECT * FROM eu where wishlist = 1");
-                intent.putExtra("position", arg2);
-                startActivity(intent);//start the new screen
-            }
-        });
 
-        gamelistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
 
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
-                final Integer itemId = gameListItems.getItemId();//get the item id
-
-                Intent intent = new Intent(WishList.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("editgameid", itemId);
-                startActivity(intent);//start the new screen
-
-                return true;//return is equal to true
-            }
-
-        });
-
-        gamegalleryview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
-
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
-                readgameid = gameListItems.getItemId();//get the name of the shopping list table
-                readgamename = gameListItems.getName();//get the name of the shopping list table
-                Intent intent = new Intent(WishList.this, GamesDetail.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("gameid", readgameid);//passes the table name to the new screen
-                intent.putExtra("name", readgamename);//passes the table name to the new screen
-                intent.putExtra("sqlstatement", "SELECT * FROM eu where wishlist = 1");
-                intent.putExtra("position", arg2);
-                startActivity(intent);//start the new screen
-            }
-        });
-
-        gamegalleryview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
-
-                AllGameItems gameListItems = (AllGameItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
-                final Integer itemId = gameListItems.getItemId();//get the item id
-
-                Intent intent = new Intent(WishList.this, EditOwnedGame.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("editgameid", itemId);
-                startActivity(intent);//start the new screen
-
-                return true;//return is equal to true
-            }
-
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -208,12 +147,10 @@ public class WishList extends AppCompatActivity
         switch(pos){
             case '0' :
                 Log.d("Pixo", "selectItem running");
-                Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
+
                 break;
             case 1 :
-                intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
+                Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
                 intent.putExtra("wherestatement", wherestatement);
                 startActivity(intent);
                 break;
@@ -392,9 +329,7 @@ public class WishList extends AppCompatActivity
             gamelistView.setAdapter(nes);
 
         }else if (viewas == 1){
-            NesCollectionImageAdapter nes = new NesCollectionImageAdapter(this, HomeScreenActivity.gamesList);//set up an new list adapter from the arraylist
-            gamelistView.setVisibility(View.GONE);
-            gamegalleryview.setAdapter(nes);
+
             }
         }
     }
@@ -446,9 +381,7 @@ public class WishList extends AppCompatActivity
             Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
             startActivity(intent);
         }else if (id == R.id.nav_allgames) {
-            Intent intent = new Intent(this, AllGames.class);//opens a new screen when the shopping list is clicked
-            intent.putExtra("wherestatement", wherestatement);
-            startActivity(intent);
+
         } else if (id == R.id.nav_neededgames) {
             Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
             intent.putExtra("wherestatement", wherestatement);

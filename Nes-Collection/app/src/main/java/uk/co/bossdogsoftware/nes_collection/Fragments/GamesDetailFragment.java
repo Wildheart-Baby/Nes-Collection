@@ -85,7 +85,7 @@ public class GamesDetailFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_games_detail, container, false);
 
         viewPager = v.findViewById(R.id.pager);
-        gamesAdapter = new NesPagerAdapter(this.getParentFragmentManager(), getContext(), viewM.gamesList);
+        gamesAdapter = new NesPagerAdapter(this.getParentFragmentManager(), getContext(), viewM.gamesList, viewM.GetTitles());
         viewPager.setAdapter(gamesAdapter);
         viewPager.setCurrentItem(mParam2);
         listPos = viewPager.getCurrentItem();
@@ -162,8 +162,7 @@ public class GamesDetailFragment extends Fragment {
                 return true;
 
             case R.id.action_about:
-                //Intent intent3 = new Intent(GamesDetail.this, About.class);//opens a new screen when the shopping list is clicked
-                //startActivity(intent3);//start the new screen
+
                 return true;
 
             default:
