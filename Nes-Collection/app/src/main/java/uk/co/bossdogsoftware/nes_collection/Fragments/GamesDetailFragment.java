@@ -82,7 +82,7 @@ public class GamesDetailFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_games_detail_old, container, false);
+        View v = inflater.inflate(R.layout.fragment_games_detail_pager, container, false);
 
         viewPager = v.findViewById(R.id.pager);
         gamesAdapter = new NesPagerAdapter(this.getParentFragmentManager(), getContext(), viewM.gamesList, viewM.GetTitles());
