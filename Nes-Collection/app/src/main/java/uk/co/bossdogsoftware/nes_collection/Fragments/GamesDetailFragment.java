@@ -1,5 +1,6 @@
 package uk.co.bossdogsoftware.nes_collection.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
+import uk.co.bossdogsoftware.nes_collection.activities.About;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesPagerAdapter;
 
 /**
@@ -158,11 +160,12 @@ public class GamesDetailFragment extends Fragment {
                 return true;
 
             case R.id.action_wishlist:
-                //wishlist();
+                wishlist();
                 return true;
 
             case R.id.action_about:
-
+                Intent intent3 = new Intent(getActivity(), About.class);//opens a new screen when the shopping list is clicked
+                startActivity(intent3);//start the new screen
                 return true;
 
             default:

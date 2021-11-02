@@ -7,6 +7,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -29,8 +32,19 @@ public class SplashActivity extends AppCompatActivity {
     File dbfile;
     SharedPreferences prefs = null;
 
+
         @Override
         protected void onCreate(Bundle savedInstanceState) {
+
+            View decorView = getWindow().getDecorView();
+            // Hide both the navigation bar and the status bar.
+            // SYSTEM_UI_FLAG_FULLSCREEN is only available on Android 4.1 and higher, but as
+            // a general rule, you should design your app to hide the status bar whenever you
+            // hide the navigation bar.
+            int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                    | View.SYSTEM_UI_FLAG_FULLSCREEN;
+            decorView.setSystemUiVisibility(uiOptions);
+
             super.onCreate(savedInstanceState);
             prefs = getSharedPreferences("uk.co.pixoveeware.nes_collection", MODE_PRIVATE);
 
