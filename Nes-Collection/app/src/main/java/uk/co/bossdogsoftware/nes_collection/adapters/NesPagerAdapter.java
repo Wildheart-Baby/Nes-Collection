@@ -11,6 +11,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -84,7 +85,7 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
         View convertView = inflater.inflate(R.layout.fragment_games_detail, null); //use the layout to diaplay the array data
 
         //MenuItem own = menu.findItem(R.id.action_edit);
-        FrameLayout Owned = convertView.findViewById(R.id.frmOwned);
+        ConstraintLayout Owned = convertView.findViewById(R.id.frmOwned);
         TextView gamename = convertView.findViewById(R.id.lblGameName);
         ImageView cover = convertView.findViewById(R.id.imgGameCover);
         final TextView genre = convertView.findViewById(R.id.lblGenre);
