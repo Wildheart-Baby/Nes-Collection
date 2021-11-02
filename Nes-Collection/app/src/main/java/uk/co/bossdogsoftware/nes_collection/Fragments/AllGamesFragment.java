@@ -172,8 +172,15 @@ public class AllGamesFragment extends Fragment {
                 return true;
 
             case R.id.action_search:
-                //Intent intent2 = new Intent(this, Search.class);//opens a new screen when the shopping list is clicked
-                //startActivity(intent2);//start the new screen
+                f = frg.findFragmentByTag("gamesList");
+                frg.beginTransaction()
+                        .remove(f)
+                        .commit();
+                frg.popBackStack();
+                frg.beginTransaction()
+                        .add(R.id.container, SearchFragment.newInstance("", ""), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
                 return true;
 
             case R.id.action_about:
