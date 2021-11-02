@@ -76,9 +76,7 @@ public class HomeScreenActivity extends AppCompatActivity
 
         OwnedGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(HomeScreenActivity.this, OwnedGames.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("wherestatement", wherestatement);
-                startActivity(intent);
+
             }
        });
 
@@ -114,8 +112,7 @@ public class HomeScreenActivity extends AppCompatActivity
 
         Settings.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(HomeScreenActivity.this, Settings.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);//start the new screen
+
             }
         });
 
@@ -152,8 +149,7 @@ public class HomeScreenActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intent = new Intent(HomeScreenActivity.this, Settings.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);//start the new screen
+
                 return true;
 
             case R.id.action_search:

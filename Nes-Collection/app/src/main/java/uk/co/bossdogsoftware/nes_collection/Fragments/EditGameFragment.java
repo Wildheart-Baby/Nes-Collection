@@ -304,7 +304,7 @@ public class EditGameFragment extends Fragment {
         if (gameDetails.pal_a_manual == 32573 && gameDetails.pal_b_manual == 32573 && gameDetails.ntsc_manual == 32573) { manual = 0; }
 
 
-       /* if (cart == 0 && box == 0 && manual == 0) {owned = 0; HomeScreenActivity.gamesList.get(gamepos).setOwned(0);}*/
+
         PACheck = PalACost.getText().toString().replaceAll("[,]", ".");
         //Log.d("Pixo-cost", PACheck);
         PACheck = PalACost.getText().toString().replaceAll("[^0-9.]", "");

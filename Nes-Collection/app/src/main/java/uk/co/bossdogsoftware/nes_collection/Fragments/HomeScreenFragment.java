@@ -16,10 +16,6 @@ import android.widget.ImageButton;
 
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.activities.About;
-import uk.co.bossdogsoftware.nes_collection.activities.FinishedGames;
-import uk.co.bossdogsoftware.nes_collection.activities.HomeScreenActivity;
-import uk.co.bossdogsoftware.nes_collection.activities.Search;
-import uk.co.bossdogsoftware.nes_collection.activities.Settings;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -220,7 +216,7 @@ public class HomeScreenFragment extends Fragment {
                 return true;
 
             case R.id.action_search:
-                //Intent intent2 = new Intent(HomeScreenActivity.this, Search.class);//opens a new screen when the shopping list is clicked
+                //Intent intent2 = new Intent(this, Search.class);//opens a new screen when the shopping list is clicked
                 //startActivity(intent2);//start the new screen
                 return true;
 

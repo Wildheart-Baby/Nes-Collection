@@ -92,56 +92,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         TextView USLabel = (TextView) findViewById(R.id.lblUSTitle);
         TextView CompleteLabel = (TextView) findViewById(R.id.lblCompleteTitle);
 
-        PalALabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sql = "SELECT * FROM eu where owned = 1 and (pal_a_cart = 8783 " + licensed + ")";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(Statistics.this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Pal A games");
-                startActivity(intent);//start the new screen
-            }
-        });
 
-        PalBLabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sql = "SELECT * FROM eu where owned = 1 and (pal_b_cart = 8783 " + licensed + ")";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(Statistics.this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Pal B games");
-                startActivity(intent);//start the new screen
-            }
-        });
-
-        USLabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sql = "SELECT * FROM eu where owned = 1 and (ntsc_cart = 8783 " + licensed + ")";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(Statistics.this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "US games");
-                startActivity(intent);//start the new screen
-            }
-        });
-
-       /* CompleteLabel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /*sql = "SELECT * FROM eu where owned = 1 and (cart = 1 and manual = 1 and box = 1 " + licensed + ")";
-                //Log.d("Pixo", sql);
-                Intent intent = new Intent(Statistics.this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-                intent.putExtra("sqlstatement", sql);
-                intent.putExtra("pagetitle", "Complete in box games");*/
-               /* getIntent().putExtra("games", completeinbox);
-                Log.d("pixo", "games " + completeinbox);
-                Intent intent = new Intent(Statistics.this, TrophyRoom.class);
-                startActivity(intent);//start the new screen
-            }
-        });*/
 
         /*MobileAds.initialize(getApplicationContext(), "ca-app-pub-0537596348696744~2585816192");
         AdView mAdView = (AdView) findViewById(R.id.adView);
@@ -200,12 +151,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         gamename = data.getName();
         sql = "select * from eu where owned = 1 and genre = '" + gamename + "';";
         //Log.d("Pixo", sql);
-        Intent intent = new Intent(this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-        //intent.putExtra("columnname", fieldname);//passes the table name to the new screen
-        //intent.putExtra("search", searchterm);//passes the table name to the new screen
-        intent.putExtra("sqlstatement", sql);
-        intent.putExtra("pagetitle", "" + gamename + " games");
-        startActivity(intent);//start the new screen
+
     }
 
     @Override
@@ -224,12 +170,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
                 break;
         }
 
-        Intent intent = new Intent(this, StatsSearchResults.class);//opens a new screen when the shopping list is clicked
-        //intent.putExtra("columnname", fieldname);//passes the table name to the new screen
-        //intent.putExtra("search", searchterm);//passes the table name to the new screen
-        intent.putExtra("sqlstatement", sql);
-        intent.putExtra("pagetitle", "" + gamename);
-        startActivity(intent);//start the new screen
+
     }
 
     @Override
@@ -277,8 +218,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent intent = new Intent(Statistics.this, Settings.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent);//start the new screen
+
                 return true;
 
             case R.id.action_search:
@@ -1553,8 +1493,7 @@ public class Statistics extends AppCompatActivity implements PieChartView.Callba
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         if (id == R.id.nav_mainpage){
-            Intent intent = new Intent(this, HomeScreenActivity.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+
         } else if (id == R.id.nav_allgames) {
 
         } else if (id == R.id.nav_neededgames) {

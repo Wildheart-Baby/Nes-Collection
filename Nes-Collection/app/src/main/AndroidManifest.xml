@@ -38,11 +38,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
 
-        <activity
-            android:name="uk.co.bossdogsoftware.nes_collection.activities.StatsSearchResults"
-            android:label="@string/title_activity_stats_search_results"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+
         <activity
             android:name="uk.co.bossdogsoftware.nes_collection.activities.TrophyRoom"
             android:label="@string/title_activity_trophy_room"

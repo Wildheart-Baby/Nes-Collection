@@ -172,7 +172,7 @@ public class NeededGamesFragment extends Fragment {
                 return true;
 
             case R.id.action_search:
-                //Intent intent2 = new Intent(HomeScreenActivity.this, Search.class);//opens a new screen when the shopping list is clicked
+                //Intent intent2 = new Intent(this, Search.class);//opens a new screen when the shopping list is clicked
                 //startActivity(intent2);//start the new screen
                 return true;
 

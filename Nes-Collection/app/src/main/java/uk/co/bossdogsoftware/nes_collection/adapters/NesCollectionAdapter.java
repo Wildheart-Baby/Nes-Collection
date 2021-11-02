@@ -93,7 +93,7 @@ public class NesCollectionAdapter extends BaseAdapter {
 
         thegamename = nesListItems.getName();
         l = thegamename.length();
-        if (HomeScreenActivity.width < 600){if (l >30) {thegamename = thegamename.substring(0,27) + "...";}}
+
         holder.gamename.setText(thegamename); //sets the textview name with data from name
         //holder.gamename.setText(nesListItems.getName()); //sets the textview name with data from name
         holder.publisher.setText(nesListItems.getPublisher());

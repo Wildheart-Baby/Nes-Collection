@@ -78,10 +78,7 @@ public class MainActivity extends AppCompatActivity
                 manager.popBackStack();
             }
         }
-         //else {
-            // if there is only one entry in the backstack, show the home screen
-           // moveTaskToBack(true);
-        //}
+
     }
 
     /*@Override

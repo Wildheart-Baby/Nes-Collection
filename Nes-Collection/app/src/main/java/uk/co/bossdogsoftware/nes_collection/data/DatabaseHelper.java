@@ -186,7 +186,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
                 c.moveToNext();//move to the next record
             }
-            //c = db.rawQuery(HomeScreenActivity.sqlstatement, null);
+
             c.close();//close the cursor
         }
         return gamesList;
@@ -356,7 +356,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
                 c.moveToNext();//move to the next record
             }
-            //c = db.rawQuery(HomeScreenActivity.sqlstatement, null);
+
             c.close();//close the cursor
         }
         return gamesList;
@@ -494,9 +494,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 count = " " + gCount + " " + "total games";
                 break;
         }
-        //title =gmaes " " + title + " - " + HomeScreenActivity.totalGames + " " + titlept2;
-
-        //count = " has " + gCount;
 
         return count;
     }
@@ -1200,7 +1197,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 }
                 c.moveToNext();//move to the next record
             }
-            //c = db.rawQuery(HomeScreenActivity.sqlstatement, null);
+
             c.close();//close the cursor
         }
         return gamesList;
