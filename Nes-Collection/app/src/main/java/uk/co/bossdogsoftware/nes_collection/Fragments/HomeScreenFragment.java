@@ -16,6 +16,7 @@ import android.widget.ImageButton;
 
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.activities.About;
+import uk.co.bossdogsoftware.nes_collection.activities.FinishedGames;
 import uk.co.bossdogsoftware.nes_collection.activities.HomeScreenActivity;
 import uk.co.bossdogsoftware.nes_collection.activities.Search;
 import uk.co.bossdogsoftware.nes_collection.activities.Settings;
@@ -77,17 +78,14 @@ public class HomeScreenFragment extends Fragment {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_home_screen, container, false);
 
-        final ImageButton AllGames = v.findViewById(R.id.btnAllGames);
+        ImageButton AllGames = v.findViewById(R.id.btnAllGames);
         ImageButton NeededGames = v.findViewById(R.id.btnneeded);
         ImageButton OwnedGames = v.findViewById(R.id.btnowned);
         ImageButton Stats = v.findViewById(R.id.btnStats);
-        final ImageButton ShelfOrder = v.findViewById(R.id.btnShelfOrder);
-        /*ImageButton FavouriteGames = getView().findViewById(R.id.btnFavouriteGames);
-        ImageButton WishList = getView().findViewById(R.id.btnWishList);
-
-
-
-        ImageButton Finished = getView().findViewById(R.id.btnFinished);*/
+        ImageButton ShelfOrder = v.findViewById(R.id.btnShelfOrder);
+        ImageButton FavouriteGames = v.findViewById(R.id.btnFavouriteGames);
+        ImageButton WishList = v.findViewById(R.id.btnWishList);
+        ImageButton Finished = v.findViewById(R.id.btnFinished);
         ImageButton GameSettings = v.findViewById(R.id.btnSettings);
 
         AllGames.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +145,33 @@ public class HomeScreenFragment extends Fragment {
             public void onClick(View v){
                 getParentFragmentManager().beginTransaction()
                         .add(R.id.container, ShelfOrderFragment.newInstance("", ""), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        FavouriteGames.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                getParentFragmentManager().beginTransaction()
+                        .add(R.id.container, FavouriteGamesFragment.newInstance("", ""), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        WishList.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                getParentFragmentManager().beginTransaction()
+                        .add(R.id.container, WishlistFragment.newInstance("", ""), "gamesList")
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        Finished.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                getParentFragmentManager().beginTransaction()
+                        .add(R.id.container, FinishedGamesFragment.newInstance("", ""), "gamesList")
                         .addToBackStack(null)
                         .commit();
             }

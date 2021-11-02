@@ -367,28 +367,19 @@ public class OwnedGames extends AppCompatActivity
         }else if (id == R.id.nav_allgames) {
 
         } else if (id == R.id.nav_neededgames) {
-            Intent intent = new Intent(this, NeededGames.class);//opens a new screen when the shopping list is clicked
-            intent.putExtra("wherestatement", wherestatement);
-            finish();
-            startActivity(intent);
+
         } else if (id == R.id.nav_favouritegames) {
-            Intent intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+
         } else if (id == R.id.nav_wishlist) {
-            Intent intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+
         } else if (id == R.id.nav_shelforder) {
-            Intent intent = new Intent(this, ShelfOrder.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+
         } else if (id == R.id.nav_statistics) {
-            Intent intent = new Intent(this, Statistics.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+
         } else if (id == R.id.nav_finished) {
-            Intent intent = new Intent(this, FinishedGames.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+
         } else if (id == R.id.nav_settings) {
-            Intent intent = new Intent(this, Settings.class);//opens a new screen when the shopping list is clicked
-            startActivity(intent);
+
         }
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

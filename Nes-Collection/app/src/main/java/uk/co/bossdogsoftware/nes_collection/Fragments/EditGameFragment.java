@@ -128,7 +128,7 @@ public class EditGameFragment extends Fragment {
         PalACost = v.findViewById(R.id.txtPalAcost);
         PalBCost = v.findViewById(R.id.txtPalBcost);
         USCost = v.findViewById(R.id.txtUScost);
-        BlankChk = v.findViewById(R.id.checkBox);
+        //BlankChk = v.findViewById(R.id.checkBox);
 
         PalACurrency = v.findViewById(R.id.lblCurrencyPalA);
         PalBCurrency = v.findViewById(R.id.lblCurrencyPalB);

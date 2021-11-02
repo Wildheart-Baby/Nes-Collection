@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.MenuItem;
 
 import uk.co.bossdogsoftware.nes_collection.Fragments.AllGamesFragment;
+import uk.co.bossdogsoftware.nes_collection.Fragments.FavouriteGamesFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.GamesDetailFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.HomeScreenFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.NeededGamesFragment;
@@ -24,6 +25,7 @@ import uk.co.bossdogsoftware.nes_collection.Fragments.OwnedGamesFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.SettingsFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.ShelfOrderFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.StatisticsFragment;
+import uk.co.bossdogsoftware.nes_collection.Fragments.WishlistFragment;
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModelFactory;
@@ -152,11 +154,25 @@ public class MainActivity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_favouritegames) {
-            //Intent intent = new Intent(this, FavouriteGames.class);//opens a new screen when the shopping list is clicked
-            //startActivity(intent);
+            Fragment f = frg.findFragmentByTag("gamesList");
+            frg.beginTransaction()
+                    .remove(f)
+                    .commit();
+            frg.popBackStack();
+            frg.beginTransaction()
+                    .add(R.id.container, FavouriteGamesFragment.newInstance("",""), "gamesList")
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_wishlist) {
-            //Intent intent = new Intent(this, WishList.class);//opens a new screen when the shopping list is clicked
-            //startActivity(intent);
+            Fragment f = frg.findFragmentByTag("gamesList");
+            frg.beginTransaction()
+                    .remove(f)
+                    .commit();
+            frg.popBackStack();
+            frg.beginTransaction()
+                    .add(R.id.container, WishlistFragment.newInstance("",""), "gamesList")
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_shelforder) {
             Fragment f = frg.findFragmentByTag("gamesList");
             frg.beginTransaction()

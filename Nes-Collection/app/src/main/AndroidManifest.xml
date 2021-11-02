@@ -31,31 +31,13 @@
             android:label="@string/title_activity_search"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name="uk.co.bossdogsoftware.nes_collection.activities.Statistics"
-            android:label="@string/title_activity_statistics"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+
         <activity
             android:name="uk.co.bossdogsoftware.nes_collection.activities.About"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme" />
-        <activity
-            android:name="uk.co.bossdogsoftware.nes_collection.activities.ShelfOrder"
-            android:label="@string/title_activity_shelf_order"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name="uk.co.bossdogsoftware.nes_collection.activities.WishList"
-            android:label="@string/title_activity_wish_list"
-            android:theme="@style/AppTheme" />
 
-        <activity
-            android:name="uk.co.bossdogsoftware.nes_collection.activities.FinishedGames"
-            android:label="@string/title_activity_finished_games"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
         <activity
             android:name="uk.co.bossdogsoftware.nes_collection.activities.StatsSearchResults"
             android:label="@string/title_activity_stats_search_results"
