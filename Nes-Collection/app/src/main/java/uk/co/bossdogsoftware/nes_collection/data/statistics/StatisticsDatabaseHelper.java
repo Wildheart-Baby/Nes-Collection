@@ -12,7 +12,6 @@ import java.util.Collections;
 import java.util.List;
 
 import uk.co.bossdogsoftware.nes_collection.R;
-import uk.co.bossdogsoftware.nes_collection.activities.Statistics;
 import uk.co.bossdogsoftware.nes_collection.data.SqlStatement;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameSettings;

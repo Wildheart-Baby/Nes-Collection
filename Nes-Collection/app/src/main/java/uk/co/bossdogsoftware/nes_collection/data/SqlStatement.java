@@ -284,7 +284,7 @@ public class SqlStatement {
                 //searchQuery = SearchResults.searchString + " order by " + orderby;
                 break;
             case "statsearch":
-                //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
+                //searchQuery = searchString + " order by " + orderby;
                 break;
             case "australia":
                 temp = "SELECT * FROM eu where flag_australia = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";

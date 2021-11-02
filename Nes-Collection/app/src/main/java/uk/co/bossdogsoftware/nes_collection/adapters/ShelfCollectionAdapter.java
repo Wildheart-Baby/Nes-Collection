@@ -15,7 +15,6 @@ package uk.co.bossdogsoftware.nes_collection.adapters;
 
         import java.util.ArrayList;
 
-        import uk.co.bossdogsoftware.nes_collection.activities.HomeScreenActivity;
         import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
         import uk.co.bossdogsoftware.nes_collection.R;
 

@@ -66,7 +66,7 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public boolean isViewFromObject(View view, Object object) {
-        return view == ((ScrollView) object);
+        return view == (object);
     }
 
     @NonNull
@@ -81,7 +81,7 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
         nesListItems = gamesList.get(position);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE); //sets up the layout inflater
-        View convertView = inflater.inflate(R.layout.content_games_detail, null); //use the layout to diaplay the array data
+        View convertView = inflater.inflate(R.layout.fragment_games_detail, null); //use the layout to diaplay the array data
 
         //MenuItem own = menu.findItem(R.id.action_edit);
         FrameLayout Owned = convertView.findViewById(R.id.frmOwned);

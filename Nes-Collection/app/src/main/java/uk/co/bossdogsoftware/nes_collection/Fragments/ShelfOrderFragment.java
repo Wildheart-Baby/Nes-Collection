@@ -15,7 +15,6 @@ import java.util.ArrayList;
 
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
-import uk.co.bossdogsoftware.nes_collection.activities.HomeScreenActivity;
 import uk.co.bossdogsoftware.nes_collection.adapters.NesIndexAdapter;
 import uk.co.bossdogsoftware.nes_collection.adapters.ShelfCollectionAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;

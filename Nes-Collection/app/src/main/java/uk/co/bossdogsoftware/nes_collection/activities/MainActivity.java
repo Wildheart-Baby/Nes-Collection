@@ -191,8 +191,15 @@ public class MainActivity extends AppCompatActivity
                     .addToBackStack(null)
                     .commit();
         } else if (id == R.id.nav_finished) {
-            //Intent intent = new Intent(this, FinishedGames.class);//opens a new screen when the shopping list is clicked
-            //startActivity(intent);
+            Fragment f = frg.findFragmentByTag("gamesList");
+            frg.beginTransaction()
+                    .remove(f)
+                    .commit();
+            frg.popBackStack();
+            frg.beginTransaction()
+                    .add(R.id.container, FavouriteGamesFragment.newInstance("", ""), "gamesList")
+                    .addToBackStack(null)
+                    .commit();
         } else if (id == R.id.nav_settings) {
             Fragment f = frg.findFragmentByTag("gamesList");
             frg.beginTransaction()

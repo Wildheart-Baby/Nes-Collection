@@ -17,8 +17,8 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="#C0C0BB"
             android:paddingLeft="6dp"
             android:paddingTop="60dp"

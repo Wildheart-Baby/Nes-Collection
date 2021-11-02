@@ -888,6 +888,7 @@
     <string name="hello_first_fragment" translatable="false">Hello first fragment</string>
     <string name="hello_second_fragment" translatable="false">Hello second fragment. Arg: %1$s</string>
     <string name="EditGameCondition">Game condition</string>
+    <string name="EmailAddress">info@bossdogsoftware.co.uk</string>
 
 </resources>
 

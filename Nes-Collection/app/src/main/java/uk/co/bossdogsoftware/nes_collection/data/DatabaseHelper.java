@@ -152,7 +152,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 //searchQuery = SearchResults.searchString + " order by " + orderby;
                 break;
             case "statsearch":
-                //searchQuery = StatsSearchResults.searchString + " order by " + orderby;
+                //searchQuery = searchString + " order by " + orderby;
 
                 break;
         }
