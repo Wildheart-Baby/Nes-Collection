@@ -1,5 +1,7 @@
 package uk.co.bossdogsoftware.nes_collection.Fragments;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +18,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import uk.co.bossdogsoftware.nes_collection.R;
+import uk.co.bossdogsoftware.nes_collection.activities.Search;
+import uk.co.bossdogsoftware.nes_collection.activities.SearchResults;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,9 +30,10 @@ public class SearchBoxFragment extends Fragment {
 
     String searchterm, fieldname, sql, searchname, wherestatement;
     int titles;
+    private SearchListener mListener;
 
     Spinner field, namesearch;
-    TextView searchTerm, seconddd;
+    TextView gameName, searchTerm, seconddd;
     Button ok, cancel;
     CheckBox all;
 
@@ -78,6 +83,7 @@ public class SearchBoxFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_search_box, container, false);
+        gameName = v.findViewById(R.id.lblGame);
         field = v.findViewById(R.id.field_name);
         searchTerm = v.findViewById(R.id.txtSearch);//sets up the dialog title
         ok = v.findViewById(R.id.rgnOk);
@@ -103,6 +109,18 @@ public class SearchBoxFragment extends Fragment {
             }
         });
 
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//read the quantity from the quantity text box and adds one to the total
+                if(fieldname.equals("Name")){searchterm = searchTerm.getText().toString();}
+                mListener.onReceiveSearch(fieldname.toLowerCase(), searchterm);
+            }
+        });
+
+        fieldname = (String) field.getSelectedItem();
+        searchterm = searchTerm.getText().toString();
+
+        mListener.onReceiveSearch(fieldname, searchterm);
         /*namesearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 searchterm = (String) namesearch.getSelectedItem();
@@ -122,10 +140,16 @@ public class SearchBoxFragment extends Fragment {
 
         switch (i){
             case 0:
+                searchTerm.setEnabled(true);
+                gameName.setAlpha(1f);
+                searchTerm.setAlpha(1f);
                 namesearch.setVisibility(View.INVISIBLE);
                 seconddd.setVisibility(View.INVISIBLE);
                 break;
             case 1:
+                searchTerm.setEnabled(false);
+                searchTerm.setAlpha(0.3f);
+                gameName.setAlpha(0.3f);
                 namesearch.setVisibility(View.VISIBLE);
                 seconddd.setVisibility(View.VISIBLE);
                 seconddd.setText("Publisher");
@@ -135,6 +159,9 @@ public class SearchBoxFragment extends Fragment {
                 namesearch.setAdapter(search);
                 break;
             case 2:
+                searchTerm.setEnabled(false);
+                searchTerm.setAlpha(0.3f);
+                gameName.setAlpha(0.3f);
                 namesearch.setVisibility(View.VISIBLE);
                 seconddd.setVisibility(View.VISIBLE);
                 seconddd.setText("Developer");
@@ -144,6 +171,9 @@ public class SearchBoxFragment extends Fragment {
                 namesearch.setAdapter(search);
                 break;
             case 3:
+                searchTerm.setEnabled(false);
+                searchTerm.setAlpha(0.3f);
+                gameName.setAlpha(0.3f);
                 namesearch.setVisibility(View.VISIBLE);
                 seconddd.setVisibility(View.VISIBLE);
                 seconddd.setText("Genre");
@@ -153,6 +183,9 @@ public class SearchBoxFragment extends Fragment {
                 namesearch.setAdapter(search);
                 break;
             case 4:
+                searchTerm.setEnabled(false);
+                searchTerm.setAlpha(0.3f);
+                gameName.setAlpha(0.3f);
                 namesearch.setVisibility(View.VISIBLE);
                 seconddd.setVisibility(View.VISIBLE);
                 seconddd.setText("Sub genre");
@@ -162,6 +195,9 @@ public class SearchBoxFragment extends Fragment {
                 namesearch.setAdapter(search);
                 break;
             case 5:
+                searchTerm.setEnabled(false);
+                searchTerm.setAlpha(0.3f);
+                gameName.setAlpha(0.3f);
                 namesearch.setVisibility(View.VISIBLE);
                 seconddd.setVisibility(View.VISIBLE);
                 seconddd.setText("Year");
@@ -171,24 +207,43 @@ public class SearchBoxFragment extends Fragment {
                 namesearch.setAdapter(search);
                 break;
             case 6:
+                searchTerm.setEnabled(false);
+                searchTerm.setAlpha(0.3f);
+                gameName.setAlpha(0.3f);
                 namesearch.setVisibility(View.INVISIBLE);
                 seconddd.setVisibility(View.INVISIBLE);
                 break;
         }
 
-
-
-
         namesearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 searchterm = (String) namesearch.getSelectedItem();
-                sql = "select * from eu where " + fieldname + " = '" + searchterm + "';";
-                Log.d("'pixo", sql);
             }
 
             public void onNothingSelected(
                     AdapterView<?> adapterView) {
             }
         });
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof SearchListener) {
+            mListener = (SearchListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface SearchListener {                                       //the interface connecting the places search activity and the fragment for passing data between the fragment and the activity
+        void onReceiveSearch(String searchType, String searchString);
     }
 }

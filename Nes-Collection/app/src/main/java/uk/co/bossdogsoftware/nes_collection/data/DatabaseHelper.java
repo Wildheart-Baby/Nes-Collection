@@ -1048,21 +1048,27 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             thename = "eu_name";
             theimage = "image";
             thePublisher = "eu_publisher";
-            if(iType.equals("publisher")) {
-                iType = "eu_publisher";
+            if(iType.equals("publisher") | iType.equals("name") | iType.equals("year") ) {
+                iType = "eu_" + iType;
                 }
         } else if (titles == 1){
             thename = "us_name";
             theimage = "us_image";
             thePublisher = "us_publisher";
-            if(iType.equals("publisher")) {
-                 iType = "us_publisher";
+            if(iType.equals("publisher")| iType.equals("name") | iType.equals("year") ) {
+                 iType = "us_" + iType;
              }
         }
 
         licensed = SqlStatement.LicensedGames(license);
 
-        searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
+        if(iType.equals("eu_name") | iType.equals("us_name")){
+            //select * from eu where eu_name like '%mario%' and (unlicensed = 0 or 1) order by listorder;
+            searchQuery = "select * from eu where " + iType + " like '%" + Query + "%'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
+        }else{
+            searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
+        }
+
 
         SQLiteDatabase db = this.getWritableDatabase();
 

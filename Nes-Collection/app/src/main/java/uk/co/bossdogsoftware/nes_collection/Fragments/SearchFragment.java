@@ -3,12 +3,14 @@ package uk.co.bossdogsoftware.nes_collection.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import uk.co.bossdogsoftware.nes_collection.R;
+import uk.co.bossdogsoftware.nes_collection.activities.SearchResults;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -55,12 +57,16 @@ public class SearchFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        FragmentManager fm = getParentFragmentManager();
+        fm.beginTransaction().add(R.id.searchresultsfragment, SearchResultsFragment.newInstance("",""),"SearchResults").commit();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_search, container, false);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search, container, false);
+        return v;
     }
 }

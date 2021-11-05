@@ -3,12 +3,23 @@ package uk.co.bossdogsoftware.nes_collection.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import uk.co.bossdogsoftware.nes_collection.R;
+import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
+import uk.co.bossdogsoftware.nes_collection.adapters.NesCollectionAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.NesIndexAdapter;
+import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
+import uk.co.bossdogsoftware.nes_collection.models.GameItemsIndex;
+import uk.co.bossdogsoftware.nes_collection.models.GameListItems;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +27,12 @@ import uk.co.bossdogsoftware.nes_collection.R;
  * create an instance of this fragment.
  */
 public class SearchResultsFragment extends Fragment {
+
+    AllGamesViewModel viewM;
+    ListView gamelistView, alphaIndex;
+
+    ArrayList<AllGameItems> gameList;
+    ArrayList<GameItemsIndex> indexList;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -55,12 +72,59 @@ public class SearchResultsFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.fragment_search_results, container, false);
+        //searchString("","");
+        gamelistView = v.findViewById(R.id.lvAllGames);
+        alphaIndex = v.findViewById(R.id.lvAlphaIndex);
+
+        alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                GameItemsIndex indexListItems = (GameItemsIndex) arg0.getItemAtPosition(arg2);
+                int readindexid = indexListItems.getItemid();
+                //readindexid = readindexid - 1;
+                gamelistView.setSelection(readindexid);
+                //gamegalleryview.setSelection(readindexid);
+            }
+        });
+
+        gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
+
+                //GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
+                getParentFragmentManager().beginTransaction()
+                        .add(R.id.container, GamesDetailFragment.newInstance(0, arg2), "gamesDetail")
+                        .addToBackStack("gamesDetail"+mParam2)
+                        .commit();
+            }
+        });
+
+        gamelistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
+
+                GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//get the position of the item on the list
+                final Integer itemId = gameListItems.getItemId();//get the item id
+
+                return true;//return is equal to true
+            }
+
+        });
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_results, container, false);
+        return v;
+    }
+
+    public void searchString(String searchType, String searchString){
+        gameList = viewM.GetSpecificGames(searchType, searchString);
+        //indexList = viewM.GetSpecificGamesIndex(searchType, searchString);
+        gamelistView.setAdapter(new NesCollectionAdapter(getContext(), gameList));
+        //alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
     }
 }

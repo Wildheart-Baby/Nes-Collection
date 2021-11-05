@@ -22,6 +22,8 @@ import uk.co.bossdogsoftware.nes_collection.Fragments.GamesDetailFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.HomeScreenFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.NeededGamesFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.OwnedGamesFragment;
+import uk.co.bossdogsoftware.nes_collection.Fragments.SearchBoxFragment;
+import uk.co.bossdogsoftware.nes_collection.Fragments.SearchResultsFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.SettingsFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.ShelfOrderFragment;
 import uk.co.bossdogsoftware.nes_collection.Fragments.StatisticsFragment;
@@ -31,12 +33,13 @@ import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModelFactory;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, SearchBoxFragment.SearchListener {
 
     public AllGamesViewModel viewM;
     public Toolbar toolbar;
     GamesDetailFragment fragment;
     FragmentManager frg;
+    SearchResultsFragment searchFrag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -217,4 +220,12 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
+    @Override
+    public void onReceiveSearch(String searchType, String searchString) {
+        searchFrag = (SearchResultsFragment) getSupportFragmentManager().findFragmentByTag("SearchResults"); //sets up a reference to the search results fragment
+        //sets the search term to the searchString variable
+        if (searchFrag != null) {                                                                            //if the fragment exists on the screen
+            searchFrag.searchString(searchType, searchString);                                                              //pass the search term to the search places function in the search results fragment
+        }
+    }
 }
