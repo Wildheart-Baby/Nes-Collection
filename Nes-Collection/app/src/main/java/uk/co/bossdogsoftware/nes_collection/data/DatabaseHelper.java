@@ -1215,7 +1215,30 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         orderby = gSettings.getOrderedBy();
         licensed = SqlStatement.LicensedGames(license);
 
-        searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
+        if (titles == 0){
+            thename = "eu_name";
+            theimage = "image";
+            thePublisher = "eu_publisher";
+            if(iType.equals("publisher") | iType.equals("name") | iType.equals("year") ) {
+                iType = "eu_" + iType;
+            }
+        } else if (titles == 1){
+            thename = "us_name";
+            theimage = "us_image";
+            thePublisher = "us_publisher";
+            if(iType.equals("publisher")| iType.equals("name") | iType.equals("year") ) {
+                iType = "us_" + iType;
+            }
+        }
+
+        if(iType.equals("eu_name") | iType.equals("us_name")){
+            //select * from eu where eu_name like '%mario%' and (unlicensed = 0 or 1) order by listorder;
+            searchQuery = "select * from eu where " + iType + " like '%" + Query + "%'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
+        }else{
+            searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
+        }
+
+        //searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery(searchQuery, null);

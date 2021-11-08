@@ -123,8 +123,8 @@ public class SearchResultsFragment extends Fragment {
 
     public void searchString(String searchType, String searchString){
         gameList = viewM.GetSpecificGames(searchType, searchString);
-        //indexList = viewM.GetSpecificGamesIndex(searchType, searchString);
+        indexList = viewM.GetSpecificGamesIndex(searchType, searchString);
         gamelistView.setAdapter(new NesCollectionAdapter(getContext(), gameList));
-        //alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
+        alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
     }
 }

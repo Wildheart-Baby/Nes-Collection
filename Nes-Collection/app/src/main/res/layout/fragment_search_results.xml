@@ -21,14 +21,13 @@
     <ListView
         android:id="@+id/lvAlphaIndex"
         android:layout_width="30dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
         android:background="@color/indexlist"
         android:divider="@android:color/transparent"
         android:dividerHeight="0dp"
         android:scrollbars="none"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
