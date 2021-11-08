@@ -112,7 +112,7 @@ public class SearchBoxFragment extends Fragment {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {//read the quantity from the quantity text box and adds one to the total
-                if(fieldname.equals("Name")){searchterm = searchTerm.getText().toString();}
+                if(fieldname.equals("Name")){searchterm = searchTerm.getText().toString().replaceAll("'", ""); }
                 mListener.onReceiveSearch(fieldname.toLowerCase(), searchterm);
             }
         });

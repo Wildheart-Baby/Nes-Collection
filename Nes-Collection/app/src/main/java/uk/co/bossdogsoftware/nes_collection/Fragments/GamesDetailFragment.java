@@ -122,7 +122,7 @@ public class GamesDetailFragment extends Fragment {
     private void SetTitles() {
         getActivity().setTitle("Games Detail");
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle("");
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(null);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier("games_details", "drawable", getContext().getPackageName()));
         }
 
     @Override
