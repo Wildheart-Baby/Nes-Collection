@@ -218,14 +218,15 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
 
     }
 
-    @Override
+    /*@Override
     public void onSliceClick(DataColorSet data) {
             frg = getParentFragmentManager();
             frg.beginTransaction()
                     .add(R.id.container, SpecificInformationFragment.newInstance("genre", data.getName()), "gamesList")
+                    .addToBackStack(null)
                     .commit();
 
-    }
+    }*/
 
     @Override
     public void onDrawFinishedBar(DataColorSet[] data) {
@@ -255,11 +256,13 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
 
     }
 
-    @Override
+    /*@Override
     public void onBarClick(DataColorSet data) {
         //frg = getParentFragmentManager();
         //frg.beginTransaction()
         //        .add(R.id.container, SpecificInformationFragment.newInstance("genre", data.getName()), "gamesList")
         //        .commit();
-    }
+    }*/
+
+
 }

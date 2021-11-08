@@ -131,7 +131,7 @@ public class HomeScreenFragment extends Fragment {
         Stats.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 getParentFragmentManager().beginTransaction()
-                        .add(R.id.container, StatisticsFragment.newInstance("", ""), "gamesList")
+                        .add(R.id.container, StatisticsFragment.newInstance("", ""))
                         .addToBackStack(null)
                         .commit();
             }

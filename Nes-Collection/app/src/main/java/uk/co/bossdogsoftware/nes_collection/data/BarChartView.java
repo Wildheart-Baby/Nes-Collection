@@ -141,7 +141,7 @@ public class BarChartView extends View {
         // activity
     }
 
-    @Override
+    /*@Override
     public boolean onTouchEvent(MotionEvent event) {
         // If the finger is on the screen
         if (event.getAction() == MotionEvent.ACTION_DOWN) {
@@ -175,7 +175,7 @@ public class BarChartView extends View {
         }
 
         return true;
-    }
+    }*/
 
     public void setDataPoints(float[] datapoints, String[] names, int[] sliceClrs) {
         this.datapoints = datapoints;
@@ -184,7 +184,7 @@ public class BarChartView extends View {
         invalidate(); // Tells the chart to redraw itself
     }
 
-    private void setAlphaIndex(String pixelHex) {
+    /*private void setAlphaIndex(String pixelHex) {
         for (int i = 0; i < sliceClrs.length; i++) {
             String tempHex = Integer.toHexString(sliceClrs[i]);
             if (pixelHex.equals(tempHex)) {
@@ -197,7 +197,7 @@ public class BarChartView extends View {
                 break;
             }
         }
-    }
+    }*/
 
     private float[] scale() {
         float[] scaledValues = new float[this.datapoints.length];
@@ -230,7 +230,7 @@ public class BarChartView extends View {
     public interface Callback {
         public void onDrawFinishedBar(DataColorSet[] data);
 
-        public void onBarClick(DataColorSet data);
+        //public void onBarClick(DataColorSet data);
 
     }
 
