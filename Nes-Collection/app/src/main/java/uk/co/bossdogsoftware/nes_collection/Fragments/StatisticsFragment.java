@@ -17,6 +17,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import uk.co.bossdogsoftware.nes_collection.R;
+import uk.co.bossdogsoftware.nes_collection.data.BarChartView;
 import uk.co.bossdogsoftware.nes_collection.data.DataColorSet;
 import uk.co.bossdogsoftware.nes_collection.data.PieChartView;
 import uk.co.bossdogsoftware.nes_collection.data.statistics.StatisticsDatabaseHelper;
@@ -27,13 +28,14 @@ import uk.co.bossdogsoftware.nes_collection.models.statistics.GameCostItems;
  * Use the {@link StatisticsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StatisticsFragment extends Fragment implements PieChartView.Callback {
+public class StatisticsFragment extends Fragment implements PieChartView.Callback, BarChartView.Callback {
 
     StatisticsDatabaseHelper dbh;
 
     TextView PalALabel, PalBLabel, USLabel, CompleteLabel;
-    LinearLayout keyContainer;
+    LinearLayout keyContainer, keyContainerBar;
     PieChartView pieChartView;
+    BarChartView barChartView;
     String gamesCost, gamesOwned;
     TextView gamesInfo, cost, palAData, palBData, usData, boxedGames, completeGames, looseCarts;
     ConstraintLayout AllData, PalAData, PalBData, UsData;
@@ -41,9 +43,9 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
 
     FragmentManager frg;
 
-    String[] GenreNames;
-    float[] DataPoints;
-    int[] PieColours;
+    String[] GenreNames, RegionNames;
+    float[] DataPoints, RegionDataPoint;
+    int[] PieColours, RegionBarColours;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -90,6 +92,10 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
         PieColours = dbh.piecolours;
         DataPoints = dbh.datapoints;
 
+        RegionNames = dbh.RegionNames;
+        RegionDataPoint = dbh.RegionDataPoints;
+        RegionBarColours = dbh.BarChartColours;
+
     }
 
     @Override
@@ -107,6 +113,8 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
         CompleteLabel = v.findViewById(R.id.lblCompleteTitle);
         keyContainer = v.findViewById(R.id.key);
         pieChartView = v.findViewById(R.id.pie_chart);
+        keyContainerBar = v.findViewById(R.id.key2);
+        barChartView = v.findViewById(R.id.bar_chart);
         cost = v.findViewById(R.id.lblCost);
         gamesInfo = v.findViewById(R.id.lblGamesInfo);
         palAData = v.findViewById(R.id.lblPalA);
@@ -140,7 +148,8 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
                 //getString(R.string.statsGamescost6) + " " + dbh.poppublisher +
                 getString(R.string.statsGamescost7) + " " + dbh.getPopGenre() +
                 getString(R.string.statsGamescost8) + " " + dbh.finishedGames + " " + getString(R.string.statsGamescost9)+
-                "\nYou also have " + dbh.ownedBoxes() + " boxes and " + dbh.ownedManuals() + " manuals";
+                "\nYou also have " + dbh.ownedBoxes() + " boxes and " + dbh.ownedManuals() + " manuals"+
+                "\nYou own " + dbh.top100() + " of the top 100 games";
 
         cost.setText(gamesCost);
 
@@ -168,6 +177,12 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
             pieChartView.setDataPoints(DataPoints, GenreNames, PieColours);
             // Because this activity is of the type PieChartView.Callback
             pieChartView.setCallback(this);
+        }
+
+        if (dbh.ShowBarChart()){
+            barChartView.setDataPoints(RegionDataPoint, RegionNames, RegionBarColours);
+            // Because this activity is of the type PieChartView.Callback
+            barChartView.setCallback(this);
         }
 
         completeGames.setText(dbh.CompleteInBox());
@@ -210,5 +225,41 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
                     .add(R.id.container, SpecificInformationFragment.newInstance("genre", data.getName()), "gamesList")
                     .commit();
 
+    }
+
+    @Override
+    public void onDrawFinishedBar(DataColorSet[] data) {
+        // When the chart has finished drawing it will return the colors used
+        // and the value along (for our key)
+
+
+        if (keyContainerBar.getChildCount() > 0)
+            keyContainerBar.removeAllViews(); // Empty all views if any found
+
+        for (int i = 0; i < data.length; i++) {
+            DataColorSet dataColorSet = data[i];
+
+            LinearLayout keyItem = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.key_item, null);
+            LinearLayout colorView = (LinearLayout) keyItem.findViewById(R.id.color);
+            TextView name = (TextView) keyItem.findViewById(R.id.names);
+            TextView valueView = (TextView) keyItem.findViewById(R.id.value);
+
+            colorView.setBackgroundColor(Color.parseColor("#" + dataColorSet.getColor()));
+            name.setText("" + dataColorSet.getName() + "  ");
+            String pievalue = String.format("%.2f",dataColorSet.getDataValue())+"%";
+            valueView.setText(pievalue);
+
+            // Add the key to the container
+            keyContainerBar.addView(keyItem, i);
+        }
+
+    }
+
+    @Override
+    public void onBarClick(DataColorSet data) {
+        //frg = getParentFragmentManager();
+        //frg.beginTransaction()
+        //        .add(R.id.container, SpecificInformationFragment.newInstance("genre", data.getName()), "gamesList")
+        //        .commit();
     }
 }

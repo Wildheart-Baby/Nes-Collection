@@ -17,6 +17,7 @@ import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameSettings;
 import uk.co.bossdogsoftware.nes_collection.models.statistics.GameCostItems;
 import uk.co.bossdogsoftware.nes_collection.models.statistics.GenreCountItems;
+import uk.co.bossdogsoftware.nes_collection.models.statistics.RegionItems;
 
 public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
@@ -26,15 +27,19 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
     String[] gamenames;
     ArrayList<GenreCountItems> GenreItems;
     List<String>genreNames, topGames;
-    public String[] GenreNames, names2;
+    public String[] GenreNames, RegionNames;
     String popgenre;
-    public float[] datapoints, datapoints2;
-    public int[] piecolours, piecolours2;
+    public float[] datapoints, RegionDataPoints;
+    public int[] piecolours, BarChartColours;
 
     String[] PieColours = new String[]{"#02A0E9","#FFD800","#4800FF","#FF6A00","#A975CE","#FF0000","#FFAC78","#7CA60F","#FF3F42","#FFB548","#5a45e1"};
+    String[] BarColours = new String[]{"#FFD800","#A975CE","#7CA60F"};
+    String[] Regions = new String[]{"Pal A", "Pal B", "US"};
 
     ArrayList<AllGameItems> gamesList;
     ArrayList<GenreCountItems>genreList;
+
+    ArrayList<RegionItems> regionList;
 
     ArrayList<GameCostItems> palAPrices;
     ArrayList<GameCostItems> palBPrices;
@@ -103,6 +108,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
         String genreName = "";
         GenreItems = new ArrayList<>();
+        regionList = new ArrayList<>();
         genreNames = new ArrayList<>();
         topGames = new ArrayList<>();
         palAPrices = new ArrayList<>();
@@ -155,8 +161,6 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setRanking(c.getInt(c.getColumnIndex("Ranking")));
                 if(gameListItems.getRanking() > 0){ topGames.add(gName); }
                 gamesList.add(gameListItems);//add items to the arraylist
-
-
 
                 if(!genreNames.contains(genreName))
                     genreNames.add(genreName);
@@ -276,7 +280,56 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             piecolours[io] = Color.parseColor(PieColours[i]);
             io ++;
         }
+        setBarData();
+    }
 
+    public void setBarData(){
+        int palACount = 0;
+        int palBCount = 0;
+        int usCount = 0;
+
+        for (int g=0; g < GenreItems.size(); g++) {
+            palACount += GenreItems.get(g).getPalAOwned();
+            palBCount += GenreItems.get(g).getPalBOwned();
+            usCount += GenreItems.get(g).getUSOwned();
+        }
+
+        if(palACount > 0){
+            RegionItems item = new RegionItems();
+
+            item.setRegionName("Pal A");
+            item.setRegionTotal(palACount);
+            regionList.add(item);
+        }
+
+        if(palBCount > 0){
+            RegionItems item = new RegionItems();
+
+            item.setRegionName("Pal B");
+            item.setRegionTotal(palBCount);
+            regionList.add(item);
+        }
+
+        if(usCount > 0){
+            RegionItems item = new RegionItems();
+
+            item.setRegionName("US");
+            item.setRegionTotal(usCount);
+            regionList.add(item);
+        }
+
+
+        RegionNames = new String[regionList.size()];
+        RegionDataPoints = new float[regionList.size()];
+        BarChartColours = new int[regionList.size()];
+        int io = 0;
+
+        for(int i=0; i < regionList.size(); i++){
+            RegionNames[io] = regionList.get(i).getRegionName();
+            RegionDataPoints[io] = regionList.get(i).getRegionTotal();
+            BarChartColours[io] = Color.parseColor(BarColours[i]);
+            io ++;
+        }
     }
 
     public ArrayList<GameCostItems> ExpensiveGames(String region){
@@ -390,6 +443,8 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
 
     public Boolean ShowPieChart()  { return GenreItems.size() > 0;}
 
+    public Boolean ShowBarChart() { return true;}
+
     public float totalGamesCost(){
         float temp = 0.0f;
 
@@ -428,6 +483,8 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
         }
         return temp;
     }
+
+
 
     public String GetPalAData(){
         String temp;
@@ -590,6 +647,14 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
             if (gamesList.get(i).getManualNtsc() == 8783) { temp++; }
         }
 
+        return temp;
+    }
+
+    public int top100(){
+        int temp = 0;
+        for(int i=0; i < gamesList.size(); i++){
+            if (gamesList.get(i).getRanking() != 0) { temp++;}
+        }
         return temp;
     }
 

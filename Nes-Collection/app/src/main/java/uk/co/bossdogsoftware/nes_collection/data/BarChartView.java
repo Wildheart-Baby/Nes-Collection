@@ -11,15 +11,18 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
-public class SecondPieChartView extends View {
+public class BarChartView extends View {
+    private Paint axisBars;
     private Paint slicePaint;
     private Paint sliceBorder;
     private int[] sliceClrs;
     private RectF rectf; // Our box
     private float[] datapoints; // Our values
+    private double[] keyDataPoints;
     private String[] names;
     private int alphaIndex = -1;
     private Bitmap canvasBitmap;
@@ -30,7 +33,7 @@ public class SecondPieChartView extends View {
     // Our Callback object
     private Callback callback;
 
-    public SecondPieChartView(Context context, AttributeSet attrs) {
+    public BarChartView(Context context, AttributeSet attrs) {
         super(context, attrs);
         slicePaint = new Paint();
         slicePaint.setAntiAlias(true);
@@ -42,6 +45,13 @@ public class SecondPieChartView extends View {
         sliceBorder.setDither(true);
         sliceBorder.setStyle(Style.STROKE);
         sliceBorder.setColor(Color.BLACK);
+
+        axisBars = new Paint();
+        axisBars.setAntiAlias(true);
+        axisBars.setDither(true);
+        axisBars.setStyle(Style.FILL);
+        axisBars.setColor(Color.DKGRAY);
+
     }
 
     @Override
@@ -52,6 +62,29 @@ public class SecondPieChartView extends View {
             int endBottom = getWidth();
             int endRight = endBottom; // To make this an equal square
             // Create the box
+            int barHeight = getHeight();
+            int gapBars = datapoints.length + 1;
+            int gap = (getWidth() / 5) / gapBars;
+            int barWidth = (getWidth() - (getWidth() / 5)) / datapoints.length;
+
+            int majorIncrement = (getHeight() -6) / 5;
+            int minorIncrement = majorIncrement /2;
+
+            canvas.drawRect(0, 0, 6, getHeight(), axisBars);
+            canvas.drawRect(0, getHeight()-6,getHeight()-6, getWidth(), axisBars);
+            canvas.drawRect(0, 0,22, 6 ,axisBars);
+            canvas.drawRect(0, majorIncrement,22, majorIncrement+6 ,axisBars);
+            canvas.drawRect(0, majorIncrement*2,22, (majorIncrement * 2)+6 ,axisBars);
+            canvas.drawRect(0, majorIncrement*3,22, (majorIncrement * 3)+6 ,axisBars);
+            canvas.drawRect(0, majorIncrement*4,22, (majorIncrement * 4)+6 ,axisBars);
+
+            canvas.drawRect(0, minorIncrement,15, minorIncrement+6 ,axisBars);
+            canvas.drawRect(0, majorIncrement + minorIncrement,15, majorIncrement + (minorIncrement+6) ,axisBars);
+            canvas.drawRect(0, (majorIncrement * 2) + minorIncrement,15, (majorIncrement * 2) + (minorIncrement+6) ,axisBars);
+            canvas.drawRect(0, (majorIncrement * 3) + minorIncrement,15, (majorIncrement * 3) + (minorIncrement+6) ,axisBars);
+            canvas.drawRect(0, (majorIncrement * 4)+ minorIncrement,15, (majorIncrement * 4) + (minorIncrement+6) ,axisBars);
+
+            startLeft += gap + 10;
 
             rectf = new RectF(startLeft, startTop, endRight, endBottom); // Creating
             // the
@@ -75,13 +108,22 @@ public class SecondPieChartView extends View {
                 else
                     slicePaint.setAlpha(255);
 
-                canvas.drawArc(rectf, sliceStartPoint, scaledValues[i], true, slicePaint); // Draw slice
-                canvas.drawArc(rectf, sliceStartPoint, scaledValues[i], true, sliceBorder);
-                sliceStartPoint += scaledValues[i]; // Update starting point of
+                float top = (barHeight / 100) * (100 - scaledValues[i]);
+                int right = startLeft + barWidth;
+
+                canvas.drawRect(startLeft, top, right, endBottom -6, slicePaint);
+                canvas.drawRect(startLeft, top, right, endBottom -6, sliceBorder);
+
+                startLeft = right + gap;
+                //canvas.drawArc(rectf, sliceStartPoint, scaledValues[i], true, slicePaint); // Draw slice
+                //canvas.drawArc(rectf, sliceStartPoint, scaledValues[i], true, sliceBorder);
+                //sliceStartPoint += scaledValues[i]; // Update starting point of
                 // the next slice
 
+
+
                 // Add DataColorSet object to return after draw
-                dataColorSet[i] = new DataColorSet( Integer.toHexString(sliceClrs[i]), datapoints[i], names[i] );
+                dataColorSet[i] = new DataColorSet( Integer.toHexString(sliceClrs[i]), scaledValues[i], names[i] );
             }
 
             // Build and get what's drawn on the canvas as a bitmap
@@ -90,7 +132,7 @@ public class SecondPieChartView extends View {
 
             // After the drawing has been done use your Callback's
             // onDrawFinished() method
-            callback.onDrawFinised2(dataColorSet);
+            callback.onDrawFinishedBar(dataColorSet);
         }
     }
 
@@ -150,7 +192,7 @@ public class SecondPieChartView extends View {
                 // of
 
                 // Call our slice click here because the slice has been found
-                callback.onSliceClick2(dataColorSet[i]);
+                callback.onBarClick(dataColorSet[i]);
 
                 break;
             }
@@ -162,7 +204,7 @@ public class SecondPieChartView extends View {
 
         float total = getTotal(); // Total all values supplied to the chart
         for (int i = 0; i < this.datapoints.length; i++) {
-            scaledValues[i] = (this.datapoints[i] / total) * 360; // Scale each
+            scaledValues[i] = (this.datapoints[i] / total) * 100; // Scale each
             // value
         }
         return scaledValues;
@@ -186,9 +228,9 @@ public class SecondPieChartView extends View {
 
     // Our Callback interface
     public interface Callback {
-        public void onDrawFinised2(DataColorSet[] data);
+        public void onDrawFinishedBar(DataColorSet[] data);
 
-        public void onSliceClick2(DataColorSet data);
+        public void onBarClick(DataColorSet data);
 
     }
 

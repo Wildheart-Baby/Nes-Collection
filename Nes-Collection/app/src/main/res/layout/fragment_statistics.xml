@@ -108,8 +108,8 @@
 
                 <uk.co.bossdogsoftware.nes_collection.data.PieChartView
                     android:id="@+id/pie_chart"
-                    android:layout_width="175dp"
-                    android:layout_height="175dp"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
                     android:layout_below="@+id/lblPieChart"
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -124,9 +124,9 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="false"
                     android:layout_centerHorizontal="true"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
                     android:background="#000000"
                     android:gravity="center"
                     android:orientation="horizontal"
@@ -134,7 +134,7 @@
                     android:paddingTop="1dp"
                     android:paddingRight="1dp"
                     android:paddingBottom="1dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/pie_chart"
                     app:layout_constraintTop_toBottomOf="@+id/lblPieChart">
 
                     <LinearLayout
@@ -164,6 +164,7 @@
                     android:id="@+id/lblAll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     android:text="@string/GamesCosts"
                     android:textSize="14sp"
                     android:textStyle="bold"
@@ -218,10 +219,10 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <uk.co.bossdogsoftware.nes_collection.data.SecondPieChartView
-                    android:id="@+id/pie_chart2"
-                    android:layout_width="175dp"
-                    android:layout_height="175dp"
+                <uk.co.bossdogsoftware.nes_collection.data.BarChartView
+                    android:id="@+id/bar_chart"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
                     android:layout_below="@+id/lblPieChart2"
                     android:layout_marginTop="8dp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -230,18 +231,19 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/pie_chart2"
+                    android:layout_alignTop="@+id/bar_chart"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginRight="16dp"
+                    android:layout_marginStart="40dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="24dp"
                     android:background="#000000"
                     android:orientation="horizontal"
                     android:paddingLeft="1dp"
                     android:paddingTop="1dp"
                     android:paddingRight="1dp"
                     android:paddingBottom="1dp"
-                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/bar_chart"
                     app:layout_constraintTop_toBottomOf="@+id/lblPieChart2">
 
                     <LinearLayout
@@ -262,7 +264,7 @@
                 android:layout_below="@+id/rlPieChart2"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentLeft="true"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/rlPieChart2">
