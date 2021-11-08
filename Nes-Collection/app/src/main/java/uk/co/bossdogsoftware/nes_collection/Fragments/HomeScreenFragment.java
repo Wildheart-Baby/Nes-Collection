@@ -217,8 +217,8 @@ public class HomeScreenFragment extends Fragment {
 
             case R.id.action_search:
                 getParentFragmentManager().beginTransaction()
-                        .add(R.id.container, SearchFragment.newInstance("", ""), "gamesList")
-                        .addToBackStack(null)
+                        .add(R.id.container, SearchFragment.newInstance("", ""), "searchFragment")
+                        .addToBackStack("searchFragment")
                         .commit();
                 return true;
 

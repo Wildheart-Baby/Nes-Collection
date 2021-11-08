@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -36,6 +37,8 @@ public class SearchBoxFragment extends Fragment {
     TextView gameName, searchTerm, seconddd;
     Button ok, cancel;
     CheckBox all;
+
+    FragmentManager frg;
 
     ArrayAdapter<CharSequence> adapter, search;
 
@@ -117,7 +120,25 @@ public class SearchBoxFragment extends Fragment {
             }
         });
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {//read the quantity from the quantity text box and adds one to the total
+                Fragment f = getActivity().getSupportFragmentManager().findFragmentByTag("searchFragment");
+                FragmentManager manager = getActivity().getSupportFragmentManager();
+
+                /*getParentFragmentManager().beginTransaction()
+                        .remove(f)
+                        .commit();*/
+
+                       manager.beginTransaction()
+                        .remove(f)
+                       .commit();
+                        manager.popBackStack();
+            }
+        });
+
         fieldname = (String) field.getSelectedItem();
+        fieldname = fieldname.toLowerCase();
         searchterm = searchTerm.getText().toString();
 
         mListener.onReceiveSearch(fieldname, searchterm);
