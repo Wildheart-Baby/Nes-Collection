@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -28,9 +27,7 @@ import uk.co.bossdogsoftware.nes_collection.R;
 /**
  * Created by Wildheart on 31/07/2016.
  */
-public class NesPagerAdapter extends FragmentStatePagerAdapter {
-
-    public static String licensed;
+public class GamePagerAdapter extends FragmentStatePagerAdapter {
 
     Context context; //sets up a variable as context
     ArrayList<AllGameItems> gamesList; //sets up  an array called shoppingList
@@ -42,15 +39,15 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
     Menu menu;
     FragmentManager frg;
 
-    AllGameItems nesListItems;
+    AllGameItems gameListItems;
 
-    /*public NesPagerAdapter(Context context, ArrayList<AllGameItems> list) {
+    /*public GamePagerAdapter(Context context, ArrayList<AllGameItems> list) {
         //super();
         this.context = context;//sets up the context for the class
         gamesList = list; //sets up a variable as a list
     }*/
 
-    public NesPagerAdapter(FragmentManager fm, Context context, ArrayList<AllGameItems> list, int title) {
+    public GamePagerAdapter(FragmentManager fm, Context context, ArrayList<AllGameItems> list, int title) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         this.context = context;//sets up the context for the class
         gamesList = list; //sets up a variable as a list
@@ -79,7 +76,7 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Object instantiateItem(final ViewGroup container, int position) {
 
-        nesListItems = gamesList.get(position);
+        gameListItems = gamesList.get(position);
         LayoutInflater inflater = (LayoutInflater) context
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE); //sets up the layout inflater
         View convertView = inflater.inflate(R.layout.fragment_games_detail, null); //use the layout to diaplay the array data
@@ -118,48 +115,44 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
         ImageView uk = convertView.findViewById(R.id.imgUK);
         ImageView us = convertView.findViewById(R.id.imgUS);
 
-        synopsis.setText(nesListItems.getSynopsis());
-        publisher.setText(nesListItems.getPublisher());
-        genre.setText(nesListItems.getGenre());
-        subgenre.setText(nesListItems.getSubgenre());
-        gamename.setText(nesListItems.getName()); //sets the textview name with data from name
-        developer.setText(nesListItems.getDeveloper());
-        year.setText(nesListItems.getYear());
+        synopsis.setText(gameListItems.getSynopsis());
+        publisher.setText(gameListItems.getPublisher());
+        genre.setText(gameListItems.getGenre());
+        subgenre.setText(gameListItems.getSubgenre());
+        gamename.setText(gameListItems.getName()); //sets the textview name with data from name
+        developer.setText(gameListItems.getDeveloper());
+        year.setText(gameListItems.getYear());
         //Log.d("Pixo", "Item id: " + idforgame);
-        gameimage = nesListItems.getImage();
-        owned = nesListItems.getOwned();
-        carttrue = nesListItems.getCart();
-        boxtrue = nesListItems.getBox();
-        favourite = nesListItems.getFavourite();
-        manualtrue = nesListItems.getManual();
+        gameimage = gameListItems.getImage();
+        owned = gameListItems.getOwned();
+        carttrue = gameListItems.getCart();
+        boxtrue = gameListItems.getBox();
+        favourite = gameListItems.getFavourite();
+        manualtrue = gameListItems.getManual();
         coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
         cover.setImageResource(coverid);
 
         if (owned == 0){Owned.setVisibility(View.GONE);}
 
-        flagAustralia = nesListItems.getAustralia();
-        flagAustria = nesListItems.getAustria();
-        flagBenelux = nesListItems.getBenelux();
-        flagDenmark = nesListItems.getDenmark();
-        flagFinland = nesListItems.getFinland();
-        flagFrance = nesListItems.getFrance();
-        flagGermany = nesListItems.getGermany();
-        flagGreece = nesListItems.getGreece();
-        flagIreland = nesListItems.getIreland();
-        flagItaly = nesListItems.getItaly();
-        flagNorway = nesListItems.getNorway();
-        flagPoland = nesListItems.getPoland();
-        flagPortugal = nesListItems.getPortugal();
+        flagAustralia = gameListItems.getAustralia();
+        flagAustria = gameListItems.getAustria();
+        flagBenelux = gameListItems.getBenelux();
+        flagDenmark = gameListItems.getDenmark();
+        flagFinland = gameListItems.getFinland();
+        flagFrance = gameListItems.getFrance();
+        flagGermany = gameListItems.getGermany();
+        flagGreece = gameListItems.getGreece();
+        flagIreland = gameListItems.getIreland();
+        flagItaly = gameListItems.getItaly();
+        flagNorway = gameListItems.getNorway();
+        flagPoland = gameListItems.getPoland();
+        flagPortugal = gameListItems.getPortugal();
         //flagScandinavia = nesListItems.getScandinavia();
-        flagSweden = nesListItems.getSweden();
-        flagSwitzerland = nesListItems.getSwitzerland();
-        flagSpain = nesListItems.getSpain();
-        flagUK = nesListItems.getUK();
-        flagUS = nesListItems.getUS();
-
-        /*Log.d("Pixo-flag", "German: "+flagGermany);
-        Log.d("Pixo-flag", "UK: "+flagUK);
-        Log.d("Pixo-flag", "US: "+flagUS);*/
+        flagSweden = gameListItems.getSweden();
+        flagSwitzerland = gameListItems.getSwitzerland();
+        flagSpain = gameListItems.getSpain();
+        flagUK = gameListItems.getUK();
+        flagUS = gameListItems.getUS();
 
         if (flagAustralia == 1){australia.setVisibility(View.VISIBLE); }
         if (flagAustria == 1){austria.setVisibility(View.VISIBLE); }
@@ -315,24 +308,18 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
 
         publisher.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                String pub;
-                if(titles==0){pub = "eu_publisher";}else{ pub = "us_publisher";}
                 loadInformation(pub,  publisher.getText().toString());
             }
         });
 
         developer.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                String pub;
-                if(titles==0){pub = "eu_developer";}else{ pub = "us_developer";}
                 loadInformation("developer",  developer.getText().toString());
             }
         });
 
         year.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                String pub;
-                if(titles==0){pub = "eu_year";}else{ pub = "us_year";}
                 loadInformation("year", year.getText().toString());
             }
         });
@@ -354,14 +341,6 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
 
         return convertView;
     }
-
-    /*private void changeFragment(){
-        //Fragment frg = context.g
-        getParentFragmentManager().beginTransaction()
-                .add(R.id.container, GamesDetailFragment.newInstance(0, arg2), "gamesDetail")
-                .addToBackStack(null)
-                .commit();
-    }*/
 
     public void openFragment(String countrySelection){
         Fragment f = frg.findFragmentByTag("gamesList");
@@ -397,12 +376,12 @@ public class NesPagerAdapter extends FragmentStatePagerAdapter {
     public void setPrimaryItem(ViewGroup container,
                                int position,
                                Object object){
-        nesListItems = gamesList.get(position);
-        GamesDetailFragment.idforgame = (nesListItems.getItemId());
-        GamesDetailFragment.favourited = (nesListItems.getFavourite());
-        GamesDetailFragment.ownedgame = (nesListItems.getOwned());
+        gameListItems = gamesList.get(position);
+        GamesDetailFragment.idforgame = (gameListItems.getItemId());
+        GamesDetailFragment.favourited = (gameListItems.getFavourite());
+        GamesDetailFragment.ownedgame = (gameListItems.getOwned());
         //GamesDetailFragment.gamesname = (nesListItems.getName());
-        GamesDetailFragment.wishlist = (nesListItems.getWishlist());
-        GamesDetailFragment.finished = (nesListItems.getFinished());
+        GamesDetailFragment.wishlist = (gameListItems.getWishlist());
+        GamesDetailFragment.finished = (gameListItems.getFinished());
     }
 }

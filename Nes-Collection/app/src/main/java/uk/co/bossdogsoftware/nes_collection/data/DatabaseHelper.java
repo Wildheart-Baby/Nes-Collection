@@ -91,7 +91,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public ArrayList<GameListItems> getGameslist(String games){
+    /*public ArrayList<GameListItems> getGameslist(String games){
         ArrayList<GameListItems> gamesList = new ArrayList<>();
         gamesList.clear();
 
@@ -190,7 +190,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             c.close();//close the cursor
         }
         return gamesList;
-    }
+    }*/
 
     public ArrayList<AllGameItems> getGames(String games) {
         ArrayList<AllGameItems> gamesList = new ArrayList<>();
@@ -363,7 +363,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     public String regionFlag(){//selects the region from the database
-        String flagid ="";
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
 
@@ -625,7 +624,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
                     gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
                     gameListItems.setName(c.getString(c.getColumnIndex(thename)));
-                    gamename = (c.getString(c.getColumnIndex(thename)));
                     gameListItems.setPublisher(c.getString(c.getColumnIndex(thePublisher)));
                     gameListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                     gameListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
@@ -690,7 +688,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                     gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
                     gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
                     gameListItems.setName(c.getString(c.getColumnIndex(thename)));
-                    gamename = (c.getString(c.getColumnIndex(thename)));
                     gameListItems.setPublisher(c.getString(c.getColumnIndex(thePublisher)));
                     gameListItems.setOwned(c.getInt(c.getColumnIndex("owned")));
                     gameListItems.setCartPalA(c.getInt(c.getColumnIndex("pal_a_cart")));
@@ -1031,8 +1028,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         gamesList.clear();
 
         String iType = InformationType;
-
-        //Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
 
         GameSettings gSettings = getSettings();
 

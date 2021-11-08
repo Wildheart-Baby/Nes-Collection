@@ -31,23 +31,6 @@ public class AllGamesViewModel extends AndroidViewModel {
         viewType = dbh.viewType();
     }
 
-    /*public ArrayList<GameListItems> ConvertToLightList(){
-
-        allGames = dbh.getGames("all");
-        Iterator<AllGameItems> itr = allGames.iterator();
-        while (itr.hasNext()) {
-            Log.d("pixo-time2","items for list: "+ times);
-            GameListItems gameListItems = new GameListItems();
-            gameListItems.setGroup(itr.next().group);
-            gameListItems.setItemId(itr.next()._id);//set the array with the data from the database
-            gameListItems.setImage(itr.next().image);
-            gameListItems.setName(itr.next().name);
-            gameListItems.setPublisher(itr.next().publisher);
-            gamesList.add(gameListItems);//add items to the arraylist
-        }
-        return gamesList;
-    }*/
-
     public ArrayList<AllGameItems> GetGames(String games){
         gamesList = dbh.getGames(games);
         return gamesList;

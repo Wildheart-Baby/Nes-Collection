@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.bossdogsoftware.nes_collection.activities.About;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesPagerAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.GamePagerAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +30,7 @@ public class GamesDetailFragment extends Fragment {
     AllGamesViewModel viewM;
     //ArrayList<AllGameItems> gameList;
     ViewPager viewPager;
-    public static NesPagerAdapter gamesAdapter;
+    public static GamePagerAdapter gamesAdapter;
     public static int idforgame, favourited, ownedgame, wishlist, finished, listPos;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -87,7 +87,7 @@ public class GamesDetailFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_games_detail_pager, container, false);
 
         viewPager = v.findViewById(R.id.pager);
-        gamesAdapter = new NesPagerAdapter(this.getParentFragmentManager(), getContext(), viewM.gamesList, viewM.GetTitles());
+        gamesAdapter = new GamePagerAdapter(this.getParentFragmentManager(), getContext(), viewM.gamesList, viewM.GetTitles());
         viewPager.setAdapter(gamesAdapter);
         viewPager.setCurrentItem(mParam2);
         listPos = viewPager.getCurrentItem();

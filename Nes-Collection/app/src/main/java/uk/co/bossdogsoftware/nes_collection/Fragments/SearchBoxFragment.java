@@ -126,14 +126,10 @@ public class SearchBoxFragment extends Fragment {
                 Fragment f = getActivity().getSupportFragmentManager().findFragmentByTag("searchFragment");
                 FragmentManager manager = getActivity().getSupportFragmentManager();
 
-                /*getParentFragmentManager().beginTransaction()
-                        .remove(f)
-                        .commit();*/
-
-                       manager.beginTransaction()
-                        .remove(f)
-                       .commit();
-                        manager.popBackStack();
+               manager.beginTransaction()
+                .remove(f)
+               .commit();
+                manager.popBackStack();
             }
         });
 
@@ -142,18 +138,6 @@ public class SearchBoxFragment extends Fragment {
         searchterm = searchTerm.getText().toString();
 
         mListener.onReceiveSearch(fieldname, searchterm);
-        /*namesearch.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                searchterm = (String) namesearch.getSelectedItem();
-                sql = "select * from eu where " + fieldname + " = '" + searchterm + "';";
-                Log.d("'pixo", sql);
-            }
-
-            public void onNothingSelected(
-                    AdapterView<?> adapterView) {
-            }
-        });*/
-        // Inflate the layout for this fragment
         return v;
     }
 
