@@ -229,7 +229,7 @@ public class StatisticsDatabaseHelper extends SQLiteOpenHelper {
                 finishedGames += gamesList.get(g).getFinished();
 
                 if (gamesList.get(g).getGenre().equals(GenreItems.get(i).getGName())){
-                    Log.d("pixo", "game list genre: " + gamesList.get(g).getGenre() + " genre list genre: " + GenreItems.get(i).getGName());
+                    //Log.d("pixo", "game list genre: " + gamesList.get(g).getGenre() + " genre list genre: " + GenreItems.get(i).getGName());
                     if (gamesList.get(g).getCartPalA() == 8783) {
                         theCount = GenreItems.get(i).getPalAOwned();
                         theCount ++;

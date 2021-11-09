@@ -1,6 +1,7 @@
 package uk.co.bossdogsoftware.nes_collection.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -308,7 +309,7 @@ public class GamePagerAdapter extends FragmentStatePagerAdapter {
 
         publisher.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                loadInformation(pub,  publisher.getText().toString());
+                loadInformation("publisher",  publisher.getText().toString());
             }
         });
 
@@ -344,26 +345,38 @@ public class GamePagerAdapter extends FragmentStatePagerAdapter {
 
     public void openFragment(String countrySelection){
         Fragment f = frg.findFragmentByTag("gamesList");
+        Fragment g = frg.findFragmentByTag("gamesDetail");
         frg.beginTransaction()
                 .remove(f)
                 .commit();
-        frg.popBackStack();
+        frg.beginTransaction()
+                .remove(g)
+                .commit();
+        frg.popBackStack("gamesDetail",frg.POP_BACK_STACK_INCLUSIVE);
+        frg.popBackStack("gamesList",frg.POP_BACK_STACK_INCLUSIVE);
         frg.beginTransaction()
                 .add(R.id.container, SpecificCountryFragment.newInstance("", countrySelection), "gamesList")
                 .addToBackStack("gamesList")
                 .commit();
+        Log.d("pixo", "Backstack count:"+frg.getBackStackEntryCount());
     }
 
     public void loadInformation(String InformationType, String Query){
         Fragment f = frg.findFragmentByTag("gamesList");
+        Fragment g = frg.findFragmentByTag("gamesDetail");
         frg.beginTransaction()
                 .remove(f)
                 .commit();
-        frg.popBackStack();
+        frg.beginTransaction()
+                .remove(g)
+                .commit();
+        frg.popBackStack("gamesDetail",frg.POP_BACK_STACK_INCLUSIVE);
+        frg.popBackStack("gamesList",frg.POP_BACK_STACK_INCLUSIVE);
         frg.beginTransaction()
                 .add(R.id.container, SpecificInformationFragment.newInstance(InformationType, Query), "gamesList")
                 .addToBackStack("gamesList")
                 .commit();
+        Log.d("pixo", "Backstack count:"+frg.getBackStackEntryCount());
     }
 
     @Override

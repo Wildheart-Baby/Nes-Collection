@@ -14,6 +14,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.MenuItem;
 
 import uk.co.bossdogsoftware.nes_collection.Fragments.AllGamesFragment;
@@ -76,19 +77,20 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             //super.onBackPressed();
-            /*FragmentManager manager = getSupportFragmentManager();
+            FragmentManager manager = getSupportFragmentManager();
+            Log.d("pixo", "Backstack count:"+manager.getBackStackEntryCount());
             //manager.popBackStackImmediate()
             if (manager.getBackStackEntryCount() > 1 ) {
                 manager.popBackStackImmediate();
-            }*/
-            int count = getSupportFragmentManager().getBackStackEntryCount();
+            }
+            /*int count = getSupportFragmentManager().getBackStackEntryCount();
 
             if (count == 0) {
                 super.onBackPressed();
                 //additional code
             } else {
                 getSupportFragmentManager().popBackStack();
-            }
+            }*/
         }
 
     }

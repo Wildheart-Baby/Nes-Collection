@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -105,11 +106,9 @@ public class AllGamesFragment extends Fragment {
         gamelistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on clicking a shopping list
-
-                //GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 getParentFragmentManager().beginTransaction()
                         .add(R.id.container, GamesDetailFragment.newInstance(0, arg2), "gamesDetail")
-                        .addToBackStack("gamesDetail"+mParam2)
+                        .addToBackStack("gamesDetail")
                         .commit();
             }
         });
@@ -117,7 +116,6 @@ public class AllGamesFragment extends Fragment {
         gamelistView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {//on long press on an item
-
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.container, EditGameFragment.newInstance(arg2, viewM.gamesList.get(arg2).getItemId()), "editGame")
                         .addToBackStack(null)

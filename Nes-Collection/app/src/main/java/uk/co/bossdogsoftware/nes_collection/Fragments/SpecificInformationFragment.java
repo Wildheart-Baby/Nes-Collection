@@ -113,7 +113,7 @@ public class SpecificInformationFragment extends Fragment {
                 //GameListItems gameListItems = (GameListItems) arg0.getItemAtPosition(arg2);//read the item at the list position that has been clicked
                 getParentFragmentManager().beginTransaction()
                         .add(R.id.container, GamesDetailFragment.newInstance(0, arg2), "gamesDetail")
-                        .addToBackStack("gamesDetail"+mParam2)
+                        .addToBackStack("gamesDetail")
                         .commit();
             }
         });

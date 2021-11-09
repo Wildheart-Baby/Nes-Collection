@@ -5,7 +5,9 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -86,21 +88,18 @@ public class HomeScreenFragment extends Fragment {
 
         AllGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //ChangeFragment(AllGamesFragment.newInstance());
                 getParentFragmentManager().beginTransaction()
                         .add(R.id.container, AllGamesFragment.newInstance(), "gamesList")
                         .addToBackStack("gamesList")
                         .commit();
-                //ChangeFragment(NeededGamesFragment.newInstance(), "allGames");
             }
         });
 
         NeededGames.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //ChangeFragment(AllGamesFragment.newInstance());
                 getParentFragmentManager().beginTransaction()
                         .add(R.id.container, NeededGamesFragment.newInstance(), "gamesList")
-                        .addToBackStack(null)
+                        .addToBackStack("gamesList")
                         .commit();
                 //ChangeFragment(NeededGamesFragment.newInstance(), "neededGames");
             }
@@ -111,7 +110,7 @@ public class HomeScreenFragment extends Fragment {
                 //ChangeFragment(AllGamesFragment.newInstance());
                 getParentFragmentManager().beginTransaction()
                         .add(R.id.container, OwnedGamesFragment.newInstance(), "gamesList")
-                        .addToBackStack(null)
+                        .addToBackStack("gamesList")
                         .commit();
                 //ChangeFragment(NeededGamesFragment.newInstance(), "neededGames");
             }
