@@ -133,7 +133,7 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
     public void DisplayData(){
         float totalcost = dbh.totalGamesCost();
 
-        double avgCost = Float.valueOf(totalcost / totalNumberOfGames);
+        double avgCost = totalcost / totalNumberOfGames;
         //String avgCst = String.valueOf(avgCost);
         String avgCst = String.format("%.2f", avgCost);
 
@@ -194,8 +194,6 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
     public void onDrawFinished(DataColorSet[] data) {
         // When the chart has finished drawing it will return the colors used
         // and the value along (for our key)
-
-
         if (keyContainer.getChildCount() > 0)
             keyContainer.removeAllViews(); // Empty all views if any found
 
@@ -203,9 +201,9 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
             DataColorSet dataColorSet = data[i];
 
             LinearLayout keyItem = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.key_item, null);
-            LinearLayout colorView = (LinearLayout) keyItem.findViewById(R.id.color);
-            TextView name = (TextView) keyItem.findViewById(R.id.names);
-            TextView valueView = (TextView) keyItem.findViewById(R.id.value);
+            LinearLayout colorView = keyItem.findViewById(R.id.color);
+            TextView name = keyItem.findViewById(R.id.names);
+            TextView valueView = keyItem.findViewById(R.id.value);
 
             colorView.setBackgroundColor(Color.parseColor("#" + dataColorSet.getColor()));
             name.setText("" + dataColorSet.getName() + "  ");
@@ -241,9 +239,9 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
             DataColorSet dataColorSet = data[i];
 
             LinearLayout keyItem = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.key_item, null);
-            LinearLayout colorView = (LinearLayout) keyItem.findViewById(R.id.color);
-            TextView name = (TextView) keyItem.findViewById(R.id.names);
-            TextView valueView = (TextView) keyItem.findViewById(R.id.value);
+            LinearLayout colorView = keyItem.findViewById(R.id.color);
+            TextView name = keyItem.findViewById(R.id.names);
+            TextView valueView = keyItem.findViewById(R.id.value);
 
             colorView.setBackgroundColor(Color.parseColor("#" + dataColorSet.getColor()));
             name.setText("" + dataColorSet.getName() + "  ");

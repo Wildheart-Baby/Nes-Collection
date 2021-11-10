@@ -144,10 +144,18 @@ public class AllGamesViewModel extends AndroidViewModel {
     }
 
 
-    public String convertLogoTitle(String title){
+    public String convertLogoTitle(String type, String title){
+        switch(type){
+            case "developer":
+            case "publisher":
+            case "year":
+                title = type;
+                break;
+        }
         title = title.toLowerCase();
         title = title.replaceAll("-","_");
         title = title.replaceAll(" ", "_");
+
         return title;
     }
 

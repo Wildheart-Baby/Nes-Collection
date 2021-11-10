@@ -136,7 +136,7 @@ public class SpecificInformationFragment extends Fragment {
     private void SetTitles(){
         getActivity().setTitle(" " + mParam1.substring(0, 1).toUpperCase() + mParam1.substring(1) + ": ");
         ((AppCompatActivity) getActivity()).getSupportActionBar().setSubtitle(" " + viewM.SpecificTitle(mParam2));
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(viewM.convertLogoTitle(mParam2), "drawable", getContext().getPackageName()));
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setLogo(getContext().getResources().getIdentifier(viewM.convertLogoTitle(mParam1, mParam2), "drawable", getContext().getPackageName()));
     }
 
     @Override
