@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -761,20 +762,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
 
     public ArrayList<GameItemsIndex> GetShelfOrderIndex(){
+        int palAcart, palBcart, uscart, shelf, shelfsize, posInList, shelfPos;
         ArrayList<GameItemsIndex> indexList = new ArrayList<>();
         indexList.clear();
-        int indexpos = 0;
 
-        GameSettings g = new GameSettings();
-        regionCode = g.getRegionCode();
-        orderby = g.getOrderedBy();
-        titles = g.getUsTitles();
+        Boolean newShelf = true;
+        shelfsize = 0;
+        thename = "";
+        theimage = "";
+        shelfPos = 0;
 
-        if (titles == 0){
-            groupHeader = "groupheader";
-        } else if (titles == 1){
-            groupHeader = "us_groupheader";
-        }
+        posInList = -1;
+        shelf = 1;
+
+        GameSettings gSettings = getSettings();
+        regionCode = gSettings.getRegionCode();
+        orderby = gSettings.getOrderedBy();
+        titles = gSettings.getUsTitles();
+        shelfsize = gSettings.getShelfSize();
 
         searchQuery = SqlStatement.GamesSql("owned", regionCode, license, ordering, orderby);
 
@@ -784,24 +789,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (c.moveToFirst()) {//move to the first record
             while ( !c.isAfterLast() ) {//while there are records to read
                 GameItemsIndex indexListItems = new GameItemsIndex();
-                currentgroup = c.getString(c.getColumnIndex(groupHeader));
 
-                if(!currentgroup.equals(prevgroup)){
-                    indexListItems.setItemid(indexpos);
-                    indexListItems.setLetter(c.getString(c.getColumnIndex(groupHeader)));
-                    indexList.add(indexListItems);
-                    indexpos = indexpos +1;
-                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
+                palAcart = c.getInt(c.getColumnIndex("pal_a_cart"));
+                palBcart = c.getInt(c.getColumnIndex("pal_b_cart"));
+                uscart = c.getInt(c.getColumnIndex("ntsc_cart"));
+
+                if (palAcart == 8783){posInList++; shelfPos ++;}
+                if (palBcart == 8783){posInList++; shelfPos ++;}
+                if (uscart == 8783){posInList++; shelfPos ++;}
+
+                if(newShelf){
+                    indexListItems.setLetter(String.valueOf(shelf));
+                    indexListItems.setItemid(posInList);
+                    indexList.add(indexListItems);//add items to the arraylist
+                    shelf ++;
+                    newShelf = false;
                 }
-                else if(currentgroup.equals(prevgroup)){
-                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
-                    indexpos = indexpos +1;
-                }
-                c.moveToNext();//move to the next record
+
+                if(shelfPos == shelfsize ){shelfPos = 0; newShelf = true;}
+                c.moveToNext();
             }
             c.close();//close the cursor
         }
-
         return indexList;
     }
 
@@ -1319,6 +1328,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 gSettings.setUsTitles(c.getInt(c.getColumnIndex("us_titles")));
                 gSettings.setOrderedBy(c.getInt(c.getColumnIndex("orderedby")));
                 gSettings.setShowCondition(c.getInt(c.getColumnIndex("show_condition")));
+
                 //regionmissingcheck = (c.getString(c.getColumnIndex("region_missing_check")));
                 c.moveToNext();//move to the next record
             }
