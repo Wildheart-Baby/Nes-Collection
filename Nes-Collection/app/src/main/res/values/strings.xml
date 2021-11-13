@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Nes Collection</string>
+    <string name="app_name">Nes Cart Collection Tracker</string>
     <string name="action_settings">Settings</string>
     <string name="action_credits">Credits</string>
     <string name="action_wishlist">Wish list</string>

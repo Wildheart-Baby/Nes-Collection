@@ -23,7 +23,7 @@ public class GameOwnedAdapter extends BaseAdapter {
     public static int screenwidth, showprice;
 
         static class ViewHolder {
-            TextView gamename, ownedcart, ownedbox, ownedmanual, gamecost, gamecost480;
+            TextView gamename, ownedcart, ownedbox, ownedmanual, gamecost;
             ImageView cover, Cart, Box, Manual, cartUs, cartPalA, cartPalB, boxUs, boxPalA, boxPalB, manUs, manPalA, manPalB;
             ImageView owned;
 
