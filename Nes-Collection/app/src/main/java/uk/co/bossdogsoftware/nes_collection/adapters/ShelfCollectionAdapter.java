@@ -88,6 +88,7 @@ public class ShelfCollectionAdapter extends BaseAdapter {
         int coverid=context.getResources().getIdentifier(gameimage, "drawable", context.getPackageName());
         int ownedid;
         holder.cover.setImageResource(coverid);
+        holder.owned.setVisibility(View.GONE);
 
         thegamename = nesListItems.getName();
         l = thegamename.length();

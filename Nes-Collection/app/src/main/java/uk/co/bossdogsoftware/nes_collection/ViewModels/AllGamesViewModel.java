@@ -123,13 +123,13 @@ public class AllGamesViewModel extends AndroidViewModel {
         return title;
     }
 
-    public ArrayList<AllGameItems> GetSpecificGames(String InformationType, String Query){
-        gamesList = dbh.getSpecificSearch(InformationType, Query);
+    public ArrayList<AllGameItems> GetSpecificGames(String InformationType, String Query, String Owned){
+        gamesList = dbh.getSpecificSearch(InformationType, Query, Owned);
         return gamesList;
     }
 
-    public ArrayList<GameItemsIndex> GetSpecificGamesIndex(String InformationType, String Query){
-        indexList = dbh.specificGamesIndex(InformationType, Query);
+    public ArrayList<GameItemsIndex> GetSpecificGamesIndex(String InformationType, String Query, String Owned){
+        indexList = dbh.specificGamesIndex(InformationType, Query, Owned);
         return indexList;
     }
 

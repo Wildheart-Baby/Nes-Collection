@@ -373,7 +373,7 @@ public class GamePagerAdapter extends FragmentStatePagerAdapter {
         frg.popBackStack("gamesDetail",frg.POP_BACK_STACK_INCLUSIVE);
         frg.popBackStack("gamesList",frg.POP_BACK_STACK_INCLUSIVE);
         frg.beginTransaction()
-                .add(R.id.container, SpecificInformationFragment.newInstance(InformationType, Query), "gamesList")
+                .add(R.id.container, SpecificInformationFragment.newInstance(InformationType, Query, ""), "gamesList")
                 .addToBackStack("gamesList")
                 .commit();
         Log.d("pixo", "Backstack count:"+frg.getBackStackEntryCount());

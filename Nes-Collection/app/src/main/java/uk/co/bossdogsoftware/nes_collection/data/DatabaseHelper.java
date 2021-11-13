@@ -1023,11 +1023,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return  subtitle;
     }
 
-    public ArrayList<AllGameItems> getSpecificSearch(String InformationType, String Query) {
+    public ArrayList<AllGameItems> getSpecificSearch(String InformationType, String Query, String Owned) {
         ArrayList<AllGameItems> gamesList = new ArrayList<>();
         gamesList.clear();
 
         String iType = InformationType;
+        String owned = "";
 
         GameSettings gSettings = getSettings();
 
@@ -1055,13 +1056,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
              }
         }
 
+        if(Owned.equals("owned")){
+            owned = " and owned = 1 ";
+        }
+
         licensed = SqlStatement.LicensedGames(license);
 
         if(iType.equals("eu_name") | iType.equals("us_name")){
             //select * from eu where eu_name like '%mario%' and (unlicensed = 0 or 1) order by listorder;
-            searchQuery = "select * from eu where " + iType + " like '%" + Query + "%'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
+            searchQuery = "select * from eu where " + iType + " like '%" + Query + "%'" + licensed + owned + " order by " + SqlStatement.ListOrdering(orderby) + "";
         }else{
-            searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
+            searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + owned + " order by " + SqlStatement.ListOrdering(orderby) + "";
         }
 
 
@@ -1204,11 +1209,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return gamesList;
     }
 
-    public ArrayList<GameItemsIndex> specificGamesIndex(String InformationType, String Query){
+    public ArrayList<GameItemsIndex> specificGamesIndex(String InformationType, String Query, String Owned){
         ArrayList<GameItemsIndex> indexList = new ArrayList<>();
         indexList.clear();
         int indexpos = 0;
         String iType = InformationType;
+        String owned = "";
 
         GameSettings gSettings = getSettings();
         license = gSettings.getLicensedOrNot();
@@ -1231,11 +1237,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             }
         }
 
+        if(Owned.equals("owned")){
+            owned = " and owned = 1 ";
+        }
+
         if(iType.equals("eu_name") | iType.equals("us_name")){
             //select * from eu where eu_name like '%mario%' and (unlicensed = 0 or 1) order by listorder;
-            searchQuery = "select * from eu where " + iType + " like '%" + Query + "%'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
+            searchQuery = "select * from eu where " + iType + " like '%" + Query + "%'" + licensed + owned + " order by " + SqlStatement.ListOrdering(orderby) + "";
         }else{
-            searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";
+            searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + owned + " order by " + SqlStatement.ListOrdering(orderby) + "";
         }
 
         //searchQuery = "select * from eu where " + iType + " = '" + Query + "'" + licensed + " order by " + SqlStatement.ListOrdering(orderby) + "";

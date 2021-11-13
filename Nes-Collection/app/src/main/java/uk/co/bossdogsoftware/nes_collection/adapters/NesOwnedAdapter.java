@@ -124,11 +124,11 @@ public class NesOwnedAdapter  extends BaseAdapter {
                     usmanuallist);
 
             if(ownedCart == 0){holder.Cart.setAlpha(0.25f);}
-            else if (ownedCart == 1){holder.Cart.setVisibility(View.VISIBLE);}
+            else if (ownedCart == 1){holder.Cart.setAlpha(1f);}
             if(ownedBox == 0){holder.Box.setAlpha(0.25f);}
-            else if(ownedBox == 1){holder.Box.setVisibility(View.VISIBLE);}
+            else if(ownedBox == 1){holder.Cart.setAlpha(1f);}
             if(ownedManual == 0){holder.Manual.setAlpha(0.25f);}
-            else  if(ownedManual == 1){holder.Manual.setVisibility(View.VISIBLE);}
+            else  if(ownedManual == 1){holder.Cart.setAlpha(1f);}
 
             int blankId = context.getResources().getIdentifier("blank_flag_small", "drawable", context.getPackageName());
             int palAId = context.getResources().getIdentifier("pal_a_smallest", "drawable", context.getPackageName());

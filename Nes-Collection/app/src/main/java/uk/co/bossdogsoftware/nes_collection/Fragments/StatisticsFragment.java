@@ -220,7 +220,7 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
     public void onSliceClick(DataColorSet data) {
             frg = getParentFragmentManager();
             frg.beginTransaction()
-                    .add(R.id.container, SpecificInformationFragment.newInstance("genre", data.getName()), "gamesList")
+                    .add(R.id.container, SpecificInformationFragment.newInstance("genre", data.getName(), "owned") , "gamesList")
                     .addToBackStack("gamesList")
                     .commit();
 
