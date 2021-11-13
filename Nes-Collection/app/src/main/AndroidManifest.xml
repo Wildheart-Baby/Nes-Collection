@@ -28,12 +28,6 @@
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name="uk.co.bossdogsoftware.nes_collection.activities.Search"
-            android:label="@string/title_activity_search"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
-
-        <activity
             android:name="uk.co.bossdogsoftware.nes_collection.activities.About"
             android:label="@string/title_activity_about"
             android:screenOrientation="portrait"

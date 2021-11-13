@@ -17,7 +17,7 @@ import uk.co.bossdogsoftware.nes_collection.R;
 /**
  * Created by Wildheart on 06/06/2016.
  */
-public class NesCollectionAdapter extends BaseAdapter {
+public class GameCollectionAdapter extends BaseAdapter {
     public static int screenwidth;
     static class ViewHolder {
         TextView gamename;
@@ -36,7 +36,7 @@ public class NesCollectionAdapter extends BaseAdapter {
     int ownedgame, l;
     String test, thegamename;
 
-    public NesCollectionAdapter(Context context, ArrayList<AllGameItems> list) {
+    public GameCollectionAdapter(Context context, ArrayList<AllGameItems> list) {
 
         this.context = context;//sets up the context for the class
         gamesList = list; //sets up a variable as a list

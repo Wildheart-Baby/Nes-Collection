@@ -1,4 +1,4 @@
-package uk.co.bossdogsoftware.nes_collection.data;
+package uk.co.bossdogsoftware.nes_collection.data.statistics;
 
 import android.util.Log;
 

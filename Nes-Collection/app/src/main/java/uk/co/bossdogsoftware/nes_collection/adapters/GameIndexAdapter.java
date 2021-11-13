@@ -16,7 +16,7 @@ import uk.co.bossdogsoftware.nes_collection.R;
  * Created by Wildheart on 11/10/2018.
  */
 
-public class NesIndexAdapter extends BaseAdapter {
+public class GameIndexAdapter extends BaseAdapter {
 
     static class ViewHolder {
         TextView alphabet;
@@ -25,7 +25,7 @@ public class NesIndexAdapter extends BaseAdapter {
     Context context;
     ArrayList<GameItemsIndex> indexList;
 
-    public NesIndexAdapter(Context context, ArrayList<GameItemsIndex> list) {
+    public GameIndexAdapter(Context context, ArrayList<GameItemsIndex> list) {
         this.context = context;//sets up the context for the class
         indexList = list; //sets up a variable as a list
     }

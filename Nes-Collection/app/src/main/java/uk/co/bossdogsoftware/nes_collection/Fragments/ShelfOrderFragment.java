@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesIndexAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.GameIndexAdapter;
 import uk.co.bossdogsoftware.nes_collection.adapters.ShelfCollectionAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameItemsIndex;
@@ -84,7 +84,7 @@ public class ShelfOrderFragment extends Fragment {
         alphaIndex = v.findViewById(R.id.lvAlphaIndex);
         ShelfCollectionAdapter nes = new ShelfCollectionAdapter(getActivity(), gameList);//set up an new list adapter from the arraylist
         gamelistView.setAdapter(nes);//set the listview with the contents of the arraylist
-        alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
+        alphaIndex.setAdapter(new GameIndexAdapter(getContext(), indexList));
 
         alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

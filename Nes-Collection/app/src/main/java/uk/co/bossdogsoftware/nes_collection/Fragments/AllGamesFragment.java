@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -23,11 +22,10 @@ import java.util.ArrayList;
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.bossdogsoftware.nes_collection.activities.About;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesCollectionAdapter;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesIndexAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.GameCollectionAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.GameIndexAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameItemsIndex;
-import uk.co.bossdogsoftware.nes_collection.models.GameListItems;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -88,9 +86,9 @@ public class AllGamesFragment extends Fragment {
 
         gamelistView = v.findViewById(R.id.lvAllGames);
         alphaIndex = v.findViewById(R.id.lvAlphaIndex);
-        //NesCollectionAdapter nes = new NesCollectionAdapter(getContext(), gameList);//set up an new list adapter from the arraylist
-        gamelistView.setAdapter(new NesCollectionAdapter(getContext(), gameList));
-        alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
+        //GameCollectionAdapter nes = new GameCollectionAdapter(getContext(), gameList);//set up an new list adapter from the arraylist
+        gamelistView.setAdapter(new GameCollectionAdapter(getContext(), gameList));
+        alphaIndex.setAdapter(new GameIndexAdapter(getContext(), indexList));
 
         alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

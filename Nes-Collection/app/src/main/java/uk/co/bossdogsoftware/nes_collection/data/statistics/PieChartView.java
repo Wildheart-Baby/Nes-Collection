@@ -1,4 +1,4 @@
-package uk.co.bossdogsoftware.nes_collection.data;
+package uk.co.bossdogsoftware.nes_collection.data.statistics;
 
 /**
  * Created by Wildheart on 22/07/2016.

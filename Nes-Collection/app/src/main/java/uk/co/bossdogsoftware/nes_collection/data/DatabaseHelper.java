@@ -92,106 +92,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    /*public ArrayList<GameListItems> getGameslist(String games){
-        ArrayList<GameListItems> gamesList = new ArrayList<>();
-        gamesList.clear();
 
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor c = db.rawQuery("SELECT * FROM settings", null);//select everything from the database table
-
-        GameSettings gSettings = getSettings();
-
-        regionCode = gSettings.getRegionCode();
-        license = gSettings.getLicensedOrNot();
-        titles = gSettings.getUsTitles();
-        orderby = gSettings.getOrderedBy();
-        groupHeader = gSettings.getGroupHeader();
-        ordering = gSettings.getGameOrdering();
-        currency = gSettings.getCurrency();
-        conditionstatement = gSettings.getShowCondition();
-
-        wherestatement = SqlStatement.Region(regionCode);
-        licensed = SqlStatement.LicensedGames(license);
-
-        if (titles == 0){
-            thename = "eu_name";
-            theimage = "image";
-            thePublisher = "eu_publisher";
-        } else if (titles == 1){
-            thename = "us_name";
-            theimage = "us_image";
-            thePublisher = "us_publisher";
-        }
-
-        switch (games){
-            case "all":
-                searchQuery = "select * from eu where " + wherestatement + licensed + " order by " + orderby +"";
-                //String t = "select * from eu where " + wherestatement + licensed + "";
-                break;
-            case "owned":
-                if (ordering == 0) {
-                    //"SELECT * FROM eu where " + wherestatement + licensed +  "";
-                    //sql = "select * from eu where owned = 1 " + " order by " + orderby +"";
-                    searchQuery = "select * from eu where owned = 1 " + " order by " + orderby +"";}
-                else if(ordering == 1){
-                    //sql = "select * from eu where owned = 1 order by price desc";
-                    searchQuery = "select * from eu where owned = 1 order by price desc";}
-                break;
-            case "needed":
-                searchQuery = "SELECT * FROM eu where cart = 0 and (" + wherestatement + licensed +  ") order by " + orderby +"";
-                break;
-            case "favourites":
-                searchQuery = "SELECT * FROM eu where favourite = 1 " + wherestatement + " order by " + orderby +"";
-                break;
-            case "wishlist":
-                searchQuery = "SELECT * FROM eu where wishlist = 1 " + wherestatement + "order by " + orderby +"";
-                break;
-            case "finished":
-                searchQuery ="SELECT * FROM eu where finished_game = 1 " + wherestatement + "order by " + orderby +"";
-                break;
-            case "search":
-                //searchQuery = SearchResults.searchString + " order by " + orderby;
-                break;
-            case "statsearch":
-                //searchQuery = searchString + " order by " + orderby;
-
-                break;
-        }
-        //d("pixo-time","Got query time: "+ times);
-        c = db.rawQuery(searchQuery, null);
-
-        if (c.moveToFirst()) {//move to the first record
-            while ( !c.isAfterLast() ) {//while there are records to read
-                GameListItems gameListItems = new GameListItems();//creates a new array
-
-                String currentgroup = c.getString(c.getColumnIndex(groupHeader));
-
-                if(!currentgroup.equals(prevgroup)){
-                    gameListItems.setGroup(c.getString(c.getColumnIndex(groupHeader)));
-                    gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                    gameListItems.setName(c.getString(c.getColumnIndex(thename)));
-                    gameListItems.setPublisher(c.getString(c.getColumnIndex(thePublisher)));
-                    gamesList.add(gameListItems);//add items to the arraylist
-                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
-                }
-                else if(currentgroup.equals(prevgroup)){
-                    gameListItems.setGroup("no");
-                    gameListItems.setItemId(c.getInt(c.getColumnIndex("_id")));//set the array with the data from the database
-                    gameListItems.setImage(c.getString(c.getColumnIndex(theimage)));
-                    gameListItems.setName(c.getString(c.getColumnIndex(thename)));
-                    gameListItems.setPublisher(c.getString(c.getColumnIndex(thePublisher)));
-                    gamesList.add(gameListItems);//add items to the arraylist
-                    prevgroup = c.getString(c.getColumnIndex(groupHeader));
-
-                }
-                c.moveToNext();//move to the next record
-            }
-
-            c.close();//close the cursor
-        }
-        return gamesList;
-    }*/
 
     public ArrayList<AllGameItems> getGames(String games) {
         ArrayList<AllGameItems> gamesList = new ArrayList<>();
@@ -560,7 +461,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public ArrayList<AllGameItems> ShelfOrder(){
         int palAcart, palBcart, uscart, pos, shelf, id, rec, shelfsize, posInList, shelfPos;
-        String theimage, thename, name, check, gamename;
+        String theimage, thename, check;
 
         Boolean newShelf = true;
         rec = 0;
@@ -862,12 +763,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 gameListItems.setPalBCost(c.getDouble(c.getColumnIndex("pal_b_cost")));
                 gameListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
                 gameListItems.setOnShelf(c.getInt(c.getColumnIndex("onshelf")));
-                //gameListItems.setEuroOwned(c.getInt(c.getColumnIndex("euro_release")));
-                //gameListItems.setUsOwned(c.getInt(c.getColumnIndex("sa_release")));
-                //gameListItems.setSaOwned(c.getInt(c.getColumnIndex("ntsc_release")));
                 gameListItems.setFavourite(c.getInt(c.getColumnIndex("favourite")));
-                //gameListItems.setPalACost(c.getDouble(c.getColumnIndex("euro_cost")));
-                //gameListItems.setNtscCost(c.getDouble(c.getColumnIndex("ntsc_cost")));
                 gameListItems.setWishlist(c.getInt(c.getColumnIndex("wishlist")));
                 gameListItems.setGameCondition(c.getInt(c.getColumnIndex("condition")));
                 //gameListItems.setGameOwnership(c.getInt(c.getColumnIndex("play_owned")));

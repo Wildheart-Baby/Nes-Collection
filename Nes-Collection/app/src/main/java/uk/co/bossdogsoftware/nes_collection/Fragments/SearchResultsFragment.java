@@ -15,8 +15,8 @@ import java.util.ArrayList;
 
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesCollectionAdapter;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesIndexAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.GameCollectionAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.GameIndexAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameItemsIndex;
 import uk.co.bossdogsoftware.nes_collection.models.GameListItems;
@@ -124,7 +124,7 @@ public class SearchResultsFragment extends Fragment {
     public void searchString(String searchType, String searchString){
         gameList = viewM.GetSpecificGames(searchType, searchString, "");
         indexList = viewM.GetSpecificGamesIndex(searchType, searchString, "");
-        gamelistView.setAdapter(new NesCollectionAdapter(getContext(), gameList));
-        alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
+        gamelistView.setAdapter(new GameCollectionAdapter(getContext(), gameList));
+        alphaIndex.setAdapter(new GameIndexAdapter(getContext(), indexList));
     }
 }

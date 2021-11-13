@@ -22,8 +22,8 @@ import java.util.ArrayList;
 import uk.co.bossdogsoftware.nes_collection.R;
 import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
 import uk.co.bossdogsoftware.nes_collection.activities.About;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesIndexAdapter;
-import uk.co.bossdogsoftware.nes_collection.adapters.NesOwnedAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.GameIndexAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.GameOwnedAdapter;
 import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameItemsIndex;
 
@@ -89,8 +89,8 @@ public class OwnedGamesFragment extends Fragment {
         gamelistView = v.findViewById(R.id.lvAllGames);
         alphaIndex = v.findViewById(R.id.lvAlphaIndex);
 
-        gamelistView.setAdapter(new NesOwnedAdapter(getContext(), gameList, viewM.ShowPrices()));
-        alphaIndex.setAdapter(new NesIndexAdapter(getContext(), indexList));
+        gamelistView.setAdapter(new GameOwnedAdapter(getContext(), gameList, viewM.ShowPrices()));
+        alphaIndex.setAdapter(new GameIndexAdapter(getContext(), indexList));
 
         alphaIndex.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -167,8 +167,7 @@ public class OwnedGamesFragment extends Fragment {
                 return true;
 
             case R.id.action_search:
-                //Intent intent2 = new Intent(this, Search.class);//opens a new screen when the shopping list is clicked
-                //startActivity(intent2);//start the new screen
+
                 return true;
 
             case R.id.action_about:

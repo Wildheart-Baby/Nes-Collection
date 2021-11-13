@@ -11,17 +11,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-
 import uk.co.bossdogsoftware.nes_collection.R;
-import uk.co.bossdogsoftware.nes_collection.data.BarChartView;
-import uk.co.bossdogsoftware.nes_collection.data.DataColorSet;
-import uk.co.bossdogsoftware.nes_collection.data.PieChartView;
+import uk.co.bossdogsoftware.nes_collection.data.statistics.BarChartView;
+import uk.co.bossdogsoftware.nes_collection.data.statistics.DataColorSet;
+import uk.co.bossdogsoftware.nes_collection.data.statistics.PieChartView;
 import uk.co.bossdogsoftware.nes_collection.data.statistics.StatisticsDatabaseHelper;
-import uk.co.bossdogsoftware.nes_collection.models.statistics.GameCostItems;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -200,7 +196,7 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
         for (int i = 0; i < data.length; i++) {
             DataColorSet dataColorSet = data[i];
 
-            LinearLayout keyItem = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.key_item, null);
+            LinearLayout keyItem = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.chart_key_item, null);
             LinearLayout colorView = keyItem.findViewById(R.id.color);
             TextView name = keyItem.findViewById(R.id.names);
             TextView valueView = keyItem.findViewById(R.id.value);
@@ -238,7 +234,7 @@ public class StatisticsFragment extends Fragment implements PieChartView.Callbac
         for (int i = 0; i < data.length; i++) {
             DataColorSet dataColorSet = data[i];
 
-            LinearLayout keyItem = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.key_item, null);
+            LinearLayout keyItem = (LinearLayout) LayoutInflater.from(getActivity()).inflate(R.layout.chart_key_item, null);
             LinearLayout colorView = keyItem.findViewById(R.id.color);
             TextView name = keyItem.findViewById(R.id.names);
             TextView valueView = keyItem.findViewById(R.id.value);

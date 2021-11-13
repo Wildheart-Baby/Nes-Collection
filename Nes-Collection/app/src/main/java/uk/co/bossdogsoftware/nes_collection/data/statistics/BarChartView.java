@@ -1,4 +1,4 @@
-package uk.co.bossdogsoftware.nes_collection.data;
+package uk.co.bossdogsoftware.nes_collection.data.statistics;
 
 /**
  * Created by Wildheart on 22/07/2016.
@@ -11,8 +11,6 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 
 public class BarChartView extends View {

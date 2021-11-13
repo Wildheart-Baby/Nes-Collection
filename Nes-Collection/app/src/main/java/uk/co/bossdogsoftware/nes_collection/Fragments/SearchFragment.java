@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import uk.co.bossdogsoftware.nes_collection.R;
-import uk.co.bossdogsoftware.nes_collection.activities.SearchResults;
 
 /**
  * A simple {@link Fragment} subclass.

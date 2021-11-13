@@ -281,10 +281,10 @@ public class SqlStatement {
                 temp ="SELECT * FROM eu where finished_game = 1 " + Region(region) + "order by " + ListOrdering(listOrder) +"";
                 break;
             case "search":
-                //searchQuery = SearchResults.searchString + " order by " + orderby;
+
                 break;
             case "statsearch":
-                //searchQuery = searchString + " order by " + orderby;
+
                 break;
             case "australia":
                 temp = "SELECT * FROM eu where flag_australia = 1" + LicensedGames(license) + "order by " + ListOrdering(listOrder) + "";

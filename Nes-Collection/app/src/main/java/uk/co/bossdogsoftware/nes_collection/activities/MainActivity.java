@@ -113,8 +113,7 @@ public class MainActivity extends AppCompatActivity
                 return true;
 
             case R.id.action_search:
-                Intent intent2 = new Intent(MainActivity.this, Search.class);//opens a new screen when the shopping list is clicked
-                startActivity(intent2);//start the new screen
+
                 return true;
 
             case R.id.action_about:

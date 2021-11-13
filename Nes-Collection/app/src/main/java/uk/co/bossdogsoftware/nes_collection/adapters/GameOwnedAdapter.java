@@ -18,7 +18,7 @@ import uk.co.bossdogsoftware.nes_collection.R;
 /**
  * Created by Wildheart on 11/06/2016.
  */
-public class NesOwnedAdapter  extends BaseAdapter {
+public class GameOwnedAdapter extends BaseAdapter {
 
     public static int screenwidth, showprice;
 
@@ -37,7 +37,7 @@ public class NesOwnedAdapter  extends BaseAdapter {
         int palAcartlist, palBcartlist, uscartlist, palAboxlist, palBboxlist, usboxlist, palAmanuallist, palBmanuallist, usmanuallist, l, ownedCart, ownedBox, ownedManual;
         double palAcost, palBcost, ntsccost, thegamecost;
 
-        public NesOwnedAdapter(Context context, ArrayList<AllGameItems> list, int showPrices) {
+        public GameOwnedAdapter(Context context, ArrayList<AllGameItems> list, int showPrices) {
 
             this.context = context;//sets up the context for the class
             gamesList = list; //sets up a variable as a list
