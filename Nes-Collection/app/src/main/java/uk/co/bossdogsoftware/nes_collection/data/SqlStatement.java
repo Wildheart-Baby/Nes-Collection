@@ -272,13 +272,13 @@ public class SqlStatement {
                 temp = "SELECT * FROM eu where cart = 0 and (" + Region(region) + LicensedGames(license) +  ") order by " + ListOrdering(listOrder) +"";
                 break;
             case "favourites":
-                temp = "SELECT * FROM eu where favourite = 1 " + Region(region) + " order by " + ListOrdering(listOrder) +"";
+                temp = "SELECT * FROM eu where favourite = 1 and " + Region(region) + " order by " + ListOrdering(listOrder) +"";
                 break;
             case "wishlist":
-                temp = "SELECT * FROM eu where wishlist = 1 " + Region(region) + "order by " + ListOrdering(listOrder) +"";
+                temp = "SELECT * FROM eu where wishlist = 1 and " + Region(region) + "order by " + ListOrdering(listOrder) +"";
                 break;
             case "finished":
-                temp ="SELECT * FROM eu where finished_game = 1 " + Region(region) + "order by " + ListOrdering(listOrder) +"";
+                temp ="SELECT * FROM eu where finished_game = 1 and " + Region(region) + "order by " + ListOrdering(listOrder) +"";
                 break;
             case "search":
 

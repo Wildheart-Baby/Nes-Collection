@@ -147,6 +147,7 @@ public class HomeScreenFragment extends Fragment {
 
         FavouriteGames.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                Log.d("pixo","clicked fav");
                 getParentFragmentManager().beginTransaction()
                         .add(R.id.container, FavouriteGamesFragment.newInstance("", ""), "gamesList")
                         .addToBackStack(null)
@@ -156,6 +157,7 @@ public class HomeScreenFragment extends Fragment {
 
         WishList.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                Log.d("pixo","clicked wish");
                 getParentFragmentManager().beginTransaction()
                         .add(R.id.container, WishlistFragment.newInstance("", ""), "gamesList")
                         .addToBackStack(null)
@@ -165,6 +167,7 @@ public class HomeScreenFragment extends Fragment {
 
         Finished.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                Log.d("pixo","clicked fin");
                 getParentFragmentManager().beginTransaction()
                         .add(R.id.container, FinishedGamesFragment.newInstance("", ""), "gamesList")
                         .addToBackStack(null)

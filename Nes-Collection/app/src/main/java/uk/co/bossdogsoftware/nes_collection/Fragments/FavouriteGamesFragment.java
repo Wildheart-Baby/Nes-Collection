@@ -3,12 +3,22 @@ package uk.co.bossdogsoftware.nes_collection.Fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import uk.co.bossdogsoftware.nes_collection.R;
+import uk.co.bossdogsoftware.nes_collection.ViewModels.AllGamesViewModel;
+import uk.co.bossdogsoftware.nes_collection.adapters.GameCollectionAdapter;
+import uk.co.bossdogsoftware.nes_collection.adapters.GameIndexAdapter;
+import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
+import uk.co.bossdogsoftware.nes_collection.models.GameItemsIndex;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +27,8 @@ import uk.co.bossdogsoftware.nes_collection.R;
  */
 public class FavouriteGamesFragment extends Fragment {
 
+    AllGamesViewModel viewM;
+    ListView gamelistView, alphaIndex;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -25,6 +37,10 @@ public class FavouriteGamesFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    ArrayList<AllGameItems> gameList;
+    ArrayList<GameItemsIndex> indexList;
+    FragmentManager frg;
 
     public FavouriteGamesFragment() {
         // Required empty public constructor
@@ -55,12 +71,22 @@ public class FavouriteGamesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        frg = getParentFragmentManager();
+        viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
+        gameList = viewM.GetGames("favourites");
+        indexList = viewM.GetIndex("favourites");
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favourite_games, container, false);
+        View v = inflater.inflate(R.layout.fragment_favourite_games, container, false);
+        gamelistView = v.findViewById(R.id.lvAllGames);
+        alphaIndex = v.findViewById(R.id.lvAlphaIndex);
+        //GameCollectionAdapter nes = new GameCollectionAdapter(getContext(), gameList);//set up an new list adapter from the arraylist
+        gamelistView.setAdapter(new GameCollectionAdapter(getContext(), gameList));
+        alphaIndex.setAdapter(new GameIndexAdapter(getContext(), indexList));
+        return v;
     }
 }
