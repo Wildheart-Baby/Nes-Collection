@@ -73,8 +73,8 @@ public class FinishedGamesFragment extends Fragment {
         }
         frg = getParentFragmentManager();
         viewM = new ViewModelProvider(requireActivity()).get((AllGamesViewModel.class));
-        gameList = viewM.GetGames("wishlist");
-        indexList = viewM.GetIndex("wishlist");
+        gameList = viewM.GetGames("played");
+        indexList = viewM.GetIndex("played");
     }
 
     @Override

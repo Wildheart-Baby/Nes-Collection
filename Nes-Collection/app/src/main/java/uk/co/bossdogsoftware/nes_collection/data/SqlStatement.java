@@ -277,7 +277,7 @@ public class SqlStatement {
             case "wishlist":
                 temp = "SELECT * FROM eu where wishlist = 1 and " + Region(region) + "order by " + ListOrdering(listOrder) +"";
                 break;
-            case "finished":
+            case "played":
                 temp ="SELECT * FROM eu where finished_game = 1 and " + Region(region) + "order by " + ListOrdering(listOrder) +"";
                 break;
             case "search":

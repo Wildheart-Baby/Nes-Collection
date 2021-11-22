@@ -22,7 +22,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -34,11 +33,6 @@ import uk.co.bossdogsoftware.nes_collection.models.AllGameItems;
 import uk.co.bossdogsoftware.nes_collection.models.GameItem;
 import uk.co.bossdogsoftware.nes_collection.models.spinners.Data;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link EditGameFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class EditGameFragment extends Fragment {
 
     public Spinner spinner_played;
@@ -128,7 +122,6 @@ public class EditGameFragment extends Fragment {
         PalACost = v.findViewById(R.id.txtPalAcost);
         PalBCost = v.findViewById(R.id.txtPalBcost);
         USCost = v.findViewById(R.id.txtUScost);
-        //BlankChk = v.findViewById(R.id.checkBox);
 
         PalACurrency = v.findViewById(R.id.lblCurrencyPalA);
         PalBCurrency = v.findViewById(R.id.lblCurrencyPalB);
@@ -139,7 +132,6 @@ public class EditGameFragment extends Fragment {
         spinner_played.setAdapter(spinnerAdapter);
 
         ShowOwnedDetails();
-        // Inflate the layout for this fragment
 
         Button ok = v.findViewById(R.id.rgnOk);
         Button cancel = v.findViewById(R.id.rgnCancel);
@@ -170,14 +162,11 @@ public class EditGameFragment extends Fragment {
         return v;
     }
 
-
     public void onCreateOptionsMenu(Menu menu) {
         menu.clear();
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.menu_editgame, menu);
     }
-
-
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
@@ -205,7 +194,6 @@ public class EditGameFragment extends Fragment {
                 // If we got here, the user's action was not recognized.
                 // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
-
         }
     }
 
@@ -248,11 +236,6 @@ public class EditGameFragment extends Fragment {
             PalBCurrency.setText(currency.getSymbol());
             USCurrency.setText(currency.getSymbol());
         }
-
-        //String deviceLocale = Locale.getDefault().getCountry();
-
-
-
 
         if(gameDetails.getPalACost() > 0.0){
             PalACost.setText(String.format("%.2f", gameDetails.getPalACost()));
@@ -303,16 +286,10 @@ public class EditGameFragment extends Fragment {
         if (gameDetails.pal_a_box == 32573 && gameDetails.pal_b_box == 32573 && usbox == 32573) { gameDetails.box = 0; }
         if (gameDetails.pal_a_manual == 32573 && gameDetails.pal_b_manual == 32573 && gameDetails.ntsc_manual == 32573) { manual = 0; }
 
-
-
         PACheck = PalACost.getText().toString().replaceAll("[,]", ".");
-        //Log.d("Pixo-cost", PACheck);
         PACheck = PalACost.getText().toString().replaceAll("[^0-9.]", "");
         PBCheck = PalBCost.getText().toString().replaceAll("[^0-9.]", "");
         USCheck = USCost.getText().toString().replaceAll("[^0-9.]", "");
-        //USCheck = USCheck.replaceAll("[^0-9.]", "");
-
-        //Log.d("pixo", " " + PACheck + " " + PBCheck + " " + USCheck  );
 
         if (PACheck.matches("") || !Character.isDigit(PACheck.charAt(0))) {PalAcost = 0.0;}
         else {PalAcost = Double.parseDouble(PACheck);}
@@ -321,21 +298,16 @@ public class EditGameFragment extends Fragment {
         if (PBCheck.matches("") || !Character.isDigit(PBCheck.charAt(0))) {PalBcost = 0.0;}
         else {PalBcost = Double.parseDouble(PBCheck);}
         gameDetails.setPalBCost(PalBcost);
-        //else {PalBcost = Double.valueOf(PalBCost.getText().toString());}
 
         if (USCheck.matches("") || !Character.isDigit(USCheck.charAt(0))) {UScost = 0.0;}
         else {UScost = Double.parseDouble(USCheck);}
         gameDetails.setNtscCost(UScost);
-        //else {UScost = Double.valueOf(USCost.getText().toString());}
 
         if (PalAcost > PalBcost && PalAcost > UScost){gameDetails.setGamePrice(PalAcost);}
         else if (PalBcost > PalAcost && PalBcost > UScost){gameDetails.setGamePrice(PalBcost);}
         else if (UScost > PalAcost && UScost > PalBcost){gameDetails.setGamePrice(UScost);}
 
         if (PACheck.equals("0.00") && PBCheck.equals("0.00") && USCheck.equals("0.00")){gameDetails.setGamePrice(0.00);}
-        //gameDetails._id = mParam2;
-
-
 
         viewM.WriteGame(mParam1, gameDetails);
         closeEditFragment();
